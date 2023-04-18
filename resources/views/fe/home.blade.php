@@ -55,6 +55,23 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="col-12 col-md-4">
+                <div class="wrap-banner style-twin-default">
+                    <div class="banner-item" style="width:100%">
+                        <a href="#" class="link-banner banner-effect-1">
+                            <figure><img src="{{ asset('/frontend/images/home-1-banner-1.jpg') }}" alt="" width="580" height="190"></figure>
+                        </a>
+                    </div>
+                </div>
+                <div class="wrap-banner style-twin-default">
+                    <div class="banner-item" style="width:100%">
+                        <a href="#" class="link-banner banner-effect-1">
+                            <figure><img src="{{ asset('/frontend/images/home-1-banner-2.jpg') }}" alt="" width="580" height="190"></figure>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
             <div class="wrap-banner style-twin-default col-md-4 col-12">
                 <div class="banner-item">
