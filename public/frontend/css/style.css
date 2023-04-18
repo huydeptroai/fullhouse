@@ -1630,7 +1630,7 @@ li.menu-item .nav-label.sale-label::before {
     /*float: left;*/
     text-align: left;
     /* background-color: #ff2832; */
-    background-color: #FFA500;
+    background-color: #ffa500;
     font-size: 14px;
     text-transform: uppercase;
     font-weight: 700;
@@ -2798,12 +2798,12 @@ li.menu-item .nav-label.sale-label::before {
 .ui-slider-horizontal .ui-slider-handle {
     top: -5px;
     margin-left: 0;
-    background-color: #FFA500;
+    background-color: #ffa500;
 }
 .ui-slider-horizontal .ui-slider-range {
     top: 0;
     height: 100%;
-    background: #FFA500;
+    background: #ffa500;
 }
 .ui-slider-horizontal .ui-slider-range-min {
     left: 0;
@@ -4906,7 +4906,7 @@ table.shop_attributes tbody {
     margin-bottom: 10px;
 }
 .wrap-address-billing .row-in-form {
-    margin: 20px;
+    margin: 0 20px;
     display: block;
     float: left;
     width: calc(50% - 15px);
@@ -4956,15 +4956,32 @@ table.shop_attributes tbody {
     color: #aaaaaa;
 }
 .wrap-address-billing .row-in-form:nth-child(2n + 1) {
-    margin-right: 30px;
+    margin-right: 10px;
 }
+.row-first-last-name {
+    position: relative;
+    padding-bottom: 85px;
+    width: 45%;
+}
+.row-first-last-name .row-in-form {
+    position: absolute;
+}
+
+.row-first-last-name .row-last-name-right {
+    position: absolute;
+    left: 61%;
+}
+
 .summary-checkout {
     background-color: #fdfdfd;
     width: 50%;
     border: 1px solid #e6e6e6;
     padding: 29px 29px 30px 29px;
     display: table;
+    position: absolute;
     margin-top: 14px;
+    top: 100px;
+    left: 58%;
 }
 .summary-checkout .summary-item {
     display: block;
