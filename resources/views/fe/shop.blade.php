@@ -11,18 +11,19 @@
                 <li class="item-link"><span>furniture products</span></li>
             </ul>
         </div>
+
         <div class="row">
 
             <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 main-content-area">
 
                 <div class="banner-shop">
                     <a href="#" class="banner-link">
-                        <figure><img src="{{ asset('/frontend/images/shop-banner.jpg') }}" alt=""></figure>
+                        <figure><img src="{{ asset('/frontend/images/shop_banner_01_BANNER-SOFA.jpg') }}" alt=""></figure>
                     </a>
                 </div>
 
                 <div class="wrap-shop-control">
-                    <h1 class="shop-title">furniture products</h1>
+                    <h1 class="shop-title">Products</h1>
                     <div class="wrap-right">
                         <div class="sort-item orderby ">
                             <select name="orderby" class="use-chosen">
@@ -63,8 +64,8 @@
                         <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                             <div class="product product-style-3 equal-elem ">
                                 <div class="product-thumnail">
-                                    <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-                                        <figure><img src="{{ asset('/frontend/images/products/digital_20.jpg') }}" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
+                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
+                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
                                     </a>
                                     <div class="group-flash">
                                         <span class="flash-item new-label">new</span>
@@ -76,7 +77,7 @@
 
 
 
-                                    <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
+                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
                                     <div class="wrap-price"><span class="product-price">$250.00</span></div>
                                     <a href="#" class="btn add-to-cart">Add To Cart</a>
                                 </div>
@@ -85,15 +86,15 @@
                         <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                             <div class="product product-style-3 equal-elem ">
                                 <div class="product-thumnail">
-                                    <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-                                        <figure><img src="{{ asset('/frontend/images/products/digital_22.jpg') }}" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
+                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
+                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
                                     </a>
                                     <div class="group-flash">
                                         <span class="flash-item sale-label">sale</span>
                                     </div>
                                 </div>
                                 <div class="product-info">
-                                    <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
+                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
                                     
                                     <div class="wrap-price">
                                         <ins><p class="product-price">$168.00</p></ins>
@@ -106,12 +107,12 @@
                         <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                             <div class="product product-style-3 equal-elem ">
                                 <div class="product-thumnail">
-                                    <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-                                        <figure><img src="{{ asset('/frontend/images/products/digital_10.jpg') }}" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
+                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
+                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
                                     </a>
                                 </div>
                                 <div class="product-info">
-                                    <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
+                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
                                     <div class="wrap-price"><span class="product-price">$250.00</span></div>
                                     <a href="#" class="btn add-to-cart">Add To Cart</a>
                                 </div>
@@ -120,12 +121,12 @@
                         <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                             <div class="product product-style-3 equal-elem ">
                                 <div class="product-thumnail">
-                                    <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-                                        <figure><img src="{{ asset('/frontend/images/products/digital_01.jpg') }}" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
+                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
+                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
                                     </a>
                                 </div>
                                 <div class="product-info">
-                                    <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
+                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
                                     <div class="wrap-price"><span class="product-price">$250.00</span></div>
                                     <a href="#" class="btn add-to-cart">Add To Cart</a>
                                 </div>
@@ -134,12 +135,12 @@
                         <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                             <div class="product product-style-3 equal-elem ">
                                 <div class="product-thumnail">
-                                    <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-                                        <figure><img src="{{ asset('/frontend/images/products/digital_21.jpg') }}" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
+                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
+                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
                                     </a>
                                 </div>
                                 <div class="product-info">
-                                    <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
+                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
                                     <div class="wrap-price"><span class="product-price">$250.00</span></div>
                                     <a href="#" class="btn add-to-cart">Add To Cart</a>
                                 </div>
@@ -148,12 +149,12 @@
                         <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                             <div class="product product-style-3 equal-elem ">
                                 <div class="product-thumnail">
-                                    <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-                                        <figure><img src="{{ asset('/frontend/images/products/digital_15.jpg') }}" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
+                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
+                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
                                     </a>
                                 </div>
                                 <div class="product-info">
-                                    <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
+                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
                                     <div class="wrap-price"><span class="product-price">$250.00</span></div>
                                     <a href="#" class="btn add-to-cart">Add To Cart</a>
                                 </div>
@@ -162,12 +163,12 @@
                         <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                             <div class="product product-style-3 equal-elem ">
                                 <div class="product-thumnail">
-                                    <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-                                        <figure><img src="{{ asset('/frontend/images/products/digital_17.jpg') }}" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
+                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
+                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
                                     </a>
                                 </div>
                                 <div class="product-info">
-                                    <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
+                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
                                     <div class="wrap-price"><span class="product-price">$250.00</span></div>
                                     <a href="#" class="btn add-to-cart">Add To Cart</a>
                                 </div>
@@ -176,12 +177,12 @@
                         <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                             <div class="product product-style-3 equal-elem ">
                                 <div class="product-thumnail">
-                                    <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-                                        <figure><img src="{{ asset('/frontend/images/products/digital_05.jpg') }}" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
+                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
+                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
                                     </a>
                                 </div>
                                 <div class="product-info">
-                                    <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
+                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
                                     <div class="wrap-price"><span class="product-price">$250.00</span></div>
                                     <a href="#" class="btn add-to-cart">Add To Cart</a>
                                 </div>
@@ -190,12 +191,12 @@
                         <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                             <div class="product product-style-3 equal-elem ">
                                 <div class="product-thumnail">
-                                    <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-                                        <figure><img src="{{ asset('/frontend/images/products/digital_07.jpg') }}" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
+                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
+                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
                                     </a>
                                 </div>
                                 <div class="product-info">
-                                    <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
+                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
                                     <div class="wrap-price"><span class="product-price">$250.00</span></div>
                                     <a href="#" class="btn add-to-cart">Add To Cart</a>
                                 </div>
@@ -204,12 +205,12 @@
                         <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                             <div class="product product-style-3 equal-elem ">
                                 <div class="product-thumnail">
-                                    <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-                                        <figure><img src="{{ asset('/frontend/images/products/digital_02.jpg') }}" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
+                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
+                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
                                     </a>
                                 </div>
                                 <div class="product-info">
-                                    <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
+                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
                                     <div class="wrap-price"><span class="product-price">$250.00</span></div>
                                     <a href="#" class="btn add-to-cart">Add To Cart</a>
                                 </div>
@@ -218,12 +219,12 @@
                         <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                             <div class="product product-style-3 equal-elem ">
                                 <div class="product-thumnail">
-                                    <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-                                        <figure><img src="{{ asset('/frontend/images/products/digital_09.jpg') }}" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
+                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
+                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
                                     </a>
                                 </div>
                                 <div class="product-info">
-                                    <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
+                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
                                     <div class="wrap-price"><span class="product-price">$250.00</span></div>
                                     <a href="#" class="btn add-to-cart">Add To Cart</a>
                                 </div>
@@ -232,12 +233,12 @@
                         <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                             <div class="product product-style-3 equal-elem ">
                                 <div class="product-thumnail">
-                                    <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-                                        <figure><img src="{{ asset('/frontend/images/products/digital_06.jpg') }}" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
+                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
+                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
                                     </a>
                                 </div>
                                 <div class="product-info">
-                                    <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
+                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
                                     <div class="wrap-price"><span class="product-price">$250.00</span></div>
                                     <a href="#" class="btn add-to-cart">Add To Cart</a>
                                 </div>
@@ -259,6 +260,8 @@
                     <p class="result-count">Showing 1-8 of 12 result</p>
                 </div>
             </div><!--end main products area-->
+
+
             <!-- site bar start -->
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 sitebar">
                 <div class="widget mercado-widget categories-widget">
@@ -266,46 +269,53 @@
                     <div class="widget-content">
                         <ul class="list-category">
                             <li class="category-item has-child-cate">
-                                <a href="#" class="cate-link">Fashion & Accessories</a>
+                                <a href="#" class="cate-link">Office Furniture</a>
                                 <span class="toggle-control">+</span>
                                 <ul class="sub-cate">
-                                    <li class="category-item"><a href="#" class="cate-link">Batteries (22)</a></li>
-                                    <li class="category-item"><a href="#" class="cate-link">Headsets (16)</a></li>
-                                    <li class="category-item"><a href="#" class="cate-link">Screen (28)</a></li>
+                                    <li class="category-item"><a href="#" class="cate-link">Desk Office (10)</a></li>
+                                    <li class="category-item"><a href="#" class="cate-link">Chair Office (10)</a></li>
+                                    <li class="category-item"><a href="#" class="cate-link">Cabinet-shelves Office (10)</a></li>
                                 </ul>
                             </li>
                             <li class="category-item has-child-cate">
-                                <a href="#" class="cate-link">Furnitures & Home Decors</a>
+                                <a href="#" class="cate-link">Living Furniture</a>
                                 <span class="toggle-control">+</span>
                                 <ul class="sub-cate">
-                                    <li class="category-item"><a href="#" class="cate-link">Batteries (22)</a></li>
-                                    <li class="category-item"><a href="#" class="cate-link">Headsets (16)</a></li>
-                                    <li class="category-item"><a href="#" class="cate-link">Screen (28)</a></li>
+                                    <li class="category-item"><a href="#" class="cate-link">Sofa (10)</a></li>
+                                    <li class="category-item"><a href="#" class="cate-link">Sofa table (10)</a></li>
+                                    <li class="category-item"><a href="#" class="cate-link">TV Shelf (10)</a></li>
                                 </ul>
                             </li>
                             <li class="category-item has-child-cate">
-                                <a href="#" class="cate-link">Digital & Electronics</a>
+                                <a href="#" class="cate-link">Kitchen - Dining Furniture</a>
                                 <span class="toggle-control">+</span>
                                 <ul class="sub-cate">
-                                    <li class="category-item"><a href="#" class="cate-link">Batteries (22)</a></li>
-                                    <li class="category-item"><a href="#" class="cate-link">Headsets (16)</a></li>
-                                    <li class="category-item"><a href="#" class="cate-link">Screen (28)</a></li>
+                                    <li class="category-item"><a href="#" class="cate-link">Dining table (10)</a></li>
+                                    <li class="category-item"><a href="#" class="cate-link">Dining chair (10)</a></li>
+                                    <li class="category-item"><a href="#" class="cate-link">Dining table and chair set (8)</a></li>
                                 </ul>
                             </li>
+                            <li class="category-item has-child-cate">
+                                <a href="#" class="cate-link">Bedroom Furniture</a>
+                                <span class="toggle-control">+</span>
+                                <ul class="sub-cate">
+                                    <li class="category-item"><a href="#" class="cate-link">Bed (9)</a></li>
+                                    <li class="category-item"><a href="#" class="cate-link">Wardrobe - clothes shelves (9)</a></li>
+                                    <li class="category-item"><a href="#" class="cate-link">Makeup table (8)</a></li>
+                                    <li class="category-item"><a href="#" class="cate-link">Combo bedroom (8)</a></li>
+                                </ul>
+                            </li>
+
                             <li class="category-item">
                                 <a href="#" class="cate-link">Tools & Equipments</a>
                             </li>
-                            <li class="category-item">
-                                <a href="#" class="cate-link">Kid’s Toys</a>
-                            </li>
-                            <li class="category-item">
-                                <a href="#" class="cate-link">Organics & Spa</a>
-                            </li>
+                            
                         </ul>
                     </div>
                 </div><!-- Categories widget-->
+
                 <!-- brand Start -->
-                <div class="widget mercado-widget filter-widget brand-widget">
+                <!-- <div class="widget mercado-widget filter-widget brand-widget">
                     <h2 class="widget-title">Brand</h2>
                     <div class="widget-content">
                         <ul class="list-style vertical-list list-limited" data-show="6">
@@ -322,8 +332,10 @@
                             <li class="list-item"><a data-label='Show less<i class="fa fa-angle-up" aria-hidden="true"></i>' class="btn-control control-show-more" href="#">Show more<i class="fa fa-angle-down" aria-hidden="true"></i></a></li>
                         </ul>
                     </div>
-                </div><!-- brand widget-->
-
+                </div> -->
+                <!-- brand widget-->
+                
+                <!-- Price-->
                 <div class="widget mercado-widget filter-widget price-filter">
                     <h2 class="widget-title">Price</h2>
                     <div class="widget-content">
@@ -334,36 +346,8 @@
                             <button class="filter-submit">Filter</button>
                         </p>
                     </div>
-                </div><!-- Price-->
-
-                <div class="widget mercado-widget filter-widget">
-                    <h2 class="widget-title">Color</h2>
-                    <div class="widget-content">
-                        <ul class="list-style vertical-list has-count-index">
-                            <li class="list-item"><a class="filter-link " href="#">Red <span>(217)</span></a></li>
-                            <li class="list-item"><a class="filter-link " href="#">Yellow <span>(179)</span></a></li>
-                            <li class="list-item"><a class="filter-link " href="#">Black <span>(79)</span></a></li>
-                            <li class="list-item"><a class="filter-link " href="#">Blue <span>(283)</span></a></li>
-                            <li class="list-item"><a class="filter-link " href="#">Grey <span>(116)</span></a></li>
-                            <li class="list-item"><a class="filter-link " href="#">Pink <span>(29)</span></a></li>
-                        </ul>
-                    </div>
-                </div><!-- Color -->
-
-                <div class="widget mercado-widget filter-widget">
-                    <h2 class="widget-title">Size</h2>
-                    <div class="widget-content">
-                        <ul class="list-style inline-round ">
-                            <li class="list-item"><a class="filter-link active" href="#">s</a></li>
-                            <li class="list-item"><a class="filter-link " href="#">M</a></li>
-                            <li class="list-item"><a class="filter-link " href="#">l</a></li>
-                            <li class="list-item"><a class="filter-link " href="#">xl</a></li>
-                        </ul>
-                        <div class="widget-banner">
-                            <figure><img src="{{ asset('/frontend/images/size-banner-widget.jpg') }}" width="270" height="331" alt=""></figure>
-                        </div>
-                    </div>
-                </div><!-- Size -->
+                </div>
+                <!-- Price end-->
 
                 <div class="widget mercado-widget widget-product">
                     <h2 class="widget-title">Popular Products</h2>
@@ -372,8 +356,8 @@
                             <li class="product-item">
                                 <div class="product product-widget-style">
                                     <div class="thumbnnail">
-                                        <a href="detail.html" title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-                                            <figure><img src="{{ asset('/frontend/images/products/digital_01.jpg') }}" alt=""></figure>
+                                        <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
+                                            <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt=""></figure>
                                         </a>
                                     </div>
                                     <div class="product-info">
@@ -386,8 +370,8 @@
                             <li class="product-item">
                                 <div class="product product-widget-style">
                                     <div class="thumbnnail">
-                                        <a href="detail.html" title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-                                            <figure><img src="{{ asset('/frontend/images/products/digital_17.jpg') }}" alt=""></figure>
+                                        <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
+                                            <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt=""></figure>
                                         </a>
                                     </div>
                                     <div class="product-info">
@@ -400,8 +384,8 @@
                             <li class="product-item">
                                 <div class="product product-widget-style">
                                     <div class="thumbnnail">
-                                        <a href="detail.html" title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-                                            <figure><img src="{{ asset('/frontend/images/products/digital_18.jpg') }}" alt=""></figure>
+                                        <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
+                                            <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt=""></figure>
                                         </a>
                                     </div>
                                     <div class="product-info">
@@ -414,12 +398,12 @@
                             <li class="product-item">
                                 <div class="product product-widget-style">
                                     <div class="thumbnnail">
-                                        <a href="detail.html" title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-                                            <figure><img src="{{ asset('/frontend/images/products/digital_20.jpg') }}" alt=""></figure>
+                                        <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
+                                            <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt=""></figure>
                                         </a>
                                     </div>
                                     <div class="product-info">
-                                        <a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker...</span></a>
+                                        <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
                                         <div class="wrap-price"><span class="product-price">$168.00</span></div>
                                     </div>
                                 </div>

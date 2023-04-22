@@ -11,7 +11,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard')}}">Home</a></li>
             <li class="breadcrumb-item"><a href="{{route('admin.product.index')}}">Product</a></li>
             <li class="breadcrumb-item active">{{$product->product_slug}}</li>
           </ol>
@@ -47,8 +47,8 @@
             <!-- <p>{{ $product->product_description}}</p> -->
 
             <hr>
-            <h4>Available Colors</h4>
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <h4>Available Colors</h4> {{$product->product_color}}
+            <!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
               <label class="btn btn-default text-center active">
                 <input type="radio" name="color_option" id="color_option_a1" autocomplete="off" checked>
                 Green
@@ -79,10 +79,12 @@
                 <br>
                 <i class="fas fa-circle fa-2x text-orange"></i>
               </label>
-            </div>
+            </div> -->
 
-            <h4 class="mt-3">Size <small>Please select one</small></h4>
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <h4 class="mt-3">Size 
+              <!-- <small>Please select one</small> -->
+            </h4> {{$product->product_size}}
+            <!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
               <label class="btn btn-default text-center">
                 <input type="radio" name="color_option" id="color_option_b1" autocomplete="off">
                 <span class="text-xl">S</span>
@@ -107,7 +109,7 @@
                 <br>
                 Xtra-Large
               </label>
-            </div>
+            </div> -->
 
             <div class="bg-gray py-2 px-3 mt-4">
               <h2 class="mb-0">
@@ -160,7 +162,7 @@
           </nav>
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae condimentum erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed posuere, purus at efficitur hendrerit, augue elit lacinia arcu, a eleifend sem elit et nunc. Sed rutrum vestibulum est, sit amet cursus dolor fermentum vel. Suspendisse mi nibh, congue et ante et, commodo mattis lacus. Duis varius finibus purus sed venenatis. Vivamus varius metus quam, id dapibus velit mattis eu. Praesent et semper risus. Vestibulum erat erat, condimentum at elit at, bibendum placerat orci. Nullam gravida velit mauris, in pellentesque urna pellentesque viverra. Nullam non pellentesque justo, et ultricies neque. Praesent vel metus rutrum, tempus erat a, rutrum ante. Quisque interdum efficitur nunc vitae consectetur. Suspendisse venenatis, tortor non convallis interdum, urna mi molestie eros, vel tempor justo lacus ac justo. Fusce id enim a erat fringilla sollicitudin ultrices vel metus.
+              {{$product->product_description}}
 
             </div>
             <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">

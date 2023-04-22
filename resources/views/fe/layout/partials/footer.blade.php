@@ -43,16 +43,18 @@
 
 		<div class="main-footer-content">
 			<div class="container">
+				<!-- info footer -->
 				<div class="row">
-					<div class="col-lg-5 col-sm-5 col-md-5 col-xs-12">
+					<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
 						<div class="wrap-footer-item">
+
 							<h3 class="item-header">Contact Details</h3>
 							<div class="item-content">
 								<div class="wrap-contact-detail">
 									<ul>
 										<li>
 											<i class="fa fa-map-marker" aria-hidden="true"></i>
-											<p class="contact-txt">No 391A, Nam Ky Khoi Nghia Street, District 3, HCM City</p>
+											<p class="contact-txt">No 391A, Nam Ky Khoi Nghia Street, <br> District 3, HCM City</p>
 										</li>
 										<li>
 											<i class="fa fa-phone" aria-hidden="true"></i>
@@ -68,7 +70,7 @@
 						</div>
 					</div>
 
-					<div class="col-lg-5 col-sm-5 col-md-5 col-xs-12">
+					<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
 
 						<div class="wrap-footer-item">
 							<h3 class="item-header">Hot Line</h3>
@@ -79,7 +81,6 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="wrap-footer-item footer-item-second">
 							<h3 class="item-header">Sign up for newsletter</h3>
 							<div class="item-content">
@@ -94,25 +95,38 @@
 
 					</div>
 
-					<div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
-						<div class="wrap-footer-item">
-							<h3 class="item-header">Information</h3>
-							<div class="item-content">
-								<div class="wrap-vertical-nav">
-									<ul>
-										<li class="menu-item"><a href="#" class="link-term">Contact Us</a></li>
-										<li class="menu-item"><a href="#" class="link-term">Returns</a></li>
-										<li class="menu-item"><a href="#" class="link-term">Site Map</a></li>
-										<li class="menu-item"><a href="#" class="link-term">Specials</a></li>
-										<li class="menu-item"><a href="#" class="link-term">Order History</a></li>
-									</ul>
+					<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 box-twin-content ">
+							<div class="row">
+								<div class="wrap-footer-item twin-item">
+									<h3 class="item-header">My Account</h3>
+									<div class="item-content">
+										<div class="wrap-vertical-nav">
+											<ul>
+												<li class="menu-item"><a href="#" class="link-term">My Account</a></li>
+												<li class="menu-item"><a href="#" class="link-term">Wish list</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="wrap-footer-item twin-item">
+									<h3 class="item-header">Infomation</h3>
+									<div class="item-content">
+										<div class="wrap-vertical-nav">
+											<ul>
+												<li class="menu-item"><a href="#" class="link-term">Contact Us</a></li>
+												<li class="menu-item"><a href="#" class="link-term">Returns</a></li>
+												<li class="menu-item"><a href="#" class="link-term">Site Map</a></li>
+												<li class="menu-item"><a href="#" class="link-term">Specials</a></li>
+												<li class="menu-item"><a href="#" class="link-term">Order History</a></li>
+											</ul>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
 				</div>
-
+				<!-- media -->
 				<div class="row">
 					<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 						<div class="wrap-footer-item">
@@ -143,6 +157,7 @@
 					</div>
 
 				</div>
+
 			</div>
 			<div class="wrap-back-link">
 				<div class="container">
@@ -151,15 +166,10 @@
 						<div class="back-link-row">
 							<ul class="list-back-link">
 								<li><span class="row-title">Category:</span></li>
-								<li><a href="#" class="redirect-back-link" title="">Table</a></li>
-								<li><a href="#" class="redirect-back-link" title="">Sofa</a></li>
-								<li><a href="#" class="redirect-back-link" title="">Chair</a></li>
-								<li><a href="#" class="redirect-back-link" title="">Chair</a></li>
-								<li><a href="#" class="redirect-back-link" title="">Chair</a></li>
-								<li><a href="#" class="redirect-back-link" title="">Chair</a></li>
-								<li><a href="#" class="redirect-back-link" title="">Chair</a></li>
-								<li><a href="#" class="redirect-back-link" title="">Chair</a></li>
-								<li><a href="#" class="redirect-back-link" title="">Chair</a></li>
+								<li><a href="#" class="redirect-back-link" title="">Office</a></li>
+								<li><a href="#" class="redirect-back-link" title="">Living</a></li>
+								<li><a href="#" class="redirect-back-link" title="">Dining</a></li>
+								<li><a href="#" class="redirect-back-link" title="">Bedroom</a></li>
 							</ul>
 						</div>
 					</div>
@@ -174,10 +184,10 @@
 				<div class="coppy-right-item item-right">
 					<div class="wrap-nav horizontal-nav">
 						<ul>
-							<li class="menu-item"><a href="about-us.html" class="link-term">About us</a></li>
-							<li class="menu-item"><a href="privacy-policy.html" class="link-term">Privacy Policy</a></li>
-							<li class="menu-item"><a href="terms-conditions.html" class="link-term">Terms & Conditions</a></li>
-							<li class="menu-item"><a href="return-policy.html" class="link-term">Return Policy</a></li>
+							<li class="menu-item"><a href="{{ route('about')}}" class="link-term">About us</a></li>
+							<li class="menu-item"><a href="#" class="link-term">Privacy Policy</a></li>
+							<li class="menu-item"><a href="#" class="link-term">Terms & Conditions</a></li>
+							<li class="menu-item"><a href="#" class="link-term">Return Policy</a></li>
 						</ul>
 					</div>
 				</div>

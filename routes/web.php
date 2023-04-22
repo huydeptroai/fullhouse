@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FE\HomeController;
+use App\Http\Controllers\FE\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Ad_CategoryController;
 use App\Http\Controllers\Admin\Ad_ProductController;
@@ -21,32 +22,47 @@ use Laravel\Socialite\Facades\Socialite;
 |
 */
 
+
+// require __DIR__ . '/auth.php';
+
 Route::get('/', function () {
-    // return view('welcome');
     return redirect()->route('home');
 });
 
-// Route::get('/admin/index', [Ad_UserController::class,'index'])->name('admin.index');
-
-Route::get('/admin/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-
-Route::resource('/admin/category', App\Http\Controllers\Admin\Ad_CategoryController::class)->names('admin.category');
-
-Route::resource('/admin/product', App\Http\Controllers\Admin\Ad_ProductController::class)->names('admin.product');
-Route::resource('/admin/user', App\Http\Controllers\Admin\Ad_UserController::class)->names('admin.user');
-
-Route::get('/admin/order/index', [Ad_OrderController::class, 'index'])->name('admin.order.index');
-Route::get('/admin/order/invoice', [Ad_OrderController::class, 'showDetail'])->name('admin.order.invoice');
-Route::get('/admin/order/invoice-print', [Ad_OrderController::class, 'printInvoice'])->name('admin.order.printInvoice');
+Route::get('/admin', function () {
+    return redirect()->route('admin.dashboard');
+});
 
 
-Route::get('/home', [HomeController::class, 'home'])->name('home');
-Route::get('/about', [HomeController::class, 'about'])->name('about');
-Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
-Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
-Route::get('/detail', [HomeController::class, 'detail'])->name('detail');
-Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
-Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout');
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+
+    Route::resource('/category', App\Http\Controllers\Admin\Ad_CategoryController::class)->names('admin.category');
+    Route::resource('/product', App\Http\Controllers\Admin\Ad_ProductController::class)->names('admin.product');
+    Route::resource('/user', App\Http\Controllers\Admin\Ad_UserController::class)->names('admin.user');
+
+    // Route::resource('/admin/category', App\Http\Controllers\Admin\AjaxCategoryController::class)->names('admin.category');
+
+    Route::get('/admin/order/index', [Ad_OrderController::class, 'index'])->name('admin.order.index');
+    Route::get('/admin/order/invoice', [Ad_OrderController::class, 'showDetail'])->name('admin.order.invoice');
+    Route::get('/admin/order/invoice-print', [Ad_OrderController::class, 'printInvoice'])->name('admin.order.printInvoice');
+});
+
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/home', 'home')->name('home');
+    Route::get('/about', 'about')->name('about');
+    Route::get('/contact', 'contact')->name('contact');
+    Route::get('/shop', 'shop')->name('shop');
+    Route::get('/detail', 'detail')->name('detail');
+    Route::get('/cart', 'cart')->name('cart');
+    Route::get('/checkout', 'checkout')->name('checkout');
+});
+
+
+
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+
+
 
 Route::get('/login', [HomeController::class, 'login'])->name('login');
 Route::get('/register', [HomeController::class, 'register'])->name('register');

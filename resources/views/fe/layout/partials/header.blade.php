@@ -36,25 +36,12 @@
 							<li class="menu-item menu-item-has-children parent">
 								<a title="My Account" href="#">My Account (User)<i class="fa fa-angle-down" aria-hidden="true"></i></a>
 								<ul class="submenu user">
-									<li class="menu-item"><a href="#">Account Details</a></li>
-									<li class="menu-item"><a href="#">Orders</a></li>
-									<li class="menu-item"><a href="#">Address</a></li>
+									<li class="menu-item"><a href="{{route('profile.edit')}}">Account Details</a></li>
+									<li class="menu-item"><a href="{{route('profile.edit')}}">Orders</a></li>
 									<li class="menu-item"><a title="Logout" href="#">Logout</a></li>
 								</ul>
 							</li>
 							<!-- my account user -->
-							<!-- language  -->
-							<li class="menu-item lang-menu menu-item-has-children parent">
-								<a title="English" href="#"><span class="img label-before"><img src="{{ asset('/frontend/images/lang-en.png') }}" alt="lang-en"></span>English<i class="fa fa-angle-down" aria-hidden="true"></i></a>
-								<ul class="submenu lang">
-									<li class="menu-item"><a title="hungary" href="#"><span class="img label-before"><img src="{{ asset('/frontend/images/lang-hun.png') }}" alt="lang-hun"></span>Hungary</a></li>
-									<li class="menu-item"><a title="german" href="#"><span class="img label-before"><img src="{{ asset('/frontend/images/lang-ger.png') }}" alt="lang-ger"></span>German</a></li>
-									<li class="menu-item"><a title="french" href="#"><span class="img label-before"><img src="{{ asset('/frontend/images/lang-fra.png') }}" alt="lang-fre"></span>French</a></li>
-									<li class="menu-item"><a title="canada" href="#"><span class="img label-before"><img src="{{ asset('/frontend/images/lang-can.png') }}" alt="lang-can"></span>Canada</a></li>
-								</ul>
-							</li>
-							<!-- language end -->
-
 						</ul>
 					</div>
 				</div>
@@ -77,25 +64,30 @@
 									<a href="#" class="link-control">All Category</a>
 									<ul class="list-cate">
 										<li class="level-0">All Category</li>
-										<li class="level-1">-Sofa</li>
-										<li class="level-2">Sofa 1</li>
-										<li class="level-2">Sofa 2</li>
-										<li class="level-2">Sofa 3</li>
+										<li class="level-1">-Office furniture</li>
+										<li class="level-2">Desk Office</li>
+										<li class="level-2">Chair Office</li>
+										<li class="level-2">Cabinet-shelves Office</li>
 
-										<li class="level-1">-Table</li>
-										<li class="level-2">Table 1</li>
-										<li class="level-2">Table 2</li>
-										<li class="level-2">Table 3</li>
+										<li class="level-1">-Living furniture</li>
+										<li class="level-2">Sofa</li>
+										<li class="level-2">Sofa table</li>
+										<li class="level-2">TV Shelf</li>
+										<li class="level-2">Bookshelf-Decorative shelf</li>
+										<li class="level-2">Decorative cabinets</li>
+										<li class="level-2">Combo living room</li>
 
-										<li class="level-1">-Chair</li>
-										<li class="level-2">Chair 1</li>
-										<li class="level-2">Chair 2</li>
-										<li class="level-2">Chair 3</li>
-										
-										<li class="level-1">-Bed</li>
-										<li class="level-2">Bed 1</li>
-										<li class="level-2">Bed 2</li>
-										<li class="level-2">Bed 3</li>
+										<li class="level-1">-Kitchen - Dining furniture</li>
+										<li class="level-2">Dining table</li>
+										<li class="level-2">Dining chair</li>
+										<li class="level-2">Dining table and chair set</li>
+										<li class="level-2">Kitchen cabinets</li>
+
+										<li class="level-1">-Bedroom furniture</li>
+										<li class="level-2">Bed</li>
+										<li class="level-2">Wardrobe - clothes shelves</li>
+										<li class="level-2">Makeup table</li>
+										<li class="level-2">Combo bedroom</li>
 									</ul>
 								</div>
 							</form>
@@ -103,7 +95,7 @@
 					</div>
 
 					<div class="wrap-icon right-section">
-						
+
 						<div class="wrap-icon-section wishlist">
 							<a href="#" class="link-direction">
 								<i class="fa fa-heart" aria-hidden="true"></i>
@@ -113,7 +105,7 @@
 								</div>
 							</a>
 						</div>
-						
+
 						<div class="wrap-icon-section minicart">
 							<!-- <a href="{{ Route('cart') }}" class="link-direction"> -->
 							<a href="#" class="link-direction btnCart-popup">
@@ -124,7 +116,7 @@
 								</div>
 							</a>
 						</div>
-						
+
 						<div class="wrap-icon-section show-up-after-1024">
 							<a href="#" class="mobile-navigation">
 								<span></span>
@@ -133,13 +125,12 @@
 							</a>
 						</div>
 					</div>
-					
+
 
 				</div>
 			</div>
 
 			<div class="nav-section header-sticky">
-
 
 				<div class="primary-nav-section">
 					<div class="container">
@@ -151,7 +142,7 @@
 								<a href="{{route('about')}}" class="link-term mercado-item-title">About Us</a>
 							</li>
 							<li class="menu-item">
-								<a href="{{route('shop')}}" class="link-term mercado-item-title">Shop</a>
+								<a href="{{route('shop')}}" class="link-term mercado-item-title">Products</a>
 							</li>
 							<li class="menu-item">
 								<a href="{{ route('cart') }}" class="link-term mercado-item-title">Cart</a>
@@ -162,12 +153,12 @@
 							<li class="menu-item">
 								<a href="{{route('contact')}}" class="link-term mercado-item-title">Contact Us</a>
 							</li>
-							
+
 						</ul>
 					</div>
 				</div>
 
-				<div class="header-nav-section">
+				<!-- <div class="header-nav-section">
 					<div class="container">
 						<ul class="nav menu-nav clone-main-menu" id="mercado_haead_menu" data-menuname="Sale Info">
 							<li class="menu-item">
@@ -192,7 +183,7 @@
 							</li>
 						</ul>
 					</div>
-				</div>
+				</div> -->
 
 			</div>
 		</div>

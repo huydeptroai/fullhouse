@@ -13,8 +13,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/animate.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/font-awesome.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/bootstrap.min.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/owl.carousel.min.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/chosen.min.css') }}">
+	<!-- <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/owl.carousel.min.css') }}"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/chosen.min.css') }}"> -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/style.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/color-01.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/login.css') }}">

@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard')}}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('admin.product.index')}}">Product</a></li>
                         <li class="breadcrumb-item active">Product Add</li>
                     </ol>
@@ -36,7 +36,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="product_id">Product ID</label>
-                                <input type="text" id="product_id" name="product_id" class="form-control">
+                                <input type="text" id="product_id" name="product_id" class="form-control" autofocus>
                             </div>
                             <div class="form-group">
                                 <label for="product_name">Product Name</label>
