@@ -19,7 +19,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/color-01.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/login.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/site-cart.css') }}">
-
+	<link rel="stylesheet" href="{{ asset('/frontend/css/reset.css') }}">
+	
 	@yield('myCss')	
 
 
