@@ -60,17 +60,17 @@
                 <div class="row">
                     <!-- product list start -->
                     <ul class="product-list grid-products equal-container">
-                        @foreach($products as $item)
+                        @foreach($products as $product)
                         <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                             <div class="product product-style-3 equal-elem ">
                                 <div class="product-thumnail">
-                                    <a href="{{ route('product.show', $item->product_id)}}" title="{{$item->product_name}}">
-                                        <figure><img src="{{ asset('assets/img/upload/product/'.$item->productImages[0]->image_name) }}" alt="{{$item->product_name}}"></figure>
+                                    <a href="{{ route('product.show', $product->product_id)}}" title="{{$product->product_name}}">
+                                        <figure><img src="{{ asset('assets/img/upload/product/'.$product->productImages[0]->image_name) }}" alt="{{$product->product_name}}"></figure>
                                     </a>
                                     <div class="group-flash">
-                                        @if($item->discount > 0)
+                                        @if($product->discount > 0)
                                         <span class="flash-item sale-label">
-                                            sale {{number_format($item->discount/$item->product_price*100,0)}}%
+                                            sale {{number_format($product->discount/$product->product_price*100,0)}}%
                                         </span>
                                         @endif
                                         <!-- <span class="flash-item new-label">new</span> -->
@@ -80,13 +80,13 @@
                                 </div>
 
                                 <div class="product-info">
-                                    <a href="{{ route('product.show', $item->product_id)}}" class="product-name"><span>{{$item->product_name}}</span></a>
+                                    <a href="{{ route('product.show', $product->product_id)}}" class="product-name"><span>{{$product->product_name}}</span></a>
                                     <div class="wrap-price">
                                         <span class="product-price">
-                                            ${{number_format($item->product_price - $item->discount,2)}}
+                                            ${{number_format($product->product_price - $product->discount,2)}}
                                         </span>
-                                        @if($item->discount > 0)
-                                        <span style="text-decoration: line-through;">${{number_format($item->product_price,2)}}</span>
+                                        @if($product->discount > 0)
+                                        <span style="text-decoration: line-through;">${{number_format($product->product_price,2)}}</span>
                                         @endif
                                     </div>
                                     <a href="#" class="btn add-to-cart">Add To Cart</a>

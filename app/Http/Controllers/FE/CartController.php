@@ -36,8 +36,9 @@ class CartController extends Controller
         return response()->json($cart);
     }
     
-    public function store(Request $request)
+    public function addCart(Request $request)
     {
+        dd($request);
         $cart = $request->all();
         Cart::create($cart);
         return redirect()->action([CartController::class, 'showCart']);

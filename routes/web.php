@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Ad_CategoryController;
 use App\Http\Controllers\Admin\Ad_ProductController;
 use App\Http\Controllers\Admin\Ad_OrderController;
 use App\Http\Controllers\Admin\Ad_UserController;
+use App\Http\Controllers\FE\CartController;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -62,6 +63,10 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/checkout', 'checkout')->name('checkout');
 });
 
+Route::controller(CartController::class)->group(function () {
+
+    Route::post('add-to-cart', 'addCart')->name('addCart');
+});
 
 
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\FE;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function home()
     {
-        return view('fe.home');
+        $product_sale = Product::where('discount', '>', 0)->get();
+        return view('fe.home', [
+            'product_sale' => $product_sale
+        ]);
     }
 
     public function about()
@@ -26,7 +30,7 @@ class HomeController extends Controller
     {
         return view('fe.cart');
     }
-    
+
     public function checkout()
     {
         return view('fe.checkout');

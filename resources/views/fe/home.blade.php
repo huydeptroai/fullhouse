@@ -107,27 +107,38 @@
 			<!-- set time end-->
 			<div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container " data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"1"},"768":{"items":"2"},"992":{"items":"3"},"1200":{"items":"4"}}'>
 				<!-- product 01 loop-->
+				@foreach($product_sale as $product)
 				<div class="product product-style-2 equal-elem ">
 					<div class="product-thumnail">
-						<a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
+						<a href="{{route('product.show', $product->product_id)}}" title="{{$product->product_name}}">
 							<figure>
-								<img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" width="800" height="800" alt="T-Shirt Raw Hem Organic Boro Constrast Denim">
+								<img src="{{ asset('assets/img/upload/product/'.$product->productImages[0]->image_name) }}" width="800" height="800" alt="{{$product->productImages[0]->image_name}}">
 							</figure>
 						</a>
 						<div class="group-flash">
-							<span class="flash-item sale-label">sale</span>
+							@if($product->discount > 0)
+							<span class="flash-item sale-label">
+								sale {{number_format($product->discount/$product->product_price*100,0)}}%
+							</span>
+							@endif
 						</div>
 						<div class="wrap-btn">
-							<a href="#" class="function-link">quick view</a>
+							<a href="{{route('product.show', $product->product_id)}}" class="function-link">quick view</a>
 						</div>
 					</div>
 					<div class="product-info">
-						<a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
+						<a href="{{route('product.show', $product->product_id)}}" class="product-name"><span>{{$product->product_name}}</span></a>
 						<div class="wrap-price">
-							<span class="product-price">$250.00</span>
+							<span class="product-price">
+								${{number_format($product->product_price - $product->discount,2)}}
+							</span>
+							@if($product->discount > 0)
+							<span style="text-decoration: line-through;">${{number_format($product->product_price,2)}}</span>
+							@endif
 						</div>
 					</div>
 				</div>
+				@endforeach
 				<!-- product 01 end -->
 				<!-- product 02 -->
 				<div class="product product-style-2 equal-elem ">

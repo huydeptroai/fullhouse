@@ -22,8 +22,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/login.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/site-cart.css') }}">
 	<link rel="stylesheet" href="{{ asset('/frontend/css/reset.css') }}">
-	
-	@yield('myCss')	
+
+	@yield('myCss')
 
 
 </head>
@@ -65,7 +65,7 @@
 	<script src="{{ asset('/frontend/js/jquery.sticky.js') }}"></script>
 	<script src="{{ asset('/frontend/js/functions.js') }}"></script>
 	@yield('time')
-	
+
 	<!-- login show -->
 	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -75,7 +75,7 @@
 		const registerLink = document.querySelector('.register-link');
 		const btnPopup = document.querySelector('.btnLogin-popup');
 		const iconClose = document.querySelector('.icon-close');
-		
+
 		const wrapper_cart = document.querySelector('.wrapper-cart');
 		const btnCart = document.querySelector('.btnCart-popup');
 		const iconCloseCart = document.querySelector('.icon-close-cart');
@@ -96,7 +96,7 @@
 		iconClose.addEventListener('click', () => {
 			wrapper.classList.remove('active-popup');
 		});
-		
+
 		// site-cart actions
 		btnCart.addEventListener('click', () => {
 			wrapper_cart.classList.add('active-popup');
@@ -106,10 +106,35 @@
 		iconCloseCart.addEventListener('click', () => {
 			wrapper_cart.classList.remove('active-popup');
 		});
-
 	</script>
 
 	@yield('myJS_profile')
+
+	<!-- add to cart -->
+	<script>
+		$(document).ready(function() {
+			$('#cartEffect1').click(function(e) {
+				e.preventDefault();
+				let pid = "{{$product->product_id}}";
+				let url = "{{ route('addCart') }}";
+				let quantity = $('.qty-box .qty-adj').val() ?? 1;
+				// alert('quantity: '+ quantity);
+
+				$.ajax({
+					type: 'post',
+					url: url,
+					data: {
+						pid: pid,
+						quantity: quantity,
+						_token: '{{ csrf_token() }}'
+					},
+					success: function(data) {
+						alert('add to cart successfully!');
+					}
+				});
+			});
+		});
+	</script>
 
 
 </body>
