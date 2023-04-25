@@ -18,6 +18,7 @@ class Ad_CategoryController extends Controller
         $cates = Category::selectRaw('categories.*, count(product_id) as count_product')
             ->leftJoin('products', 'categories.category_id', 'like', 'products.category_id')
             ->groupBy('categories.category_id')
+            ->orderBy('count_product', 'desc')
             ->get();
         return view('admin.category.category-list', compact('cates'));
     }
@@ -84,7 +85,7 @@ class Ad_CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        
+
         // dd($category);
         // $validatedData = $request->validate([
         //     'category_image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',

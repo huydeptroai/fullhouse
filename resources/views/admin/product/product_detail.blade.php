@@ -32,10 +32,10 @@
 
             <div class="d-flex flex-column justify-content-around align-content-center">
               <div class="col-12">
-                <img src="{{ asset('assets/img/upload/product/'.$product->productImage[0]->image_name)}}" class="product-image" alt="Product Image">
+                <img src="{{ asset('assets/img/upload/product/'.$product->productImages[0]->image_name)}}" class="product-image" alt="Product Image">
               </div>
               <div class="col-12 product-image-thumbs mb-0">
-                @foreach($product->productImage as $pImage)
+                @foreach($product->productImages as $pImage)
                 <div class="product-image-thumb"><img src="{{ asset('assets/img/upload/product/'.$pImage->image_name)}}" alt="Product Image" style="width:200px;height:auto;"></div>
                 @endforeach
               </div>
