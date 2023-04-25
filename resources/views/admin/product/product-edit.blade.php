@@ -43,16 +43,7 @@
                                 <label for="product_name">Product Name</label>
                                 <input type="text" id="product_name" name="product_name" class="form-control" value="{{$product->product_name}}">
                             </div>
-                            <div class="form-group">
-                                <label for="category_id">Category 1</label>
-                                <select id="category_id" name="category_id" class="form-control custom-select">
-                                    @foreach($categories as $cate)
-                                    <option value="{{$cate->category_id}}" @if($product->product_id === $cate->category_id) selected @endif>
-                                        {{$cate->category_name_1." - ".$cate->category_name_2." (".$cate->category_id.")"}}
-                                    </option>
-                                    @endforeach
-                                </select>
-                            </div>
+
 
                             <div class="row">
                                 <div class="form-group col-6">
@@ -81,16 +72,20 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="image">Upload file image</label>
+                                <label for="">File image old</label>
+                                <div class="d-flex align-items-center">
+                                    @foreach($product->productImage as $pImage)
+                                    <img src="{{ asset('assets/img/upload/product/'.$pImage->image_name)}}" alt="productImage" style="width: 65px; height: 65px" class="rounded-circle">
+                                    @endforeach
+                                </div>
+                                <label for="image">Upload file image new</label>
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="image" name="image[]" multiple>
-                                        <label class="custom-file-label" for="exampleInputFile">Choose file image</label>
-                                    </div>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">Upload</span>
+                                        <label class="custom-file-label" for="">Choose file image</label>
                                     </div>
                                 </div>
+                                <div id=image-grid></div>
                             </div>
                         </div>
                         <!-- /.card-body -->
@@ -99,6 +94,16 @@
                     <!-- right-column cart -->
                     <div class="col-md-6">
                         <div class="card-body">
+                            <div class="form-group">
+                                <label for="category_id">Category 1</label>
+                                <select id="category_id" name="category_id" class="form-control custom-select">
+                                    @foreach($categories as $cate)
+                                    <option value="{{$cate->category_id}}" @if($product->product_id === $cate->category_id) selected @endif>
+                                        {{$cate->category_name_1." - ".$cate->category_name_2." (".$cate->category_id.")"}}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label for="product_material">Project material</label>
                                 <input type="text" id="product_material" name="product_material" class="form-control" value="{{$product->product_material}}">
@@ -118,15 +123,14 @@
                                 <textarea id="product_description" name="product_description" class="form-control" rows="4">{{$product->product_description}}</textarea>
                             </div>
                             <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input custom-control-input-danger" type="checkbox" id="featured" name="featured"  @if($product->featured === 1) checked @endif>
+                                <input class="custom-control-input custom-control-input-danger" type="checkbox" id="featured" name="featured" @if($product->featured === 1) checked @endif>
                                 <label for="featured" class="custom-control-label"> Product Featured</label>
                             </div>
                         </div>
                         <!-- /.card-body -->
                         <div class="cart-footer">
                             <div class="px-5 m-3">
-                                <input type="reset" class="btn btn-secondary" style="width:120px" value="Cancel">
-                                <input type="submit" value="Create" class="btn btn-warning float-right" style="width:120px">
+                                <input type="submit" value="Save change" class="btn btn-warning float-right" style="width:120px">
                             </div>
                         </div>
                     </div>
@@ -155,6 +159,24 @@
 <script>
     $(function() {
         bsCustomFileInput.init();
+    });
+</script>
+<script>
+    $(document).ready(function(e) {
+        const imageGrid = document.getElementById('image-grid');
+        $('#image').change(function(e) {
+            const files = e.target.files;
+            let reader = new FileReader();
+            for (const file of files) {
+                const img = document.createElement('img');
+                imageGrid.appendChild(img);
+                img.src = URL.createObjectURL(file);
+                img.alt = file.name;
+                img.style.width = '85px';
+                img.style.height = '85px';
+            }
+        });
+        
     });
 </script>
 @endsection

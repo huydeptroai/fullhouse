@@ -10,6 +10,7 @@ class DashboardController extends Controller
     public function dashboard()
     {
         // dd('hi');
+        // $products
         return view('admin.dashboard');
     }
 }

@@ -1,4 +1,6 @@
 @extends('fe.layout.master')
+
+@section('title', '{{$product->product_slug}}')
 @section('content')
 <main id="main" class="main-site">
     <div class="container">
@@ -6,70 +8,73 @@
         <div class="wrap-breadcrumb">
             <ul>
                 <li class="item-link"><a href="{{ route('home')}}" class="link">home</a></li>
-                <li class="item-link"><span>product</span></li>
-                <li class="item-link"><span>slug</span></li>
+                <li class="item-link"><a href="{{ route('product.index')}}" class="link">products</a></li>
+                <li class="item-link"><span>{{ $product->product_name}}</span></li>
             </ul>
         </div>
         <div class="row">
 
-            <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 main-content-area">
+            <!-- <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 main-content-area"> -->
+            <div class="col-12 main-content-area">
                 <div class="wrap-product-detail">
                     <div class="detail-media">
                         <div class="product-gallery">
                             <ul class="slides">
-
-                                <li data-thumb="{{ asset('/frontend/images/products/digital_18.jpg') }}">
-                                    <img src="{{ asset('/frontend/images/products/digital_18.jpg') }}" alt="product thumbnail" />
+                                @foreach($product->productImages as $pImage)
+                                <li data-thumb="{{ asset('assets/img/upload/product/'.$pImage->image_name) }}">
+                                    <img src="{{ asset('assets/img/upload/product/'.$pImage->image_name) }}" alt="product thumbnail" />
                                 </li>
-
-                                <li data-thumb="{{ asset('/frontend/images/products/digital_17.jpg') }}">
-                                    <img src="{{ asset('/frontend/images/products/digital_17.jpg') }}" alt="product thumbnail" />
-                                </li>
-
-                                <li data-thumb="{{ asset('/frontend/images/products/digital_15.jpg') }}">
-                                    <img src="{{ asset('/frontend/images/products/digital_15.jpg') }}" alt="product thumbnail" />
-                                </li>
-
-                                <li data-thumb="{{ asset('/frontend/images/products/digital_02.jpg') }}">
-                                    <img src="{{ asset('/frontend/images/products/digital_02.jpg') }}" alt="product thumbnail" />
-                                </li>
-
-                                <li data-thumb="{{ asset('/frontend/images/products/digital_08.jpg') }}">
-                                    <img src="{{ asset('/frontend/images/products/digital_08.jpg') }}" alt="product thumbnail" />
-                                </li>
-
-                                <li data-thumb="{{ asset('/frontend/images/products/digital_10.jpg') }}">
-                                    <img src="{{ asset('/frontend/images/products/digital_10.jpg') }}" alt="product thumbnail" />
-                                </li>
-
+                                @endforeach
                             </ul>
                         </div>
                     </div>
+
                     <div class="detail-info">
-                        <h2 class="product-name">Radiant-360 R6 Wireless Omnidirectional Speaker [White]</h2>
+                        <h2 class="product-name">{{$product->product_name}}</h2>
                         <div class="product-rating">
                             <strong>4.7 </strong>
                             <i class="fa fa-star" aria-hidden="true"></i>
-                            <!-- <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <i class="fa fa-star" aria-hidden="true"></i> -->
                             <a href="#review" class="count-review">(05 review)</a>
 
                         </div>
                         <div class="short-desc">
-                            <ul>
-                                <li>7,9-inch LED-backlit, 130Gb</li>
-                                <li>Dual-core A7 with quad-core graphics</li>
-                                <li>FaceTime HD Camera 7.0 MP Photos</li>
-                            </ul>
+                            <table class="shop_attributes">
+                                <tbody>
+                                    <tr>
+                                        <th>Material</th>
+                                        <td>{{$product->product_material}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Size:</th>
+                                        <td>{{$product->product_size}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Color</th>
+                                        <td>
+                                            <p>{{$product->product_color}}</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
                         </div>
                         <!-- <div class="wrap-social">
                             <a class="link-socail" href="#"><img src="{{ asset('/frontend/images/social-list.png') }}" alt=""></a>
                         </div> -->
-                        <div class="wrap-price"><span class="product-price">$250.00</span></div>
+                        <div class="wrap-price">
+                            <span class="product-price">$ {{$product->product_price - $product->discount}}</span>
+                            @if($product->discount > 0)
+                            <span style="text-decoration: line-through;">${{$product->product_price}}</span>
+                            @endif
+                        </div>
                         <div class="stock-info in-stock">
-                            <p class="availability">Availability: <b>In Stock</b></p>
+                            <p class="availability">Availability:
+                                @if($product->product_quantity > 0)
+                                <b>In Stock</b>
+                                @else
+                                <b>Out Stock</b>
+                                @endif
+                            </p>
                         </div>
                         <div class="quantity">
                             <span>Quantity:</span>
@@ -86,37 +91,36 @@
                                 <a href="#" class="btn btn-wishlist">Add Wishlist</a>
                             </div>
                         </div>
+
                     </div>
                     <!-- advance-info -->
                     <div class="advance-info">
                         <div class="tab-control normal">
-                            <a href="#description" class="tab-control-item active">description</a>
-                            <a href="#add_infomation" class="tab-control-item">Addtional Infomation</a>
+                            <a href="#description" class="tab-control-item active">Description</a>
+                            <a href="#add_information" class="tab-control-item">Information</a>
                             <a href="#review" class="tab-control-item">Reviews</a>
                         </div>
                         <div class="tab-contents">
 
                             <div class="tab-content-item active" id="description">
-                                <p>Lorem ipsum dolor sit amet, an munere tibique consequat mel, congue albucius no qui, a t everti meliore erroribus sea. ro cum. Sea ne accusata voluptatibus. Ne cum falli dolor voluptua, duo ei sonet choro facilisis, labores officiis torquatos cum ei.</p>
-                                <p>Cum altera mandamus in, mea verear disputationi et. Vel regione discere ut, legere expetenda ut eos. In nam nibh invenire similique. Atqui mollis ea his, ius graecis accommodare te. No eam tota nostrum eque. Est cu nibh clita. Sed an nominavi, et stituto, duo id rebum lucilius. Te eam iisque deseruisse, ipsum euismod his at. Eu putent habemus voluptua sit, sit cu rationibus scripserit, modus taria . </p>
-                                <p>experian soleat maluisset per. Has eu idque similique, et blandit scriptorem tatibus mea. Vis quaeque ocurreret ea.cu bus scripserit, modus voluptaria ex per.</p>
+                                <p>{{ $product->product_description}}</p>
                             </div>
 
-                            <div class="tab-content-item " id="add_infomation">
+                            <div class="tab-content-item " id="add_information">
                                 <table class="shop_attributes">
                                     <tbody>
                                         <tr>
-                                            <th>Weight</th>
-                                            <td class="product_weight">1 kg</td>
+                                            <th>Material</th>
+                                            <td>{{$product->product_material}}</td>
                                         </tr>
                                         <tr>
-                                            <th>Dimensions</th>
-                                            <td class="product_dimensions">12 x 15 x 23 cm</td>
+                                            <th>Size:</th>
+                                            <td>{{$product->product_size}}</td>
                                         </tr>
                                         <tr>
                                             <th>Color</th>
                                             <td>
-                                                <p>Black, Blue, Grey, Violet, Yellow</p>
+                                                <p>{{$product->product_color}}</p>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -212,7 +216,6 @@
                 <div class="widget widget-our-services ">
                     <div class="widget-content">
                         <ul class="our-services">
-
                             <li class="service">
                                 <a class="link-to-service" href="#">
                                     <i class="fa fa-truck" aria-hidden="true"></i>
@@ -316,14 +319,15 @@
                 </div>
                 <!-- Popular Products widget-->
 
-            </div><!--end site-bar-->
+            </div>
+            <!--end site-bar-->
 
             <!-- related product-->
             <div class="single-advance-box col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="wrap-show-advance-info-box style-1 box-in-site">
                     <h3 class="title-box">Related Products</h3>
                     <div class="wrap-products">
-                        <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"5"}}'>
+                        <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"1"},"768":{"items":"2"},"992":{"items":"3"},"1200":{"items":"4"}}'>
 
                             <div class="product product-style-2 equal-elem ">
                                 <div class="product-thumnail">

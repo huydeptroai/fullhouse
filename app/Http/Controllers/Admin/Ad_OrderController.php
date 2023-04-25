@@ -19,9 +19,15 @@ class Ad_OrderController extends Controller
         return view();
     }
 
-    public function editStatus()
+    //response to ajax
+    public function updateStatusOrder(Request $request, $order_id)
     {
-        //
+        $status = $request->status;
+        $order = Order::findOrFail($order_id);
+        $order->update([
+            'status' => $status
+        ]);
+        return response()->json($order);
     }
 
     public function showDetail()
@@ -33,5 +39,4 @@ class Ad_OrderController extends Controller
     {
         return view('admin.order.invoice-print');
     }
-    
 }

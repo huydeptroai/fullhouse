@@ -1,5 +1,5 @@
 @extends('fe.layout.master')
-
+@section('title', 'About us')
 @section('content')
 
 <main id="main" class="main-site inner-page about-us">
@@ -29,7 +29,10 @@
         <!-- main-content-area"> -->
         <div class="aboutus-info style-center">
             <b class="box-title">Interesting Facts</b>
-            <p class="txt-content text-justify">FULL HOUSE Co., Ltd was established on March 25, 20xx, as a furniture company specializing in producing and retailing furniture with various designs. We specialize in the design, manufacture, and distribution of semi-assembled furniture, equipment, office furniture, and home furniture. During the process of formation, development, and expansion, we are constantly improving, innovating, and improving the quality of products and services, providing thousands of standard furniture products to customers. <br>Today, FULL HOUSE is a collective bonded by many individuals, with a team of experienced, dedicated, and professional construction workers, and a design team who are young, dynamic, and enthusiastic people in the field of the interior. We want to bring you the best, most innovative, and quality products.</p>
+            <p class="txt-content text-justify">
+                Full House Co., Ltd. was established on March 25, 20xx, as a furniture company specializing in producing and retailing furniture with various designs. We specialize in the design, manufacture, and distribution of semi-assembled furniture, equipment, office furniture, and home furniture. During the process of formation, development, and expansion, we are constantly improving, innovating, and improving the quality of products and services, providing thousands of standard furniture products to customers. <br>
+                Today, Full House is a collective bonded by many individuals, with a team of experienced, dedicated, and professional construction workers and a design team of young, dynamic, and enthusiastic people in the field of interior design. We want to bring you the best, most innovative, and most quality products.
+            </p>
         </div><!-- info top end -->
         <!-- strengths start -->
         <section>
@@ -45,7 +48,7 @@
                             </svg>
                         </div>
                         <b class="box-score-title">Reasonable prices</b>
-                        <p class="desc text-justify">In the business plan, the investment cost is always paid special attention, the trader always has to calculate every detail, because the money spent must be commensurate with the quality. If you are not sure which reputable business to choose in the field of furniture, please contact the Full House immediately. A team of professional and dedicated consultants is always ready to serve. When you have chosen the full service at Full House Furniture, you will not have to worry about the price, because we have calculated how to best suit you.</p>
+                        <p class="desc text-justify">In the business plan, the investment cost is always given special attention; the trader always has to calculate every detail because the money spent must be commensurate with the quality. If you are not sure which reputable business to choose in the field of furniture, please contact Full House immediately. A team of professional and dedicated consultants is always ready to serve. When you have chosen the full service at Full House Furniture, you will not have to worry about the price because we have calculated how to best suit you.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
@@ -56,7 +59,7 @@
                             </svg>
                         </div>
                         <b class="box-score-title">Preeminent Products</b>
-                        <p class="desc">One of the most outstanding features of Full House furniture products is the smart design that helps you save space but still has all the necessary functions. Besides, this superior feature also helps you save a lot of money, you will not need to spend money to buy 2 products, the smart design will integrate 2-in-1 and even 3-in-1 furniture. 1. In addition, the design of Full House furniture products is very suitable for the lifestyle of Vietnamese people. Currently, customers prefer a sophisticated but unobtrusive style, bringing interior space with modern and luxurious beauty. In addition to the features, you can also easily feel the beauty of their materials.</p>
+                        <p class="desc">One of the most outstanding features of Full House furniture products is their smart design, which helps you save space while still having all the necessary functions. Besides, this superior feature also helps you save a lot of money; you will not need to spend money to buy two products because the smart design will integrate 2-in-1 and even 3-in-1 furniture. 1. In addition, the design of Full House furniture products is very suitable for the lifestyle of Vietnamese people. Currently, customers prefer a sophisticated but unobtrusive style, bringing modern and luxurious beauty to interior spaces. In addition to the features, you can also easily feel the beauty of their materials.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
@@ -67,7 +70,7 @@
                             </svg>
                         </div>
                         <b class="box-score-title">Comprehensive, Long-Term Warranty Service</b>
-                        <p class="desc">Intending to bring a great experience, Full House always has care policies, bringing comprehensive benefits to its customers. With a warranty from 1 year to a lifetime warranty, along with a team of enthusiastic consultants, it is guaranteed to bring the best and most attractive quality services.</p>
+                        <p class="desc">Intent on providing a great experience, Full House always has care policies, bringing comprehensive benefits to its customers. With a warranty ranging from 1 year to a lifetime warranty, along with a team of enthusiastic consultants, it is guaranteed to bring the best and most attractive quality services.</p>
                     </div>
                 </div>
             </div>
@@ -76,25 +79,25 @@
         <!-- culture start -->
         <section>
             <div class="aboutus-info style-center">
-                <b class="box-title">CORPORATE CULTURE</b>
+                <b class="box-title">Mission</b>
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="aboutus-info style-small-left">
                         <b class="box-title">01. INTEGRITY</b>
-                        <p class="txt-content">Integrity is seen as a virtue associated with morality. Each individual who has become a part of Full House must always be honest, straightforward, consistent, transparent, consistent, and responsible for the work, the collective, the company, and the community... Acting with integrity will build trust, confidence, and credibility within the company as well as the trust of partners and customers in Full House.</p>
+                        <p class="txt-content">Integrity is seen as a virtue associated with morality. Each individual who has become a part of Full House must always be honest, straightforward, consistent, transparent, consistent, and responsible for the work, the collective, the company, and the community. Acting with integrity will build trust, confidence, and credibility within the company, as well as the trust of partners and customers at Full House.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="aboutus-info style-small-left">
                         <b class="box-title">02. RESPECT</b>
-                        <p class="txt-content">At Full House, respecting yourself, respecting colleagues, respecting the company, respecting partners, and respecting customers are considered as one the factors that must be put on top.</p>
+                        <p class="txt-content">At Full House, respecting yourself, respecting colleagues, respecting the company, respecting partners, and respecting customers are considered factors that must be put on top.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="aboutus-info style-small-left">
                         <b class="box-title">03. Equitable</b>
-                        <p class="txt-content">Being fair to all employees, partners, customers, and stakeholders is one of the 6 cultures at Full House.</p>
+                        <p class="txt-content">Being fair to all employees, partners, customers, and stakeholders is one of the six cultures at Full House.</p>
                     </div>
                 </div>
             </div>
@@ -108,13 +111,13 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="aboutus-info style-small-left">
                         <b class="box-title">05. CREATIVE</b>
-                        <p class="txt-content">Creativity and development are the most important things for Full House to becoming more and more perfect. We are constantly researching, updating trends, capturing the market to define goals, devising innovative and creative strategies, and bringing the best furniture products to serve our customers.</p>
+                        <p class="txt-content">Creativity and development are the most important things for Full House to become more and more perfect. We are constantly researching, updating trends, capturing the market to define goals, devising innovative and creative strategies, and bringing the best furniture products to serve our customers.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="aboutus-info style-small-left">
                         <b class="box-title">06. QUALITY</b>
-                        <p class="txt-content">Attached to the vision, mission as well as core values, Full House is constantly improving and is committed to providing its customers with the most standard and perfect quality furniture products..</p>
+                        <p class="txt-content">Attached to the vision, mission, and core values, Full House is constantly improving and is committed to providing its customers with the highest standard of quality furniture products.</p>
                     </div>
                 </div>
             </div>

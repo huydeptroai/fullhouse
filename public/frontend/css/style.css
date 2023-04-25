@@ -1367,7 +1367,7 @@ li.menu-item .nav-label.sale-label::before {
     margin-top: 25px;
     color: #000;
 }
-.banner-effect-1 figure::before {
+.banner-effect-1 figure::after {
     content: "";
     position: absolute;
     top: 0;
@@ -1392,7 +1392,7 @@ li.menu-item .nav-label.sale-label::before {
     -moz-transition: all ease 0.5s 0s;
     -o-transition: all ease 0.5s 0s;
 }
-.banner-effect-1 figure:hover::before {
+.banner-effect-1 figure:hover::after {
     opacity: 1;
     filter: alpha(opacity=100);
     visibility: visible;
@@ -3580,7 +3580,7 @@ li.menu-item .nav-label.sale-label::before {
     margin-top: 14px;
 }
 .aboutus-box-score .desc {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 24px;
     color: #666666;
     text-align: justify;

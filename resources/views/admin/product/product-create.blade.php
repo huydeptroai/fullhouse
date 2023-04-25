@@ -42,16 +42,7 @@
                                 <label for="product_name">Product Name</label>
                                 <input type="text" id="product_name" name="product_name" class="form-control">
                             </div>
-                            <div class="form-group">
-                                <label for="category_id">Category 1</label>
-                                <select id="category_id" name="category_id" class="form-control custom-select">
-                                    @foreach($categories as $cate)
-                                    <option value="{{$cate->category_id}}" selected>
-                                        {{$cate->category_name_1." - ".$cate->category_name_2." (".$cate->category_id.")"}}
-                                    </option>
-                                    @endforeach
-                                </select>
-                            </div>
+
 
                             <div class="row">
                                 <div class="form-group col-6">
@@ -84,12 +75,10 @@
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="image" name="image[]" multiple>
-                                        <label class="custom-file-label" for="exampleInputFile">Choose file image</label>
-                                    </div>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">Upload</span>
+                                        <label class="custom-file-label" for="">Choose file image</label>
                                     </div>
                                 </div>
+                                <div id=image-grid></div>
                             </div>
                         </div>
                         <!-- /.card-body -->
@@ -98,6 +87,16 @@
                     <!-- right-column cart -->
                     <div class="col-md-6">
                         <div class="card-body">
+                            <div class="form-group">
+                                <label for="category_id">Category</label>
+                                <select id="category_id" name="category_id" class="form-control custom-select">
+                                    @foreach($categories as $cate)
+                                    <option value="{{$cate->category_id}}" selected>
+                                        {{$cate->category_name_1." - ".$cate->category_name_2." (".$cate->category_id.")"}}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label for="product_material">Project material</label>
                                 <input type="text" id="product_material" name="product_material" class="form-control">
@@ -154,6 +153,23 @@
 <script>
     $(function() {
         bsCustomFileInput.init();
+    });
+</script>
+<script>
+    $(document).ready(function(e) {
+        const imageGrid = document.getElementById('image-grid');
+        $('#image').change(function(e) {
+            const files = e.target.files;
+            let reader = new FileReader();
+            for (const file of files) {
+                const img = document.createElement('img');
+                imageGrid.appendChild(img);
+                img.src = URL.createObjectURL(file);
+                img.alt = file.name;
+                img.style.width = '85px';
+                img.style.height = '85px';
+            }
+        });
     });
 </script>
 @endsection

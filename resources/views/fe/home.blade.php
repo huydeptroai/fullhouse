@@ -1,5 +1,6 @@
 @extends('fe.layout.master')
 
+@section('title', 'Home')
 @section('content')
 <main id="main">
 	<!--top banner start -->

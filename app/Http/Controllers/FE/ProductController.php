@@ -4,7 +4,10 @@ namespace App\Http\Controllers\FE;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class ProductController extends Controller
 {
@@ -13,7 +16,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        $prods_popular = "";
+        return view('fe.shop', compact('products'));
     }
 
     /**
@@ -37,9 +42,17 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
-    }
+        // $avgRating = Review::where('product_id', $product->product_id)->avg('rating');
 
+        // $reviews = Review::selectRaw('users.name,users.profile, content, avg(rating) as avd_rating')
+        //     ->join('users', 'reviews.user_id', '=', 'users.user_id')
+        //     ->where('product_id', 'like', $product->product_id)
+        //     ->groupBy('product_id')
+        //     ->get();
+
+        return view('fe.product-detail', compact('product'));
+    }
+    
     /**
      * Show the form for editing the specified resource.
      */
@@ -47,7 +60,7 @@ class ProductController extends Controller
     {
         //
     }
-
+    
     /**
      * Update the specified resource in storage.
      */
@@ -55,12 +68,19 @@ class ProductController extends Controller
     {
         //
     }
-
+    
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Product $product)
     {
         //
+    }
+    
+    public function productDetail($slug)
+    {
+        $product = Product::where('product_slug', 'like', $slug)->first();
+        dd($product);
+        return view('fe.product-detail', compact('product'));
     }
 }

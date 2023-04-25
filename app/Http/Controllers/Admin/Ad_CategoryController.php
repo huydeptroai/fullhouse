@@ -14,7 +14,11 @@ class Ad_CategoryController extends Controller
      */
     public function index()
     {
-        $cates = Category::all();
+        // $cates = Category::all();
+        $cates = Category::selectRaw('categories.*, count(product_id) as count_product')
+            ->leftJoin('products', 'categories.category_id', 'like', 'products.category_id')
+            ->groupBy('categories.category_id')
+            ->get();
         return view('admin.category.category-list', compact('cates'));
     }
 
@@ -82,9 +86,12 @@ class Ad_CategoryController extends Controller
     {
         
         // dd($category);
-        $item = $request->all();
+        // $validatedData = $request->validate([
+        //     'category_image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
 
-        // $item = Category::findOrFail($category);
+        // ]);
+
+        $item = $request->all();
 
         $image_path = 'assets/img/upload/category';
         if (!file_exists($image_path)) {

@@ -1,4 +1,5 @@
 @extends('fe.layout.master')
+@section('title', 'Contact us')
 @section('content')
 <main id="main" class="main-site left-sidebar home-page home-01 ">
 

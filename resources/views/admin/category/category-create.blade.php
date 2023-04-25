@@ -59,11 +59,11 @@
                                 <label for="product_image">File image input</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="product_image" name="category_image">
+                                        <input type="file" class="custom-file-input" id="image" name="category_image">
                                         <label class="custom-file-label" for="exampleInputFile">Choose file image</label>
                                     </div>
-
                                 </div>
+                                <div id=image-grid></div>
                             </div>
                             <div class="form-group">
                                 <label for="category_intro">Category description</label>
@@ -105,6 +105,23 @@
 <script>
     $(function() {
         bsCustomFileInput.init();
+    });
+</script>
+<script>
+    $(document).ready(function(e) {
+        const imageGrid = document.getElementById('image-grid');
+        $('#image').change(function(e) {
+            const files = e.target.files;
+            let reader = new FileReader();
+            for (const file of files) {
+                const img = document.createElement('img');
+                imageGrid.appendChild(img);
+                img.src = URL.createObjectURL(file);
+                img.alt = file.name;
+                img.style.width = '85px';
+                img.style.height = '85px';
+            }
+        });
     });
 </script>
 @endsection

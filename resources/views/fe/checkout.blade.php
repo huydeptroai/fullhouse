@@ -1,4 +1,5 @@
 @extends('fe.layout.master')
+@section('title', 'Checkout')
 @section('content')
 <main id="main" class="main-site checkout page">
 

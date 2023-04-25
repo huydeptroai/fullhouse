@@ -51,7 +51,7 @@
 				<div class="mid-section main-info-area">
 
 					<div class="wrap-logo-top left-section">
-						<a href="{{ route('home') }}" class="link-to-home"><img src="{{ asset('/frontend/images/logo-top-1.png') }}" alt="mercado"></a>
+						<a href="{{ route('home') }}" class="link-to-home"><img src="{{ asset('/frontend/images/logo-top-1.jpg') }}" alt="mercado"></a>
 					</div>
 
 					<div class="wrap-search center-section">
@@ -142,7 +142,7 @@
 								<a href="{{route('about')}}" class="link-term mercado-item-title">About Us</a>
 							</li>
 							<li class="menu-item">
-								<a href="{{route('shop')}}" class="link-term mercado-item-title">Products</a>
+								<a href="{{route('product.index')}}" class="link-term mercado-item-title">Products</a>
 							</li>
 							<li class="menu-item">
 								<a href="{{ route('cart') }}" class="link-term mercado-item-title">Cart</a>
@@ -162,23 +162,23 @@
 					<div class="container">
 						<ul class="nav menu-nav clone-main-menu" id="mercado_haead_menu" data-menuname="Sale Info">
 							<li class="menu-item">
-								<a href="{{route('shop')}}" class="link-term">Weekly Featured</a>
+								<a href="{{route('product.index')}}" class="link-term">Weekly Featured</a>
 								<span class="nav-label hot-label">hot</span>
 							</li>
 							<li class="menu-item">
-								<a href="{{route('shop')}}" class="link-term">Hot Sale items</a>
+								<a href="{{route('product.index')}}" class="link-term">Hot Sale items</a>
 								<span class="nav-label hot-label">hot</span>
 							</li>
 							<li class="menu-item">
-								<a href="{{route('shop')}}" class="link-term">Top new items</a>
+								<a href="{{route('product.index')}}" class="link-term">Top new items</a>
 								<span class="nav-label hot-label">hot</span>
 							</li>
 							<li class="menu-item">
-								<a href="{{route('shop')}}" class="link-term">Top Selling</a>
+								<a href="{{route('product.index')}}" class="link-term">Top Selling</a>
 								<span class="nav-label hot-label">hot</span>
 							</li>
 							<li class="menu-item">
-								<a href="{{route('shop')}}" class="link-term">Top rated items</a>
+								<a href="{{route('product.index')}}" class="link-term">Top rated items</a>
 								<span class="nav-label hot-label">hot</span>
 							</li>
 						</ul>

@@ -60,190 +60,40 @@
                 <div class="row">
                     <!-- product list start -->
                     <ul class="product-list grid-products equal-container">
-
+                        @foreach($products as $item)
                         <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                             <div class="product product-style-3 equal-elem ">
                                 <div class="product-thumnail">
-                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
-                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
+                                    <a href="{{ route('product.show', $item->product_id)}}" title="{{$item->product_name}}">
+                                        <figure><img src="{{ asset('assets/img/upload/product/'.$item->productImages[0]->image_name) }}" alt="{{$item->product_name}}"></figure>
                                     </a>
                                     <div class="group-flash">
-                                        <span class="flash-item new-label">new</span>
+                                        @if($item->discount > 0)
+                                        <span class="flash-item sale-label">
+                                            sale {{number_format($item->discount/$item->product_price*100,0)}}%
+                                        </span>
+                                        @endif
+                                        <!-- <span class="flash-item new-label">new</span> -->
                                         <span class="flash-item bestseller-label">Bestseller</span>
                                     </div>
-
+                                   
                                 </div>
+
                                 <div class="product-info">
-
-
-
-                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
-                                    <div class="wrap-price"><span class="product-price">$250.00</span></div>
-                                    <a href="#" class="btn add-to-cart">Add To Cart</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
-                            <div class="product product-style-3 equal-elem ">
-                                <div class="product-thumnail">
-                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
-                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
-                                    </a>
-                                    <div class="group-flash">
-                                        <span class="flash-item sale-label">sale</span>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
-                                    
+                                    <a href="{{ route('product.show', $item->product_id)}}" class="product-name"><span>{{$item->product_name}}</span></a>
                                     <div class="wrap-price">
-                                        <ins><p class="product-price">$168.00</p></ins>
-                                        <del><p class="product-price">$250.00</p></del>
+                                        <span class="product-price">
+                                            ${{number_format($item->product_price - $item->discount,2)}}
+                                        </span>
+                                        @if($item->discount > 0)
+                                        <span style="text-decoration: line-through;">${{number_format($item->product_price,2)}}</span>
+                                        @endif
                                     </div>
                                     <a href="#" class="btn add-to-cart">Add To Cart</a>
                                 </div>
                             </div>
                         </li>
-                        <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
-                            <div class="product product-style-3 equal-elem ">
-                                <div class="product-thumnail">
-                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
-                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
-                                    </a>
-                                </div>
-                                <div class="product-info">
-                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
-                                    <div class="wrap-price"><span class="product-price">$250.00</span></div>
-                                    <a href="#" class="btn add-to-cart">Add To Cart</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
-                            <div class="product product-style-3 equal-elem ">
-                                <div class="product-thumnail">
-                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
-                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
-                                    </a>
-                                </div>
-                                <div class="product-info">
-                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
-                                    <div class="wrap-price"><span class="product-price">$250.00</span></div>
-                                    <a href="#" class="btn add-to-cart">Add To Cart</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
-                            <div class="product product-style-3 equal-elem ">
-                                <div class="product-thumnail">
-                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
-                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
-                                    </a>
-                                </div>
-                                <div class="product-info">
-                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
-                                    <div class="wrap-price"><span class="product-price">$250.00</span></div>
-                                    <a href="#" class="btn add-to-cart">Add To Cart</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
-                            <div class="product product-style-3 equal-elem ">
-                                <div class="product-thumnail">
-                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
-                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
-                                    </a>
-                                </div>
-                                <div class="product-info">
-                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
-                                    <div class="wrap-price"><span class="product-price">$250.00</span></div>
-                                    <a href="#" class="btn add-to-cart">Add To Cart</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
-                            <div class="product product-style-3 equal-elem ">
-                                <div class="product-thumnail">
-                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
-                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
-                                    </a>
-                                </div>
-                                <div class="product-info">
-                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
-                                    <div class="wrap-price"><span class="product-price">$250.00</span></div>
-                                    <a href="#" class="btn add-to-cart">Add To Cart</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
-                            <div class="product product-style-3 equal-elem ">
-                                <div class="product-thumnail">
-                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
-                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
-                                    </a>
-                                </div>
-                                <div class="product-info">
-                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
-                                    <div class="wrap-price"><span class="product-price">$250.00</span></div>
-                                    <a href="#" class="btn add-to-cart">Add To Cart</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
-                            <div class="product product-style-3 equal-elem ">
-                                <div class="product-thumnail">
-                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
-                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
-                                    </a>
-                                </div>
-                                <div class="product-info">
-                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
-                                    <div class="wrap-price"><span class="product-price">$250.00</span></div>
-                                    <a href="#" class="btn add-to-cart">Add To Cart</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
-                            <div class="product product-style-3 equal-elem ">
-                                <div class="product-thumnail">
-                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
-                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
-                                    </a>
-                                </div>
-                                <div class="product-info">
-                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
-                                    <div class="wrap-price"><span class="product-price">$250.00</span></div>
-                                    <a href="#" class="btn add-to-cart">Add To Cart</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
-                            <div class="product product-style-3 equal-elem ">
-                                <div class="product-thumnail">
-                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
-                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
-                                    </a>
-                                </div>
-                                <div class="product-info">
-                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
-                                    <div class="wrap-price"><span class="product-price">$250.00</span></div>
-                                    <a href="#" class="btn add-to-cart">Add To Cart</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
-                            <div class="product product-style-3 equal-elem ">
-                                <div class="product-thumnail">
-                                    <a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
-                                        <figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}" alt="Mesh back office chair with footrest GAK-JO813"></figure>
-                                    </a>
-                                </div>
-                                <div class="product-info">
-                                    <a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
-                                    <div class="wrap-price"><span class="product-price">$250.00</span></div>
-                                    <a href="#" class="btn add-to-cart">Add To Cart</a>
-                                </div>
-                            </div>
-                        </li>
+                        @endforeach
 
                     </ul>
                     <!-- product list start -->
@@ -309,7 +159,7 @@
                             <li class="category-item">
                                 <a href="#" class="cate-link">Tools & Equipments</a>
                             </li>
-                            
+
                         </ul>
                     </div>
                 </div><!-- Categories widget-->
@@ -334,7 +184,7 @@
                     </div>
                 </div> -->
                 <!-- brand widget-->
-                
+
                 <!-- Price-->
                 <div class="widget mercado-widget filter-widget price-filter">
                     <h2 class="widget-title">Price</h2>

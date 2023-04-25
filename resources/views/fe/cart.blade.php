@@ -1,5 +1,5 @@
 @extends('fe.layout.master')
-
+@section('title', 'Cart')
 @section('content')
 <main id="main" class="main-site shopping-cart page">
     <div class="container">
@@ -98,7 +98,7 @@
                         <!-- action delete end -->
                     </li>
                     <!-- cart 2 end -->
-                    
+
                 </ul>
             </div>
             <!-- cart end -->
@@ -113,11 +113,14 @@
 
                     <div class="summary-item">
                         <!-- <h4 class="title-box">Discount Codes</h4> -->
-                            <p class="row-in-form">
-                                <label class="col-4" for="coupon-code">Discount code:</label>
-                                <input class="col-8" id="coupon-code" type="text" name="coupon-code" value="" placeholder="Enter Your Coupon code">
-                            </p>
-                            <a href="#" class="title"><ion-icon name="arrow-forward"></ion-icon> Check coupon code</a>
+                        <p class="row-in-form">
+                            <label class="col-4" for="coupon-code">Discount code:</label>
+                            <input class="col-8" id="coupon-code" type="text" name="coupon-code" value="" placeholder="Enter Your Coupon code">
+                        </p>
+                        <a href="#" class="title">
+                            <!-- <ion-icon name="arrow-forward"></ion-icon> -->
+                            Check coupon code
+                        </a>
                     </div>
 
                     <p class="summary-info">
@@ -132,7 +135,7 @@
 
                 <div class="checkout-info">
                     <a class="btn btn-checkout" href="{{route('checkout')}}">Check out</a>
-                    <a class="link-to-shop" href="{{route('shop')}}">
+                    <a class="link-to-shop" href="{{route('product.index')}}">
                         Continue Shopping
                         <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
                     </a>
@@ -143,7 +146,7 @@
                 </div>
             </div>
             <!-- summary end -->
-            
+
 
         </div><!--end main content area-->
         <div class="main-content-area">
@@ -151,7 +154,7 @@
             <div class="wrap-show-advance-info-box style-1 box-in-site">
                 <h3 class="title-box">Most Viewed Products</h3>
                 <div class="wrap-products">
-                    <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"5"}}'>
+                    <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"1"},"768":{"items":"2"},"992":{"items":"3"},"1200":{"items":"4"}}'>
                         <!-- product 1 -->
                         <div class="product product-style-2 equal-elem ">
                             <div class="product-thumnail">
@@ -189,7 +192,7 @@
                                 <div class="wrap-price">
                                     <ins>
                                         <p class="product-price">$168.00</p>
-                                    </ins> 
+                                    </ins>
                                     <del>
                                         <p class="product-price">$250.00</p>
                                     </del>

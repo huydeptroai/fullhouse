@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FE\HomeController;
 use App\Http\Controllers\FE\ProfileController;
+use App\Http\Controllers\FE\ProductController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Ad_CategoryController;
 use App\Http\Controllers\Admin\Ad_ProductController;
@@ -31,10 +32,12 @@ Route::get('/', function () {
 
 Route::get('/admin', function () {
     return redirect()->route('admin.dashboard');
+    // return redirect('/admin/dashboard');
 });
 
 
 Route::group(['prefix' => 'admin'], function () {
+    
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
 
     Route::resource('/category', App\Http\Controllers\Admin\Ad_CategoryController::class)->names('admin.category');
@@ -48,12 +51,13 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/admin/order/invoice-print', [Ad_OrderController::class, 'printInvoice'])->name('admin.order.printInvoice');
 });
 
+Route::resource('/product', App\Http\Controllers\FE\ProductController::class)->names('product');
+Route::get('/product/{slug}', [ProductController::class, 'productDetail'])->name('product.detail');
+
 Route::controller(HomeController::class)->group(function () {
     Route::get('/home', 'home')->name('home');
     Route::get('/about', 'about')->name('about');
     Route::get('/contact', 'contact')->name('contact');
-    Route::get('/shop', 'shop')->name('shop');
-    Route::get('/detail', 'detail')->name('detail');
     Route::get('/cart', 'cart')->name('cart');
     Route::get('/checkout', 'checkout')->name('checkout');
 });

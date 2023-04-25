@@ -29,18 +29,38 @@ class Product extends Model
         'category_id'
     ];
 
-    public function categories()
+    public function category()
     {
-        return $this->belongsTo(Category::class, 'foreign_key', 'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function productImage()
+    public function productImages()
     {
         return $this->hasMany(ProductImage::class, 'product_id', 'product_id');
     }
 
-    public function orders()
+    public function carts()
     {
-        return $this->belongsToMany(Order::class);
+        return $this->hasMany(Cart::class, 'product_id', 'product_id');
     }
+
+    public function wishLists()
+    {
+        return $this->hasMany(WishList::class, 'product_id', 'product_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'product_id', 'product_id');
+    }
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class, 'product_id', 'product_id');
+    }
+
+    // public function orders()
+    // {
+    //     return $this->belongsToMany(Order::class);
+    // }
 }

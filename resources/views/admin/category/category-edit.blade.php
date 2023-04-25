@@ -55,26 +55,31 @@
                     <!-- right-column cart -->
                     <div class="col-md-6">
                         <div class="card-body">
+                            @if($category->category_image != null)
+                            <div class="d-flex align-items-center">
+                                <img src="{{ asset('assets/img/upload/category/'.$category->category_image)}}" alt="" style="width: 45px; height: 45px" class="rounded-circle">
+                            </div>
+                            @endif
                             <div class="form-group">
                                 <label for="product_image">File image input</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="product_image" name="category_image">
+                                        <input type="file" class="custom-file-input" id="image" name="category_image">
                                         <label class="custom-file-label" for="exampleInputFile">Choose file image</label>
                                     </div>
                                 </div>
+                                <div id=image-grid></div>
                             </div>
                             <div class="form-group">
                                 <label for="category_intro">Category description</label>
                                 <textarea id="category_intro" name="category_intro" class="form-control" rows="4">{{$category->category_intro}}</textarea>
                             </div>
 
-                            
+
                         </div>
                         <!-- /.card-body -->
                         <div class="cart-footer">
                             <div class="px-5 m-3">
-                                <input type="reset" class="btn btn-secondary" style="width:150px" value="Cancel">
                                 <input type="submit" value="Update" class="btn btn-success float-right" style="width:150px">
                             </div>
                         </div>
@@ -104,6 +109,23 @@
 <script>
     $(function() {
         bsCustomFileInput.init();
+    });
+</script>
+<script>
+    $(document).ready(function(e) {
+        const imageGrid = document.getElementById('image-grid');
+        $('#image').change(function(e) {
+            const files = e.target.files;
+            let reader = new FileReader();
+            for (const file of files) {
+                const img = document.createElement('img');
+                imageGrid.appendChild(img);
+                img.src = URL.createObjectURL(file);
+                img.alt = file.name;
+                img.style.width = '85px';
+                img.style.height = '85px';
+            }
+        });
     });
 </script>
 @endsection

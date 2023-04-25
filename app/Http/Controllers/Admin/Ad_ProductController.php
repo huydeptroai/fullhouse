@@ -54,7 +54,8 @@ class Ad_ProductController extends Controller
 
         //save file image into product-images table
         if ($request->hasFile('image')) {
-            $image_path = public_path('assets/img/upload/product');
+            // $image_path = public_path('assets/img/upload/product');
+            $image_path = 'assets/img/upload/product';
             if (!file_exists($image_path)) {
                 mkdir($image_path, 0777, true);
             }
@@ -69,8 +70,6 @@ class Ad_ProductController extends Controller
                 ]);
             }
         }
-
-
 
         return redirect()->route("admin.product.index")->with('success', "Added Product : {$item['product_name']} ID : {$item['product_id']} Successfully");
     }
@@ -141,10 +140,11 @@ class Ad_ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        // dd($product->productImage()->get() != null);
+        // dd($product->productImage()->get() !=null);
+        $imageFolder = 'assets/img/upload/product/';
         if ($product->productImage()->get() != null) {
             foreach ($product->productImage as $productImage) {
-                $path = $productImage->image_path . '/' . $product->image_name;
+                $path = $imageFolder . $productImage->image_name;
                 if (File::exists($path)) {
                     File::delete($path);
                 }
