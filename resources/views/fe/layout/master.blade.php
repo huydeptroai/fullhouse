@@ -109,8 +109,10 @@
 	</script>
 
 	@yield('myJS_profile')
-
+	
 	<!-- add to cart -->
+	@yield('myJS')
+	
 	<script>
 		$(document).ready(function() {
 			$('#cartEffect1').click(function(e) {
