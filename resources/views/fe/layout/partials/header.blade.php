@@ -107,11 +107,10 @@
 						</div>
 
 						<div class="wrap-icon-section minicart">
-							<!-- <a href="{{ Route('cart') }}" class="link-direction"> -->
 							<a href="#" class="link-direction btnCart-popup">
 								<i class="fa fa-shopping-basket" aria-hidden="true"></i>
 								<div class="left-info">
-									<span class="index count-product-cart">4 items</span>
+									<span class="index count-product-cart" id="count">4 items</span>
 									<span class="title">CART</span>
 								</div>
 							</a>

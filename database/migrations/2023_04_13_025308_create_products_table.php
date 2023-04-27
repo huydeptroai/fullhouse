@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('product_name', 100);
             $table->string('product_slug', 100);
 
+            $table->json('product_image')->nullable();
             $table->string('product_material')->nullable();
             $table->string('product_color')->nullable();
             $table->string('product_size')->nullable();

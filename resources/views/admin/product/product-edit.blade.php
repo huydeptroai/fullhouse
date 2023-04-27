@@ -74,8 +74,8 @@
                             <div class="form-group">
                                 <label for="">File image old</label>
                                 <div class="d-flex align-items-center">
-                                    @foreach($product->productImage as $pImage)
-                                    <img src="{{ asset('assets/img/upload/product/'.$pImage->image_name)}}" alt="productImage" style="width: 65px; height: 65px" class="rounded-circle">
+                                    @foreach($product->product_image as $pImage)
+                                    <img src="{{ asset('assets/img/upload/product/'.$pImage)}}" alt="productImage" style="width: 65px; height: 65px" class="rounded-circle">
                                     @endforeach
                                 </div>
                                 <label for="image">Upload file image new</label>

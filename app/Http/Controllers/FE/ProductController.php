@@ -42,15 +42,21 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        // $avgRating = Review::where('product_id', $product->product_id)->avg('rating');
+        $avgRating = Review::where('product_id', $product->product_id)->avg('rating');
 
-        // $reviews = Review::selectRaw('users.name,users.profile, content, avg(rating) as avd_rating')
-        //     ->join('users', 'reviews.user_id', '=', 'users.user_id')
-        //     ->where('product_id', 'like', $product->product_id)
-        //     ->groupBy('product_id')
-        //     ->get();
+        $reviews = Review::all();
+        $prods_popular = Product::limit(4)->get();
 
-        return view('fe.product-detail', compact('product'));
+        $prods_related = Product::where('category_id', 'like', $product->category_id)
+            ->limit(8)
+            ->get();
+        return view('fe.product-detail', [
+            'product' => $product,
+            'reviews' => $reviews,
+            'avgRating' => $avgRating,
+            'prods_related' => $prods_related,
+            'prods_popular' => $prods_popular
+        ]);
     }
     
     /**
@@ -77,10 +83,15 @@ class ProductController extends Controller
         //
     }
     
-    public function productDetail($slug)
+    public function productDetail($product_slug)
     {
-        $product = Product::where('product_slug', 'like', $slug)->first();
-        dd($product);
+        dd($product_slug);
+        try {
+            $product = Product::where('product_slug', 'like', $product_slug)->first();
+        } catch (\Throwable $th) {
+            abort(404);
+        }
         return view('fe.product-detail', compact('product'));
     }
+
 }

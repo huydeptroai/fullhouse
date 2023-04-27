@@ -127,7 +127,7 @@
                                 <tfoot>
                                     <tr>
                                         <th colspan="5">
-                                            <a href="{{ route('admin.product.create')}}">Create new Product</a>
+                                            <a href="#">Create new</a>
                                         </th>
 
                                     </tr>

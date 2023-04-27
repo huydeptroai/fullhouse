@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->Integer('quantity');
 
-            $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnUpdate()->restrictOnDelete();
 
             $table->string('product_id', 10);
             $table->foreign('product_id')->references('product_id')->on('products')->cascadeOnUpdate()->restrictOnDelete();

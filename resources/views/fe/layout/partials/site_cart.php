@@ -8,14 +8,14 @@
 	<div class="cart-box">
 		<h2>Cart</h2>
 
-		<div class="content-cart">
+		<div class="content-cart" id="content-cart">
 			<div class="product-box">
 				<span class="icon-close">
 					<ion-icon name="close"></ion-icon>
 				</span>
 				<a class="p-image" href="#">
 					<div class="product-image">
-						<figure><img src="{{ asset('/frontend/images/products/digital_1.jpg') }}" alt="product"></figure>
+						<figure><img src="#" alt="image_product"></figure>
 					</div>
 					<p class="product-name">Radiant-360 R6 Wireless Omnidirectional Speaker [White]</p>
 				</a>
@@ -27,12 +27,13 @@
 			</div>
 
 		</div>
+		
 
 		<div class="summary-site-cart">
 			<p class="total-cart">Total: $ 123</p>
 			<div class="group-btn">
-				<a href="" type="submit" class="btn">View Cart</a>
-				<a href="" class="btn">Checkout</a>
+				<a href="{{ Route('cart') }}" class="btn">View Cart</a>
+				<a href="{{ Route('checkout') }}" class="btn">Checkout</a>
 			</div>
 		</div>
 

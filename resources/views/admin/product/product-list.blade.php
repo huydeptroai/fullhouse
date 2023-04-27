@@ -70,8 +70,8 @@
                                         </td>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                @foreach($item->productImages as $pImage)
-                                                <img src="{{ asset('assets/img/upload/product/'.$pImage->image_name)}}" alt="productImage" style="width: 45px; height: 45px" class="rounded-circle">
+                                                @foreach($item->product_image as $pImage)
+                                                <img src="{{ asset('assets/img/upload/product/'.$pImage)}}" alt="" style="width: 45px; height: 45px" class="rounded-circle">
                                                 @endforeach
                                             </div>
 
@@ -87,7 +87,8 @@
                                                             {{$item->category->category_name_1}}
                                                         </p>
                                                         <p class="text-muted mb-0">
-                                                            {{$item->updated_at}}
+                                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->updated_at)->diffForHumans()}}
+                                                            
                                                         </p>
                                                     </div>
                                                 </div>

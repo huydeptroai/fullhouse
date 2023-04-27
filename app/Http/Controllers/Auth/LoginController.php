@@ -39,7 +39,8 @@ class LoginController extends Controller
             $password = $request->input('password');
      
             if( Auth::attempt(['email' => $email, 'password' =>$password])) {
-                // Kiểm tra đúng email và mật khẩu sẽ chuyển trang
+                // Kiểm tra đúng email và mật khẩu sẽ chuyển tran
+                
                 return redirect();
             } else {
                 // Kiểm tra không đúng sẽ hiển thị thông báo lỗi

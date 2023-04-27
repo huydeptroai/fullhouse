@@ -11,13 +11,15 @@ class Product extends Model
 
     protected $primaryKey = 'product_id';
     protected $casts = [
-        'product_id' => 'string'
+        'product_id' => 'string',
+        'product_image' => 'array'
     ];
     protected $table = 'products';
     protected $fillable = [
         'product_id',
         'product_name',
         'product_slug',
+        'product_image',
         'product_material',
         'product_color',
         'product_size',
@@ -34,10 +36,6 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function productImages()
-    {
-        return $this->hasMany(ProductImage::class, 'product_id', 'product_id');
-    }
 
     public function carts()
     {
@@ -59,8 +57,8 @@ class Product extends Model
         return $this->hasMany(OrderDetail::class, 'product_id', 'product_id');
     }
 
-    // public function orders()
-    // {
-    //     return $this->belongsToMany(Order::class);
-    // }
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'product_id', 'order_id');
+    }
 }

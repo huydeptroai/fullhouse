@@ -1,5 +1,7 @@
 @extends('fe.layout.master')
 
+@section('title', 'products')
+
 @section('content')
 <main id="main" class="main-site left-sidebar home-page home-01 ">
 
@@ -65,7 +67,7 @@
                             <div class="product product-style-3 equal-elem ">
                                 <div class="product-thumnail">
                                     <a href="{{ route('product.show', $product->product_id)}}" title="{{$product->product_name}}">
-                                        <figure><img src="{{ asset('assets/img/upload/product/'.$product->productImages[0]->image_name) }}" alt="{{$product->product_name}}"></figure>
+                                        <figure><img src="{{ asset('assets/img/upload/product/'.$product->product_image['0']) }}" alt="{{$product->product_name}}"></figure>
                                     </a>
                                     <div class="group-flash">
                                         @if($product->discount > 0)
@@ -76,11 +78,11 @@
                                         <!-- <span class="flash-item new-label">new</span> -->
                                         <span class="flash-item bestseller-label">Bestseller</span>
                                     </div>
-                                   
+
                                 </div>
 
                                 <div class="product-info">
-                                    <a href="{{ route('product.show', $product->product_id)}}" class="product-name"><span>{{$product->product_name}}</span></a>
+                                    <a href="{{ route('product.detail', $product->product_slug)}}" class="product-name"><span>{{$product->product_name.' - '.$product->product_id}}</span></a>
                                     <div class="wrap-price">
                                         <span class="product-price">
                                             ${{number_format($product->product_price - $product->discount,2)}}
@@ -89,7 +91,7 @@
                                         <span style="text-decoration: line-through;">${{number_format($product->product_price,2)}}</span>
                                         @endif
                                     </div>
-                                    <a href="#" class="btn add-to-cart">Add To Cart</a>
+                                    <a href="#" class="btn add-to-cart" data-id="{{$product->product_id}}">Add To Cart</a>
                                 </div>
                             </div>
                         </li>
@@ -272,3 +274,4 @@
 
 </main>
 @endsection
+

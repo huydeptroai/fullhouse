@@ -11,8 +11,10 @@ class HomeController extends Controller
     public function home()
     {
         $product_sale = Product::where('discount', '>', 0)->get();
+        $product_latest = Product::orderByDesc('updated_at')->get();
         return view('fe.home', [
-            'product_sale' => $product_sale
+            'product_sale' => $product_sale,
+            'product_latest' => $product_latest
         ]);
     }
 

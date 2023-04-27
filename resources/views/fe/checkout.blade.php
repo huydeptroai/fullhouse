@@ -35,22 +35,26 @@
 							<label for="phone">Phone number<span>*</span></label>
 							<input id="phone" type="text" name="phone" value="" placeholder="10 digits format">
 						</p>
+						<div class="">
+							<div class="row-in-form">
+								<label for="city">City/Province: <span>*</span></label>
+								<input id="city" type="text" name="city" value="" placeholder="City name">
+							</div>
+							<div class="row-in-form">
+								<label for="city">District:<span>*</span></label>
+								<input id="city" type="text" name="city" value="" placeholder="City name">
+							</div>
+						</div>
 						<p class="row-in-form">
-							<label for="add">Address:</label>
+							<label for="add">Address:<span>*</span></label>
 							<input id="add" type="text" name="add" value="" placeholder="Street at apartment number">
 						</p>
 						<p class="row-in-form">
-							<label for="country">Country<span>*</span></label>
-							<input id="country" type="text" name="country" value="" placeholder="United States">
+							<label for="country">Note:</label>
+							<textarea style="border:1px solid black; width: 100%;" name="note" id="note" cols="30" rows="10"></textarea>
 						</p>
-						<p class="row-in-form">
-							<label for="zip-code">Postcode / ZIP:</label>
-							<input id="zip-code" type="number" name="zip-code" value="" placeholder="Your postal code">
-						</p>
-						<p class="row-in-form">
-							<label for="city">Town / City<span>*</span></label>
-							<input id="city" type="text" name="city" value="" placeholder="City name">
-						</p>
+						
+						
 						<p class="row-in-form fill-wife">
 							<label class="checkbox-field">
 								<input name="create-account" id="create-account" value="forever" type="checkbox">
