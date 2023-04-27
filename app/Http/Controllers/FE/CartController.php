@@ -16,16 +16,15 @@ class CartController extends Controller
     public function cart()
     {
         // $cart = Cart::all();
-        $product_popular = Product::all()->limit(4);
+        $product_popular = Product::limit(4);
         $user = Auth::user();
-        $cart = Cart::selectRaw('carts.*, products.*, (product_price * carts.quantity) as amount')
+        $carts = Cart::selectRaw('carts.*, products.*, ((product_price-discount) * carts.quantity) as amount')
             ->join('products', 'carts.product_id', 'like', 'products.product_id')
-            ->where('user_id', $user->id)
-            ->groupBy('carts.product_id')
+            ->where('user_id', 1)
             ->get();
-
+        
         return view('fe.cart', [
-            'cart' => $cart,
+            'carts' => $carts,
             'product_popular' => $product_popular
         ]);
     }
@@ -35,7 +34,7 @@ class CartController extends Controller
         $user = Auth::user();
         $list_cart = Cart::where('user_id', 1)->get();
 
-        $cart = Cart::selectRaw(
+        $carts = Cart::selectRaw(
             'carts.id,
             carts.product_id,
             product_name,
@@ -50,7 +49,7 @@ class CartController extends Controller
 
 
 
-        return response()->json($cart);
+        return response()->json($carts);
         // return response()->json($img);
     }
 

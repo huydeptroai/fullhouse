@@ -114,8 +114,8 @@
 
 	@yield('myJS_profile')
 
+	
 	<!-- add to cart -->
-	@yield('myJS')
 	<script>
 		$(document).ready(function() {
 			const url = "{{ Route('addCart') }}" ?? "";
@@ -142,10 +142,9 @@
 						alert('add product to cart successfully.');
 						//show site-cart
 						wrapper_cart.classList.add('active-popup');
-
+						setTimeout(getCart, 1000);
 					},
 				});
-				setTimeout(getCart, 1000);
 			});
 
 			function getCart() {
@@ -177,7 +176,9 @@
 									</a>
 									<div class="p-info">
 										<span class="product-price">$${v.price}</span>
-										<span class="product-quantity"> <input type="number" class="" value="${v.quantity}"></span>
+										<span class="product-quantity">
+											<input type="number" class="product-qty" value="${v.quantity}" data-id="${v.id}">
+										</span>
 										<span class="product-amount">$${v.amount}</span>
 									</div>
 								</div>`;
@@ -192,17 +193,14 @@
 			getCart();
 
 			//edit cart
-			$('body').on('keyup', '#edit-cate', function() {
-				var category_id = $(this).data('id');
-				$.get('admin/category/' + category_id + '/edit', function(data) {
-					$('#cateCrudModal').html("Edit cate");
-					$('#btn-save').val("edit-cate");
-					$('#ajax-crud-modal').modal('show');
-					$('#category_id').val(data.category_id);
-					$('#category_name_1').val(data.category_name_1);
-					$('#category_name_2').val(data.category_name_2);
-					$('#category_intro').val(data.category_intro);
-				});
+			$('body').on('change', 'input[name="product-quatity"]', function() {
+				e.preventDefault();
+				var cart_id = $(this).data('id');
+				let pid = $(this).data("id") ?? '';
+				let quantity = $('input[name="product-quatity"]').val();
+				setTimeout(
+					alert("hello "+ cart_id), 1200
+				);
 			});
 
 			//delete cart
@@ -217,6 +215,7 @@
 						url: "{{ url('delete-cart')}}" + '/' + cart_id,
 						success: function(data) {
 							$("#cart_id_" + cart_id).remove();
+							setTimeout(getCart, 1000);
 						},
 						error: function(data) {
 							// console.log('Error:', data);
@@ -231,6 +230,7 @@
 		});
 	</script>
 
+@yield('myJS')
 
 
 

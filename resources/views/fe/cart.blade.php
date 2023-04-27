@@ -17,26 +17,34 @@
                 <h3 class="box-title">Products Name</h3>
                 <ul class="products-cart">
                     <!-- cart 1 start -->
-                    <li class="pr-cart-item">
+                    @php
+                    $total = 0
+                    @endphp
+                    @forelse($carts as $cart)
+                    <li class="pr-cart-item" id="cart_id_{{$cart->id}}">
                         <!-- image start -->
                         <div class="product-image">
-                            <figure><img src="{{ asset('/frontend/images/products/digital_18.jpg') }}" alt=""></figure>
+                            <figure><img src="{{  asset('assets/img/upload/product/'.$cart->product->product_image['0']) }}" alt=""></figure>
                         </div>
                         <!-- image end-->
                         <!-- name start-->
                         <div class="product-name">
-                            <a class="link-to-product" href="#">Radiant-360 R6 Wireless Omnidirectional Speaker [White]</a>
+                            <a class="link-to-product" href="{{ route('product.show', $cart->product_id)}}">
+                                <p>{{$cart->product_name}}</p>
+                                <small>{{$cart->product_id}}</small>
+                            </a>
                         </div>
                         <!-- name end-->
                         <!-- price -->
                         <div class="price-field product-price">
-                            <p class="price">$256.00</p>
+                            <p class="price">${{$cart->product_price}}</p>
+                            <p class="price" style="text-decoration: line-through;color:red">${{$cart->discount}}</p>
                         </div>
                         <!-- price end -->
                         <!-- quantity start -->
                         <div class="quantity">
                             <div class="quantity-input">
-                                <input type="text" name="product-quatity" value="1" data-max="120" pattern="[0-9]*">
+                                <input type="text" name="product-quatity" value="{{$cart->quantity}}" data-id="{{$cart->id}}" data-max="120" pattern="[0-9]*">
                                 <a class="btn btn-increase" href="#"></a>
                                 <a class="btn btn-reduce" href="#"></a>
                             </div>
@@ -44,11 +52,11 @@
                         <!-- quantity end -->
                         <!-- amount start-->
                         <div class="price-field sub-total">
-                            <p class="price">$256.00</p>
+                            <p class="price">${{$cart->amount}}</p>
                         </div>
                         <!-- amount end-->
                         <!-- action delete -->
-                        <div class="delete">
+                        <div class="delete delete-cart" data-id="{{$cart->id}}">
                             <a href="#" class="btn btn-delete" title="">
                                 <span>Delete from your cart</span>
                                 <i class="fa fa-times-circle" aria-hidden="true"></i>
@@ -56,48 +64,14 @@
                         </div>
                         <!-- action delete end -->
                     </li>
+                    <?php $total += $cart->amount ?>
+                    @empty
+                    <li class="pr-cart-item">
+                        <p>No thing</p>
+                        <p><a href="{{Route('product.index')}}">Go back to the shop</a></p>
+                    </li>
+                    @endforelse
                     <!-- cart 1 end -->
-                    <!-- cart 2 start -->
-                    <li class="pr-cart-item">
-                        <!-- image start -->
-                        <div class="product-image">
-                            <figure><img src="{{ asset('/frontend/images/products/digital_18.jpg') }}" alt=""></figure>
-                        </div>
-                        <!-- image end-->
-                        <!-- name start-->
-                        <div class="product-name">
-                            <a class="link-to-product" href="#">Radiant-360 R6 Wireless Omnidirectional Speaker [White]</a>
-                        </div>
-                        <!-- name end-->
-                        <!-- price -->
-                        <div class="price-field product-price">
-                            <p class="price">$256.00</p>
-                        </div>
-                        <!-- price end -->
-                        <!-- quantity start -->
-                        <div class="quantity">
-                            <div class="quantity-input">
-                                <input type="text" name="product-quatity" value="1" data-max="120" pattern="[0-9]*">
-                                <a class="btn btn-increase" href="#"></a>
-                                <a class="btn btn-reduce" href="#"></a>
-                            </div>
-                        </div>
-                        <!-- quantity end -->
-                        <!-- amount start-->
-                        <div class="price-field sub-total">
-                            <p class="price">$256.00</p>
-                        </div>
-                        <!-- amount end-->
-                        <!-- action delete -->
-                        <div class="delete">
-                            <a href="#" class="btn btn-delete" title="">
-                                <span>Delete from your cart</span>
-                                <i class="fa fa-times-circle" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                        <!-- action delete end -->
-                    </li>
-                    <!-- cart 2 end -->
 
                 </ul>
             </div>
@@ -108,7 +82,7 @@
                     <h4 class="title-box">Order Summary</h4>
                     <p class="summary-info">
                         <span class="title">Subtotal</span>
-                        <b class="index">$512.00</b>
+                        <b class="index">${{ $total }}</b>
                     </p>
 
                     <div class="summary-item">
@@ -154,7 +128,7 @@
             <div class="wrap-show-advance-info-box style-1 box-in-site">
                 <h3 class="title-box">Most Viewed Products</h3>
                 <div class="wrap-products">
-                    <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"1"},"768":{"items":"2"},"992":{"items":"3"},"1200":{"items":"4"}}'>
+                    <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"2"},"992":{"items":"3"},"1200":{"items":"4"}}'>
                         <!-- product 1 -->
                         <div class="product product-style-2 equal-elem ">
                             <div class="product-thumnail">
@@ -328,4 +302,9 @@
     </div><!--end container-->
 
 </main>
+@endsection
+
+@section('myJS')
+
+
 @endsection

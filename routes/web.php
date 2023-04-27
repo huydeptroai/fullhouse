@@ -61,12 +61,13 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/home', 'home')->name('home');
     Route::get('/about', 'about')->name('about');
     Route::get('/contact', 'contact')->name('contact');
-    Route::get('/cart', 'cart')->name('cart');
+    // Route::get('/cart', 'cart')->name('cart');
     Route::get('/checkout', 'checkout')->name('checkout');
 });
 
 
 Route::controller(CartController::class)->group(function () {
+    Route::get('/cart', 'cart')->name('cart');
     Route::post('add-cart', 'addCart')->name('addCart');
     Route::get('add-cart', 'showCart')->name('showCart');
     Route::DELETE('delete-cart/{cart_id}', 'destroy')->name('deleteCart');
