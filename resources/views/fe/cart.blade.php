@@ -15,7 +15,7 @@
             <!--1 cart start -->
             <div class="wrap-iten-in-cart">
                 <h3 class="box-title">Products Name</h3>
-                <ul class="products-cart">
+                <ul class="products-cart" id="cart-page">
                     <!-- cart 1 start -->
                     @php
                     $total = 0
@@ -44,7 +44,7 @@
                         <!-- quantity start -->
                         <div class="quantity">
                             <div class="quantity-input">
-                                <input type="text" name="product-quatity" value="{{$cart->quantity}}" data-id="{{$cart->id}}" data-max="120" pattern="[0-9]*">
+                                <input type="text" name="product-quatity" value="{{$cart->quantity}}" data-id="{{$cart->product_id}}" data-max="120" pattern="[0-9]*">
                                 <a class="btn btn-increase" href="#"></a>
                                 <a class="btn btn-reduce" href="#"></a>
                             </div>
@@ -56,7 +56,7 @@
                         </div>
                         <!-- amount end-->
                         <!-- action delete -->
-                        <div class="delete delete-cart" data-id="{{$cart->id}}">
+                        <div class="delete delete-cart" data-cid="{{$cart->id}}">
                             <a href="#" class="btn btn-delete" title="">
                                 <span>Delete from your cart</span>
                                 <i class="fa fa-times-circle" aria-hidden="true"></i>
@@ -82,14 +82,14 @@
                     <h4 class="title-box">Order Summary</h4>
                     <p class="summary-info">
                         <span class="title">Subtotal</span>
-                        <b class="index">${{ $total }}</b>
+                        <b class="index total-cart">${{ $total }}</b>
                     </p>
 
                     <div class="summary-item">
                         <!-- <h4 class="title-box">Discount Codes</h4> -->
                         <p class="row-in-form">
                             <label class="col-4" for="coupon-code">Discount code:</label>
-                            <input class="col-8" id="coupon-code" type="text" name="coupon-code" value="" placeholder="Enter Your Coupon code">
+                            <input class="col-8" id="coupon-code" type="text" name="coupon-code" value="" placeholder="Enter Your Coupon code" data-total="{{$total}}">
                         </p>
                         <a href="#" class="title">
                             <!-- <ion-icon name="arrow-forward"></ion-icon> -->
@@ -99,11 +99,11 @@
 
                     <p class="summary-info">
                         <span class="title">Discount:</span>
-                        <b class="index">0</b>
+                        <b class="index value-coupon">0</b>
                     </p>
                     <p class="summary-info total-info ">
                         <span class="title">Total</span>
-                        <b class="index">$512.00</b>
+                        <b class="index result">${{ $total }}</b>
                     </p>
                 </div>
 
@@ -305,6 +305,41 @@
 @endsection
 
 @section('myJS')
+<!-- cal coupon -->
+<script>
+    $(document).ready(function() {
 
+        $('body').on('keyup', '#coupon-code', function() {
+            setTimeout(post_coupon, 1000);
+        });
+
+        post_coupon();
+
+        function post_coupon() {
+            let coupon_code = $('#coupon-code').val() ?? '';
+            let value_order = "{{$total}}";
+
+            if (coupon_code == "") {
+                return;
+            }
+            // alert('code ' + coupon_code + ' value order: ' + value_order);
+            $.ajax({
+                type: 'post',
+                url: "{{route('postCoupon')}}",
+                data: {
+                    code: coupon_code,
+                    value_order: value_order
+                },
+                success: function(data) {
+                    $('.value-coupon').html("$" + parseFloat(data).toFixed(2));
+                    let total = (value_order - data).toFixed(2);
+                    $('.result').html("$" + total);
+
+                }
+            });
+        }
+
+    });
+</script>
 
 @endsection

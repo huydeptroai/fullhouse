@@ -4,6 +4,8 @@ namespace App\Http\Controllers\FE;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Coupon;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +24,7 @@ class CartController extends Controller
             ->join('products', 'carts.product_id', 'like', 'products.product_id')
             ->where('user_id', 1)
             ->get();
-        
+
         return view('fe.cart', [
             'carts' => $carts,
             'product_popular' => $product_popular
@@ -35,19 +37,13 @@ class CartController extends Controller
         $list_cart = Cart::where('user_id', 1)->get();
 
         $carts = Cart::selectRaw(
-            'carts.id,
-            carts.product_id,
-            product_name,
-            product_image,
-            quantity,
+            'carts.*,
+            products.*,
             (product_price - discount) as price,
             ((product_price-discount) * carts.quantity) as amount'
         )->join('products', 'carts.product_id', 'like', 'products.product_id')
             ->where('carts.user_id', 1)
             ->get();
-
-
-
 
         return response()->json($carts);
         // return response()->json($img);
@@ -57,26 +53,27 @@ class CartController extends Controller
     {
 
         // dd($request);
-        $user = Auth::user();
-        // $cart = $request->all();
+        // $user = Auth::user();
 
         $pid = $request->pid;
-        $quantity = $request->quantity;
+        $quantity = $request->quantity > 0 ? $request->quantity : 1;
         $prod = Product::find($pid);
 
-        if ($prod->product_quantity < $quantity) {
-            return response()->json_last_error_msg('Over quantity!');
-        }
+        // if ($prod->product_quantity < $quantity) {
+        //     return response()->json_last_error_msg('Over quantity!');
+        // }
 
-        $cart = Cart::where('product_id', 'like', $pid)->first();
-        if ($cart) {
-            $quantity += $cart->quantity;
+        if ($request->action == null) {
+            $cart = Cart::where('product_id', 'like', $pid)->first();
+            if ($cart) {
+                $quantity += $cart->quantity;
+            }
         }
 
         $cart = Cart::updateOrCreate(
             [
                 'user_id' => 1,
-                'product_id' => $pid
+                'product_id' => $pid,
             ],
             [
                 'quantity' => $quantity
@@ -103,5 +100,21 @@ class CartController extends Controller
         $cart->delete();
         return response()->json($cart);
         // return redirect()->action([CartController::class, 'showCart']);
+    }
+
+    public function postCoupon(Request $request)
+    {
+        $code = $request->code;
+        $value_order = $request->value_order;
+
+        $coupon = Coupon::where('code', 'like', $code)
+            ->where('value_order', '<=', $value_order)
+            ->first();
+        $times = Order::where('coupon_id', $coupon->id)->count('id');
+
+        if ($coupon->times > $times) {
+            return $coupon->value;
+        }
+        return 0;
     }
 }

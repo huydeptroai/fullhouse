@@ -45,7 +45,7 @@
 					<a href="{{ route('admin.product.index')}}" class="nav-link">
 						<i class="nav-icon fas fa-copy"></i>
 						<p>
-							Product
+							Products
 							<i class="fas fa-angle-left right"></i>
 							<span class="badge badge-info right">6</span>
 						</p>
@@ -83,7 +83,7 @@
 					<a href="#" class="nav-link">
 						<i class="nav-icon fas fa-chart-pie"></i>
 						<p>
-							Order
+							Sales
 							<i class="right fas fa-angle-left"></i>
 						</p>
 					</a>
@@ -101,7 +101,13 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="" class="nav-link">
+							<a href="{{ route('admin.coupon.index') }}" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Coupons</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link">
 								<i class="far fa-circle nav-icon"></i>
 								<p>Shipping free</p>
 							</a>

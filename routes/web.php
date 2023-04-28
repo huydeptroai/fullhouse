@@ -38,11 +38,12 @@ Route::get('/admin', function () {
 
 
 Route::group(['prefix' => 'admin'], function () {
-    
+
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
 
     Route::resource('/category', App\Http\Controllers\Admin\Ad_CategoryController::class)->names('admin.category');
     Route::resource('/product', App\Http\Controllers\Admin\Ad_ProductController::class)->names('admin.product');
+    Route::resource('/coupon', App\Http\Controllers\Admin\Ad_CouponController::class)->names('admin.coupon');
     Route::resource('/user', App\Http\Controllers\Admin\Ad_UserController::class)->names('admin.user');
 
     // Route::resource('/admin/category', App\Http\Controllers\Admin\AjaxCategoryController::class)->names('admin.category');
@@ -71,6 +72,7 @@ Route::controller(CartController::class)->group(function () {
     Route::post('add-cart', 'addCart')->name('addCart');
     Route::get('add-cart', 'showCart')->name('showCart');
     Route::DELETE('delete-cart/{cart_id}', 'destroy')->name('deleteCart');
+    Route::post('get-coupon', 'postCoupon')->name('postCoupon');
 });
 
 

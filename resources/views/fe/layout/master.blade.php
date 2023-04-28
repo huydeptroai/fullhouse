@@ -114,39 +114,65 @@
 
 	@yield('myJS_profile')
 
-	
 	<!-- add to cart -->
 	<script>
 		$(document).ready(function() {
 			const url = "{{ Route('addCart') }}" ?? "";
+			var timeout = null;
 
 			$.ajaxSetup({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
-
+			//create cart
 			$('.add-to-cart').click(function(e) {
 				e.preventDefault();
+				// let pid = $(this).data("id") ?? '';
+				// let quantity = $('input[name="product-quatity"]').val() ?? '';
+
+				var data = {
+					pid: $('.add-to-cart').data("id") ?? '',
+					quantity: $('input[name="product-quatity"]').val() ?? ''
+				};
+				postAjax(data);
+			});
+
+			//edit cart
+			$('body').on('change', 'input[name="product-quatity"]', function(e) {
+				e.preventDefault();
+				//Note: we have many input with this name;
 				let pid = $(this).data("id") ?? '';
-				let quantity = $('input[name="product-quatity"]').val() ?? 1;
+				let quantity = $(this).val() ?? '';
+
+				var data = {
+					pid: pid,
+					quantity: quantity,
+					action: 'edit'
+				};
+				if (data.quantity == 0) {
+					return;
+				}
+				// alert(data.pid);
+				console.log(data);
+				postAjax(data);
+			});
+
+			function postAjax(data) {
 				$.ajax({
 					type: "POST",
 					url: url,
-					data: {
-						pid: pid,
-						quantity: quantity,
-						// _token: '{{ csrf_token() }}',
-					},
+					data: data,
 					success: function(data) {
-						alert('add product to cart successfully.');
+						// alert('add product to cart successfully.');
 						//show site-cart
 						wrapper_cart.classList.add('active-popup');
-						setTimeout(getCart, 1000);
+						getCart();
 					},
 				});
-			});
+			}
 
+			//display site cart
 			function getCart() {
 				$.get(
 					"{{ route('showCart')}}",
@@ -156,6 +182,8 @@
 						let count = 0;
 						let total = 0;
 						let img = '';
+						var cart_page = '';
+
 						$.each(data, function(k, v) {
 							var arr_img = JSON.parse(v.product_image);
 							count++;
@@ -165,7 +193,7 @@
 							let detail = "{{ route('product.show', " + id + ") }}";
 
 							cart += `<div class="product-box" id="cart_id_${v.id}">
-									<span class="icon-close delete-cart" data-id="${v.id}">
+									<span class="icon-close delete-cart" data-cid="${v.id}">
 										<ion-icon name="close-outline"></ion-icon>
 									</span>
 									<a class="p-image" href="${detail}">
@@ -177,37 +205,72 @@
 									<div class="p-info">
 										<span class="product-price">$${v.price}</span>
 										<span class="product-quantity">
-											<input type="number" class="product-qty" value="${v.quantity}" data-id="${v.id}">
+											<input type="number" name="product-quatity" value="${v.quantity}" data-id="${v.product_id}">
 										</span>
 										<span class="product-amount">$${v.amount}</span>
 									</div>
 								</div>`;
+
+							cart_page += `
+										<li class="pr-cart-item" id="cart_id_${v.id}">
+									<!-- image start -->
+									<div class="product-image">
+										<figure><img src="${path}" alt="${v.product_name}"></figure>
+									</div>
+									<!-- image end-->
+									<!-- name start-->
+									<div class="product-name">
+										<a class="link-to-product" href="${detail}">
+											<p>${v.product_name}</p>
+											<small>${v.product_id}</small>
+										</a>
+									</div>
+									<!-- name end-->
+									<!-- price -->
+									<div class="price-field product-price">
+										<p class="price">$${v.product_price}</p>
+										<p class="price" style="text-decoration: line-through;color:red">${v.discount}</p>
+									</div>
+									<!-- price end -->
+									<!-- quantity start -->
+									<div class="quantity">
+										<div class="quantity-input">
+											<input type="text" name="product-quatity" value="${v.quantity}" data-id="${v.product_id}" data-max="120" pattern="[0-9]*">
+											<a class="btn btn-increase" href="#"></a>
+											<a class="btn btn-reduce" href="#"></a>
+										</div>
+									</div>
+									<!-- quantity end -->
+									<!-- amount start-->
+									<div class="price-field sub-total">
+										<p class="price">$${v.amount}</p>
+									</div>
+									<!-- amount end-->
+									<!-- action delete -->
+									<div class="delete delete-cart" data-cid="${v.id}">
+										<a href="#" class="btn btn-delete" title="">
+											<span>Delete from your cart</span>
+											<i class="fa fa-times-circle" aria-hidden="true"></i>
+										</a>
+									</div>
+									<!-- action delete end -->
+								</li>`;
 						});
 
+						$('#cart-page').html(cart_page);
 						$('#content-cart').html(cart);
 						$('#count').html(count + ' items');
-						$('.total-cart').html('Total: $' + total);
+						$('.total-cart').html('Total: $' + total.toFixed(2));
 					}
 				);
 			};
 			getCart();
 
-			//edit cart
-			$('body').on('change', 'input[name="product-quatity"]', function() {
-				e.preventDefault();
-				var cart_id = $(this).data('id');
-				let pid = $(this).data("id") ?? '';
-				let quantity = $('input[name="product-quatity"]').val();
-				setTimeout(
-					alert("hello "+ cart_id), 1200
-				);
-			});
-
 			//delete cart
 			$('body').on('click', '.delete-cart', function(e) {
 				e.preventDefault();
 
-				let cart_id = $(this).data("id") ?? '';
+				let cart_id = $(this).data("cid") ?? '';
 
 				if (confirm('Delete this cart-item?')) {
 					$.ajax({
@@ -230,7 +293,7 @@
 		});
 	</script>
 
-@yield('myJS')
+	@yield('myJS')
 
 
 

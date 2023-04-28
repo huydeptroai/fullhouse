@@ -26,21 +26,23 @@ class Order extends Model
         'coupon_id',
     ];
 
+    //many - one
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
+    //many - one
     public function coupon()
     {
         return $this->belongsTo(Coupon::class);
     }
-
+    //one - many
     public function orderDetails()
     {
         return $this->hasMany(OrderDetail::class);
     }
-
+    
+    //many - many
     public function products()
     {
         return $this->belongsToMany(Product::class, 'order_details', 'order_id', 'product_id');

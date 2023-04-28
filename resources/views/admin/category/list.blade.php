@@ -128,10 +128,8 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-
-                        <form id="cateForm" method="post" enctype="multipart/form-data">
-
+                    <form id="cateForm" method="post" enctype="multipart/form-data">
+                        <div class="modal-body">
                             <div class="row">
                                 <!-- left-column cart -->
                                 <div class="col-md-6">
@@ -179,17 +177,14 @@
                                 </div>
                                 <!-- right-column cart end-->
                             </div>
-                            <!-- button action -->
-
-                            <!-- button action end -->
-                        </form>
-
-
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="btn-save" value="create">Save</button>
-                    </div>
+                        </div>
+                        <!-- button action -->
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="btn-save" value="create">Save</button>
+                        </div>
+                        <!-- button action end -->
+                    </form>
                 </div>
                 <!-- /.modal-content -->
             </div>
@@ -294,7 +289,7 @@
 
                 if (actionType == "create-cate") {
                     $('#cates-crud').prepend(cate);
-                    
+
                 } else {
                     $("#cate_id_" + data.id).replaceWith(cate);
                 }
