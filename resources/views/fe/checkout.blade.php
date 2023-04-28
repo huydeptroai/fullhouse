@@ -17,107 +17,113 @@
 				<div class="wrap-address-billing">
 					<h3 class="box-title">Billing Address</h3>
 					<form action="#" method="post" name="frm-billing">
-						<div class="row-first-last-name">
+						<div class="col-12">
+							<div class="row-first-last-name">
+								<p class="row-in-form">
+									<label for="fname">first name<span>*</span></label>
+									<input id="fname" type="text" name="fname" value="" placeholder="Your name">
+								</p>
+								<p class="row-in-form row-last-name-right">
+									<label for="lname">last name<span>*</span></label>
+									<input id="lname" type="text" name="lname" value="" placeholder="Your last name">
+								</p>
+							</div>
 							<p class="row-in-form">
-								<label for="fname">first name<span>*</span></label>
-								<input id="fname" type="text" name="fname" value="" placeholder="Your name">
+								<label for="email">Email Addreess:</label>
+								<input id="email" type="email" name="email" value="" placeholder="Type your email">
 							</p>
-							<p class="row-in-form row-last-name-right">
-								<label for="lname">last name<span>*</span></label>
-								<input id="lname" type="text" name="lname" value="" placeholder="Your last name">
+							<p class="row-in-form">
+								<label for="phone">Phone number<span>*</span></label>
+								<input id="phone" type="text" name="phone" value="" placeholder="10 digits format">
 							</p>
-						</div>
-						<p class="row-in-form">
-							<label for="email">Email Addreess:</label>
-							<input id="email" type="email" name="email" value="" placeholder="Type your email">
-						</p>
-						<p class="row-in-form">
-							<label for="phone">Phone number<span>*</span></label>
-							<input id="phone" type="text" name="phone" value="" placeholder="10 digits format">
-						</p>
-						<div class="">
-							<div class="row-in-form">
+							<p class="row-in-form">
 								<label for="city">City/Province: <span>*</span></label>
 								<input id="city" type="text" name="city" value="" placeholder="City name">
-							</div>
-							<div class="row-in-form">
+							</p>
+							<p class="row-in-form">
 								<label for="city">District:<span>*</span></label>
 								<input id="city" type="text" name="city" value="" placeholder="City name">
-							</div>
+							</p>
+							<p class="row-in-form">
+								<label for="add">Address:<span>*</span></label>
+								<input id="add" type="text" name="add" value="" placeholder="Street at apartment number">
+							</p>
+							<p class="row-in-form">
+								<label for="country">Note:</label>
+								<textarea style="border:1px solid black;" name="note" id="note" cols="30" rows="10"></textarea>
+							</p>
+							<p class="row-in-form fill-wife">
+								<label class="checkbox-field">
+									<input name="create-account" id="create-account" value="forever" type="checkbox">
+									<span>Create an account?</span>
+								</label>
+								<label class="checkbox-field">
+									<input name="different-add" id="different-add" value="forever" type="checkbox">
+									<span>Ship to a different address?</span>
+								</label>
+							</p>
 						</div>
-						<p class="row-in-form">
-							<label for="add">Address:<span>*</span></label>
-							<input id="add" type="text" name="add" value="" placeholder="Street at apartment number">
-						</p>
-						<p class="row-in-form">
-							<label for="country">Note:</label>
-							<textarea style="border:1px solid black; width: 100%;" name="note" id="note" cols="30" rows="10"></textarea>
-						</p>
-						
-						
-						<p class="row-in-form fill-wife">
-							<label class="checkbox-field">
-								<input name="create-account" id="create-account" value="forever" type="checkbox">
-								<span>Create an account?</span>
-							</label>
-							<label class="checkbox-field">
-								<input name="different-add" id="different-add" value="forever" type="checkbox">
-								<span>Ship to a different address?</span>
-							</label>
-						</p>
+						<!-- summary start -->
+						<div class="summary summary-checkout">
+							<div class="summary-item shipping-method">
+								<h4 class="title-box f-title">Shipping method</h4>
+								<p class="summary-info"><span class="title">Free delivery nationwide</span></p>
+								<p class="summary-info"><span class="title">Flat Rate</span></p>
+								<p class="summary-info"><span class="title">Fixed $50.00</span></p>
+							</div>
+
+							<div class="summary-item payment-method">
+								<h4 class="title-box">Payment Method</h4>
+								<p class="summary-info"><span class="title">Check / Money order</span></p>
+								<p class="summary-info"><span class="title">Credit Cart (saved)</span></p>
+
+								<div class="choose-payment-methods">
+									<label class="payment-method">
+										<input name="payment-method" id="payment-method-bank" value="bank" type="radio">
+										<span>Direct Bank Transder</span>
+										<span class="payment-desc">
+											- Beneficiary: <strong>FULL HOUSE</strong>
+										</span>
+										<span class="payment-desc">
+											- Account No: <strong>1200 1200 12000</strong>
+										</span>
+										<span class="payment-desc">
+											- At Bank: <strong>BIDV</strong>
+										</span>
+									</label>
+									<label class="payment-method">
+										<input name="payment-method" id="payment-method-visa" value="visa" type="radio">
+										<span>visa</span>
+										<span class="payment-desc">There are many variations of passages of Lorem Ipsum available</span>
+									</label>
+									<label class="payment-method">
+										<input name="payment-method" id="payment-method-paypal" value="paypal" type="radio">
+										<span>Paypal</span>
+										<span class="payment-desc">You can pay with your credit</span>
+										<span class="payment-desc">card if you don't have a paypal account</span>
+									</label>
+								</div>
+								<p class="summary-info grand-total"><span>Grand Total</span> <span class="grand-total-price">$100.00</span>
+								</p>
+								<a href="thankyou.html" class="btn btn-medium">Place order now</a>
+
+
+
+							</div>
+
+						</div>
 					</form>
 				</div>
 				<!-- form end -->
-				<!-- summary start -->
-				<div class="summary summary-checkout">
-					<div class="summary-item payment-method">
-						<h4 class="title-box">Payment Method</h4>
-						<p class="summary-info"><span class="title">Check / Money order</span></p>
-						<p class="summary-info"><span class="title">Credit Cart (saved)</span></p>
-						<div class="choose-payment-methods">
-							<label class="payment-method">
-								<input name="payment-method" id="payment-method-bank" value="bank" type="radio">
-								<span>Direct Bank Transder</span>
-								<span class="payment-desc">
-									- Beneficiary: <strong>FULL HOUSE</strong>
-								</span>
-								<span class="payment-desc">
-									- Account No: <strong>1200 1200 12000</strong>
-								</span>
-								<span class="payment-desc">
-									- At Bank: <strong>BIDV</strong>
-								</span>
-							</label>
-							<label class="payment-method">
-								<input name="payment-method" id="payment-method-visa" value="visa" type="radio">
-								<span>visa</span>
-								<span class="payment-desc">There are many variations of passages of Lorem Ipsum available</span>
-							</label>
-							<label class="payment-method">
-								<input name="payment-method" id="payment-method-paypal" value="paypal" type="radio">
-								<span>Paypal</span>
-								<span class="payment-desc">You can pay with your credit</span>
-								<span class="payment-desc">card if you don't have a paypal account</span>
-							</label>
-						</div>
-						<p class="summary-info grand-total"><span>Grand Total</span> <span class="grand-total-price">$100.00</span>
-						</p>
-						<a href="thankyou.html" class="btn btn-medium">Place order now</a>
-					</div>
-					<div class="summary-item shipping-method">
-						<h4 class="title-box f-title">Shipping method</h4>
-						<p class="summary-info"><span class="title">Free delivery nationwide</span></p>
-						<p class="summary-info"><span class="title">Flat Rate</span></p>
-						<p class="summary-info"><span class="title">Fixed $50.00</span></p>
 
-					</div>
-				</div>
+
+
 			</div>
 
 			<div class="wrap-show-advance-info-box style-1 box-in-site">
 				<h3 class="title-box">Most Viewed Products</h3>
 				<div class="wrap-products" style="border:none;margin: 0 auto;">
-					<div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"1"},"768":{"items":"2"},"992":{"items":"3"},"1200":{"items":"4"}}'>
+					<div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"2"},"992":{"items":"3"},"1200":{"items":"4"}}'>
 
 						<div class="product product-style-2 equal-elem ">
 							<div class="product-thumnail">

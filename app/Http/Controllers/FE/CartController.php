@@ -108,6 +108,7 @@ class CartController extends Controller
         $value_order = $request->value_order;
 
         $coupon = Coupon::where('code', 'like', $code)
+            ->where('status','=', 1)
             ->where('value_order', '<=', $value_order)
             ->first();
         $times = Order::where('coupon_id', $coupon->id)->count('id');
