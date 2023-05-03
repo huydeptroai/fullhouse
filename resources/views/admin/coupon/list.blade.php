@@ -67,7 +67,7 @@
                                         <td>{{$item->id}}</td>
                                         <td>{{$item->code}}</td>
                                         <td>{{$item->value}}</td>
-                                        <td>{{$item->status}}</td>
+                                        <td>{{$item->status === 1 ? 'active' : ''}}</td>
                                         <td>{{$item->times}}</td>
                                         <td>{{$item->value_order}}</td>
 

@@ -56,16 +56,13 @@ class CartController extends Controller
         // $user = Auth::user();
 
         $pid = $request->pid;
-        $quantity = $request->quantity > 0 ? $request->quantity : 1;
-        $prod = Product::find($pid);
+        $quantity = $request->quantity;
+        $action = $request->action;
+        // dd($pid);
 
-        // if ($prod->product_quantity < $quantity) {
-        //     return response()->json_last_error_msg('Over quantity!');
-        // }
-
-        if ($request->action == null) {
+        if ($request->action != 'edit') {
             $cart = Cart::where('product_id', 'like', $pid)->first();
-            if ($cart) {
+            if ($cart != null) {
                 $quantity += $cart->quantity;
             }
         }
@@ -73,7 +70,7 @@ class CartController extends Controller
         $cart = Cart::updateOrCreate(
             [
                 'user_id' => 1,
-                'product_id' => $pid,
+                'product_id' => $pid
             ],
             [
                 'quantity' => $quantity
@@ -102,20 +99,21 @@ class CartController extends Controller
         // return redirect()->action([CartController::class, 'showCart']);
     }
 
-    public function postCoupon(Request $request)
-    {
-        $code = $request->code;
-        $value_order = $request->value_order;
+    // public function postCoupon(Request $request)
+    // {
+    //     $code = $request->code;
+    //     $value_order = $request->value_order;
 
-        $coupon = Coupon::where('code', 'like', $code)
-            ->where('status','=', 1)
-            ->where('value_order', '<=', $value_order)
-            ->first();
-        $times = Order::where('coupon_id', $coupon->id)->count('id');
+    //     $coupon = Coupon::where('code', 'like', $code)
+    //         ->where('status','=', 1)
+    //         ->where('value_order', '<=', $value_order)
+    //         ->first();
+    //     // dd($coupon);
+    //     $times = Order::where('coupon_id', $coupon->id)->count('id');
 
-        if ($coupon->times > $times) {
-            return $coupon->value;
-        }
-        return 0;
-    }
+    //     if ($coupon->times > $times) {
+    //         return $coupon->value;
+    //     }
+    //     return 0;
+    // }
 }

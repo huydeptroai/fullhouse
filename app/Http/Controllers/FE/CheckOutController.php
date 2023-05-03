@@ -4,18 +4,40 @@ namespace App\Http\Controllers\FE;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\District;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use App\Models\Province;
 use App\Models\User;
+use App\Models\Coupon; 
 use Illuminate\Http\Request;
 
 class CheckOutController extends Controller
 {
-    public function index()
+    public function viewOrder(Request $request)
     {
-        $cart = Cart::where();
-        return view('fe.checkout');
+        // $orders = Order::where('user_id', $request->param('user_id'))->get();
+        $orders =  Order::all();
+        $provinces = Province::orderby("administrative_region_id", "asc")
+            // ->select('code', 'full_name_en')
+            ->get();
+        
+        return view('fe.checkout', [
+            'orders' => $orders,
+            'provinces' => $provinces
+        ]);
+    }
+
+    public function getDistricts($province_code = null)
+    {
+        // dd($province_code);
+        $districts = District::orderby("full_name_en", "asc")
+            ->select('code', 'full_name_en')
+            ->where('province_code', 'like', $province_code)
+            ->get();
+        // dd($districts);
+            return response()->json($districts);
     }
 
     public function createOrder(Request $request)
@@ -58,6 +80,26 @@ class CheckOutController extends Controller
             }
         }
         return $shipping_fee;
+    }
+
+    public function postCoupon(Request $request)
+    {
+        $code = $request->code;
+        $value_order = $request->value_order;
+
+        $coupon = Coupon::where('code', 'like', $code)
+            ->where('status','=', 1)
+            ->where('value_order', '<=', $value_order)
+            ->first();
+        // if($coupon);
+        // {
+        //     return 0;
+        // }
+        $times = Order::where('coupon_id', $coupon->id)->count('id');
+        if ($coupon->times > $times) {
+            return $coupon->value;
+        }
+        return 0;
     }
 
     

@@ -118,7 +118,6 @@
 	<script>
 		$(document).ready(function() {
 			const url = "{{ Route('addCart') }}" ?? "";
-			var timeout = null;
 
 			$.ajaxSetup({
 				headers: {
@@ -128,12 +127,12 @@
 			//create cart
 			$('.add-to-cart').click(function(e) {
 				e.preventDefault();
-				// let pid = $(this).data("id") ?? '';
-				// let quantity = $('input[name="product-quatity"]').val() ?? '';
+				let pid = $(this).data("id") ?? '';
+				let quantity = $('input[name="product-quatity"]').val() ?? 1;
 
 				var data = {
-					pid: $('.add-to-cart').data("id") ?? '',
-					quantity: $('input[name="product-quatity"]').val() ?? ''
+					pid: pid,
+					quantity: quantity
 				};
 				postAjax(data);
 			});
@@ -164,7 +163,6 @@
 					url: url,
 					data: data,
 					success: function(data) {
-						// alert('add product to cart successfully.');
 						//show site-cart
 						wrapper_cart.classList.add('active-popup');
 						getCart();
@@ -191,28 +189,29 @@
 							let path = "{{ asset('assets/img/upload/product') }}" + "/" + arr_img[0];
 							let id = v.product_id;
 							let detail = "{{ route('product.show', " + id + ") }}";
+							// let detail = "{{ url('/product/show/', " + id + ") }}";
 
 							cart += `<div class="product-box" id="cart_id_${v.id}">
-									<span class="icon-close delete-cart" data-cid="${v.id}">
-										<ion-icon name="close-outline"></ion-icon>
-									</span>
-									<a class="p-image" href="${detail}">
-										<div class="product-image" style="width:100px">
-											<figure><img src="${path}" alt="${v.product_image}" width="100" height="100"></figure>
-										</div>
-										<p class="product-name">${v.product_name}</p>
-									</a>
-									<div class="p-info">
-										<span class="product-price">$${v.price}</span>
-										<span class="product-quantity">
-											<input type="number" name="product-quatity" value="${v.quantity}" data-id="${v.product_id}">
+										<span class="icon-close delete-cart" data-cid="${v.id}">
+											<ion-icon name="close-outline"></ion-icon>
 										</span>
-										<span class="product-amount">$${v.amount}</span>
-									</div>
-								</div>`;
+										<a class="p-image" href="${detail}">
+											<div class="product-image" style="width:100px">
+												<figure><img src="${path}" alt="${v.product_image}" width="100" height="100"></figure>
+											</div>
+											<p class="product-name">${v.product_name}</p>
+										</a>
+										<div class="p-info">
+											<span class="product-price">$${v.price}</span>
+											<span class="product-quantity">
+												<input type="number" name="product-quatity qty_${v.product_id}" value="${v.quantity}" data-id="${v.product_id}">
+											</span>
+											<span class="product-amount">$${v.amount}</span>
+										</div>
+									</div>`;
 
 							cart_page += `
-										<li class="pr-cart-item" id="cart_id_${v.id}">
+									<li class="pr-cart-item" id="cart_id_${v.id}">
 									<!-- image start -->
 									<div class="product-image">
 										<figure><img src="${path}" alt="${v.product_name}"></figure>
@@ -229,7 +228,7 @@
 									<!-- price -->
 									<div class="price-field product-price">
 										<p class="price">$${v.product_price}</p>
-										<p class="price" style="text-decoration: line-through;color:red">${v.discount}</p>
+										<p class="price" style="text-decoration: line-through;color:red">$${v.discount}</p>
 									</div>
 									<!-- price end -->
 									<!-- quantity start -->

@@ -4942,7 +4942,7 @@ table.shop_attributes tbody {
     margin-bottom: 10px;
 }
 .wrap-address-billing .row-in-form {
-    margin: 0 20px;
+    margin: 0;
     display: block;
     float: left;
     width: calc(50% - 15px);
@@ -4986,15 +4986,37 @@ table.shop_attributes tbody {
     width: 100%;
     border: 1px solid #e6e6e6;
 }
+.wrap-address-billing .row-in-form select option,
+.wrap-address-billing .row-in-form select {
+    position: relative;
+    font-size: 13px;
+    line-height: 19px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 2px 20px;
+    border: 1px solid #e6e6e6;
+}
+
+.wrap-address-billing .row-in-form textarea {
+    font-size: 13px;
+    line-height: 19px;
+    display: inline-block;
+    height: 83px;
+    width: 100%;
+    padding: 2px 20px;
+    border: 1px solid #e6e6e6;
+}
+.wrap-address-billing .row-in-form textarea::placeholder,
 .wrap-address-billing .row-in-form input[type="email"]::placeholder,
 .wrap-address-billing .row-in-form input[type="text"]::placeholder,
 .wrap-address-billing .row-in-form input[type="tel"]::placeholder {
     color: #aaaaaa;
 }
 .wrap-address-billing .row-in-form:nth-child(2n + 1) {
-    margin-right: 10px;
+    margin-right: 30px;
 }
-.row-first-last-name {
+/* .row-first-last-name {
     position: relative;
     padding-bottom: 85px;
     width: 45%;
@@ -5006,18 +5028,18 @@ table.shop_attributes tbody {
 .row-first-last-name .row-last-name-right {
     position: absolute;
     left: 61%;
-}
+} */
 
 .summary-checkout {
     background-color: #fdfdfd;
-    width: 50%;
+    width: 100%;
     border: 1px solid #e6e6e6;
     padding: 29px 29px 30px 29px;
     display: table;
-    position: absolute;
+    /* position: absolute; */
     margin-top: 14px;
-    top: 100px;
-    left: 58%;
+    /* top: 100px; */
+    /* left: 58%; */
 }
 .summary-checkout .summary-item {
     display: block;

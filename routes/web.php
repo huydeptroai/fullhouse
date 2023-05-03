@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Ad_ProductController;
 use App\Http\Controllers\Admin\Ad_OrderController;
 use App\Http\Controllers\Admin\Ad_UserController;
 use App\Http\Controllers\FE\CartController;
+use App\Http\Controllers\FE\CheckOutController;
 use App\Http\Controllers\FE\ProductController;
 use App\Http\Controllers\FE\ProfileController;
 use App\Http\Controllers\FE\HomeController;
@@ -37,6 +38,7 @@ Route::get('/admin', function () {
 });
 
 
+// ============= back-end ===============
 Route::group(['prefix' => 'admin'], function () {
 
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
@@ -53,17 +55,15 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/admin/order/invoice-print', [Ad_OrderController::class, 'printInvoice'])->name('admin.order.printInvoice');
 });
 
+// ============= front-end ===============
 Route::resource('/product', App\Http\Controllers\FE\ProductController::class)->names('product');
 Route::get('/product/{product_slug}', [ProductController::class, 'productDetail'])->name('product.detail');
-
-// Route::post('/add-cart', [CartController::class, 'addCart'])->name('addCart');
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/home', 'home')->name('home');
     Route::get('/about', 'about')->name('about');
     Route::get('/contact', 'contact')->name('contact');
-    // Route::get('/cart', 'cart')->name('cart');
-    Route::get('/checkout', 'checkout')->name('checkout');
+    // Route::get('/checkout', 'checkout')->name('checkout');
 });
 
 
@@ -72,12 +72,16 @@ Route::controller(CartController::class)->group(function () {
     Route::post('add-cart', 'addCart')->name('addCart');
     Route::get('add-cart', 'showCart')->name('showCart');
     Route::DELETE('delete-cart/{cart_id}', 'destroy')->name('deleteCart');
+});
+
+Route::controller(CheckOutController::class)->group(function(){
+    Route::get('/checkout', 'viewOrder')->name('checkout');
+    Route::get('/district/{province_code}', 'getDistricts')->name('districts');
     Route::post('get-coupon', 'postCoupon')->name('postCoupon');
 });
 
 
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-
 
 
 Route::get('/login', [HomeController::class, 'login'])->name('login');

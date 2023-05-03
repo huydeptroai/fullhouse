@@ -307,39 +307,42 @@
 @section('myJS')
 <!-- cal coupon -->
 <script>
-    $(document).ready(function() {
+	$(document).ready(function() {
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+		$('body').on('keyup', '#coupon-code', function() {
+			setTimeout(post_coupon, 1000);
+		});
+		post_coupon();
+		function post_coupon() {
+			let coupon_code = $('#coupon-code').val() ?? '';
+			let value_order = $('#coupon-code').data('total');
+			// let value_order = "{{$total}}";
 
-        $('body').on('keyup', '#coupon-code', function() {
-            setTimeout(post_coupon, 1000);
-        });
+			if (coupon_code == "") {
+				return;
+			}
+			console.log('code ' + coupon_code + ' value order: ' + value_order);
+			$.ajax({
+				type: 'post',
+				url: "{{route('postCoupon')}}",
+				data: {
+					code: coupon_code,
+					value_order: value_order
+				},
+				success: function(data) {
+					$('.value-coupon').html("$" + parseFloat(data).toFixed(2));
+					let total = (value_order - data).toFixed(2);
+					$('.result').html("$" + total);
 
-        post_coupon();
-
-        function post_coupon() {
-            let coupon_code = $('#coupon-code').val() ?? '';
-            let value_order = "{{$total}}";
-
-            if (coupon_code == "") {
-                return;
-            }
-            // alert('code ' + coupon_code + ' value order: ' + value_order);
-            $.ajax({
-                type: 'post',
-                url: "{{route('postCoupon')}}",
-                data: {
-                    code: coupon_code,
-                    value_order: value_order
-                },
-                success: function(data) {
-                    $('.value-coupon').html("$" + parseFloat(data).toFixed(2));
-                    let total = (value_order - data).toFixed(2);
-                    $('.result').html("$" + total);
-
-                }
-            });
-        }
-
-    });
+				}
+			});
+		}
+	});
 </script>
+
 
 @endsection
