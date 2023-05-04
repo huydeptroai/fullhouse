@@ -292,6 +292,9 @@
 		});
 	</script>
 
+	<!-- Subscribe footer -->
+
+
 	@yield('myJS')
 
 

@@ -32,7 +32,11 @@ class Ad_NewsletterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $email = $request->email;
+        $data = Newsletter::findOrCreate([
+            'email' => $email
+        ]);
+        return response()->json(['success'=>'Thank you for your subscribe']);
     }
 
     /**
@@ -69,43 +73,42 @@ class Ad_NewsletterController extends Controller
 
     public function list_send_mail()
     {
-        if (!Gate::any(['view_order', 'view_product'])) {
-            abort(403);
-        }
+        // if (!Gate::any(['view_order', 'view_product'])) {
+        //     abort(403);
+        // }
         $emails = Newsletter::get();
         $coupons = Coupon::get();
 
         return view('admin.newsletter.send', [
             'emails' => $emails,
             'coupons' => $coupons
-            ]);
-    }
-
-    public function send_mail(Request $request)
-    {
-        // dd($request->checkboxes);
-        $validator = Validator::make($request->all(), [
-            'subject' => 'required',
-            'body' => 'required',
         ]);
-
-        if ($validator->fails()) {
-			return response()->json($validator->errors()->all() , 400);
-        }
-        else {
-            try {
-                $details = [
-                    'subject' => $request->subject,
-                    'body' => $request->body,
-                    'checkboxes' => $request->checkboxes,
-                ];
-
-                $job = (new SendQueueEmail($details))
-            	->delay(now()->addSeconds(2)); 
-                 dispatch($job);
-            } catch (Exception $e) {
-                return response()->json([$e->getMessage()], 400);
-            }
-        }
     }
+
+    // public function send_mail(Request $request)
+    // {
+    //     // dd($request->checkboxes);
+    //     $validator = Validator::make($request->all(), [
+    //         'subject' => 'required',
+    //         'body' => 'required',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return response()->json($validator->errors()->all(), 400);
+    //     } else {
+    //         try {
+    //             $details = [
+    //                 'subject' => $request->subject,
+    //                 'body' => $request->body,
+    //                 'checkboxes' => $request->checkboxes,
+    //             ];
+
+    //             $job = (new SendQueueEmail($details))
+    //                 ->delay(now()->addSeconds(2));
+    //             dispatch($job);
+    //         } catch (Exception $e) {
+    //             return response()->json([$e->getMessage()], 400);
+    //         }
+    //     }
+    // }
 }

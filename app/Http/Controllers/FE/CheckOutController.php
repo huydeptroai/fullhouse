@@ -12,6 +12,7 @@ use App\Models\Province;
 use App\Models\User;
 use App\Models\Coupon; 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CheckOutController extends Controller
 {
@@ -22,10 +23,11 @@ class CheckOutController extends Controller
         $provinces = Province::orderby("administrative_region_id", "asc")
             // ->select('code', 'full_name_en')
             ->get();
-        
+        $product = Product::all(); 
         return view('fe.checkout', [
             'orders' => $orders,
-            'provinces' => $provinces
+            'provinces' => $provinces,
+            'products' => $product
         ]);
     }
 
@@ -42,12 +44,29 @@ class CheckOutController extends Controller
 
     public function createOrder(Request $request)
     {
+        dd($request);
         //1. crete order
         $data = $request->all();
+        $user = Auth::user();
         // Shipping fee
-        $data['shipping_fee'] = $this->shippingFee($request->city, $request->value_order);
+        $data['shipping_fee'] = $this->shippingFee($request->shipping_city, $request->value_order);
+        $data['order_date'] = date('Y-m-d',time());
+        $data['user_id'] = $user->id;
 
-        $order = Order::create($data);
+        $order = Order::create([
+            'order_date' => date('Y-m-d',time()),
+            'receiver_name' => $request->receiver_name,
+            'receiver_phone' => $request->receiver_phone,
+            'shipping_city' => $request->receiver_city,
+            'shipping_district' => $request->receiver_district,
+            'shipping_fee' => $data['shipping_fee'],
+            'payment_method' => $request->payment_method,
+            'note' => $request->note,
+            'status' => 0,
+            'user_id' => $user->id,
+            'coupon_id' => $request->coupon_id
+        ]);
+
         $carts = Cart::where('user_id', $request->user_id)->get();
         foreach( $carts  as $cart){
             $product = Product::selectRaw('(product_price - discount) as price')->where('product_id', 'like', $cart->product_id)->first();
@@ -69,7 +88,7 @@ class CheckOutController extends Controller
     public function shippingFee($city, $value_order)
     {
         $shipping_fee = 0;
-        if ($city != 'HCM') {
+        if ($city != 'Ho Chi Minh City') {
             if ($value_order < 250) {
                 $shipping_fee = $value_order * 0.1;
                 if ($shipping_fee < 5) {

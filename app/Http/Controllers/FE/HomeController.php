@@ -51,4 +51,13 @@ class HomeController extends Controller
     {
         return view('fe.register_socialite');
     }
+
+    public function shippingPolicy()
+    {
+        return view('fe.shipping-policy');
+    }
+    public function warrantyPolicy()
+    {
+        return view('fe.warranty-policy');
+    }
 }

@@ -12,7 +12,8 @@
 			</ul>
 		</div>
 		<div class=" main-content-area">
-			<form action="#" method="post">
+			<form action="{{ route('createOrder') }}" method="post">
+				@csrf
 				<div class="wrap-address-billing">
 					<h3 class="box-title">Billing Address</h3>
 					<div name="frm-billing">
@@ -26,17 +27,17 @@
 						</p>
 						<p class="row-in-form">
 							<label for="phone">City/Province <span>*</span></label>
-							<select name="city" id="city">
-								<option value="000">-- Select city/province --</option>
+							<select name="shipping_city" id="shipping_city">
+								<option value="">-- Select city/province --</option>
 								@foreach($provinces as $item)
-								<option value="{{$item->code}}">{{$item->full_name_en}}</option>
+								<option value="{{$item->full_name_en}}">{{$item->full_name_en}}</option>
 								@endforeach
 							</select>
 						</p>
 						<p class="row-in-form">
 							<label for="phone">District: <span>*</span></label>
-							<select name="district" id="district">
-								<option value="000">-- Select district --</option>
+							<select name="shipping_district" id="shipping_district">
+								<option value="">-- Select district --</option>
 							</select>
 						</p>
 						<p class="row-in-form">
@@ -61,13 +62,32 @@
 				</div>
 
 				<div class="summary summary-checkout">
+					
+
+					<div class="summary-item shipping-method">
+						<h4 class="title-box f-title">Shipping method</h4>
+						<p class="summary-info"><span class="title">Flat Rate</span></p>
+						<p class="summary-info"><span class="title">Fixed $50.00</span></p>
+
+						<h4 class="title-box">Discount Codes</h4>
+						<p class="row-in-form">
+							<label for="coupon-code">Coupon code:</label>
+							<input class="col-8" id="coupon-code" type="text" name="coupon-code" value="" placeholder="Enter Your Coupon code" data-total="1000">
+						</p>
+						<p class="summary-info">
+							<span class="title">Discount:</span>
+							<b class="index value-coupon">0</b>
+						</p>
+						<a href="#" class="btn btn-small">Apply</a>
+					</div>
+
 					<div class="summary-item payment-method">
 						<h4 class="title-box">Payment Method</h4>
 						<p class="summary-info"><span class="title">Check / Money order</span></p>
 						<p class="summary-info"><span class="title">Credit Cart (saved)</span></p>
 						<div class="choose-payment-methods">
 							<label class="payment-method">
-								<input name="payment-method" id="payment-method-bank" value="bank" type="radio">
+								<input name="payment_method" id="payment-method-bank" value="0" type="radio">
 								<span>Direct Bank Transder</span>
 								<span class="payment-desc">
 									<table class="shop_attributes">
@@ -89,12 +109,12 @@
 								</span>
 							</label>
 							<label class="payment-method">
-								<input name="payment-method" id="payment-method-visa" value="visa" type="radio">
+								<input name="payment_method" id="payment-method-visa" value="1" type="radio">
 								<span>visa</span>
 								<span class="payment-desc">There are many variations of passages of Lorem Ipsum available</span>
 							</label>
 							<label class="payment-method">
-								<input name="payment-method" id="payment-method-paypal" value="paypal" type="radio">
+								<input name="payment_method" id="payment-method-paypal" value="2" type="radio">
 								<span>Paypal</span>
 								<span class="payment-desc">You can pay with your credit</span>
 								<span class="payment-desc">card if you don't have a paypal account</span>
@@ -104,25 +124,8 @@
 							<span>Grand Total</span> <span class="grand-total-price">$100.00</span>
 						</p>
 
-						<a href="#" type="submit" class="btn btn-medium">Place order now</a>
+						<button type="submit" class="btn btn-medium">Place order now</button>
 
-					</div>
-
-					<div class="summary-item shipping-method">
-						<h4 class="title-box f-title">Shipping method</h4>
-						<p class="summary-info"><span class="title">Flat Rate</span></p>
-						<p class="summary-info"><span class="title">Fixed $50.00</span></p>
-
-						<h4 class="title-box">Discount Codes</h4>
-						<p class="row-in-form">
-							<label for="coupon-code">Enter Your Coupon code:</label>
-							<input class="col-8" id="coupon-code" type="text" name="coupon-code" value="" placeholder="Enter Your Coupon code" data-total="1000">
-						</p>
-						<p class="summary-info">
-							<span class="title">Discount:</span>
-							<b class="index value-coupon">0</b>
-						</p>
-						<a href="#" class="btn btn-small">Apply</a>
 					</div>
 				</div>
 			</form>
@@ -132,7 +135,7 @@
 			<div class="wrap-show-advance-info-box style-1 box-in-site">
 				<h3 class="title-box">Most Viewed Products</h3>
 				<div class="wrap-products">
-					<div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"4"}}'>
+					<div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="4" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"4"}}'>
 
 						<div class="product product-style-2 equal-elem ">
 							<div class="product-thumnail">
@@ -344,10 +347,10 @@
 	jQuery(document).ready(function() {
 		// $('#district').html("<option value='0'>-- Select district --</option>");
 
-		$('#city').change(function() {
+		$('#shipping_city').change(function() {
 			var code = $(this).val();
 			// Empty the dropdown
-			// $('#district').find('option').not(':first').remove();
+			$('#shipping_district').find('option').not(':first').remove();
 			// var option = '';
 
 			// AJAX request 
@@ -361,7 +364,7 @@
 					$.each(response, function(k, v) {
 						// option += `<option value="${v.code}">${v.full_name_en}</option>`;
 						var option = `<option value="${v.code}">${v.full_name_en}</option>`;
-						$("#district").append(option);
+						$("#shipping_district").append(option);
 						console.log(option);
 					});
 					// console.log(option);

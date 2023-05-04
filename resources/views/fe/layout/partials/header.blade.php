@@ -19,7 +19,7 @@
 								<a title="Register or Login" href="{{ route('register')}}">Register</a>
 							</li> -->
 							<!-- my account admin -->
-							<li class="menu-item menu-item-has-children parent">
+							<!-- <li class="menu-item menu-item-has-children parent">
 								<a title="My Account" href="#">My Account (Admin)<i class="fa fa-angle-down" aria-hidden="true"></i></a>
 								<ul class="submenu admin">
 									<li class="menu-item"><a href="#">Products</a></li>
@@ -29,7 +29,7 @@
 									<li class="menu-item"><a href="#">Customers</a></li>
 									<li class="menu-item"><a title="Logout" href="#">Logout</a></li>
 								</ul>
-							</li>
+							</li> -->
 							<!-- my account admin -->
 
 							<!-- my account user -->
@@ -151,6 +151,9 @@
 							</li>
 							<li class="menu-item">
 								<a href="{{route('contact')}}" class="link-term mercado-item-title">Contact Us</a>
+							</li>
+							<li class="menu-item">
+								<a href="{{route('login')}}" class="link-term mercado-item-title">Login</a>
 							</li>
 
 						</ul>

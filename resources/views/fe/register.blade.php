@@ -7,7 +7,7 @@
 
         <div class="wrap-breadcrumb">
             <ul>
-                <li class="item-link"><a href="#" class="link">home</a></li>
+                <li class="item-link"><a href="{{route('home')}}" class="link">home</a></li>
                 <li class="item-link"><span>Register</span></li>
             </ul>
         </div>
@@ -46,6 +46,10 @@
                                     <input type="text" id="frm-reg-cfpass" name="reg-cfpass" placeholder="Confirm Password">
                                 </fieldset>
                                 <input type="submit" class="btn btn-sign" value="Register" name="register">
+
+                                <div class="login-register">
+                                    <p>Already have an account? <a href="{{ route('login')}}" class="login-link">Login</a></p>
+                                </div>
                             </form>
                         </div>
                     </div>

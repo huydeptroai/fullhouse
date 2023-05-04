@@ -85,39 +85,43 @@
 							<h3 class="item-header">Sign up for newsletter</h3>
 							<div class="item-content">
 								<div class="wrap-newletter-footer">
-									<form action="#" class="frm-newletter" id="frm-newletter">
+									<form action="{{ route('admin.newsletter.store') }}" method="post" class="frm-newletter" id="frm-newletter">
+										@csrf
 										<input type="email" class="input-email" name="email" value="" placeholder="Enter your email address">
 										<button type="submit" class="btn-submit">Subscribe</button>
 									</form>
 								</div>
 							</div>
 						</div>
-
+						
 					</div>
 
 					<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12 box-twin-content ">
 							<div class="row">
 								<div class="wrap-footer-item twin-item">
-									<h3 class="item-header">My Account</h3>
+									<h3 class="item-header">ABOUT FULL HOUSE</h3>
 									<div class="item-content">
 										<div class="wrap-vertical-nav">
 											<ul>
-												<li class="menu-item"><a href="#" class="link-term">My Account</a></li>
+												<li class="menu-item"><a href="{{route('about')}}" class="link-term">About us</a></li>
+												<li class="menu-item"><a href="{{route('contact')}}" class="link-term">Contact Us</a></li>
 												<li class="menu-item"><a href="#" class="link-term">Wish list</a></li>
+												<li class="menu-item"><a href="#" class="link-term">Cart</a></li>
+												<li class="menu-item"><a href="#" class="link-term">Order History</a></li>
 											</ul>
 										</div>
 									</div>
 								</div>
 								<div class="wrap-footer-item twin-item">
-									<h3 class="item-header">Infomation</h3>
+									<h3 class="item-header">CUSTOMER SERVICE</h3>
 									<div class="item-content">
 										<div class="wrap-vertical-nav">
 											<ul>
-												<li class="menu-item"><a href="#" class="link-term">Contact Us</a></li>
-												<li class="menu-item"><a href="#" class="link-term">Returns</a></li>
-												<li class="menu-item"><a href="#" class="link-term">Site Map</a></li>
-												<li class="menu-item"><a href="#" class="link-term">Specials</a></li>
-												<li class="menu-item"><a href="#" class="link-term">Order History</a></li>
+												<li class="menu-item"><a href="{{route('product.index')}}" class="link-term">Products</a></li>
+												<li class="menu-item"><a href="#" class="link-term">Ordering guide</a></li>
+												<li class="menu-item"><a href="{{ route('shippingPolicy')}}" class="link-term">Shipping Policy</a></li>
+												<li class="menu-item"><a href="{{ route('warrantyPolicy')}}" class="link-term">Warranty Policy</a></li>
+												<li class="menu-item"><a href="#" class="link-term">Coupon</a></li>
 											</ul>
 										</div>
 									</div>

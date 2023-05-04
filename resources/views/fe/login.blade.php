@@ -7,7 +7,7 @@
 
         <div class="wrap-breadcrumb">
             <ul>
-                <li class="item-link"><a href="#" class="link">home</a></li>
+                <li class="item-link"><a href="{{ route('home')}}" class="link">home</a></li>
                 <li class="item-link"><span>login</span></li>
             </ul>
         </div>
@@ -23,22 +23,25 @@
                                 </fieldset>
                                 <fieldset class="wrap-input">
                                     <label for="frm-login-uname">Email Address:</label>
-                                    <input type="text" id="frm-login-uname" name="email" placeholder="Type your email address">
+                                    <input type="text" id="frm-login-uname" name="email" placeholder="Enter your email address">
                                 </fieldset>
                                 <fieldset class="wrap-input">
                                     <label for="frm-login-pass">Password:</label>
-                                    <input type="password" id="frm-login-pass" name="pass" placeholder="************">
+                                    <input type="password" id="frm-login-pass" name="password" placeholder="Enter your password">
                                 </fieldset>
 
                                 <fieldset class="wrap-input">
                                     <label class="remember-field">
-                                        <input class="frm-input " name="rememberme" id="rememberme" value="forever" type="checkbox"><span>Remember me</span>
+                                        <input class="frm-input " name="remember" id="remember" value="forever" type="checkbox"><span>Remember me</span>
                                     </label>
                                     <a class="link-function left-position" href="#" title="Forgotten password?">Forgotten password?</a>
                                 </fieldset>
+
                                 <input type="submit" class="btn btn-submit" value="Login" name="submit">
+                                <div class="login-register">
+                                    <p>Don't have account? <a href="{{ route('register')}}" class="register-link">Register</a></p>
+                                </div>
                             </form>
-                            
                         </div>
                     </div>
                 </div><!--end main products area-->

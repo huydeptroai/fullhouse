@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Ad_CategoryController;
 use App\Http\Controllers\Admin\Ad_ProductController;
 use App\Http\Controllers\Admin\Ad_OrderController;
 use App\Http\Controllers\Admin\Ad_UserController;
+use App\Http\Controllers\Admin\Ad_NewsletterController;
 use App\Http\Controllers\FE\CartController;
 use App\Http\Controllers\FE\CheckOutController;
 use App\Http\Controllers\FE\ProductController;
@@ -49,10 +50,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('/user', App\Http\Controllers\Admin\Ad_UserController::class)->names('admin.user');
 
     // Route::resource('/admin/category', App\Http\Controllers\Admin\AjaxCategoryController::class)->names('admin.category');
+    Route::resource('/newsletter', Ad_NewsletterController::class)->names('admin.newsletter');
 
-    Route::get('/admin/order/index', [Ad_OrderController::class, 'index'])->name('admin.order.index');
-    Route::get('/admin/order/invoice', [Ad_OrderController::class, 'showDetail'])->name('admin.order.invoice');
-    Route::get('/admin/order/invoice-print', [Ad_OrderController::class, 'printInvoice'])->name('admin.order.printInvoice');
+    Route::get('/order/index', [Ad_OrderController::class, 'index'])->name('admin.order.index');
+    Route::get('/order/invoice', [Ad_OrderController::class, 'showDetail'])->name('admin.order.invoice');
+    Route::get('/order/invoice-print', [Ad_OrderController::class, 'printInvoice'])->name('admin.order.printInvoice');
 });
 
 // ============= front-end ===============
@@ -63,7 +65,8 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/home', 'home')->name('home');
     Route::get('/about', 'about')->name('about');
     Route::get('/contact', 'contact')->name('contact');
-    // Route::get('/checkout', 'checkout')->name('checkout');
+    Route::get('/shipping-policy', 'shippingPolicy')->name('shippingPolicy');
+    Route::get('/warranty-policy', 'warrantyPolicy')->name('warrantyPolicy');
 });
 
 
@@ -78,6 +81,7 @@ Route::controller(CheckOutController::class)->group(function(){
     Route::get('/checkout', 'viewOrder')->name('checkout');
     Route::get('/district/{province_code}', 'getDistricts')->name('districts');
     Route::post('get-coupon', 'postCoupon')->name('postCoupon');
+    Route::post('order', 'createOrder')->name('createOrder');
 });
 
 
