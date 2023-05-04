@@ -176,6 +176,10 @@
     font-weight: 500;
 }
 
+.wrapper .btn-block {
+    padding-top: 11px;
+}
+
 .wrapper .login-register {
     font-size: 1em;
     /* color: #fff; */
@@ -194,4 +198,125 @@
 
 .wrapper .login-register p a:hover {
     text-decoration: underline;
+}
+
+.model {
+    position: absolute;
+    background: transparent;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    z-index: 10000;
+    backdrop-filter: blur(5px);
+}
+
+.model_inner {
+    width: 500px;
+    height: 190px;
+    position: relative;
+    top: 36%;
+    margin: auto;
+    background: white;
+}
+
+.model_header {
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    background: #ffa500;
+    padding: 10px 0 10px 60px;
+    color: white;
+}
+
+.hide {
+    display: none;
+}
+.model_body {
+    padding-left: 20px;
+    margin-top: 25px;
+}
+.model_body .input-box {
+    position: relative;
+    width: 90%;
+    height: 50px;
+    /* border-bottom: 2px solid #fff; */
+    border-bottom: 2px solid #162938;
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
+
+.model_body .input-box label {
+    position: absolute;
+    top: 45%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: #162938;
+    /* color: #fff; */
+    font-weight: 500;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.model_body .input-box input:focus ~ label,
+.model_body .input-box input:valid ~ label {
+    top: -5px;
+}
+
+.model_body .input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    /* color: #fff; */
+    color: #162938;
+    font-weight: 600;
+    padding: 0 15px 0 5px;
+}
+
+.model_body .input-box .icon {
+    position: absolute;
+    right: 8px;
+    font-size: 1.2em;
+    color: #162938;
+    /* color: #fff; */
+    line-height: 57px;
+}
+
+.model_footer {
+    padding-left: 20px;
+}
+
+.model_footer .btn {
+    width: 13%;
+    height: 30px;
+    /* background: #fff; */
+    background: #ffa500;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    /* color: #162938; */
+    color: #fff;
+    font-weight: 500;
+}
+.model_footer button {
+    color: #ffa500 !important;
+    background: #fff !important;
+    border: 1px solid #ffa500 !important;
+}
+
+@media (max-width: 600px) {
+    .model_inner {
+        margin: 0 30px;
+        width: 80%;
+    }
+    .model_footer .btn {
+        font-size: 20px;
+    }
 }

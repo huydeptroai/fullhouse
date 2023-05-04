@@ -38,6 +38,11 @@ Route::get('/admin', function () {
     // return redirect('/admin/dashboard');
 });
 
+Route::get('/login', [HomeController::class, 'login'])->name('login');
+Route::post('/check-login', [HomeController::class, 'checkLogin'])->name('checkLogin');
+Route::get('/register', [HomeController::class, 'register'])->name('register');
+Route::post('/register-acc', [HomeController::class, 'RegisterAcc'])->name('RegisterAcc');
+Route::get('/register_socialite', [HomeController::class, 'register_socialite'])->name('register_socialite');
 
 // ============= back-end ===============
 Route::group(['prefix' => 'admin'], function () {
@@ -88,9 +93,9 @@ Route::controller(CheckOutController::class)->group(function(){
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
 
-Route::get('/login', [HomeController::class, 'login'])->name('login');
-Route::get('/register', [HomeController::class, 'register'])->name('register');
-Route::get('/register_socialite', [HomeController::class, 'register_socialite'])->name('register_socialite');
+// Route::get('/login', [HomeController::class, 'login'])->name('login');
+// Route::get('/register', [HomeController::class, 'register'])->name('register');
+// Route::get('/register_socialite', [HomeController::class, 'register_socialite'])->name('register_socialite');
 
 //============ login by Facebook===========
 // Route::get('/login/facebook', function(){

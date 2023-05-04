@@ -7,20 +7,20 @@
 	<!-- login form -->
 	<div class="form-box login">
 		<h2>Login</h2>
-		<form method="post" action="">
+		<form action="" method="post">
 			@csrf
 			<div class="input-box">
 				<span class="icon">
-					<ion-icon name="mail"></ion-icon>
+					<i class="fa fa-envelope" aria-hidden="true"></i>
 				</span>
-				<input type="email" required>
+				<input type="email" name="email">
 				<label>Email</label>
 			</div>
 			<div class="input-box">
 				<span class="icon">
-					<ion-icon name="lock-closed"></ion-icon>
+					<i class="fa fa-unlock-alt" aria-hidden="true"></i>
 				</span>
-				<input type="password" required>
+				<input type="password" name="password" required>
 				<label>Password</label>
 			</div>
 
@@ -49,42 +49,48 @@
 	<!-- register form -->
 	<div class="form-box register">
 		<h2>Register</h2>
-		<form action="">
+		<form action="{{Route('RegisterAcc')}}" method="post">
+			@csrf
 			<div class="input-box">
 				<span class="icon">
-					<ion-icon name="person"></ion-icon>
+					<i class="fa fa-user" aria-hidden="true"></i>
 				</span>
-				<input type="text" name="name" required>
+				<input class="@error('name') border-danger @enderror" type="text" name="name" required>
 				<label>Username</label>
+				<small class="text-danger">{{ $errors->first('name') }}</small>
 			</div>
 
 			<div class="input-box">
 				<span class="icon">
-					<ion-icon name="mail"></ion-icon>
+					<i class="fa fa-envelope" aria-hidden="true"></i>
 				</span>
-				<input type="text" name="email" required>
+				<input class="@error('email') border-danger @enderror" type="email" name="email" required>
 				<label>Email</label>
+				<small class="text-danger">{{ $errors->first('email') }}</small>
 			</div>
 			<div class="input-box">
 				<span class="icon">
-					<ion-icon name="call"></ion-icon>
+					<i class="fa fa-phone" aria-hidden="true"></i>
 				</span>
-				<input type="text" name="phone" required>
+				<input class="@error('phone') border-danger @enderror" type="number" name="phone" required>
 				<label>Phone</label>
+				<small class="text-danger">{{ $errors->first('phone') }}</small>
 			</div>
 			<div class="input-box">
 				<span class="icon">
-					<ion-icon name="lock-closed"></ion-icon>
+					<i class="fa fa-unlock-alt" aria-hidden="true"></i>
 				</span>
-				<input type="password" name="password" required>
+				<input class="@error('password') border-danger @enderror" type="password" name="password" required>
 				<label>Password</label>
+				<small class="text-danger">{{ $errors->first('password') }}</small>
 			</div>
 			<div class="input-box">
 				<span class="icon">
-					<ion-icon name="lock-closed"></ion-icon>
+					<i class="fa fa-unlock-alt" aria-hidden="true"></i>
 				</span>
-				<input type="password" name="confirm" required>
+				<input class="@error('confirm') border-danger @enderror" type="password" name="confirm" required>
 				<label>Confirm password</label>
+				<small class="text-danger">{{ $errors->first('confirm') }}</small>
 			</div>
 
 			<div class="remember-forgot">
@@ -99,3 +105,26 @@
 		</form>
 	</div>
 </div>
+
+<form action="">
+	<div class="model hide">
+		<div class="model_inner">
+			<div class="model_header">
+				<p>Password Recovery</p>
+			</div>
+			<div class="model_body">
+				<div class="input-box">
+					<span class="icon">
+						<i class="fa fa-envelope" aria-hidden="true"></i>
+					</span>
+					<input type="email" required />
+					<label>Email</label>
+				</div>
+			</div>
+			<div class="model_footer">
+				<input type="submit" class="btn " value="Send">
+				<button class="btn">Close</button>
+			</div>
+		</div>
+	</div>
+</form>
