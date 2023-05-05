@@ -12,27 +12,13 @@
 					</div>
 					<div class="topbar-menu right-menu">
 						<ul>
-							@if(Auth::user() === null)
 							<li class="menu-item">
-								<a title="Register or Login" href="#" class="btnLogin-popup">Login</a>
+								<a title="Register or Login" href="#" class="btnLogin-popup">
+									@if(Auth::user() === null)
+									<strong>{{__('Login')}}</strong>
+									@endif
+								</a>
 							</li>
-							@endif
-							<!-- <li class="menu-item">
-								<a title="Register or Login" href="{{ route('register')}}">Register</a>
-							</li> -->
-							<!-- my account admin -->
-							<!-- <li class="menu-item menu-item-has-children parent">
-								<a title="My Account" href="#">My Account (Admin)<i class="fa fa-angle-down" aria-hidden="true"></i></a>
-								<ul class="submenu admin">
-									<li class="menu-item"><a href="#">Products</a></li>
-									<li class="menu-item"><a href="#">Categories</a></li>
-									<li class="menu-item"><a href="#">Coupons</a></li>
-									<li class="menu-item"><a href="#">Orders</a></li>
-									<li class="menu-item"><a href="#">Customers</a></li>
-									<li class="menu-item"><a title="Logout" href="#">Logout</a></li>
-								</ul>
-							</li> -->
-							<!-- my account admin -->
 
 							<!-- my account user -->
 							@if(Auth::user() != null)
@@ -42,6 +28,10 @@
 									<i class="fa fa-angle-down" aria-hidden="true"></i>
 								</a>
 								<ul class="submenu user">
+									@if(Auth::user()->role === 1)
+									<li class="menu-item"><a href="{{route('admin.dashboard')}}">Managers</a></li>
+									@endif
+
 									<li class="menu-item"><a href="{{route('profile.edit')}}">Account Details</a></li>
 									<li class="menu-item"><a href="{{route('profile.edit')}}">Orders</a></li>
 									<li class="menu-item">
@@ -167,9 +157,9 @@
 							<li class="menu-item">
 								<a href="{{route('contact')}}" class="link-term mercado-item-title">Contact Us</a>
 							</li>
-							<li class="menu-item">
+							<!-- <li class="menu-item">
 								<a href="{{route('login')}}" class="link-term mercado-item-title">Login</a>
-							</li>
+							</li> -->
 
 						</ul>
 					</div>
