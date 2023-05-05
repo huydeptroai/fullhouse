@@ -45,83 +45,38 @@
                                         <th>Name</th>
                                         <th>Role</th>
                                         <th>Status</th>
-                                        <th>Position</th>
+                                        <th>Create Account</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($users as $user)
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
                                                 <div class="ms-3">
-                                                    <p class="fw-bold mb-1">John Doe - 0123456789</p>
-                                                    <p class="text-muted mb-0">john.doe@gmail.com</p>
+                                                    <p class="fw-bold mb-1">{{$user->name}} - {{$user->phone}}</p>
+                                                    <p class="text-muted mb-0">{{$user->email}}</p>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="fw-normal mb-1">Admin</p>
+                                            <p class="fw-normal mb-1">{{$user->role == 1 ? 'Admin' : 'User'}}</p>
                                             <p class="text-muted mb-0">VIP</p>
                                         </td>
                                         <td>
                                             <span class="badge badge-success rounded-pill d-inline">Active</span>
                                         </td>
-                                        <td>Senior</td>
+                                        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->diffForHumans()}}</td>
                                         <td>
                                             <button type="button" class="btn btn-link btn-sm btn-rounded">
                                                 Edit
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <img src="https://mdbootstrap.com/img/new/avatars/6.jpg" class="rounded-circle" alt="" style="width: 45px; height: 45px" />
-                                                <div class="ms-3">
-                                                    <p class="fw-bold mb-1">Alex Ray - 08888888</p>
-                                                    <p class="text-muted mb-0">alex.ray@gmail.com</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="fw-normal mb-1">User</p>
-                                            <p class="text-muted mb-0">Silver</p>
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-primary rounded-pill d-inline">Active</span>
-                                        </td>
-                                        <td>Junior</td>
-                                        <td>
-                                            <button type="button" class="btn btn-link btn-rounded btn-sm fw-bold" data-mdb-ripple-color="dark">
-                                                Edit
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <img src="https://mdbootstrap.com/img/new/avatars/7.jpg" class="rounded-circle" alt="" style="width: 45px; height: 45px" />
-                                                <div class="ms-3">
-                                                    <p class="fw-bold mb-1">Kate Hunington - 0987654321</p>
-                                                    <p class="text-muted mb-0">kate.hunington@gmail.com</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="fw-normal mb-1">User</p>
-                                            <p class="text-muted mb-0">Gold</p>
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-warning rounded-pill d-inline">Active</span>
-                                        </td>
-                                        <td>Senior</td>
-                                        <td>
-                                            <button type="button" class="btn btn-link btn-rounded btn-sm fw-bold" data-mdb-ripple-color="dark">
-                                                Edit
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    @endforeach
+
 
                                 </tbody>
                                 <tfoot>

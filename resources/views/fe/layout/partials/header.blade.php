@@ -12,9 +12,11 @@
 					</div>
 					<div class="topbar-menu right-menu">
 						<ul>
+							@if(Auth::user() === null)
 							<li class="menu-item">
 								<a title="Register or Login" href="#" class="btnLogin-popup">Login</a>
 							</li>
+							@endif
 							<!-- <li class="menu-item">
 								<a title="Register or Login" href="{{ route('register')}}">Register</a>
 							</li> -->
@@ -33,14 +35,27 @@
 							<!-- my account admin -->
 
 							<!-- my account user -->
+							@if(Auth::user() != null)
 							<li class="menu-item menu-item-has-children parent">
-								<a title="My Account" href="#">My Account (User)<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+								<a title="My Account" href="#">
+									<span>{{ Auth::user()->name }}</span>
+									<i class="fa fa-angle-down" aria-hidden="true"></i>
+								</a>
 								<ul class="submenu user">
 									<li class="menu-item"><a href="{{route('profile.edit')}}">Account Details</a></li>
 									<li class="menu-item"><a href="{{route('profile.edit')}}">Orders</a></li>
-									<li class="menu-item"><a title="Logout" href="#">Logout</a></li>
+									<li class="menu-item">
+										<!-- Authentication -->
+										<form method="POST" action="{{ route('logout') }}">
+											@csrf
+											<a href="route('logout')" onclick="event.preventDefault();this.closest('form').submit();">
+												Log Out
+											</a>
+										</form>
+									</li>
 								</ul>
 							</li>
+							@endif
 							<!-- my account user -->
 						</ul>
 					</div>

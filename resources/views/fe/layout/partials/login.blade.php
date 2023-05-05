@@ -7,34 +7,48 @@
 	<!-- login form -->
 	<div class="form-box login">
 		<h2>Login</h2>
-		<form action="" method="post">
+
+		<!-- Session Status -->
+		@if(session('status') != null)
+		<p>{{session('status')}}</p>
+		@endif
+
+		<form action="{{ route('login')}}" method="post">
 			@csrf
+			<!-- email address -->
 			<div class="input-box">
 				<span class="icon">
 					<i class="fa fa-envelope" aria-hidden="true"></i>
 				</span>
-				<input type="email" name="email">
+				<input type="email" name="email" id="email" value="{{ old('email') }}" required autofocus>
 				<label>Email</label>
+				<small class="mt-2">{{$errors->first('email')}}</small>
 			</div>
+			<!-- password -->
 			<div class="input-box">
 				<span class="icon">
 					<i class="fa fa-unlock-alt" aria-hidden="true"></i>
 				</span>
-				<input type="password" name="password" required>
+				<input type="password" name="password" id="password" required>
 				<label>Password</label>
+				<small class="mt-2">{{$errors->first('password')}}</small>
 			</div>
 
 			<div class="remember-forgot">
 				<label><input type="checkbox">Remember me</label>
 			</div>
+			@if (Route::has('password.request'))
 			<div class="remember-forgot">
-				<a href="#">Forgot password</a>
+				<a href="{{ route('password.request')}}">Forgot your password?</a>
 			</div>
+			@endif
 
 			<button type="submit" class="btn">Login</button>
 			<div class="login-register">
 				<p>Don't have account? <a href="#" class="register-link">Register</a></p>
 			</div>
+
+			<!-- sign by social -->
 			<div class="social-auth-links text-center mb-3">
 				<p>- OR -</p>
 				<a href="#" class="btn btn-block btn-primary">
@@ -44,43 +58,47 @@
 					Sign in using Google+
 				</a>
 			</div>
+
 		</form>
 	</div>
 	<!-- register form -->
 	<div class="form-box register">
 		<h2>Register</h2>
-		<form action="{{Route('RegisterAcc')}}" method="post">
+		<form action="{{ Route('register')}}" method="post">
 			@csrf
+			<!-- name -->
 			<div class="input-box">
 				<span class="icon">
 					<i class="fa fa-user" aria-hidden="true"></i>
 				</span>
-				<input class="@error('name') border-danger @enderror" type="text" name="name" required>
+				<input class="@error('name') border-danger @enderror" type="text" name="name" id="name" value="{{ old('name')}}" required autofocus autocomplete="name" />
 				<label>Username</label>
 				<small class="text-danger">{{ $errors->first('name') }}</small>
 			</div>
-
+			<!-- email -->
 			<div class="input-box">
 				<span class="icon">
 					<i class="fa fa-envelope" aria-hidden="true"></i>
 				</span>
-				<input class="@error('email') border-danger @enderror" type="email" name="email" required>
+				<input class="@error('email') border-danger @enderror" type="email" name="email" id="email" value="{{ old('email')}}" required autocomplete="username" />
 				<label>Email</label>
 				<small class="text-danger">{{ $errors->first('email') }}</small>
 			</div>
+			<!-- phone -->
 			<div class="input-box">
 				<span class="icon">
 					<i class="fa fa-phone" aria-hidden="true"></i>
 				</span>
-				<input class="@error('phone') border-danger @enderror" type="number" name="phone" required>
+				<input class="@error('phone') border-danger @enderror" type="number" name="phone" id="phone" value="{{ old('phone')}}" required autocomplete="phone" />
 				<label>Phone</label>
 				<small class="text-danger">{{ $errors->first('phone') }}</small>
 			</div>
+			<!-- password -->
 			<div class="input-box">
 				<span class="icon">
 					<i class="fa fa-unlock-alt" aria-hidden="true"></i>
 				</span>
-				<input class="@error('password') border-danger @enderror" type="password" name="password" required>
+				<input class="@error('password') border-danger @enderror" type="password" name="password" id="password" required autocomplete="new-password">
 				<label>Password</label>
 				<small class="text-danger">{{ $errors->first('password') }}</small>
 			</div>
@@ -88,13 +106,13 @@
 				<span class="icon">
 					<i class="fa fa-unlock-alt" aria-hidden="true"></i>
 				</span>
-				<input class="@error('confirm') border-danger @enderror" type="password" name="confirm" required>
+				<input class="@error('password_confirmation') border-danger @enderror" type="password" name="password_confirmation" id="password_confirmation" required autocomplete="new-password">
 				<label>Confirm password</label>
-				<small class="text-danger">{{ $errors->first('confirm') }}</small>
+				<small class="text-danger">{{$errors->first('password_confirmation')}}</small>
 			</div>
 
 			<div class="remember-forgot">
-				<label><input type="checkbox">I agree to the terms & conditions</label>
+				<label><input type="checkbox"> I agree to the terms & conditions</label>
 			</div>
 
 			<button type="submit" class="btn">Register</button>

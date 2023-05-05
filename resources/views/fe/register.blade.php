@@ -16,6 +16,7 @@
                 <div class=" main-content-area">
                     <div class="wrap-login-item ">
                         <div class="register-form form-item ">
+
                             <form class="form-stl" action="#" name="frm-login" method="get">
                                 <fieldset class="wrap-title">
                                     <h3 class="form-title">Create an account</h3>
@@ -51,6 +52,7 @@
                                     <p>Already have an account? <a href="{{ route('login')}}" class="login-link">Login</a></p>
                                 </div>
                             </form>
+                            
                         </div>
                     </div>
                 </div><!--end main products area-->

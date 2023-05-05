@@ -27,39 +27,45 @@ use Laravel\Socialite\Facades\Socialite;
 */
 
 
-// require __DIR__ . '/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::get('/', function () {
     return redirect()->route('home');
 });
 
-Route::get('/admin', function () {
-    return redirect()->route('admin.dashboard');
-    // return redirect('/admin/dashboard');
-});
 
-Route::get('/login', [HomeController::class, 'login'])->name('login');
-Route::post('/check-login', [HomeController::class, 'checkLogin'])->name('checkLogin');
-Route::get('/register', [HomeController::class, 'register'])->name('register');
+
+// Route::get('/login', [HomeController::class, 'login'])->name('login');
+// Route::post('/check-login', [HomeController::class, 'checkLogin'])->name('checkLogin');
+// Route::get('/register', [HomeController::class, 'register'])->name('register');
 Route::post('/register-acc', [HomeController::class, 'RegisterAcc'])->name('RegisterAcc');
-Route::get('/register_socialite', [HomeController::class, 'register_socialite'])->name('register_socialite');
+// Route::get('/register_socialite', [HomeController::class, 'register_socialite'])->name('register_socialite');
 
 // ============= back-end ===============
-Route::group(['prefix' => 'admin'], function () {
 
-    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+// Route::get('/admin/dashboard', function () {
+//     return view('admin.dashboard');
+// })->middleware(['auth', 'verified'])->name('admin.dashboard');
 
-    Route::resource('/category', App\Http\Controllers\Admin\Ad_CategoryController::class)->names('admin.category');
-    Route::resource('/product', App\Http\Controllers\Admin\Ad_ProductController::class)->names('admin.product');
-    Route::resource('/coupon', App\Http\Controllers\Admin\Ad_CouponController::class)->names('admin.coupon');
-    Route::resource('/user', App\Http\Controllers\Admin\Ad_UserController::class)->names('admin.user');
+Route::middleware('auth')->group(function () {
 
-    // Route::resource('/admin/category', App\Http\Controllers\Admin\AjaxCategoryController::class)->names('admin.category');
-    Route::resource('/newsletter', Ad_NewsletterController::class)->names('admin.newsletter');
+    Route::group(['middleware' => 'checkAdmin', 'prefix' => 'admin'], function () {
 
-    Route::get('/order/index', [Ad_OrderController::class, 'index'])->name('admin.order.index');
-    Route::get('/order/invoice', [Ad_OrderController::class, 'showDetail'])->name('admin.order.invoice');
-    Route::get('/order/invoice-print', [Ad_OrderController::class, 'printInvoice'])->name('admin.order.printInvoice');
+
+        Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+
+        Route::resource('/category', App\Http\Controllers\Admin\Ad_CategoryController::class)->names('admin.category');
+        Route::resource('/product', App\Http\Controllers\Admin\Ad_ProductController::class)->names('admin.product');
+        Route::resource('/coupon', App\Http\Controllers\Admin\Ad_CouponController::class)->names('admin.coupon');
+        Route::resource('/user', App\Http\Controllers\Admin\Ad_UserController::class)->names('admin.user');
+
+        // Route::resource('/admin/category', App\Http\Controllers\Admin\AjaxCategoryController::class)->names('admin.category');
+        Route::resource('/newsletter', Ad_NewsletterController::class)->names('admin.newsletter');
+
+        Route::get('/order/index', [Ad_OrderController::class, 'index'])->name('admin.order.index');
+        Route::get('/order/invoice', [Ad_OrderController::class, 'showDetail'])->name('admin.order.invoice');
+        Route::get('/order/invoice-print', [Ad_OrderController::class, 'printInvoice'])->name('admin.order.printInvoice');
+    });
 });
 
 // ============= front-end ===============
@@ -82,7 +88,7 @@ Route::controller(CartController::class)->group(function () {
     Route::DELETE('delete-cart/{cart_id}', 'destroy')->name('deleteCart');
 });
 
-Route::controller(CheckOutController::class)->group(function(){
+Route::controller(CheckOutController::class)->group(function () {
     Route::get('/checkout', 'viewOrder')->name('checkout');
     Route::get('/district/{province_code}', 'getDistricts')->name('districts');
     Route::post('get-coupon', 'postCoupon')->name('postCoupon');
