@@ -19,10 +19,10 @@ class CartController extends Controller
     {
         // $cart = Cart::all();
         $product_popular = Product::limit(4);
-        $user = Auth::user();
+        $user_id = Auth::id();
         $carts = Cart::selectRaw('carts.*, products.*, ((product_price-discount) * carts.quantity) as amount')
             ->join('products', 'carts.product_id', 'like', 'products.product_id')
-            ->where('user_id', 1)
+            ->where('user_id', $user_id)
             ->get();
 
         return view('fe.cart', [
@@ -33,8 +33,7 @@ class CartController extends Controller
 
     public function showCart()
     {
-        $user = Auth::user();
-        $list_cart = Cart::where('user_id', 1)->get();
+        $user_id = Auth::id();
 
         $carts = Cart::selectRaw(
             'carts.*,
@@ -42,7 +41,7 @@ class CartController extends Controller
             (product_price - discount) as price,
             ((product_price-discount) * carts.quantity) as amount'
         )->join('products', 'carts.product_id', 'like', 'products.product_id')
-            ->where('carts.user_id', 1)
+            ->where('carts.user_id', $user_id)
             ->get();
 
         return response()->json($carts);
@@ -53,8 +52,8 @@ class CartController extends Controller
     {
 
         // dd($request);
-        // $user = Auth::user();
-
+        $user_id = Auth::id();
+        // dd($user_id);
         $pid = $request->pid;
         $quantity = $request->quantity;
         $action = $request->action;
@@ -69,14 +68,14 @@ class CartController extends Controller
 
         $cart = Cart::updateOrCreate(
             [
-                'user_id' => 1,
+                'user_id' => $user_id,
                 'product_id' => $pid
             ],
             [
                 'quantity' => $quantity
             ]
         );
-
+        // dd($cart);
         // return response()->json($cart);
         // return redirect()->action([CartController::class, 'showCart']);
         $this->showCart();
@@ -84,10 +83,7 @@ class CartController extends Controller
 
     public function update(Request $request, Cart $cart)
     {
-        $item = $request->all();
-        $cart = Cart::find();
-        $cart->update($item);
-        return;
+        //
     }
 
 

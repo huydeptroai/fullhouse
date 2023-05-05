@@ -153,7 +153,7 @@
                                 <div class="wrap-review-form">
 
                                     <div id="comments">
-                                        <h2 class="woocommerce-Reviews-title">01 review for <span>{{$product->product_name}}</span></h2>
+                                        <h2 class="woocommerce-Reviews-title">{{ $count_reviews }} review(s) for <span>{{$product->product_name}}</span></h2>
                                         <ol class="commentlist">
                                             @foreach($reviews as $review)
                                             <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1" id="li-comment-20">
@@ -167,7 +167,7 @@
                                                             <strong class="woocommerce-review__author">{{$review->user->name}}</strong>
                                                             <span class="woocommerce-review__dash">–</span>
                                                             <time class="woocommerce-review__published-date" datetime="2023-02-14 20:00">
-                                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $review->updated_at)->diffForHumans()}}
+                                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $review->updated_at)->diffForHumans()}}
                                                             </time>
                                                         </p>
                                                         <div class="description">
@@ -183,7 +183,7 @@
                                     <div id="review_form_wrapper">
                                         <div id="review_form">
                                             <div id="respond" class="comment-respond">
-
+                                                @if(Auth::check())
                                                 <form action="#" method="post" id="commentform" class="comment-form" novalidate="">
                                                     @csrf
                                                     <p class="comment-notes">
@@ -206,12 +206,12 @@
                                                         </p>
                                                     </div>
                                                     <p class="comment-form-author">
-                                                        <label for="author">Name <span class="required">*</span></label>
-                                                        <input id="author" name="author" type="text" value="">
+                                                        <label for="name">Name <span class="required">*</span></label>
+                                                        <input id="name" name="name" type="text" value="{{ old('name', Auth::user()->name)}}">
                                                     </p>
                                                     <p class="comment-form-email">
                                                         <label for="email">Email <span class="required">*</span></label>
-                                                        <input id="email" name="email" type="email" value="">
+                                                        <input id="email" name="email" type="email" value="{{ old('email', Auth::user()->email)}}">
                                                     </p>
                                                     <p class="comment-form-comment">
                                                         <label for="comment">Your review <span class="required">*</span>
@@ -222,7 +222,9 @@
                                                         <input name="submit" type="submit" id="submit" class="submit" value="Submit">
                                                     </p>
                                                 </form>
-
+                                                @else
+                                                <a href="{{ route('login')}}">Please login before to comment!</a>
+                                                @endif
                                             </div><!-- .comment-respond-->
                                         </div><!-- #review_form -->
                                     </div><!-- #review_form_wrapper -->

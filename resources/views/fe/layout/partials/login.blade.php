@@ -10,7 +10,7 @@
 
 		<!-- Session Status -->
 		@if(session('status') != null)
-		<p>{{session('status')}}</p>
+		<p style="color:green;">{{session('status')}}</p>
 		@endif
 
 		<form action="{{ route('login')}}" method="post">
@@ -44,11 +44,12 @@
 			@endif
 
 			<button type="submit" class="btn">Login</button>
+			
 			<div class="login-register">
 				<p>Don't have account? <a href="#" class="register-link">Register</a></p>
 			</div>
 
-			<!-- sign by social -->
+			<!-- sign in by social -->
 			<div class="social-auth-links text-center mb-3">
 				<p>- OR -</p>
 				<a href="#" class="btn btn-block btn-primary">
@@ -58,6 +59,7 @@
 					Sign in using Google+
 				</a>
 			</div>
+			<!-- sign in by social -->
 
 		</form>
 	</div>

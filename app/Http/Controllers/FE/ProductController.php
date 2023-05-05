@@ -44,7 +44,8 @@ class ProductController extends Controller
     {
         $avgRating = Review::where('product_id', $product->product_id)->avg('rating');
 
-        $reviews = Review::all();
+        $reviews = Review::where('product_id', $product->product_id)->get();
+        $count_reviews = Review::where('product_id', $product->product_id)->count('*');
         $prods_popular = Product::limit(4)->get();
 
         $prods_related = Product::where('category_id', 'like', $product->category_id)
@@ -53,6 +54,7 @@ class ProductController extends Controller
         return view('fe.product-detail', [
             'product' => $product,
             'reviews' => $reviews,
+            'count_reviews' => $count_reviews,
             'avgRating' => $avgRating,
             'prods_related' => $prods_related,
             'prods_popular' => $prods_popular

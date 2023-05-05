@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\FE;
 
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,7 +17,8 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('fe.profile', [
+        return view('profile.profile', [
+            // return view('profile.edit', [
             'user' => $request->user(),
         ]);
     }
@@ -24,13 +26,22 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(Request $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
+
+        $request->user()->profile = json_encode([
+            'avatar' => $request->file_name,
+            'gender' => $request->gender,
+            'dob' => $request->dob,
+            'city' => $request->city,
+            'district' => $request->district,
+            'address' => $request->address
+        ]);
 
         $request->user()->save();
 

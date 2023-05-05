@@ -19,15 +19,15 @@
 					<div name="frm-billing">
 						<p class="row-in-form">
 							<label for="fname">Full name<span>*</span></label>
-							<input id="fname" type="text" name="receiver_name" value="" placeholder="Your name">
+							<input id="fname" type="text" name="receiver_name" value="{{old('receiver_name', Auth::user()->name)}}" placeholder="Your name">
 						</p>
 						<p class="row-in-form">
 							<label for="phone">Phone number<span>*</span></label>
-							<input id="phone" type="number" name="receiver_phone" value="" placeholder="10 digits format">
+							<input id="phone" type="number" name="receiver_phone" value="{{old('receiver_phone', Auth::user()->phone)}}" placeholder="10 digits format">
 						</p>
 						<p class="row-in-form">
 							<label for="phone">City/Province <span>*</span></label>
-							<select name="shipping_city" id="shipping_city">
+							<select name="shipping_city" id="shipping_city" value="{{old('shipping_city')}}">
 								<option value="">-- Select city/province --</option>
 								@foreach($provinces as $item)
 								<option value="{{$item->full_name_en}}">{{$item->full_name_en}}</option>
@@ -42,11 +42,11 @@
 						</p>
 						<p class="row-in-form">
 							<label for="add">Address:</label>
-							<input id="shipping_address" type="text" name="shipping_address" value="" placeholder="Street at apartment number">
+							<input id="shipping_address" type="text" name="shipping_address" value="{{ old('shipping_address')}}" placeholder="Street at apartment number">
 						</p>
 						<p class="row-in-form">
 							<label for="country">Note: </label>
-							<textarea name="note" id="note" cols="30" rows="10" placeholder="Note for this order, if have"></textarea>
+							<textarea name="note" id="note" cols="30" rows="10" placeholder="Note for this order, if have">{{old('note')}}</textarea>
 						</p>
 						<p class="row-in-form fill-wife">
 							<label class="checkbox-field">

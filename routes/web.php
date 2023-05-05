@@ -11,6 +11,7 @@ use App\Http\Controllers\FE\CheckOutController;
 use App\Http\Controllers\FE\ProductController;
 use App\Http\Controllers\FE\ProfileController;
 use App\Http\Controllers\FE\HomeController;
+use App\Http\Controllers\FE\CategoryController;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -38,7 +39,7 @@ Route::get('/', function () {
 // Route::get('/login', [HomeController::class, 'login'])->name('login');
 // Route::post('/check-login', [HomeController::class, 'checkLogin'])->name('checkLogin');
 // Route::get('/register', [HomeController::class, 'register'])->name('register');
-Route::post('/register-acc', [HomeController::class, 'RegisterAcc'])->name('RegisterAcc');
+// Route::post('/register-acc', [HomeController::class, 'RegisterAcc'])->name('RegisterAcc');
 // Route::get('/register_socialite', [HomeController::class, 'register_socialite'])->name('register_socialite');
 
 // ============= back-end ===============
@@ -48,6 +49,10 @@ Route::post('/register-acc', [HomeController::class, 'RegisterAcc'])->name('Regi
 // })->middleware(['auth', 'verified'])->name('admin.dashboard');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::group(['middleware' => 'checkAdmin', 'prefix' => 'admin'], function () {
 
@@ -96,7 +101,7 @@ Route::controller(CheckOutController::class)->group(function () {
 });
 
 
-Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::get('/category/{category_id}', [CategoryController::class, 'searchByCategoryId'])->name('searchByCategoryId');
 
 
 // Route::get('/login', [HomeController::class, 'login'])->name('login');

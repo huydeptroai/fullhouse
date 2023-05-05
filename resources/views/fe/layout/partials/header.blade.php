@@ -14,26 +14,28 @@
 						<ul>
 							<li class="menu-item">
 								<a title="Register or Login" href="#" class="btnLogin-popup">
-									@if(Auth::user() === null)
+									@if(!Auth::check())
 									<strong>{{__('Login')}}</strong>
 									@endif
 								</a>
 							</li>
 
 							<!-- my account user -->
-							@if(Auth::user() != null)
+							@if(Auth::check())
 							<li class="menu-item menu-item-has-children parent">
 								<a title="My Account" href="#">
-									<span>{{ Auth::user()->name }}</span>
+									Welcome, <strong>{{ Auth::user()->name }}</strong>
 									<i class="fa fa-angle-down" aria-hidden="true"></i>
 								</a>
 								<ul class="submenu user">
 									@if(Auth::user()->role === 1)
-									<li class="menu-item"><a href="{{route('admin.dashboard')}}">Managers</a></li>
+									<li class="menu-item"><a href="{{route('admin.dashboard')}}">
+										<strong>Managers</strong>
+									</a></li>
 									@endif
 
-									<li class="menu-item"><a href="{{route('profile.edit')}}">Account Details</a></li>
-									<li class="menu-item"><a href="{{route('profile.edit')}}">Orders</a></li>
+									<li class="menu-item"><a href="{{route('profile.edit')}}">Profile</a></li>
+									<li class="menu-item"><a href="{{route('profile.edit')}}">Orders History</a></li>
 									<li class="menu-item">
 										<!-- Authentication -->
 										<form method="POST" action="{{ route('logout') }}">
@@ -61,20 +63,24 @@
 
 					<div class="wrap-search center-section">
 						<div class="wrap-search-form">
-							<form action="#" id="form-search-top" name="form-search-top">
+							<form method="post" action="#" id="form-search-top" name="form-search-top">
 								<input type="text" name="search" value="" placeholder="Search here...">
-								<button form="form-search-top" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+								<button form="form-search-top" type="submit">
+									<i class="fa fa-search" aria-hidden="true"></i>
+								</button>
+
 								<div class="wrap-list-cate">
-									<input type="hidden" name="product-cate" value="0" id="product-cate">
+									<input type="hidden" name="product-cate" value="" id="product-cate">
 									<a href="#" class="link-control">All Category</a>
 									<ul class="list-cate">
-										<li class="level-0">All Category</li>
-										<li class="level-1">-Office furniture</li>
-										<li class="level-2">Desk Office</li>
-										<li class="level-2">Chair Office</li>
-										<li class="level-2">Cabinet-shelves Office</li>
+										<li class="level-0"><a href="{{ route('product.index')}}">All Category</a></li>
 
-										<li class="level-1">-Living furniture</li>
+										<li class="level-1"><a href="#">-Office furniture</a></li>
+										<li class="level-2"><a href="">Desk Office</a></li>
+										<li class="level-2"><a href="">Chair Office</a></li>
+										<li class="level-2"><a href="">Cabinet-shelves Office</a></li>
+
+										<li class="level-1"><a href="">-Living furniture</a></li>
 										<li class="level-2">Sofa</li>
 										<li class="level-2">Sofa table</li>
 										<li class="level-2">TV Shelf</li>
@@ -151,9 +157,9 @@
 							<li class="menu-item">
 								<a href="{{ route('cart') }}" class="link-term mercado-item-title">Cart</a>
 							</li>
-							<li class="menu-item">
+							<!-- <li class="menu-item">
 								<a href="{{route('checkout')}}" class="link-term mercado-item-title">Checkout</a>
-							</li>
+							</li> -->
 							<li class="menu-item">
 								<a href="{{route('contact')}}" class="link-term mercado-item-title">Contact Us</a>
 							</li>
