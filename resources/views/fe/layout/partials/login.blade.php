@@ -125,26 +125,3 @@
 		</form>
 	</div>
 </div>
-
-<form action="">
-	<div class="model hide">
-		<div class="model_inner">
-			<div class="model_header">
-				<p>Password Recovery</p>
-			</div>
-			<div class="model_body">
-				<div class="input-box">
-					<span class="icon">
-						<i class="fa fa-envelope" aria-hidden="true"></i>
-					</span>
-					<input type="email" required />
-					<label>Email</label>
-				</div>
-			</div>
-			<div class="model_footer">
-				<input type="submit" class="btn " value="Send">
-				<button class="btn">Close</button>
-			</div>
-		</div>
-	</div>
-</form>

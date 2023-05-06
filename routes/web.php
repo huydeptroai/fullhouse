@@ -36,10 +36,6 @@ Route::get('/', function () {
 
 
 
-// Route::get('/login', [HomeController::class, 'login'])->name('login');
-// Route::post('/check-login', [HomeController::class, 'checkLogin'])->name('checkLogin');
-// Route::get('/register', [HomeController::class, 'register'])->name('register');
-// Route::post('/register-acc', [HomeController::class, 'RegisterAcc'])->name('RegisterAcc');
 // Route::get('/register_socialite', [HomeController::class, 'register_socialite'])->name('register_socialite');
 
 // ============= back-end ===============

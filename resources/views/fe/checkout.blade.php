@@ -39,7 +39,7 @@
 						</p>
 						<p class="row-in-form">
 							<label for="phone">District: <span>*</span></label>
-							<select name="shipping_district" id="shipping_district">
+							<select name="shipping_district" id="shipping_district" data-placeholder="Choose a district...">
 								<option value="">-- Select district --</option>
 							</select>
 						</p>
@@ -348,14 +348,14 @@
 <!-- select city/district -->
 <script type='text/javascript'>
 	jQuery(document).ready(function() {
-		// $('#district').html("<option value='0'>-- Select district --</option>");
-
+		$('#shipping_district').html("<option value='0'>-- Select district --</option>");
+		// let option = '';
+		
 		$('#shipping_city').change(function() {
 			var code = $(this).val();
 			// Empty the dropdown
 			$('#shipping_district').find('option').not(':first').remove();
-			// var option = '';
-
+			
 			// AJAX request 
 			$.ajax({
 				url: 'district/' + code,
@@ -364,20 +364,23 @@
 				success: function(response) {
 					console.log(response);
 					console.log(response.length);
-
+					$('.shipping_district').append("<option value=''>-- Success --</option>");
+					
 					$.each(response, function(k, v) {
 						// option += `<option value="${v.code}">${v.full_name_en}</option>`;
 						var option = `<option value="${v.code}">${v.full_name_en}</option>`;
 						$("#shipping_district").append(option);
 						console.log(option);
 					});
-					// console.log(option);
-					// $("#district").html(option);
 					
-			
+					// $("#shipping_district").html(option);
+					
+					
 				}
 			});
 		});
+		// console.log(option);
+		// $("#shipping_district").html(option);
 	});
 </script>
 @endsection

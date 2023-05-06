@@ -15,7 +15,7 @@ class Ad_CategoryController extends Controller
     public function index()
     {
         // $cates = Category::all();
-        $cates = Category::selectRaw('categories.*, count(product_id) as count_product')
+        $cates = Category::selectRaw('categories.*, count(*) as count_product')
             ->leftJoin('products', 'categories.category_id', 'like', 'products.category_id')
             ->groupBy('categories.category_id')
             ->orderBy('count_product', 'desc')
