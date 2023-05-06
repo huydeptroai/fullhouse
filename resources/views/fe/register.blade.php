@@ -20,7 +20,7 @@
                             <form class="form-stl" action="#" name="frm-login" method="get">
                                 <fieldset class="wrap-title">
                                     <h3 class="form-title">Create an account</h3>
-                                    <h4 class="form-subtitle">Personal infomation</h4>
+                                    <h4 class="form-subtitle">Personal information</h4>
                                 </fieldset>
                                 <fieldset class="wrap-input">
                                     <label for="frm-reg-lname">Name*</label>
