@@ -1,7 +1,10 @@
 @extends('fe.layout.master')
+
 @section('title', 'Checkout')
+
 @section('content')
-<main id="main" class="main-site checkout page">
+<!-- <main id="main" class="main-site checkout page"> -->
+<main>
 
 	<div class="container">
 
@@ -30,7 +33,7 @@
 							<select name="shipping_city" id="shipping_city" value="{{old('shipping_city')}}">
 								<option value="">-- Select city/province --</option>
 								@foreach($provinces as $item)
-								<option value="{{$item->full_name_en}}">{{$item->full_name_en}}</option>
+								<option value="{{$item->code}}">{{$item->full_name_en}}</option>
 								@endforeach
 							</select>
 						</p>
@@ -62,7 +65,7 @@
 				</div>
 
 				<div class="summary summary-checkout">
-					
+
 
 					<div class="summary-item shipping-method">
 						<h4 class="title-box f-title">Shipping method</h4>
@@ -361,6 +364,7 @@
 				success: function(response) {
 					console.log(response);
 					console.log(response.length);
+
 					$.each(response, function(k, v) {
 						// option += `<option value="${v.code}">${v.full_name_en}</option>`;
 						var option = `<option value="${v.code}">${v.full_name_en}</option>`;
@@ -369,6 +373,8 @@
 					});
 					// console.log(option);
 					// $("#district").html(option);
+					
+			
 				}
 			});
 		});
