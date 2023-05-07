@@ -36,10 +36,6 @@ Route::get('/', function () {
 
 
 
-// Route::get('/register_socialite', [HomeController::class, 'register_socialite'])->name('register_socialite');
-
-// ============= back-end ===============
-
 // Route::get('/admin/dashboard', function () {
 //     return view('admin.dashboard');
 // })->middleware(['auth', 'verified'])->name('admin.dashboard');
@@ -50,6 +46,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::controller(CheckOutController::class)->group(function () {
+        Route::get('/checkout', 'viewOrder')->name('checkout');
+        Route::get('/district/{province_code}', 'getDistricts')->name('districts');
+        Route::post('coupon', 'postCoupon')->name('postCoupon');
+        Route::post('show-coupon', 'showCoupon')->name('showCoupon');
+        Route::post('order', 'createOrder')->name('createOrder');
+    });
+
+    // ============= back-end Admin ===============
     Route::group(['middleware' => 'checkAdmin', 'prefix' => 'admin'], function () {
 
 
@@ -89,19 +94,12 @@ Route::controller(CartController::class)->group(function () {
     Route::DELETE('delete-cart/{cart_id}', 'destroy')->name('deleteCart');
 });
 
-Route::controller(CheckOutController::class)->group(function () {
-    Route::get('/checkout', 'viewOrder')->name('checkout');
-    Route::get('/district/{province_code}', 'getDistricts')->name('districts');
-    Route::post('get-coupon', 'postCoupon')->name('postCoupon');
-    Route::post('order', 'createOrder')->name('createOrder');
-});
+
 
 
 Route::get('/category/{category_id}', [CategoryController::class, 'searchByCategoryId'])->name('searchByCategoryId');
 
 
-// Route::get('/login', [HomeController::class, 'login'])->name('login');
-// Route::get('/register', [HomeController::class, 'register'])->name('register');
 // Route::get('/register_socialite', [HomeController::class, 'register_socialite'])->name('register_socialite');
 
 //============ login by Facebook===========

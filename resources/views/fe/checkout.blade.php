@@ -2,12 +2,14 @@
 
 @section('title', 'Checkout')
 
+@section('myCss')
+<!-- <link rel="stylesheet" href="{{ asset('/frontend/css/mdb.form.css') }}"> -->
+@endsection
+
 @section('content')
-<!-- <main id="main" class="main-site checkout page"> -->
-<main>
+<main id="main" class="main-site checkout page">
 
 	<div class="container">
-
 		<div class="wrap-breadcrumb">
 			<ul>
 				<li class="item-link"><a href="{{route('home')}}" class="link">home</a></li>
@@ -20,36 +22,36 @@
 				<div class="wrap-address-billing">
 					<h3 class="box-title">Billing Address</h3>
 					<div name="frm-billing">
-						<p class="row-in-form">
+						<p class="row-in-form form-group">
 							<label for="fname">Full name<span>*</span></label>
-							<input id="fname" type="text" name="receiver_name" value="{{old('receiver_name', Auth::user()->name)}}" placeholder="Your name">
+							<input class="form-control" id="fname" type="text" name="receiver_name" value="{{old('receiver_name', $user->name)}}" placeholder="Your name">
 						</p>
-						<p class="row-in-form">
+						<p class="row-in-form form-group">
 							<label for="phone">Phone number<span>*</span></label>
-							<input id="phone" type="number" name="receiver_phone" value="{{old('receiver_phone', Auth::user()->phone)}}" placeholder="10 digits format">
+							<input class="form-control" id="phone" type="number" name="receiver_phone" value="{{old('receiver_phone', $user->phone)}}" placeholder="10 digits format">
 						</p>
-						<p class="row-in-form">
+						<p class="row-in-form form-group">
 							<label for="phone">City/Province <span>*</span></label>
-							<select name="shipping_city" id="shipping_city" value="{{old('shipping_city')}}">
+							<select class="form-control" name="shipping_city" id="shipping_city" value="{{old('shipping_city')}}">
 								<option value="">-- Select city/province --</option>
 								@foreach($provinces as $item)
 								<option value="{{$item->code}}">{{$item->full_name_en}}</option>
 								@endforeach
 							</select>
 						</p>
-						<p class="row-in-form">
+						<p class="row-in-form form-group">
 							<label for="phone">District: <span>*</span></label>
-							<select name="shipping_district" id="shipping_district" data-placeholder="Choose a district...">
+							<select class="form-control" name="shipping_district" id="shipping_district" data-placeholder="Choose a district...">
 								<option value="">-- Select district --</option>
 							</select>
 						</p>
-						<p class="row-in-form">
+						<p class="row-in-form form-group">
 							<label for="add">Address:</label>
-							<input id="shipping_address" type="text" name="shipping_address" value="{{ old('shipping_address')}}" placeholder="Street at apartment number">
+							<input class="form-control" id="shipping_address" type="text" name="shipping_address" value="{{ old('shipping_address')}}" placeholder="Street at apartment number">
 						</p>
-						<p class="row-in-form">
+						<p class="row-in-form form-group">
 							<label for="country">Note: </label>
-							<textarea name="note" id="note" cols="30" rows="10" placeholder="Note for this order, if have">{{old('note')}}</textarea>
+							<textarea class="form-control" name="note" id="note" cols="30" rows="10" placeholder="Note for this order, if have">{{old('note')}}</textarea>
 						</p>
 						<p class="row-in-form fill-wife">
 							<label class="checkbox-field">
@@ -65,29 +67,84 @@
 				</div>
 
 				<div class="summary summary-checkout">
+					<h4 class="summary-info">
+						<span class="title-box">Total cart:</span>
+						<span class="total-cart">
+							<!--show total cart form data -->$ 0.00
+						</span>
+						<input type="hidden" class="total-cart" name="value_order" value="">
+					</h4>
 
-
+					<hr>
 					<div class="summary-item shipping-method">
-						<h4 class="title-box f-title">Shipping method</h4>
-						<p class="summary-info"><span class="title">Flat Rate</span></p>
-						<p class="summary-info"><span class="title">Fixed $50.00</span></p>
 
-						<h4 class="title-box">Discount Codes</h4>
-						<p class="row-in-form">
-							<label for="coupon-code">Coupon code:</label>
-							<input class="col-8" id="coupon-code" type="text" name="coupon-code" value="" placeholder="Enter Your Coupon code" data-total="1000">
-						</p>
-						<p class="summary-info">
-							<span class="title">Discount:</span>
-							<b class="index value-coupon">0</b>
-						</p>
-						<a href="#" class="btn btn-small">Apply</a>
+						<h4 class="title-box f-title">Shipping method</h4>
+						<div class="choose-payment-methods">
+							<label class="payment-method">
+								<input name="method-shipping" id="method-shipping" value="1" type="radio">
+								<span>Shipping fee: </span>
+								<span class="shipping-fee" style="font-size: 16px;"> $ 0.00</span>
+
+								<span class="payment-desc">
+									<table class="shop_attributes" style="table-layout: fixed;text-align:center;">
+										<tbody>
+											<tr>
+												<th>Value_Order:</th>
+												<td>
+													< $250.00 </td>
+												<td> >= $250.00 </td>
+											</tr>
+											<tr>
+												<th>Urban</th>
+												<td>
+													<p>6% of order</p>
+													<small> between $5.00 and $25.00 </small>
+												</td>
+												<td> free</td>
+											</tr>
+											<tr>
+												<th>Suburban</th>
+												<td>
+													<p>6% of order</p>
+													<small> between $5.00 and $25.00 </small>
+												</td>
+												<td>
+													<p>6% of order</p>
+													<small> between $5.00 and $25.00 </small>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</span>
+							</label>
+							<label class="payment-method">
+								<input name="method-shipping" id="method-shipping-no" value="0" type="radio">
+								<span>No Shipping</span>
+								<span class="payment-desc">Please you call before.</span>
+							</label>
+
+						</div>
+						
+						
+						<div class="summary-info">
+							<h4 class="title-box"></h4>
+							<p class="row-in-form">
+								<label for="coupon-code">Coupon code:</label>
+								<input class="col-8" id="coupon-code" type="text" name="coupon-code" value="{{ old('coupon-code')}}" placeholder="Enter Your Coupon code">
+
+							</p>
+							<p class="summary-info">
+								<span class="title">Discount:</span>
+								<b class="index value-coupon" style="font-size: 16px;">$ 0.00</b>
+							</p>
+							<a href="#" class="btn btn-small">Apply</a>
+						</div>
+
 					</div>
 
 					<div class="summary-item payment-method">
 						<h4 class="title-box">Payment Method</h4>
-						<p class="summary-info"><span class="title">Check / Money order</span></p>
-						<p class="summary-info"><span class="title">Credit Cart (saved)</span></p>
+
 						<div class="choose-payment-methods">
 							<label class="payment-method">
 								<input name="payment_method" id="payment-method-bank" value="0" type="radio">
@@ -113,7 +170,7 @@
 							</label>
 							<label class="payment-method">
 								<input name="payment_method" id="payment-method-visa" value="1" type="radio">
-								<span>visa</span>
+								<span>COD</span>
 								<span class="payment-desc">There are many variations of passages of Lorem Ipsum available</span>
 							</label>
 							<label class="payment-method">
@@ -123,8 +180,9 @@
 								<span class="payment-desc">card if you don't have a paypal account</span>
 							</label>
 						</div>
+						<hr>
 						<p class="summary-info grand-total">
-							<span>Grand Total</span> <span class="grand-total-price">$100.00</span>
+							<span>Grand Total</span> <span class="grand-total-price" style="font-size: 2em;"> $ 0.00</span>
 						</p>
 
 						<button type="submit" class="btn btn-medium">Place order now</button>
@@ -133,166 +191,49 @@
 				</div>
 			</form>
 
-
+			
 			<!-- products most view -->
-			<div class="wrap-show-advance-info-box style-1 box-in-site">
+			<!-- <div class="wrap-show-advance-info-box style-1 box-in-site"> -->
+			<div class="style-1" style="margin-top: 5%;">
 				<h3 class="title-box">Most Viewed Products</h3>
 				<div class="wrap-products">
 					<div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="4" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"4"}}'>
 
+						@foreach($products as $product)
 						<div class="product product-style-2 equal-elem ">
 							<div class="product-thumnail">
-								<a href="#" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-									<figure><img src="{{ asset('frontend/images/products/digital_04.jpg') }}" width="214" height="214" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
+								<a href="{{route('product.show', $product->product_id)}}" title="{{$product->product_name}}">
+									<figure>
+										<img src="{{ asset('assets/img/upload/product/'.$product->product_image['0']) }}" width="800" height="800" alt="{{$product->product_image['0']}}">
+									</figure>
 								</a>
 								<div class="group-flash">
-									<span class="flash-item new-label">new</span>
+									@if($product->discount > 0)
+									<span class="flash-item sale-label">
+										sale {{number_format($product->discount/$product->product_price*100,0)}}%
+									</span>
+									@endif
 								</div>
 								<div class="wrap-btn">
-									<a href="#" class="function-link">quick view</a>
+									<a href="{{route('product.show', $product->product_id)}}" class="function-link">quick view</a>
 								</div>
 							</div>
 							<div class="product-info">
-								<a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
-								<div class="wrap-price"><span class="product-price">$250.00</span></div>
+								<a href="{{route('product.show', $product->product_id)}}" class="product-name"><span>{{$product->product_name}}</span></a>
+								<div class="wrap-price">
+									<span class="product-price">
+										${{number_format($product->product_price - $product->discount,2)}}
+									</span>
+									@if($product->discount > 0)
+									<span style="text-decoration: line-through;">${{number_format($product->product_price,2)}}</span>
+									@endif
+								</div>
 							</div>
 						</div>
 
-						<div class="product product-style-2 equal-elem ">
-							<div class="product-thumnail">
-								<a href="#" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-									<figure><img src="{{ asset('frontend/images/products/digital_17.jpg') }}" width="214" height="214" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
-								</a>
-								<div class="group-flash">
-									<span class="flash-item sale-label">sale</span>
-								</div>
-								<div class="wrap-btn">
-									<a href="#" class="function-link">quick view</a>
-								</div>
-							</div>
-							<div class="product-info">
-								<a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
-								<div class="wrap-price"><ins>
-										<p class="product-price">$168.00</p>
-									</ins> <del>
-										<p class="product-price">$250.00</p>
-									</del></div>
-							</div>
-						</div>
+						@endforeach
 
-						<div class="product product-style-2 equal-elem ">
-							<div class="product-thumnail">
-								<a href="#" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-									<figure><img src="{{ asset('frontend/images/products/digital_15.jpg') }}" width="214" height="214" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
-								</a>
-								<div class="group-flash">
-									<span class="flash-item new-label">new</span>
-									<span class="flash-item sale-label">sale</span>
-								</div>
-								<div class="wrap-btn">
-									<a href="#" class="function-link">quick view</a>
-								</div>
-							</div>
-							<div class="product-info">
-								<a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
-								<div class="wrap-price"><ins>
-										<p class="product-price">$168.00</p>
-									</ins> <del>
-										<p class="product-price">$250.00</p>
-									</del></div>
-							</div>
-						</div>
 
-						<div class="product product-style-2 equal-elem ">
-							<div class="product-thumnail">
-								<a href="#" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-									<figure><img src="{{ asset('frontend/images/products/digital_01.jpg') }}" width="214" height="214" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
-								</a>
-								<div class="group-flash">
-									<span class="flash-item bestseller-label">Bestseller</span>
-								</div>
-								<div class="wrap-btn">
-									<a href="#" class="function-link">quick view</a>
-								</div>
-							</div>
-							<div class="product-info">
-								<a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
-								<div class="wrap-price"><span class="product-price">$250.00</span></div>
-							</div>
-						</div>
-
-						<div class="product product-style-2 equal-elem ">
-							<div class="product-thumnail">
-								<a href="#" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-									<figure><img src="{{ asset('frontend/images/products/digital_21.jpg') }}" width="214" height="214" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
-								</a>
-								<div class="wrap-btn">
-									<a href="#" class="function-link">quick view</a>
-								</div>
-							</div>
-							<div class="product-info">
-								<a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
-								<div class="wrap-price"><span class="product-price">$250.00</span></div>
-							</div>
-						</div>
-
-						<div class="product product-style-2 equal-elem ">
-							<div class="product-thumnail">
-								<a href="#" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-									<figure><img src="{{ asset('frontend/images/products/digital_03.jpg') }}" width="214" height="214" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
-								</a>
-								<div class="group-flash">
-									<span class="flash-item sale-label">sale</span>
-								</div>
-								<div class="wrap-btn">
-									<a href="#" class="function-link">quick view</a>
-								</div>
-							</div>
-							<div class="product-info">
-								<a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
-								<div class="wrap-price"><ins>
-										<p class="product-price">$168.00</p>
-									</ins> <del>
-										<p class="product-price">$250.00</p>
-									</del></div>
-							</div>
-						</div>
-
-						<div class="product product-style-2 equal-elem ">
-							<div class="product-thumnail">
-								<a href="#" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-									<figure><img src="{{ asset('frontend/images/products/digital_04.jpg') }}" width="214" height="214" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
-								</a>
-								<div class="group-flash">
-									<span class="flash-item new-label">new</span>
-								</div>
-								<div class="wrap-btn">
-									<a href="#" class="function-link">quick view</a>
-								</div>
-							</div>
-							<div class="product-info">
-								<a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
-								<div class="wrap-price"><span class="product-price">$250.00</span></div>
-							</div>
-						</div>
-
-						<div class="product product-style-2 equal-elem ">
-							<div class="product-thumnail">
-								<a href="#" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-									<figure><img src="{{ asset('frontend/images/products/digital_05.jpg') }}" width="214" height="214" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
-								</a>
-								<div class="group-flash">
-									<span class="flash-item bestseller-label">Bestseller</span>
-								</div>
-								<div class="wrap-btn">
-									<a href="#" class="function-link">quick view</a>
-								</div>
-							</div>
-							<div class="product-info">
-								<a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker [White]</span></a>
-								<div class="wrap-price"><span class="product-price">$250.00</span></div>
-							</div>
-						</div>
 					</div>
 				</div><!--End wrap-products-->
 			</div>
@@ -307,27 +248,28 @@
 @endsection
 
 @section('myJS')
-<!-- cal coupon -->
 <script>
+	// <!-- cal coupon -->
 	$(document).ready(function() {
 		$.ajaxSetup({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			}
 		});
-		$('body').on('keyup', '#coupon-code', function() {
-			setTimeout(post_coupon, 1000);
+
+		$('body').on('change', '#coupon-code', function() {
+			post_coupon();
 		});
 		post_coupon();
 
-		function post_coupon() {
-			let coupon_code = $('#coupon-code').val() ?? '';
-			let value_order = $('#coupon-code').data('total');
+		
 
+		function post_coupon() {
+			let coupon_code = $('#coupon-code').val().toUpperCase() ?? '';
+			let value_order = $('input[name="value_order"]').val() ?? 0;
 			if (coupon_code == "") {
 				return;
 			}
-			console.log('code ' + coupon_code + ' value order: ' + value_order);
 			$.ajax({
 				type: 'post',
 				url: "{{route('postCoupon')}}",
@@ -336,51 +278,46 @@
 					value_order: value_order
 				},
 				success: function(data) {
-					$('.value-coupon').html("$" + parseFloat(data).toFixed(2));
-					let total = (value_order - data).toFixed(2);
+					let discount = 0;
+					$.each(data, function(k, v) {
+						if (k === coupon_code) {
+							discount = v.value;
+							return;
+						}
+					});
+					// console.log(discount);
+					$('.value-coupon').html("$" + parseFloat(discount).toFixed(2));
+					let total = (value_order - discount).toFixed(2);
 					$('.result').html("$" + total);
-
 				}
 			});
 		}
+
 	});
-</script>
-<!-- select city/district -->
-<script type='text/javascript'>
+
+	// <!-- select city/district -->
 	jQuery(document).ready(function() {
 		$('#shipping_district').html("<option value='0'>-- Select district --</option>");
-		// let option = '';
-		
+
 		$('#shipping_city').change(function() {
 			var code = $(this).val();
 			// Empty the dropdown
 			$('#shipping_district').find('option').not(':first').remove();
-			
+
 			// AJAX request 
 			$.ajax({
 				url: 'district/' + code,
 				type: 'get',
 				dataType: 'json',
 				success: function(response) {
-					console.log(response);
-					console.log(response.length);
-					$('.shipping_district').append("<option value=''>-- Success --</option>");
-					
 					$.each(response, function(k, v) {
-						// option += `<option value="${v.code}">${v.full_name_en}</option>`;
 						var option = `<option value="${v.code}">${v.full_name_en}</option>`;
 						$("#shipping_district").append(option);
 						console.log(option);
 					});
-					
-					// $("#shipping_district").html(option);
-					
-					
 				}
 			});
 		});
-		// console.log(option);
-		// $("#shipping_district").html(option);
 	});
 </script>
 @endsection

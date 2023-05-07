@@ -21,9 +21,10 @@ class CheckOutController extends Controller
         $provinces = Province::orderby("administrative_region_id", "asc")
             ->select('code', 'full_name_en')
             ->get();
-
+        $user = Auth::user();
         $product = Product::all();
         return view('fe.checkout', [
+            'user' => $user,
             'provinces' => $provinces,
             'products' => $product
         ]);
@@ -42,28 +43,32 @@ class CheckOutController extends Controller
 
     public function createOrder(Request $request)
     {
-        // dd($request);
         //1. crete order
+        // dd($request);
         $data = $request->all();
-        $user_id = Auth::id();
         // Shipping fee
-        $data['shipping_fee'] = $this->shippingFee($request->shipping_city, $request->value_order);
-        // $data['order_date'] = date('Y-m-d',time());
-        // $data['user_id'] = $user_id;
-        dd($data);
+        $shipping_fee = 0;
+
+
+        if ($request->method_shipping == 1) {
+
+            $shipping_fee = $this->shippingFee($data);
+        }
+        dd($request);
+        $user_id = Auth::id();
 
         $order = Order::create([
             'order_date' => date('Y-m-d', time()),
-            'receiver_name' => $request->receiver_name,
-            'receiver_phone' => $request->receiver_phone,
-            'shipping_city' => $request->receiver_city,
-            'shipping_district' => $request->receiver_district,
-            'shipping_fee' => $data['shipping_fee'],
-            'payment_method' => $request->payment_method,
-            'note' => $request->note,
+            'receiver_name' => $data['receiver_name'],
+            'receiver_phone' => $data['receiver_phone'],
+            'shipping_city' => $data['receiver_city'],
+            'shipping_district' => $data['receiver_district'],
+            'shipping_fee' => $shipping_fee,
+            'payment_method' => $data['payment_method'],
+            'note' => $data['note'],
             'status' => 0,
             'user_id' => $user_id,
-            'coupon_id' => $request->coupon_id
+            'coupon_id' => $data['coupon_id']
         ]);
 
         $carts = Cart::where('user_id', $user_id)->get();
@@ -88,13 +93,18 @@ class CheckOutController extends Controller
         return redirect()->route('checkout')->with('success', 'You are order successfully! Your order is processing');
     }
 
-    public function shippingFee($city, $value_order)
+    public function shippingFee($data)
     {
         define('AMOUNT', 250);
         define('MIN', 5);
         define('MAX', 50);
 
-        if ($city != 'Ho Chi Minh City') {
+        $city_code = $data->city;
+        $district_code = $data->district;
+        $value_order = $data->value_order;
+
+
+        if ($city_code != '79') {
             if ($value_order < AMOUNT) {
                 $shipping_fee = $value_order * 0.1;
 
@@ -111,21 +121,41 @@ class CheckOutController extends Controller
 
     public function postCoupon(Request $request)
     {
-        $code = $request->code;
+        $code = trim($request->code);
         $value_order = $request->value_order;
 
+        $order_coupon = [];
+        if (session()->has('order_coupon')) {
+            $order_coupon = session()->get('order_coupon');
+        }
+
         $coupon = Coupon::where('code', 'like', $code)
-            ->where('status', '=', 1)
+            ->where('status', 1)
             ->where('value_order', '<=', $value_order)
             ->first();
-        // if($coupon);
-        // {
-        //     return 0;
-        // }
-        $times = Order::where('coupon_id', $coupon->id)->count('id');
+
+        $times = Order::where('coupon_id', $coupon->id)->count('*');
+
+        $value = 0;
         if ($coupon->times > $times) {
-            return $coupon->value;
+            $value = $coupon->value;
         }
-        return 0;
+
+        $order_coupon[$code] = [
+            'coupon' => $coupon,
+            'value' => $value
+        ];
+
+        session()->put('order_coupon', $order_coupon);
+
+        return response()->json($order_coupon);
+    }
+
+    public function showCoupon(Request $request)
+    {
+        if ($request->session()->has('order_coupon')) {
+            $order_coupon = $request->session()->get('order_coupon');
+            return response()->json($order_coupon);
+        }
     }
 }

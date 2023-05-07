@@ -63,7 +63,7 @@
 	<script src="{{ asset('/frontend/js/jquery-ui-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
 	<script src="{{ asset('/frontend/js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('/frontend/js/jquery.flexslider.js') }}"></script>
-	<script src="{{ asset('/frontend/js/chosen.jquery.min.js') }}"></script>
+	<!-- <script src="{{ asset('/frontend/js/chosen.jquery.min.js') }}"></script> -->
 	<script src="{{ asset('/frontend/js/owl.carousel.min.js') }}"></script>
 	<script src="{{ asset('/frontend/js/jquery.countdown.min.js') }}"></script>
 	<script src="{{ asset('/frontend/js/jquery.sticky.js') }}"></script>
@@ -259,7 +259,8 @@
 						$('#cart-page').html(cart_page);
 						$('#content-cart').html(cart);
 						$('#count').html(count + ' items');
-						$('.total-cart').html('Total: $' + total.toFixed(2));
+						$('.total-cart').html(' $ ' + total.toFixed(2));
+						$('input[name="value_order"]').val(total.toFixed(2));
 					}
 				);
 			};

@@ -18,7 +18,7 @@ class CartController extends Controller
     public function cart()
     {
         // $cart = Cart::all();
-        $product_popular = Product::limit(4);
+        $product_popular = Product::all();
         $user_id = Auth::id();
         $carts = Cart::selectRaw('carts.*, products.*, ((product_price-discount) * carts.quantity) as amount')
             ->join('products', 'carts.product_id', 'like', 'products.product_id')
@@ -27,7 +27,7 @@ class CartController extends Controller
 
         return view('fe.cart', [
             'carts' => $carts,
-            'product_popular' => $product_popular
+            'products' => $product_popular
         ]);
     }
 
