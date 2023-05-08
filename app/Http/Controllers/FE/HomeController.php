@@ -58,4 +58,9 @@ class HomeController extends Controller
     {
         return view('fe.warranty-policy');
     }
+
+    public function thankyou()
+    {
+        return view('fe.thankyou');
+    }
 }

@@ -60,7 +60,7 @@ class CartController extends Controller
         // dd($pid);
 
         if ($request->action != 'edit') {
-            $cart = Cart::where('product_id', 'like', $pid)->first();
+            $cart = Cart::where('product_id', 'like', $pid)->where('user_id', $user_id)->first();
             if ($cart != null) {
                 $quantity += $cart->quantity;
             }

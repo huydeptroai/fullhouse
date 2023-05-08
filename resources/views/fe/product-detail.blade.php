@@ -153,20 +153,25 @@
                                 <div class="wrap-review-form">
 
                                     <div id="comments">
-                                        <h2 class="woocommerce-Reviews-title">{{ $count_reviews }} review(s) for <span>{{$product->product_name}}</span></h2>
-                                        <ol class="commentlist">
+                                        <h2 class="woocommerce-Reviews-title">
+                                            {{ $count_reviews }} review(s) for <span>{{$product->product_name}}</span>
+                                        </h2>
+
+                                        <ol class="commentlist" id="list_comment">
                                             @foreach($reviews as $review)
-                                            <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1" id="li-comment-20">
+                                            <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1" id="review_id_{{ $review->id }}">
                                                 <div id="comment-20" class="comment_container">
-                                                    <img alt="" src="{{ asset('/frontend/images/author-avata.jpg') }}" height="80" width="80">
+                                                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('admin/dist/img/'.$review->user->profile['avatar']) ?? 'user1-128x128.jpg' }}" alt="User profile picture" height="80" width="80">
+
                                                     <div class="comment-text">
-                                                        <div class="star-rating">
+                                                        <!-- <div class="star-rating"> -->
+                                                        <div class="">
                                                             <span class="width-80-percent">Rated <strong class="rating">{{$review->rating}}</strong> out of 5</span>
                                                         </div>
                                                         <p class="meta">
                                                             <strong class="woocommerce-review__author">{{$review->user->name}}</strong>
-                                                            <span class="woocommerce-review__dash">–</span>
-                                                            <time class="woocommerce-review__published-date" datetime="2023-02-14 20:00">
+                                                            <span>–</span>
+                                                            <time class="woocommerce-review__published-date">
                                                                 {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $review->updated_at)->diffForHumans()}}
                                                             </time>
                                                         </p>
@@ -178,48 +183,57 @@
                                             </li>
                                             @endforeach
                                         </ol>
+
                                     </div><!-- #comments -->
 
                                     <div id="review_form_wrapper">
                                         <div id="review_form">
                                             <div id="respond" class="comment-respond">
                                                 @if(Auth::check())
-                                                <form action="#" method="post" id="commentform" class="comment-form" novalidate="">
-                                                    @csrf
-                                                    <p class="comment-notes">
-                                                        <span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span>
-                                                    </p>
-                                                    <div class="comment-form-rating">
-                                                        <span>Your rating</span>
-                                                        <p class="stars">
 
-                                                            <label for="rated-1"></label>
-                                                            <input type="radio" id="rated-1" name="rating" value="1">
-                                                            <label for="rated-2"></label>
-                                                            <input type="radio" id="rated-2" name="rating" value="2">
-                                                            <label for="rated-3"></label>
-                                                            <input type="radio" id="rated-3" name="rating" value="3">
-                                                            <label for="rated-4"></label>
-                                                            <input type="radio" id="rated-4" name="rating" value="4">
-                                                            <label for="rated-5"></label>
-                                                            <input type="radio" id="rated-5" name="rating" value="5" checked="checked">
-                                                        </p>
+                                                <hr>
+                                                <p class="comment-notes">
+                                                    <span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span>
+                                                </p>
+                                                <form action="{{ route('review.store')}}" method="post" id="commentform" class="comment-form" novalidate="">
+                                                    <input type="hidden" name="product_id" value="{{$product->product_id}}">
+
+                                                    <div class="comment byuser comment-author-admin bypostauthor even thread-even depth-1">
+                                                        <div id="comment-20" class="comment_container">
+                                                            <div class="comment-text">
+                                        
+                                                                <div class="col-md-3">
+                                                                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('admin/dist/img/'.Auth::user()->profile['avatar']) ?? 'user1-128x128.jpg' }}" alt="User profile picture" height="80" width="80">
+                                                                    <div class="comment-form-rating">
+                                                                        <span>Your rating: </span>
+                                                                        <p class="stars">
+                                                                            <label for="rated-1"></label>
+                                                                            <input type="radio" id="rated-1" name="rating" value="1">
+                                                                            <label for="rated-2"></label>
+                                                                            <input type="radio" id="rated-2" name="rating" value="2">
+                                                                            <label for="rated-3"></label>
+                                                                            <input type="radio" id="rated-3" name="rating" value="3">
+                                                                            <label for="rated-4"></label>
+                                                                            <input type="radio" id="rated-4" name="rating" value="4">
+                                                                            <label for="rated-5"></label>
+                                                                            <input type="radio" id="rated-5" name="rating" value="5" checked="checked">
+                                                                        </p>
+                                                                    </div>
+                                                                    <p class="meta">
+                                                                        <strong class="woocommerce-review__author">
+                                                                            {{ Auth::user()->name}}
+                                                                        </strong>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="description col-md-9">
+                                                                    <textarea id="content" name="content" rows="8" placeholder="You can enter here..." style="border:1px solid gray;width:100%;padding: 5px;"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <p class="comment-form-author">
-                                                        <label for="name">Name <span class="required">*</span></label>
-                                                        <input id="name" name="name" type="text" value="{{ old('name', Auth::user()->name)}}">
-                                                    </p>
-                                                    <p class="comment-form-email">
-                                                        <label for="email">Email <span class="required">*</span></label>
-                                                        <input id="email" name="email" type="email" value="{{ old('email', Auth::user()->email)}}">
-                                                    </p>
-                                                    <p class="comment-form-comment">
-                                                        <label for="comment">Your review <span class="required">*</span>
-                                                        </label>
-                                                        <textarea id="comment" name="comment" cols="45" rows="8"></textarea>
-                                                    </p>
+
                                                     <p class="form-submit">
-                                                        <input name="submit" type="submit" id="submit" class="submit" value="Submit">
+                                                        <input name="submit" type="submit" id="submit" class="submit" value="Send">
                                                     </p>
                                                 </form>
                                                 @else
@@ -238,44 +252,6 @@
                 </div>
             </div>
             <!--end main products area-->
-
-            <!-- Categories widget-->
-            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 site-bar">
-                <!-- Popular Products widget-->
-                <div class="widget mercado-widget widget-product">
-                    <h2 class="widget-title">Popular Products</h2>
-                    <div class="widget-content">
-                        <ul class="products">
-                            @foreach($prods_popular as $product)
-                            <li class="product-item">
-                                <div class="product product-widget-style">
-                                    <div class="thumbnnail">
-                                        <a href="{{ route('product.show', $product->product_id)}}" title="{{$product->product_name}}">
-                                            <figure><img src="{{ asset('assets/img/upload/product/'.$product->product_image['0']) }}" alt="{{$product->product_image['0']}}"></figure>
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <a href="{{ route('product.show', $product->product_id)}}" class="product-name">
-                                            <span>{{ $product->product_name}}</span>
-                                        </a>
-                                        <div class="wrap-price">
-                                            <span class="product-price"> $ {{ number_format($product->product_price - $product->discount,2)}} </span>
-                                            @if($product->discount > 0)
-                                            <span style="text-decoration: line-through;"> ${{ number_format($product->product_price,2)}} </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            @endforeach
-
-                        </ul>
-                    </div>
-                </div>
-                <!-- Popular Products widget-->
-
-            </div>
-            <!--end site-bar-->
 
             <!-- related product-->
 
@@ -324,4 +300,32 @@
     </div><!--end container-->
 
 </main>
+@endsection
+
+@section('myJS')
+<script>
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $('#commentform').submit(function(e) {
+            e.preventDefault();
+
+            let url_store = "{{ route('review.store') }}";
+
+            $.ajax({
+                data: $('#commentform').serialize(),
+                url: url_store,
+                type: "POST",
+                dataType: "json",
+                success: function(data) {
+                    alert('success!');
+                }
+            });
+
+        });
+    });
+</script>
 @endsection

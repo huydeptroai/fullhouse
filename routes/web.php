@@ -12,6 +12,8 @@ use App\Http\Controllers\FE\ProductController;
 use App\Http\Controllers\FE\ProfileController;
 use App\Http\Controllers\FE\HomeController;
 use App\Http\Controllers\FE\CategoryController;
+use App\Http\Controllers\FE\ReviewController;
+use App\Models\Review;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -42,9 +44,13 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
 
+    Route::post('/review', [ReviewController::class, 'store'])->name('review.store');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::post('/select-delivery', [ProfileController::class, 'select_delivery']);
 
     Route::controller(CheckOutController::class)->group(function () {
         Route::get('/checkout', 'viewOrder')->name('checkout');
@@ -84,6 +90,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/shipping-policy', 'shippingPolicy')->name('shippingPolicy');
     Route::get('/warranty-policy', 'warrantyPolicy')->name('warrantyPolicy');
+    Route::get('/order-processing', 'thankyou')->name('thankyou');
 });
 
 

@@ -38,7 +38,7 @@
 
                         <!-- Profile Image -->
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="{{ asset('admin/dist/img/'.'user1-128x128.jpg') }}" alt="User profile picture">
+                            <img class="profile-user-img img-fluid img-circle" src="{{ asset('admin/dist/img/'.$user->profile['avatar']) }}" alt="User profile picture">
                         </div>
                         <h3 class="profile-username text-center">{{$user->name}}</h3>
                         <p class="text-muted text-center">{{$user->role === 1 ? 'Admin' : 'User'}}</p>
@@ -55,7 +55,7 @@
                                 <b>Data of birth</b>
                                 <a class="float-right">
                                     @isset($user->profile['dob'])
-                                    {{ \Carbon\Carbon::createFromFormat('d-m-Y', $user->profile['dob'])}}
+                                    {{ $user->profile['dob']}}
                                     @endisset
                                 </a>
                             </li>
@@ -121,6 +121,11 @@
             <!-- /.col -->
             <div class="col-md-9">
                 <div class="card">
+
+                    @if (session('status') === 'profile-updated')
+                    <h4 class="text-sm text-info">{{ __('Saved change.') }}</h4>
+                    @endif
+
                     <div class="card-header p-2">
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Comment</a></li>
@@ -131,12 +136,11 @@
                     <div class="card-body">
                         <div class="tab-content">
 
-
                             <div class="active tab-pane" id="activity">
                                 <!-- Post -->
                                 <div class="post clearfix">
                                     <div class="user-block">
-                                        <img class="img-circle img-bordered-sm" src="{{ asset('admin/dist/img/user1-128x128.jpg') }}" alt="user image">
+                                        <img class="img-circle img-bordered-sm" src="{{ asset('/assets/img/upload/user/'.$user->profile['avatar']) }}" alt="user image">
                                         <span class="username">
                                             <a href="#">Jonathan Burke Jr.</a>
                                             <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
@@ -170,34 +174,106 @@
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="timeline">
                                 <!-- The timeline -->
-                                <div class="timeline timeline-inverse">
+                                @forelse($orders as $order)
+                                <div class="timeline timeline-inverse mt-4">
 
                                     <!-- timeline time label -->
                                     <div class="time-label">
-                                        <span class="bg-danger"><i class="far fa-clock"></i>10 Feb. 2014</span>
+                                        <span class="bg-danger"><i class="far fa-clock"></i>
+                                            @isset($user->created_at)
+                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->created_at)}}
+                                            @endisset
+                                        </span>
                                     </div>
                                     <!-- /.timeline-label -->
                                     <!-- timeline item -->
                                     <div>
                                         <div class="timeline-item">
-                                            <h4 class="timeline-header"><a href="#">Order id 1</a></h4>
-
+                                            <h4 class="timeline-header"><a href="#">Order id {{$order->id}}</a></h4>
                                             <div class="timeline-body">
-                                                <ol>
-                                                    <li>Order item 1</li>
-                                                    <li>Order item 2</li>
-                                                    <li>Order item 3</li>
-                                                    <li>Order item 4</li>
-                                                </ol>
+                                                <table class="table table-striped table-inverse table-responsive">
+                                                    <thead class="thead-inverse">
+                                                        <tr>
+                                                            <th colspan="2">Info order</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>Name:</th>
+                                                            <td>{{$order->receiver_name}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Phone:</th>
+                                                            <td>{{$order->receiver_phone}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Shipping to:</th>
+                                                            <td>{{$order->shipping_address}}, {{$order->shipping_district}}, {{$order->shipping_city}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Order Details</th>
+                                                            <td>
+                                                                @if(isset($order->orderDetails) && is_object($order->orderDetails))
+
+                                                                <table class="table table-bordered table-striped table-inverse table-responsive">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>No</th>
+                                                                            <th>Product</th>
+                                                                            <th>Unit price</th>
+                                                                            <th>Quantity</th>
+                                                                            <th>Amount</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach($order->orderDetails as $k=>$od)
+                                                                        <tr>
+                                                                            <td>{{$k + 1}}</td>
+                                                                            <td>
+                                                                                <p>{{$od->product->product_name}}</p>
+                                                                                <p>
+                                                                                    {{$od->product->product_id}} - 
+                                                                                </p>
+
+                                                                            </td>
+                                                                            <td>{{$od->quantity}}</td>
+                                                                            <td>$ {{number_format($od->price,2)}}</td>
+                                                                            <td>$ {{number_format($od->quantity * $od->price,2)}}</td>
+                                                                        </tr>
+
+                                                                        @endforeach
+                                                                    </tbody>
+                                                                </table>
+
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Shipping fee:</th>
+                                                            <td> $ {{ number_format($order->shipping_fee,2) }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Coupon:</th>
+                                                            <td>{{$order->coupon}}</td>
+                                                        </tr>
+
+
+                                                    </tbody>
+                                                </table>
+
                                             </div>
-                                            <div class="timeline-footer">
-                                                <p>Shipped successfully</p>
+                                            <div class="timeline-footer" style="text-align:right">
+                                                Status: <b>{{ $order->status == 0 ? 'processing' : 'shipped'}}</b>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- END timeline item -->
-
                                 </div>
+                                @empty
+                                <p>No orders</p>
+                                @endforelse
+
+
                             </div>
                             <!-- /.tab-pane -->
                             <!-- edit profile -->
@@ -220,19 +296,20 @@
                                     @csrf
                                     @method('patch')
 
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                         <label for="" class="col-sm-2 col-form-label">Avatar</label>
-                                        <div class="col-sm-10">
-                                            <input type="file" class="form-control" id="avatar" name="avatar" value="">
-
+                                        <div class="col-sm-5 input-group custom-file">
+                                            <input type="file" class="custom-file-input" id="avatar" name="avatar" value="{{old('avatar', $user->profile['avatar'])}}">
                                             <small class="mt-2">{{$errors->first('avatar')}}</small>
                                         </div>
+                                        <div class="col-sm-5" id=image-grid></div>
                                     </div>
+
 
                                     <div class="form-group row">
                                         <label for="" class="col-sm-2 col-form-label">Name</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name)}}" placeholder="Name">
+                                            <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name)}}" placeholder="Name" required>
                                             <small class="mt-2">{{$errors->first('name')}}</small>
                                         </div>
                                     </div>
@@ -240,7 +317,7 @@
                                     <div class="form-group row">
                                         <label for="" class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email)}}" placeholder="Email">
+                                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email)}}" placeholder="Email" required>
                                             <small class="mt-2">{{$errors->first('email')}}</small>
                                         </div>
 
@@ -266,7 +343,7 @@
                                     <div class="form-group row">
                                         <label for="" class="col-sm-2 col-form-label">Phone</label>
                                         <div class="col-sm-10">
-                                            <input type="tel" class="form-control" id="phone" name="phone" value="{{ old('phone', $user->phone)}}" placeholder="Phone">
+                                            <input type="tel" class="form-control" id="phone" name="phone" value="{{ old('phone', $user->phone)}}" placeholder="Phone" required>
                                             <small class="mt-2">{{$errors->first('phone')}}</small>
                                         </div>
                                     </div>
@@ -277,45 +354,65 @@
                                             <input type="date" class="form-control" id="dob" name="dob" value="{{ old('dob', $user->profile['dob'] ?? '')}}">
                                         </div>
                                     </div>
+
                                     <div class="form-group row">
-                                        <label for="" class="col-sm-2 col-form-label">Gender</label>
+                                        <label class="col-sm-2 col-form-label">Gender</label>
                                         <div class="col-sm-10 row align-items-center">
-                                            <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" type="radio" name="gender" value="Male" @if(isset($user->profile['gender']) && $user->profile['gender'] === 'Male')
-                                                checked
-                                                @endif
-                                                >
-                                                <label for="customRadio1" class="custom-control-label">Male</label>
+                                            <div class="form-check form-check">
+                                                <label class="form-check-label  ">
+                                                    <input class="form-check-input form-control" type="radio" name="gender" id="male" value="Male" checked> Male
+                                                </label>
                                             </div>
-                                            <div class="custom-control custom-radio ml-3">
-                                                <input class="custom-control-input" type="radio" name="gender" value="Male" @if(isset($user->profile['gender']) && $user->profile['gender'] === 'Female')
-                                                checked
-                                                @endif
-                                                >
-                                                <label for="customRadio2" class="custom-control-label">Female</label>
+
+                                            <div class="form-check form-check-inline ml-3">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input form-control" type="radio" name="gender" id="female" value="Female"> Female
+                                                </label>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputSkills" class="col-sm-2 col-form-label">Address</label>
-                                        <div class="col-sm-3">
-                                            <input type="text" class="form-control" name="city" value="{{ old('city', $user->profile['city'] ?? '')}}" placeholder="City/province">
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <input type="text" class="form-control" name="district" value="{{ old('district', $user->profile['district'] ?? '')}}" placeholder="District">
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <input type="text" class="form-control" name="address" value="{{ old('address', $user->profile['address'] ?? '')}}" placeholder="Home No, name's street">
+
+
                                         </div>
                                     </div>
 
+                                    <!-- address -->
+                                    <div class="form-group row">
+                                        <label for="" class="col-sm-2 col-form-label">Address</label>
+                                        <div class="col-sm-3">
+                                            <div>{{ $user->profile['city'] }}</div>
+                                            <select class="form-control choose city" name="city" id="city" value="{{ old('city')}}" required>
+                                                <option selected>---City/Province---</option>
+                                                @foreach($provinces as $item)
+                                                <option value="{{$item->code}}">{{$item->full_name_en}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div>{{$user->profile['district']}}</div>
+                                            <select class="form-control province choose" name="district" id="district" value="{{ old('district')}}" required>
+                                                @isset($user->profile['district'])
+                                                <option selected>---District---</option>
+                                                @endisset
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div>{{$user->profile['ward']}}</div>
+                                            <select class="form-control" name="ward" id="ward" value="{{ old('ward')}}" required>
+                                                <option selected>--- Ward ---</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+
+                                    <!-- submit -->
                                     <div class="form-group row">
                                         <div class="offset-sm-2 col-sm-10">
                                             <button type="submit" class="btn btn-danger">Submit</button>
                                         </div>
 
                                         @if (session('status') === 'profile-updated')
-                                        <p data="{ show: true }" show="show" transition init="setTimeout(() => show = false, 2000)" class="text-sm text-gray-600">{{ __('Saved.') }}</p>
+                                        <p data="{ show: true }" show="show" transition init="setTimeout(() => show = false, 2000)" class="text-sm text-info">{{ __('Saved change.') }}</p>
                                         @endif
                                     </div>
                                 </form>
@@ -342,4 +439,57 @@
 <script src="{{ asset('/admin/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap -->
 <script src="{{ asset('/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+<!-- Page specific script -->
+<script>
+    $(document).ready(function(e) {
+        const imageGrid = document.getElementById('image-grid');
+        $('#avatar').change(function(e) {
+            const files = e.target.files;
+            let reader = new FileReader();
+            for (const file of files) {
+                const img = document.createElement('img');
+                imageGrid.appendChild(img);
+                img.src = URL.createObjectURL(file);
+                img.alt = file.name;
+                img.style.width = '85px';
+                img.style.height = '85px';
+                img.classList.add('profile-user-img', 'img-fluid', 'img-circle');
+            }
+            //<img class="profile-user-img img-fluid img-circle" src="{{ asset('admin/dist/img/'.'user1-128x128.jpg') }}" alt="User profile picture">
+        });
+    });
+</script>
+
+<!-- ajax address -->
+<script>
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $('.choose').change(function() {
+            var action = $(this).attr('id');
+            var code = $(this).val();
+            var result = '';
+            result = action == 'city' ? 'district' : 'ward';
+            console.log('action ' + action + ' code ' + code + ' result ' + result);
+            $.ajax({
+                url: "{{ url('/select-delivery')}}",
+                method: 'POST',
+                data: {
+                    action: action,
+                    code: code
+                },
+                success: function(data) {
+                    console.log(data);
+                    $('#' + result).html(data);
+                }
+            })
+        });
+
+
+    });
+</script>
 @endsection

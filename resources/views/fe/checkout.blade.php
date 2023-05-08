@@ -13,10 +13,16 @@
 		<div class="wrap-breadcrumb">
 			<ul>
 				<li class="item-link"><a href="{{route('home')}}" class="link">home</a></li>
+				<li class="item-link"><a href="{{route('cart')}}" class="link">Cart</a></li>
 				<li class="item-link"><span>checkout</span></li>
 			</ul>
 		</div>
 		<div class=" main-content-area">
+			
+			@if (session('success'))
+			<div class="alert alert-success">{{ session('success') }}</div>
+			@endif
+
 			<form action="{{ route('createOrder') }}" method="post">
 				@csrf
 				<div class="wrap-address-billing">
@@ -24,36 +30,41 @@
 					<div name="frm-billing">
 						<p class="row-in-form form-group">
 							<label for="fname">Full name<span>*</span></label>
-							<input class="form-control" id="fname" type="text" name="receiver_name" value="{{old('receiver_name', $user->name)}}" placeholder="Your name">
+							<input class="form-control" type="text" name="receiver_name" value="{{old('receiver_name', $user->name)}}" required placeholder="Your name">
+							<small class="text-danger">{{$errors->first('receiver_name')}}</small>
 						</p>
 						<p class="row-in-form form-group">
 							<label for="phone">Phone number<span>*</span></label>
-							<input class="form-control" id="phone" type="number" name="receiver_phone" value="{{old('receiver_phone', $user->phone)}}" placeholder="10 digits format">
+							<input class="form-control" id="phone" type="number" name="receiver_phone" value="{{old('receiver_phone', $user->phone)}}" required placeholder="10 digits format">
+							<small class="text-danger">{{$errors->first('receiver_phone')}}</small>
 						</p>
 						<p class="row-in-form form-group">
 							<label for="phone">City/Province <span>*</span></label>
-							<select class="form-control" name="shipping_city" id="shipping_city" value="{{old('shipping_city')}}">
+							<select class="form-control" name="shipping_city" id="shipping_city" value="{{old('shipping_city')}}" required>
 								<option value="">-- Select city/province --</option>
 								@foreach($provinces as $item)
 								<option value="{{$item->code}}">{{$item->full_name_en}}</option>
 								@endforeach
 							</select>
+							<small class="text-danger">{{$errors->first('shipping_city')}}</small>
 						</p>
 						<p class="row-in-form form-group">
 							<label for="phone">District: <span>*</span></label>
-							<select class="form-control" name="shipping_district" id="shipping_district" data-placeholder="Choose a district...">
+							<select class="form-control" name="shipping_district" id="shipping_district" value="{{old('shipping_district')}}" required>
 								<option value="">-- Select district --</option>
 							</select>
+							<small class="text-danger">{{$errors->first('shipping_district')}}</small>
 						</p>
 						<p class="row-in-form form-group">
 							<label for="add">Address:</label>
-							<input class="form-control" id="shipping_address" type="text" name="shipping_address" value="{{ old('shipping_address')}}" placeholder="Street at apartment number">
+							<input class="form-control" id="shipping_address" type="text" name="shipping_address" value="{{ old('shipping_address')}}" required placeholder="Street at apartment number">
+							<small class="text-danger">{{ $errors->first('shipping_address') }}</small>
 						</p>
 						<p class="row-in-form form-group">
 							<label for="country">Note: </label>
 							<textarea class="form-control" name="note" id="note" cols="30" rows="10" placeholder="Note for this order, if have">{{old('note')}}</textarea>
 						</p>
-						<p class="row-in-form fill-wife">
+						<!-- <p class="row-in-form fill-wife">
 							<label class="checkbox-field">
 								<input name="create-account" id="create-account" value="forever" type="checkbox">
 								<span>Create an account?</span>
@@ -62,7 +73,7 @@
 								<input name="different-add" id="different-add" value="forever" type="checkbox">
 								<span>Ship to a different address?</span>
 							</label>
-						</p>
+						</p> -->
 					</div>
 				</div>
 
@@ -81,7 +92,7 @@
 						<h4 class="title-box f-title">Shipping method</h4>
 						<div class="choose-payment-methods">
 							<label class="payment-method">
-								<input name="method-shipping" id="method-shipping" value="1" type="radio">
+								<input name="method_shipping" id="method_shipping" value="1" type="radio">
 								<span>Shipping fee: </span>
 								<span class="shipping-fee" style="font-size: 16px;"> $ 0.00</span>
 
@@ -95,37 +106,50 @@
 												<td> >= $250.00 </td>
 											</tr>
 											<tr>
-												<th>Urban</th>
+												<th>HCM Urban</th>
 												<td>
-													<p>6% of order</p>
-													<small> between $5.00 and $25.00 </small>
+													<p>4% of order</p>
+													<small> (between $5.00 and $25.00) </small>
 												</td>
 												<td> free</td>
 											</tr>
 											<tr>
-												<th>Suburban</th>
+												<th>HCM Suburban</th>
 												<td>
 													<p>6% of order</p>
-													<small> between $5.00 and $25.00 </small>
+													<small> (between $5.00 and $25.00) </small>
 												</td>
+												<td>free</td>
+											</tr>
+											<tr>
+												<th>HCM Suburban</th>
 												<td>
-													<p>6% of order</p>
+													<p>8% of order</p>
 													<small> between $5.00 and $25.00 </small>
 												</td>
+												<td>free</td>
+											</tr>
+											<tr>
+												<th>Other City/Province</th>
+												<td>
+													<p>10% of order</p>
+													<small> between $5.00 and $25.00 </small>
+												</td>
+												<td>free</td>
 											</tr>
 										</tbody>
 									</table>
 								</span>
 							</label>
 							<label class="payment-method">
-								<input name="method-shipping" id="method-shipping-no" value="0" type="radio">
+								<input name="method_shipping" id="method_shipping_no" value="0" type="radio" checked>
 								<span>No Shipping</span>
 								<span class="payment-desc">Please you call before.</span>
 							</label>
 
 						</div>
-						
-						
+
+
 						<div class="summary-info">
 							<h4 class="title-box"></h4>
 							<p class="row-in-form">
@@ -191,7 +215,7 @@
 				</div>
 			</form>
 
-			
+
 			<!-- products most view -->
 			<!-- <div class="wrap-show-advance-info-box style-1 box-in-site"> -->
 			<div class="style-1" style="margin-top: 5%;">
@@ -262,7 +286,7 @@
 		});
 		post_coupon();
 
-		
+
 
 		function post_coupon() {
 			let coupon_code = $('#coupon-code').val().toUpperCase() ?? '';

@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\OrderRequest;
 
 class CheckOutController extends Controller
 {
@@ -43,81 +44,111 @@ class CheckOutController extends Controller
 
     public function createOrder(Request $request)
     {
-        //1. crete order
-        // dd($request);
         $data = $request->all();
-        // Shipping fee
-        $shipping_fee = 0;
+        $data['shipping_fee'] = $request->method_shipping == 1 ? $this->shippingFee($data) : 0;
 
-
-        if ($request->method_shipping == 1) {
-
-            $shipping_fee = $this->shippingFee($data);
+        try {
+            $data['shipping_city'] = Province::where('code', 'like', $request->shipping_city)
+                ->first()
+                ->full_name_en ?? '';
+            $data['shipping_district'] = District::where('code', 'like', $request->shipping_district)
+                ->first()
+                ->full_name_en ?? '';
+        } catch (\Throwable $th) {
+            //throw $th;
         }
-        dd($request);
-        $user_id = Auth::id();
 
-        $order = Order::create([
-            'order_date' => date('Y-m-d', time()),
-            'receiver_name' => $data['receiver_name'],
-            'receiver_phone' => $data['receiver_phone'],
-            'shipping_city' => $data['receiver_city'],
-            'shipping_district' => $data['receiver_district'],
-            'shipping_fee' => $shipping_fee,
-            'payment_method' => $data['payment_method'],
-            'note' => $data['note'],
-            'status' => 0,
-            'user_id' => $user_id,
-            'coupon_id' => $data['coupon_id']
-        ]);
+        $data['user_id'] = Auth::id();
+        $data['order_date'] = date('Y-m-d', time());
+        $data['status'] = 0; //order dang xu ly
 
-        $carts = Cart::where('user_id', $user_id)->get();
-        foreach ($carts  as $cart) {
-            $product = Product::selectRaw('(product_price - discount) as price')
-                ->where('product_id', 'like', $cart->product_id)
-                ->first();
+        $order = Order::create($data);
+        $carts = Cart::where('user_id', $data['user_id'])->get();
 
-            $order_detail = OrderDetail::create([
+        foreach ($carts as $cart) {
+            //Insert thao tác dưới dạng query builder, nên lúc build như nào, nó sẽ ra như vậy
+            $od = OrderDetail::insert([
                 'order_id' => $order->id,
                 'product_id' => $cart->product_id,
-                'price' => $product->price,
-                'quantity' => $cart->quantity
+                'price' => $cart->product->product_price - $cart->product->discount,
+                'quantity' => $cart->quantity,
             ]);
-
+            //delete cart-item
             $cart->delete();
         }
 
-        //2. delete all cart
-        // Cart::where('user_id', $user_id)->delete();
-
-        return redirect()->route('checkout')->with('success', 'You are order successfully! Your order is processing');
+        return redirect()->route('thankyou')->with('success', 'You are order successfully! Your order is processing');
     }
 
     public function shippingFee($data)
     {
         define('AMOUNT', 250);
-        define('MIN', 5);
-        define('MAX', 50);
 
-        $city_code = $data->city;
-        $district_code = $data->district;
-        $value_order = $data->value_order;
+        $city_code = $data['shipping_city'];
+        $district_code = $data['shipping_district'];
+        $value_order = $data['value_order'];
 
-
-        if ($city_code != '79') {
-            if ($value_order < AMOUNT) {
-                $shipping_fee = $value_order * 0.1;
-
-                if ($shipping_fee < MIN) {
-                    return MIN;
-                } elseif ($shipping_fee > MAX) {
-                    return MAX;
+        if ($value_order >= AMOUNT) {
+            return 0;
+        }
+        $shipping_fee = 0;
+        switch ($city_code) {
+                //HCM city
+            case 79:
+                if ($this->isUrban($district_code)) {
+                    $shipping_fee = $this->check_range($value_order * 0.04);
+                } elseif ($this->isSuburban($district_code)) {
+                    $shipping_fee = $this->check_range($value_order * 0.06);
+                } else {
+                    $shipping_fee = $this->check_range($value_order * 0.08);
                 }
-                return $shipping_fee;
+                break;
+                //City/Province other
+            default:
+                $shipping_fee = $this->check_range($value_order * 0.1);
+                break;
+        }
+
+        return $shipping_fee;
+    }
+
+    //The inner city includes  districts: District 1 (760), Go Vap District (764), Binh Thanh District (765),Tan Binh District (766), Tan Phu District (767), Phu Nhuan District (768), District 3 (770), District 10 (771), District 4 (773),  District 5 (774), District 6 (775), District 8 (776), Binh Tan District.
+    public function isUrban($district_code = null)
+    {
+        $urban_code = array(760, 764, 765, 766, 767, 768, 770, 771, 773, 774, 775, 776, 777);
+        foreach ($urban_code as $item) {
+            if ($district_code == $item) {
+                return true;
             }
         }
-        return 0;
+        return false;
     }
+
+    public function isSuburban($district_code = null)
+    {
+        // Suburban 1  includes the areas of District 7, District 12, Thu Duc District
+        $suburban_code_1 = array(761, 769, 778);
+        foreach ($suburban_code_1 as $item) {
+            if ($district_code == $item) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function check_range($fee = 0)
+    {
+        define('MIN', 5);
+        define('MAX', 50);
+        if ($fee < MIN) {
+            return MIN;
+        } elseif ($fee < MAX) {
+            return $fee;
+        } else {
+            return MAX;
+        }
+    }
+
 
     public function postCoupon(Request $request)
     {

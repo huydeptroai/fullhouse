@@ -11,6 +11,7 @@ class OrderDetail extends Model
 
     protected $primaryKey = ['order_id','product_id'];
     protected $table = 'order_details';
+    public $incrementing = false;
 
     protected $fillable = [
         'order_id',
@@ -21,7 +22,7 @@ class OrderDetail extends Model
 
     public function order()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class,'id','order_id');
     }
 
     public function product()
