@@ -32,6 +32,12 @@
             <div class="row">
                 <div class="col-12">
 
+                    @if ($message = Session::get('deleted'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ $message }}
+                    </div>
+                    @endif
+
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Table</h3>
@@ -46,36 +52,38 @@
                                         <th>Role</th>
                                         <th>Status</th>
                                         <th>Create Account</th>
-                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($users as $user)
+                                    @forelse($users as $user)
                                     <tr>
                                         <td>
-                                            <div class="d-flex align-items-center">
-                                                <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
-                                                <div class="ms-3">
-                                                    <p class="fw-bold mb-1">{{$user->name}} - {{$user->phone}}</p>
-                                                    <p class="text-muted mb-0">{{$user->email}}</p>
+                                            <a href="{{ route('admin.user.show', $user->id)}}">
+                                                <div class="d-flex align-items-center">
+                                                    <img src="{{ asset('admin/dist/img/'.$user->profile['avatar']) }}" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+                                                    <div class="ms-3">
+                                                        <p class="fw-bold mb-1">{{$user->name}} - {{$user->phone}}</p>
+                                                        <p class="text-muted mb-0">{{$user->email}}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                         </td>
                                         <td>
                                             <p class="fw-normal mb-1">{{$user->role == 1 ? 'Admin' : 'User'}}</p>
-                                            <p class="text-muted mb-0">VIP</p>
+                                            <!-- <p class="text-muted mb-0">VIP</p> -->
                                         </td>
                                         <td>
                                             <span class="badge badge-success rounded-pill d-inline">Active</span>
                                         </td>
                                         <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->diffForHumans()}}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-link btn-sm btn-rounded">
-                                                Edit
-                                            </button>
-                                        </td>
+                                        
                                     </tr>
-                                    @endforeach
+
+                                    @empty
+                                    <tr>
+                                        <td>No data</td>
+                                    </tr>
+                                    @endforelse
 
 
                                 </tbody>

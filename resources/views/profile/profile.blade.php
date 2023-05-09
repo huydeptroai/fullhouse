@@ -74,7 +74,7 @@
                 </div>
                 <!-- /.card -->
 
-                <!-- About Me Box -->
+                <!-- Update Password -->
                 <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title">Update Password</h3>
@@ -174,7 +174,7 @@
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="timeline">
                                 <!-- The timeline -->
-                                @forelse($orders as $order)
+                                @forelse($user->orders as $order)
                                 <div class="timeline timeline-inverse mt-4">
 
                                     <!-- timeline time label -->

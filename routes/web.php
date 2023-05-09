@@ -75,7 +75,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('/newsletter', Ad_NewsletterController::class)->names('admin.newsletter');
 
         Route::get('/order/index', [Ad_OrderController::class, 'index'])->name('admin.order.index');
-        Route::get('/order/invoice', [Ad_OrderController::class, 'showDetail'])->name('admin.order.invoice');
+        Route::get('/order/invoice/{order_id}', [Ad_OrderController::class, 'showDetail'])->name('admin.order.invoice');
         Route::get('/order/invoice-print', [Ad_OrderController::class, 'printInvoice'])->name('admin.order.printInvoice');
     });
 });

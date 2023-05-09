@@ -10,7 +10,7 @@
 		<!-- Sidebar user panel (optional) -->
 		<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 			<div class="image">
-				<img src="{{ asset('/admin/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+				<img src="{{ asset('admin/dist/img/'.Auth::user()->profile['avatar']) }}" class="img-circle elevation-2" alt="User Image">
 			</div>
 			<div class="info">
 				<a href="#" class="d-block">{{ Auth::user()->name}}</a>
@@ -47,7 +47,6 @@
 						<p>
 							Products
 							<i class="fas fa-angle-left right"></i>
-							<span class="badge badge-info right">6</span>
 						</p>
 					</a>
 					<ul class="nav nav-treeview">
@@ -60,13 +59,16 @@
 						<li class="nav-item">
 							<a href="{{ route('admin.product.index')}}" class="nav-link">
 								<i class="far fa-circle nav-icon"></i>
-								<p>Product List</p>
+								<p>
+									Product List
+								</p>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a href="{{route('admin.category.index')}}" class="nav-link">
 								<i class="far fa-circle nav-icon"></i>
-								<p>Category</p>
+								<p>Category
+								</p>
 							</a>
 						</li>
 						<li class="nav-item">
@@ -92,12 +94,6 @@
 							<a href="{{ route('admin.order.index')}}" class="nav-link">
 								<i class="far fa-circle nav-icon"></i>
 								<p>Order list</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="{{ route('admin.order.invoice') }}" class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>Invoice</p>
 							</a>
 						</li>
 						<li class="nav-item">
@@ -221,8 +217,8 @@
 					<!-- Authentication -->
 					<form method="POST" action="{{ route('logout') }}">
 						@csrf
-						<a href="route('logout')" onclick="event.preventDefault();this.closest('form').submit();">
-							Log Out
+						<a href="{{route('logout')}}" onclick="event.preventDefault();this.closest('form').submit();">
+						<i class="bi bi-box-arrow-right"></i>Log Out
 						</a>
 					</form>
 				</li>

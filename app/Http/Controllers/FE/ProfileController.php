@@ -78,11 +78,11 @@ class ProfileController extends Controller
             mkdir($image_path, 0777, true);
         }
         $path = 'assets/img/upload/category/' . $request->avatar;
-        if ($request->hasFile('avater')) {
+        if ($request->hasFile('avatar')) {
             if (File::exists($path)) {
                 File::delete($path);
             }
-            $file = $request->file('avartar');
+            $file = $request->file('avatar');
             $ext = $file->getClientOriginalExtension();
             // if ($ext != 'jpg' && $ext != 'jpeg' && $ext != 'png') {
             //     return redirect('/club/create');
@@ -123,7 +123,6 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
-
         Auth::logout();
 
         $user->delete();

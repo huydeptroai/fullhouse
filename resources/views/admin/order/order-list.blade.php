@@ -209,7 +209,7 @@
                             <table class="table table-head-fixed table-hover text-nowrap">
                                 <thead>
                                     <tr>
-                                        <th>Order_No</th>
+                                        <th style="width:20px;">Order_No</th>
                                         <th>Customer</th>
                                         <th>Date</th>
                                         <th>Status</th>
@@ -217,108 +217,69 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @forelse($orders as $order)
                                     <tr data-widget="expandable-table" aria-expanded="false">
-                                        <td>183</td>
-                                        <td>John Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td>Approved</td>
-                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                                        <td>{{$order->id}}</td>
+                                        <td>
+                                            <p>{{$order->receiver_name}}</p>
+                                            <p>{{$order->receiver_phone}}</p>
+                                        </td>
+                                        <td>
+                                            @isset($order->order_date)
+                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->order_date)->format('d/m/Y')}}
+                                            @endisset
+                                        </td>
+                                        <td>{{$order->status == 0 ? 'processing' : 'shipped'}}</td>
+                                        <td>{{$order->note}}</td>
                                     </tr>
                                     <tr class="expandable-body">
                                         <td colspan="5">
                                             <div style="max-width:100vw;overflow-x:auto;">
-                                                <table class="table table-sm table-responsive">
+                                                <p></p>
+                                                <p>Shipping to: {{$order->shipping_address}}, {{$order->shipping_district}}, {{$order->shipping_city}}</p>
+
+                                                @if(isset($order->orderDetails) && is_object($order->orderDetails))
+
+                                                <table class="table table-bordered table-striped table-inverse table-responsive">
                                                     <thead>
                                                         <tr>
-                                                            <th style="width: 10px">Code</th>
+                                                            <th>No</th>
                                                             <th>Product</th>
-                                                            <th>Price</th>
+                                                            <th>Unit price</th>
                                                             <th>Quantity</th>
-                                                            <th style="width: 40px">Amount</th>
+                                                            <th>Amount</th>
                                                         </tr>
                                                     </thead>
-                                                    <tr>
-                                                        <td>1.</td>
-                                                        <td>Update software</td>
-                                                        <td>$12</td>
-                                                        <td>5</td>
-                                                        <td>$ 60</td>
-                                                    </tr>
+                                                    <tbody>
+                                                        @foreach($order->orderDetails as $k=>$od)
+                                                        <tr>
+                                                            <td>{{$k + 1}}</td>
+                                                            <td>
+                                                                <p>{{$od->product->product_name}}</p>
+                                                                <p>
+                                                                    {{$od->product->product_id}} -
+                                                                </p>
+                                                            </td>
+                                                            <td>{{$od->quantity}}</td>
+                                                            <td>$ {{number_format($od->price,2)}}</td>
+                                                            <td>$ {{number_format($od->quantity * $od->price,2)}}</td>
+                                                        </tr>
+
+                                                        @endforeach
+                                                    </tbody>
                                                 </table>
+
+                                                @endif
+
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr data-widget="expandable-table" aria-expanded="false">
-                                        <td>175</td>
-                                        <td>Mike Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td>Denied</td>
-                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                                    @empty
+                                    <tr>
+                                        <td>No orders</td>
                                     </tr>
-                                    <tr class="expandable-body">
-                                        <td colspan="5">
-                                            <p style="max-width:100vw;overflow-x:auto;">
-                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                            </p>
-                                        </td>
-                                    </tr>
-                                    <tr data-widget="expandable-table" aria-expanded="false">
-                                        <td>134</td>
-                                        <td>Jim Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td>Approved</td>
-                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                    </tr>
-                                    <tr class="expandable-body">
-                                        <td colspan="5">
-                                            <p style="max-width:100vw;overflow-x:auto;">
-                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                            </p>
-                                        </td>
-                                    </tr>
-                                    <tr data-widget="expandable-table" aria-expanded="false">
-                                        <td>494</td>
-                                        <td>Victoria Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td>Pending</td>
-                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                    </tr>
-                                    <tr class="expandable-body">
-                                        <td colspan="5">
-                                            <p style="max-width:100vw;overflow-x:auto;">
-                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                            </p>
-                                        </td>
-                                    </tr>
-                                    <tr data-widget="expandable-table" aria-expanded="false">
-                                        <td>832</td>
-                                        <td>Michael Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td>Approved</td>
-                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                    </tr>
-                                    <tr class="expandable-body">
-                                        <td colspan="5">
-                                            <p style="max-width:100vw;overflow-x:auto;">
-                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                            </p>
-                                        </td>
-                                    </tr>
-                                    <tr data-widget="expandable-table" aria-expanded="false">
-                                        <td>982</td>
-                                        <td>Rocky Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td>Denied</td>
-                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                    </tr>
-                                    <tr class="expandable-body">
-                                        <td colspan="5">
-                                            <p style="max-width:100vw;overflow-x:auto;">
-                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                            </p>
-                                        </td>
-                                    </tr>
-
+                                    @endforelse
+                                    
 
                                 </tbody>
                             </table>

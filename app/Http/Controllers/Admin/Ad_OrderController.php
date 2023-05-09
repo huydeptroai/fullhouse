@@ -11,7 +11,10 @@ class Ad_OrderController extends Controller
 {
     public function index()
     {
-        return view('admin.order.order-list');
+        $orders = Order::all();
+        return view('admin.order.order-list',[
+            'orders' => $orders
+        ]);
     }
 
     public function progress()
@@ -30,9 +33,12 @@ class Ad_OrderController extends Controller
         return response()->json($order);
     }
 
-    public function showDetail()
+    public function showDetail($order_id)
     {
-        return view('admin.order.invoice');
+        $order = Order::find($order_id);
+        return view('admin.order.invoice',[
+            'order' => $order
+        ]);
     }
 
     public function printInvoice()

@@ -12,6 +12,7 @@ class Ad_UserController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * Display a listing of account.
      */
     public function index()
     {
@@ -39,6 +40,7 @@ class Ad_UserController extends Controller
 
     /**
      * Display the specified resource.
+     * Display the profile page (admin).
      */
     public function show(User $user)
     {
@@ -50,13 +52,7 @@ class Ad_UserController extends Controller
      */
     public function edit(User $user)
     {
-        $reviews = Review::where('user_id', $user->id)->get();
-        $orders = Order::where('user_id', $user->id)->get();
-        return view('admin.user.profile', [
-            'user' => $user,
-            'reviews' => $reviews,
-            'orders' => $orders,
-        ]);
+        //
     }
 
     /**
@@ -69,9 +65,18 @@ class Ad_UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * Remove the user-item.
      */
-    public function destroy(User $user)
+    public function destroy(Request $request, User $user)
     {
-        //
+        //check password of admin
+        $request->validateWithBag('userDeletion', [
+            'password' => ['required', 'current-password'],
+        ]);
+        //find user by id
+        $user = User::find($user->id);
+        
+        $user->delete();
+        return redirect()->route('admin.user.index')->with('delete', 'User Deleted');
     }
 }

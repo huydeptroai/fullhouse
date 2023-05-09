@@ -36,7 +36,9 @@
                             <div class="col-12">
                                 <h4>
                                     <i class="fas fa-globe"></i> Full house, Inc.
-                                    <small class="float-right">Date: 2/10/2014</small>
+                                    <small class="float-right">Date: 
+                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->order_date)->format('d/m/Y')}}
+                                    </small>
                                 </h4>
                             </div>
                             <!-- /.col -->
@@ -44,7 +46,7 @@
                         <!-- info row -->
                         <div class="row invoice-info">
                             <div class="col-sm-4 invoice-col">
-                                From
+                                From:
                                 <address>
                                     <strong>Full house, Inc.</strong><br>
                                     391a Nam Ky Khoi Nghia Street<br>
@@ -55,20 +57,21 @@
                             </div>
                             <!-- /.col -->
                             <div class="col-sm-4 invoice-col">
-                                To
+                                To:
                                 <address>
-                                    <strong>John Doe</strong><br>
-                                    795 Truong Chinh Street<br>
-                                    HCM City<br>
-                                    Phone: (555) 539-1037<br>
-                                    Email: john.doe@example.com
+                                    <strong>{{$order->user->name}}</strong><br>
+                                    {{$order->user->profile['ward']}},
+                                    {{$order->user->profile['district']}}<br>
+                                    {{$order->user->profile['city']}}<br>
+                                    Phone: {{$order->user->phone}}<br>
+                                    Email: {{$order->user->email}}
                                 </address>
                             </div>
                             <!-- /.col -->
                             <div class="col-sm-4 invoice-col">
-                                <b>Invoice #007612</b><br>
+                                <b>Invoice: {{$order->id}}</b><br>
                                 <br>
-                                <b>Order ID:</b> 4F3S8J<br>
+                                <b>Order ID:</b> FH{{$order->id}}<br>
                                 <b>Account No:</b> 96845-34567-1234 <br>
                                 <b>At Bank:</b> BIDV
                             </div>
@@ -91,15 +94,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach($order->orderDetails as $k=>$od)
                                         <tr>
-                                            <td>1</td>
-                                            <td>Desk</td>
-                                            <td>PS01001</td>
-                                            <td>1</td>
-                                            <td>$64.50</td>
-                                            <td>$64.50</td>
+                                            <td>{{$k + 1}}</td>
+                                            <td>{{$od->product->product_name}}</td>
+                                            <td>{{$od->product->product_id}}</td>
+                                            <td>{{$od->quantity}}</td>
+                                            <td>$ {{number_format($od->price,2)}}</td>
+                                            <td>$ {{number_format($od->quantity * $od->price,2)}}</td>
                                         </tr>
-
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -125,32 +129,20 @@
                                 <div class="table-responsive">
                                     <table class="table">
                                         <tr>
+                                            <th style="width:50%">Discount:</th>
+                                            <td>{{$order->coupon_id}}</td>
+                                        </tr>
+                                        <tr>
                                             <th style="width:50%">Subtotal:</th>
                                             <td>$64.50</td>
                                         </tr>
                                         <tr>
-                                            <th>Tax (8%)</th>
-                                            <td>$5.16</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Shipping:</th>
-                                            <td>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="fas fa-dollar-sign"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input type="text" class="form-control">
-                                                    <div class="input-group-append">
-                                                        <div class="input-group-text"><i class="fas fa-ambulance"></i></div>
-                                                    </div>
-                                                </div>
-                                            </td>
+                                            <th>Shipping fee:</th>
+                                            <td>$ {{number_format($order->shipping_fee,2)}}</td>
                                         </tr>
                                         <tr>
                                             <th>Total:</th>
-                                            <td>$69.66</td>
+                                            <th>$69.66</th>
                                         </tr>
                                     </table>
                                 </div>
