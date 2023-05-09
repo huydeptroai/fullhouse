@@ -142,7 +142,7 @@
                                     <div class="user-block">
                                         <img class="img-circle img-bordered-sm" src="{{ asset('/assets/img/upload/user/'.$user->profile['avatar']) }}" alt="user image">
                                         <span class="username">
-                                            <a href="#">Jonathan Burke Jr.</a>
+                                            <a href="#">{{$user->name}}</a>
                                             <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
                                         </span>
                                         <span class="description">Shared publicly - 7:30 PM today</span>
@@ -485,6 +485,8 @@
                 success: function(data) {
                     console.log(data);
                     $('#' + result).html(data);
+
+                    al
                 }
             })
         });

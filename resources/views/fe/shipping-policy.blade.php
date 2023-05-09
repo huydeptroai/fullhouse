@@ -23,7 +23,7 @@
                 <b>Start : 01/03/2021</b>
                 <p></p>
 
-                <h4>For orders in City. Ho Chi Minh City</h4>
+                <h4>1. For orders in City. Ho Chi Minh City</h4>
 
                 <table class="shop_attributes table-bordered text-center">
                     <caption>Table of shipping and assembly fees for delivery</caption>
@@ -39,48 +39,45 @@
                         <tr>
                             <th>Urban</th>
                             <td>
-                                6% of order
-                                <p>$5 <= shipping fee <=$25</p>
+                                4% of order
+                                <p>($5 <= shipping fee <=$25)</p>
                             </td>
                             <td>Free</td>
                         </tr>
                         <tr>
                             <th>Suburban 1</th>
                             <td>
-                                8% of order
-                                <p>$5 <= shipping fee <=$25</p>
+                                6% of order
+                                <p>($5 <= shipping fee <=$25)</p>
                             </td>
-                            <td>
-                                8% of order
-                                <p>$5 <= shipping fee <=$25</p>
-                            </td>
+                            <td>Free</td>
                         </tr>
                         <tr>
                             <th>Suburban 2</th>
                             <td>
-                                10% of order
-                                <p>$5 <= shipping fee <=$25</p>
+                                8% of order
+                                <p>($5 <= shipping fee <=$25)</p>
                             </td>
-                            <td>
-                                10% of order
-                                <p>$5 <= shipping fee <=$25</p>
-                            </td>
+                            <td>Free</td>
                         </tr>
                     </tbody>
                 </table>
 
                 <b>DETAILS OF DISTRICT, DISTRICT IN INTERNAL AND SURFACE :</b>
-                <p> + The inner city includes districts: District 1, District 3, District 4, District 5, District 6, District 8, District 10, Tan Binh District, Tan Phu District, Phu Nhuan District, Go Vap District, Binh Thanh District.</p>
-                <p> + Suburban 1 includes the areas of District 2, District 7, District 12</p>
+                <p> + The inner city includes districts: District 1, District 3, District 4, District 5, District 6, District 8, District 10, Tan Binh District, Tan Phu District, Phu Nhuan District, Go Vap District, Binh Thanh District, Binh Tan District.</p>
+                <p> + Suburban 1 includes the areas of District 7, District 12, Thu Duc District</p>
 
-                <p> + Suburban 2 includes the following areas: Thu Duc District, District 9, HoocMon District, Binh Chanh District, Nha Be District.</p>
+                <p> + Suburban 2 includes the following areas: HoocMon District, Nha Be District, Can Gio District, Cu Chi District. </p>
 
-
-                <h4>For orders from outside provinces, Can Gio District, Cu Chi District</h4>
-                <p>Shipping fee: 10% of value order.</p>
                 <hr>
 
-                <h4>Order confirmation and delivery time</h4>
+                <h4>2. For orders from outside provinces</h4>
+                <p>Shipping fee: 10% of value order.</p>
+                <p>($5 <= shipping fee <=$25)</p>
+
+                <hr>
+
+                <h4>3. Order confirmation and delivery time</h4>
                 <ul>
                     <li>Order confirmation time</li>
                     <p>+ Orders placed during office hours (9am - 6pm) will be confirmed by phone within 30 minutes - 1 hour</p>
