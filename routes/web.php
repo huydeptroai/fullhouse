@@ -31,6 +31,7 @@ use Laravel\Socialite\Facades\Socialite;
 
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/api.php';
 
 Route::get('/', function () {
     return redirect()->route('home');

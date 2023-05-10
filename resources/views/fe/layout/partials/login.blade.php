@@ -50,12 +50,13 @@
 			</div>
 
 			<!-- sign in by social -->
+			<!-- <i class="fa-brands fa-google" style="font-size: 30px;"></i> -->
 			<div class="social-auth-links text-center mb-3">
 				<p>- OR -</p>
 				<a href="#" class="btn btn-block btn-primary">
 					Sign in using Facebook
 				</a>
-				<a href="#" class="btn btn-block btn-danger">
+				<a href="{{ route('google')}}" class="btn btn-block btn-danger">
 					Sign in using Google+
 				</a>
 			</div>

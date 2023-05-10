@@ -63,7 +63,7 @@
 	<script src="{{ asset('/frontend/js/jquery-ui-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
 	<script src="{{ asset('/frontend/js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('/frontend/js/jquery.flexslider.js') }}"></script>
-	<script src="{{ asset('/frontend/js/chosen.jquery.min.js') }}"></script>
+	<!-- <script src="{{ asset('/frontend/js/chosen.jquery.min.js') }}"></script> -->
 	<script src="{{ asset('/frontend/js/owl.carousel.min.js') }}"></script>
 	<script src="{{ asset('/frontend/js/jquery.countdown.min.js') }}"></script>
 	<script src="{{ asset('/frontend/js/jquery.sticky.js') }}"></script>
@@ -71,8 +71,6 @@
 	@yield('time')
 
 	<!-- login show -->
-	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 	<script>
 		const wrapper = document.querySelector('.wrapper');
 		const loginLink = document.querySelector('.login-link');

@@ -61,6 +61,8 @@
                                 </button>
                             </div>
                         </form>
+
+                        <a class="btn" href="{{route('google')}}">Sign in Google</a>
                     </div>
                 </div>
             </div>

@@ -103,7 +103,7 @@
 		<div class="style-1 has-countdown" style="margin-bottom: 5%;text-align: center;">
 			<h2 class="title-box">On Sale</h2>
 			<!-- set time -->
-			<h3 id="time-cal" class="wrap-countdown" style="color:red;margin:20px" data-expire="2023/05/09 12:00:00"></h3>
+			<h3 id="time-cal" class="wrap-countdown" style="color:red;margin:20px" data-expire="2023/05/23 12:00:00"></h3>
 			<!-- set time end-->
 			<div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container " data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"2"},"992":{"items":"3"},"1200":{"items":"4"}}'>
 				<!-- product 01 loop-->

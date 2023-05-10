@@ -31,10 +31,13 @@
 
                     <div class="detail-info">
                         <h2 class="product-name">{{$product->product_name ?? ''}}</h2>
-                        <div class="product-rating">
+                        <div class="product-rating" style="font-size:16px;">
                             <strong>{{number_format($avgRating,2) }} </strong>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <a href="#review" class="count-review"> ({{count($reviews)}} review)</a>
+                                @for($i=1; $i<=5; $i++) @php $color=($i <= round($avgRating)) ? "color: #ffcc00;" : "color: #ccc;";
+                                    @endphp
+                                    <i class="fa fa-star" aria-hidden="true" style="cursor:pointer;{{$color}}font-size:30px;"></i>
+                                @endfor
+                            <a href="#review" class="count-review"> ({{count($product->reviews)}} review)</a>
 
                         </div>
                         <div class="short-desc">
@@ -154,19 +157,23 @@
 
                                     <div id="comments">
                                         <h2 class="woocommerce-Reviews-title">
-                                            {{ $count_reviews }} review(s) for <span>{{$product->product_name}}</span>
+                                            {{ count($product->reviews) }} review(s) for <span>{{$product->product_name}}</span>
                                         </h2>
 
                                         <ol class="commentlist" id="list_comment">
-                                            @foreach($reviews as $review)
+                                            @foreach($product->reviews as $review)
                                             <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1" id="review_id_{{ $review->id }}">
                                                 <div id="comment-20" class="comment_container">
                                                     <img class="profile-user-img img-fluid img-circle" src="{{ asset('admin/dist/img/'.$review->user->profile['avatar']) ?? 'user1-128x128.jpg' }}" alt="User profile picture" height="80" width="80">
 
                                                     <div class="comment-text">
                                                         <!-- <div class="star-rating"> -->
-                                                        <div class="">
-                                                            <span class="width-80-percent">Rated <strong class="rating">{{$review->rating}}</strong> out of 5</span>
+                                                        <div class="rating">
+                                                            @for($i=1; $i<=5; $i++) @php $color=($i <=$review->rating) ? "color: #ffcc00;" : "color: #ccc;";
+                                                                @endphp
+                                                                <i class="fa fa-star" aria-hidden="true" style="cursor:pointer;<?php echo $color ?> font-size:30px;"></i>
+                                                                @endfor
+
                                                         </div>
                                                         <p class="meta">
                                                             <strong class="woocommerce-review__author">{{$review->user->name}}</strong>
@@ -201,7 +208,7 @@
                                                     <div class="comment byuser comment-author-admin bypostauthor even thread-even depth-1">
                                                         <div id="comment-20" class="comment_container">
                                                             <div class="comment-text">
-                                        
+
                                                                 <div class="col-md-3">
                                                                     <img class="profile-user-img img-fluid img-circle" src="{{ asset('admin/dist/img/'.Auth::user()->profile['avatar']) ?? 'user1-128x128.jpg' }}" alt="User profile picture" height="80" width="80">
                                                                     <div class="comment-form-rating">

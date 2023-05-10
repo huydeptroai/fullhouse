@@ -43,24 +43,17 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $avgRating = Review::where('product_id', $product->product_id)->avg('rating');
-
-        $reviews = Review::where('product_id', $product->product_id)->get();
-        $count_reviews = Review::where('product_id', $product->product_id)->count('*');
-        $prods_popular = Product::limit(4)->get();
-
+        // $avgRating = round($avgRating);
         $prods_related = Product::where('category_id', 'like', $product->category_id)
             ->limit(8)
             ->get();
         return view('fe.product-detail', [
             'product' => $product,
-            'reviews' => $reviews,
-            'count_reviews' => $count_reviews,
             'avgRating' => $avgRating,
-            'prods_related' => $prods_related,
-            'prods_popular' => $prods_popular
+            'prods_related' => $prods_related
         ]);
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -68,7 +61,7 @@ class ProductController extends Controller
     {
         //
     }
-    
+
     /**
      * Update the specified resource in storage.
      */
@@ -76,7 +69,7 @@ class ProductController extends Controller
     {
         //
     }
-    
+
     /**
      * Remove the specified resource from storage.
      */
@@ -84,10 +77,10 @@ class ProductController extends Controller
     {
         //
     }
-    
+
     public function productDetail($product_slug)
     {
-        dd($product_slug);
+        // dd($product_slug);
         try {
             $product = Product::where('product_slug', 'like', $product_slug)->first();
         } catch (\Throwable $th) {
@@ -95,5 +88,4 @@ class ProductController extends Controller
         }
         return view('fe.product-detail', compact('product'));
     }
-
 }

@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'google_id',
         'password',
         'phone',
         'role',
@@ -66,5 +67,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(WishList::class);
     }
-
 }
