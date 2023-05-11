@@ -3116,7 +3116,7 @@ li.menu-item .nav-label.sale-label::before {
     font-size: 14px;
     line-height: 19px;
     color: #333333;
-    text-align: left;
+    text-align: center;
     text-transform: uppercase;
     font-weight: 700;
     margin: 9px 0;

@@ -14,17 +14,21 @@ class UserTableSeeder extends Seeder
      */
     public function run(): void
     {
+        //delete current data user
         User::truncate();
-
+        //create new admin
         $admin = User::create([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
+            'name' => 'Admin Full House',
+            'email' => 'fullhouseteam01@gmail.com',
             'password' => Hash::make('12345678'),
+            'role' => 1
         ]);
+        //create new user
         $user = User::create([
-            'name' => 'fpt aptech',
+            'name' => 'FPT Aptech',
             'email' => 'vinhlong505@gmail.com',
             'password' => Hash::make('12345678'),
+            'role' => 2
         ]);
     }
 }

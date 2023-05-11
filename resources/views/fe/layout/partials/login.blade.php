@@ -39,8 +39,12 @@ $active = 'active-popup'
 			</div>
 
 			<div class="remember-forgot">
-				<label><input type="checkbox">Remember me</label>
+				<label for="remember_me" class="">
+					<input id="remember_me" type="checkbox" name="remember" >
+					<span class="">{{ __('Remember me') }}</span>
+				</label>
 			</div>
+
 			@if (Route::has('password.request'))
 			<div class="remember-forgot">
 				<a href="{{ route('password.request')}}">Forgot your password?</a>

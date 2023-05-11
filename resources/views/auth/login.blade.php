@@ -42,27 +42,39 @@
                             </fieldset>
 
                             <!-- Remember Me -->
-                            <div class="block mt-4">
-                                <label for="remember_me" class="inline-flex items-center">
-                                    <input id="remember_me" type="checkbox" name="remember">
-                                    <span class="">{{ __('Remember me') }}</span>
+                            <fieldset class="wrap-input">
+                                <label class="remember-field">
+                                    <input class="frm-input " name="remember" id="remember" type="checkbox"><span>{{ __('Remember me') }}</span>
                                 </label>
-                            </div>
-
-                            <div style="margin-top: 20px;display: flex;justify-content: flex-end;">
+                                
                                 @if (Route::has('password.request'))
-                                <a class="" href="{{ route('password.request') }}">
+                                <a class="link-function left-position" href="{{ route('password.request') }}">
                                     {{ __('Forgot your password?') }}
                                 </a>
                                 @endif
+                            </fieldset>
 
-                                <button type="submit" class="btn btn-submit col-md-offset-3">
+                            <fieldset class="wrap-input">
+                                <button type="submit" class="btn btn-submit col-md-offset-6">
                                     {{ __('Log in') }}
                                 </button>
-                            </div>
+                            </fieldset>
                         </form>
-
-                        <a class="btn" href="{{route('google')}}">Sign in Google</a>
+                        <hr>
+                        <h3 class="form-title" style="text-align:center;">-- or sign in with ---</h3>
+                        <div>
+                            <a href="{{ route('google')}}" style="width: 30px;">
+                                <button class="btn" style="background-color: red;">
+                                    Google+
+                                    <!-- <ion-icon name="logo-google"></ion-icon> -->
+                                </button>
+                            </a>
+                            <a href="#" class="mt-3">
+                                <button class="btn" style="background-color: #00BFFF;">
+                                    Facebook
+                                </button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

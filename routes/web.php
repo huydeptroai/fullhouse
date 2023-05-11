@@ -102,10 +102,11 @@ Route::controller(CartController::class)->group(function () {
     Route::DELETE('delete-cart/{cart_id}', 'destroy')->name('deleteCart');
 });
 
+Route::get('/category-search-by-name/{category_name}', [CategoryController::class, 'searchByCategoryName'])->name('searchByCategoryName');
+Route::post('/search-price', [CategoryController::class, 'searchPrice'])->name('searchPrice');
+Route::post('/search-name', [HomeController::class, 'searchName'])->name('searchName');
 
 
-
-Route::get('/category/{category_id}', [CategoryController::class, 'searchByCategoryId'])->name('searchByCategoryId');
 
 
 // Route::get('/register_socialite', [HomeController::class, 'register_socialite'])->name('register_socialite');

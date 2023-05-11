@@ -18,21 +18,21 @@
                     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
                         <div class="contact-box contact-form">
                             <h2 class="box-title">Leave a Message</h2>
-                            <form action="#" method="get" name="frm-contact" class="mx-auto">
-
+                            <form action="#" method="post" name="frm-contact" class="mx-auto">
+                                @csrf
                                 <label for="name">Name<span>*</span></label>
-                                <input type="text" value="" id="name" name="name">
+                                <input type="text" value="" id="name" name="name" placeholder="Enter your name">
 
                                 <label for="email">Email<span>*</span></label>
-                                <input type="text" value="" id="email" name="email">
+                                <input type="text" value="" id="email" name="email" placeholder="Enter your mail">
 
                                 <label for="phone">Number Phone</label>
-                                <input type="text" value="" id="phone" name="phone">
+                                <input type="text" value="" id="phone" name="phone" placeholder="Enter your phone">
 
                                 <label for="comment">Comment</label>
-                                <textarea name="comment" id="comment"></textarea>
+                                <textarea name="comment" id="comment" placeholder="Enter your problem, if have"></textarea>
 
-                                <input type="submit" name="ok" value="Submit">
+                                <input type="submit" name="contact_submit" value="Submit">
 
                             </form>
                         </div>
@@ -51,7 +51,7 @@
                                     <i class="fa fa-envelope" aria-hidden="true"></i>
                                     <div class="right-info">
                                         <b>Email</b>
-                                        <p>Support1@gmail.com</p>
+                                        <p>fullhouseteam01@gmail.com</p>
                                     </div>
                                 </div>
 

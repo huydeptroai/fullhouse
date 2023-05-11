@@ -30,8 +30,8 @@
 								<ul class="submenu user">
 									@if(Auth::user()->role === 1)
 									<li class="menu-item"><a href="{{route('admin.dashboard')}}">
-										<strong>Managers</strong>
-									</a></li>
+											<strong>Managers</strong>
+										</a></li>
 									@endif
 
 									<li class="menu-item"><a href="{{route('profile.edit')}}">Profile</a></li>
@@ -63,8 +63,9 @@
 
 					<div class="wrap-search center-section">
 						<div class="wrap-search-form">
-							<form method="post" action="#" id="form-search-top" name="form-search-top">
-								<input type="text" name="search" value="" placeholder="Search here...">
+							<form method="post" action="{{route('searchName')}}" id="form-search-top" name="form-search-top">
+								@csrf
+								<input type="text" name="search" placeholder="Search here...">
 								<button form="form-search-top" type="submit">
 									<i class="fa fa-search" aria-hidden="true"></i>
 								</button>
@@ -75,30 +76,67 @@
 									<ul class="list-cate">
 										<li class="level-0"><a href="{{ route('product.index')}}">All Category</a></li>
 
-										<li class="level-1"><a href="#">-Office furniture</a></li>
-										<li class="level-2"><a href="">Desk Office</a></li>
-										<li class="level-2"><a href="">Chair Office</a></li>
-										<li class="level-2"><a href="">Cabinet-shelves Office</a></li>
-
-										<li class="level-1"><a href="">-Living furniture</a></li>
-										<li class="level-2">Sofa</li>
-										<li class="level-2">Sofa table</li>
-										<li class="level-2">TV Shelf</li>
-										<li class="level-2">Bookshelf-Decorative shelf</li>
-										<li class="level-2">Decorative cabinets</li>
-										<li class="level-2">Combo living room</li>
-
-										<li class="level-1">-Kitchen - Dining furniture</li>
-										<li class="level-2">Dining table</li>
-										<li class="level-2">Dining chair</li>
-										<li class="level-2">Dining table and chair set</li>
-										<li class="level-2">Kitchen cabinets</li>
-
-										<li class="level-1">-Bedroom furniture</li>
-										<li class="level-2">Bed</li>
-										<li class="level-2">Wardrobe - clothes shelves</li>
-										<li class="level-2">Makeup table</li>
-										<li class="level-2">Combo bedroom</li>
+										<li class="level-1"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Office furniture']) }}">-Office
+												furniture</a></li>
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Desk Office']) }}">Desk
+												Office</a></li>
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Chair Office']) }}">Chair
+												Office</a></li>
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Cabinet-shelves Office']) }}">Cabinet-shelves
+												Office</a></li>
+										<li class="level-1"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Living furniture']) }}">-Living
+												furniture</a></li>
+										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Sofa']) }}">Sofa
+										</li>
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Sofa table']) }}">Sofa table
+										</li>
+										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'TV Shelf']) }}">TV
+												Shelf
+										</li>
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Bookshelf-Decorative shelf']) }}">Bookshelf-Decorative
+												shelf</li>
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Decorative cabinets']) }}">Decorative
+												cabinets</li>
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Combo living room']) }}">Combo
+												living room</li>
+										<li class="level-1"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Kitchen-Dining furniture']) }}">-Kitchen
+												- Dining furniture</li>
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Dining table']) }}">Dining
+												table</li>
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Dining chair']) }}">Dining
+												chair</li>
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Dining table and chair set']) }}">Dining
+												table and chair set</li>
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Kitchen cabinets']) }}">Kitchen
+												cabinets</li>
+										<li class="level-1"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Bedroom furniture']) }}">-Bedroom
+												furniture</li>
+										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Bed']) }}">Bed
+										</li>
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Wardrobe-clothes shelves']) }}">Wardrobe
+												- clothes shelves</li>
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Makeup table']) }}">Makeup
+												table</li>
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Combo bedroom']) }}">Combo
+												bedroom</li>
 									</ul>
 								</div>
 							</form>
@@ -159,6 +197,13 @@
 							</li>
 							<li class="menu-item">
 								<a href="{{route('contact')}}" class="link-term mercado-item-title">Contact Us</a>
+							</li>
+							<li class="menu-item">
+								<a title="Register or Login" href="{{route('login')}}" class="">
+									@if(!Auth::check())
+									<strong>{{__('Login')}}</strong>
+									@endif
+								</a>
 							</li>
 						</ul>
 					</div>

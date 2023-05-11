@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Models\Category;
 
+
 class HomeController extends Controller
 {
     public function home()
@@ -32,6 +33,17 @@ class HomeController extends Controller
             'product_office' => $product_office,
             'categories' => $categories
         ]);
+    }
+
+    public function searchName(Request $request)
+    {
+        $keywords = $request->search;
+        $search = Product::selectRaw('products.*, categories.*')
+        ->join('categories', 'categories.category_id', 'like', 'products.category_id')
+        ->where('product_name','like','%'.$keywords.'%')
+        ->orWhere('category_name_1','like','%'.$keywords.'%')
+        ->orWhere('category_name_2','like','$'.$keywords.'$')->get();
+        return view('fe.search',compact('search'));
     }
 
     public function about()

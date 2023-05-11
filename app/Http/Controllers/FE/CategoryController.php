@@ -9,17 +9,25 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function searchByCategoryId($category_id)
+    public function searchByCategoryName($category_name)
     {
-        $categories = Category::where('category_id', $category_id)->get();
-
-        $products = Product::where('category_id', 'like', $category_id)->get();
         $products = Product::selectRaw('products.*, categories.*')
         ->join('categories', 'categories.category_id', 'like', 'products.category_id')
-        ->where('category_id', 'like', $category_id)
-        ->orWhere('category_id', 'like', $category_id)
+        ->where('category_name_1', 'like', $category_name)
+        ->orWhere('category_name_2', 'like', $category_name)
         ->get();
 
         return view('fe.shop', compact('products'));
     }
+
+    public function searchPrice(Request $request)
+    {
+        $min = $request->input('min');
+        $max = $request->input('max');
+        $products = Product::where('product_price','>=',$min)->where('product_price','<=',$max)->get();
+
+        return view('fe.shop', compact('products'));
+    }
+
+
 }
