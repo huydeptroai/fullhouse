@@ -38,7 +38,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $profile = [
-            'avatar' => 'user1-128x128.jpg',
+            'avatar' => '',
             'gender' => '',
             'dob' => '1996-02-14',
             'city' => '',

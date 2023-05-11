@@ -1,7 +1,11 @@
-<div class="wrapper">
+@php
+$active = '';
+if($errors->first('email'))
+$active = 'active-popup'
+@endphp
+<div class="wrapper <?php echo $active ?>">
 
 	<span class="icon-close">
-		<!-- <ion-icon name="close"></ion-icon> -->
 		<ion-icon name="arrow-forward"></ion-icon>
 	</span>
 	<!-- login form -->
@@ -22,7 +26,7 @@
 				</span>
 				<input type="email" name="email" value="{{ old('email') }}" required autofocus>
 				<label>Email</label>
-				<small class="mt-2">{{$errors->first('email')}}</small>
+				<small style="color:red;">{{$errors->first('email')}}</small>
 			</div>
 			<!-- password -->
 			<div class="input-box">
@@ -31,7 +35,7 @@
 				</span>
 				<input type="password" name="password" required>
 				<label>Password</label>
-				<small class="mt-2">{{$errors->first('password')}}</small>
+				<small style="color:red;">{{$errors->first('password')}}</small>
 			</div>
 
 			<div class="remember-forgot">
@@ -44,25 +48,35 @@
 			@endif
 
 			<button type="submit" class="btn">Login</button>
-			
-			<div class="login-register">
-				<p>Don't have account? <a href="#" class="register-link">Register</a></p>
-			</div>
-
-			<!-- sign in by social -->
-			<!-- <i class="fa-brands fa-google" style="font-size: 30px;"></i> -->
-			<div class="social-auth-links text-center mb-3">
-				<p>- OR -</p>
-				<a href="#" class="btn btn-block btn-primary">
-					Sign in using Facebook
-				</a>
-				<a href="{{ route('google')}}" class="btn btn-block btn-danger">
-					Sign in using Google+
-				</a>
-			</div>
-			<!-- sign in by social -->
-
 		</form>
+
+		<div class="login-register">
+			<p>Don't have account? <a href="#" class="register-link">Register</a></p>
+		</div>
+
+		<!-- sign in by social -->
+		<!-- <i class="fa-brands fa-google" style="font-size: 30px;"></i> -->
+		<div class="social-auth-links text-center mb-3">
+			<hr>
+			<p>- OR Sign in with -</p>
+			<a href="{{ route('google')}}" style="width: 30px;">
+				<button class="btn" style="background-color: red;">
+					Google+
+					<!-- <ion-icon name="logo-google"></ion-icon> -->
+				</button>
+			</a>
+			<hr>
+			<a href="#" class="mt-3">
+				<button class="btn" style="background-color: #00BFFF;">
+					Facebook
+				</button>
+			</a>
+		</div>
+		<!-- sign in by social -->
+		<div>
+			<a href=""></a>
+		</div>
+
 	</div>
 	<!-- register form -->
 	<div class="form-box register">

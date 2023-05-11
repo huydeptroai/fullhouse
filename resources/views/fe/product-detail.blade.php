@@ -164,7 +164,7 @@
                                             @foreach($product->reviews as $review)
                                             <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1" id="review_id_{{ $review->id }}">
                                                 <div id="comment-20" class="comment_container">
-                                                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('admin/dist/img/'.$review->user->profile['avatar']) ?? 'user1-128x128.jpg' }}" alt="User profile picture" height="80" width="80">
+                                                    <img class="profile-user-img img-fluid img-circle" src="{{ $review->user->profile['avatar']) }}" alt="User profile picture" height="80" width="80">
 
                                                     <div class="comment-text">
                                                         <!-- <div class="star-rating"> -->

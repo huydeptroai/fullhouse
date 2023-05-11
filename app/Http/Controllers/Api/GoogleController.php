@@ -74,31 +74,30 @@ class GoogleController extends Controller
     public function loginWithGoogle()
     {
         try {
-            $googleUser = Socialite::driver('google')->stateless()->user();
+            $googleUser = Socialite::driver('google')->user();
 
-                $profile = [
-                    'avatar' => $googleUser->picture ?? 'user1-128x128.jpg',
-                    'gender' => '',
-                    'dob' => '1996-02-14',
-                    'city' => '',
-                    'district' => '',
-                    'ward' => ''
-                ];
+            $profile = [
+                'avatar' => $googleUser->getAvatar() ?? '',
+                'gender' => '',
+                'dob' => '1996-02-14',
+                'city' => '',
+                'district' => '',
+                'ward' => ''
+            ];
 
-                $user = User::updateOrCreate([
-                    'email' => $googleUser->email
-                ], [
-                    'google_id' => $googleUser->id,
-                    'name' => $googleUser->name,
-                    'password' => Hash::make('12345678'),
-                    'role' => 2,
-                    'profile' => $profile
-                ]);
+            $user = User::updateOrCreate([
+                'email' => $googleUser->getEmail()
+            ], [
+                'google_id' => $googleUser->getId(),
+                'name' => $googleUser->getName(),
+                'password' => Hash::make('12345678'),
+                'role' => 2,
+                'profile' => $profile
+            ]);
 
-                Auth::login($user);
+            Auth::login($user);
 
-                return redirect(RouteServiceProvider::HOME);
-            
+            return redirect(RouteServiceProvider::HOME);
         } catch (\Throwable $th) {
             throw $th;
         }

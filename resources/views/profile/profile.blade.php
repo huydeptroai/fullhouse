@@ -38,7 +38,7 @@
 
                         <!-- Profile Image -->
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="{{ asset('admin/dist/img/'.$user->profile['avatar']) }}" alt="User profile picture">
+                            <img class="profile-user-img img-fluid img-circle" src="{{ $user->profile['avatar'] ?? asset('admin/dist/img/'.$user->profile['avatar']) }}" alt="User profile picture">
                         </div>
                         <h3 class="profile-username text-center">{{$user->name}}</h3>
                         <p class="text-muted text-center">{{$user->role === 1 ? 'Admin' : 'User'}}</p>
@@ -140,7 +140,7 @@
                                 <!-- Post -->
                                 <div class="post clearfix">
                                     <div class="user-block">
-                                        <img class="img-circle img-bordered-sm" src="{{ asset('/assets/img/upload/user/'.$user->profile['avatar']) }}" alt="user image">
+                                        <img class="img-circle img-bordered-sm" src="{{ $user->profile['avatar'] }}" alt="user image">
                                         <span class="username">
                                             <a href="#">{{$user->name}}</a>
                                             <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
@@ -181,7 +181,7 @@
                                     <div class="time-label">
                                         <span class="bg-danger"><i class="far fa-clock"></i>
                                             @isset($user->created_at)
-                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->created_at)}}
+                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->created_at)->format('d-m-Y')}}
                                             @endisset
                                         </span>
                                     </div>
