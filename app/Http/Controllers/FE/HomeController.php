@@ -15,24 +15,21 @@ class HomeController extends Controller
 {
     public function home()
     {
-        $product_sale = Product::where('discount', '>', 0)->get();
-        $product_latest = Product::orderByDesc('updated_at')->get();
+        $products_sale = Product::where('discount', '>', 0)->limit(8)->get();
+        $products_latest = Product::orderByDesc('updated_at')->limit(8)->get();
 
-        $product_living = Product::where('category_id', 'like', 'L%')->get();
-        $product_dining = Product::where('category_id', 'like', 'K%')->get();
-        $product_bedroom = Product::where('category_id', 'like', 'B%')->get();
-        $product_office = Product::where('category_id', 'like', 'O%')->get();
+        $products_living = Product::where('category_id', 'like', 'L%')->limit(8)->get();
+        $products_dining = Product::where('category_id', 'like', 'K%')->limit(8)->get();
+        $products_bedroom = Product::where('category_id', 'like', 'B%')->limit(8)->get();
+        $products_office = Product::where('category_id', 'like', 'O%')->limit(8)->get();
 
-        $categories = Category::all();
-
-        return view('fe.home', [
-            'product_sale' => $product_sale,
-            'product_latest' => $product_latest,
-            'product_living' => $product_living,
-            'product_dining' => $product_dining,
-            'product_bedroom' => $product_bedroom,
-            'product_office' => $product_office,
-            'categories' => $categories
+        return view('fe.home.home', [
+            'products_sale' => $products_sale,
+            'products_latest' => $products_latest,
+            'products_living' => $products_living,
+            'products_dining' => $products_dining,
+            'products_bedroom' => $products_bedroom,
+            'products_office' => $products_office
         ]);
     }
 
@@ -80,16 +77,13 @@ class HomeController extends Controller
     public function newLetter(Request $request)
     {
         $email = $request->email;
-        // dd($email);
         $data = Newsletter::where('email', 'like', $email)->first();
-        if($data){
+        if ($data) {
             return response()->json($data);
         }
-        
         $data = Newsletter::create([
             'email' => $email
         ]);
-        // return response()->json(['success'=>'Thank you for your subscribe']);
         return response()->json($data);
     }
 }

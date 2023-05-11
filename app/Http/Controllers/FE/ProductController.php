@@ -13,6 +13,7 @@ class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * Display a listing in shop-page.
      */
     public function index()
     {
