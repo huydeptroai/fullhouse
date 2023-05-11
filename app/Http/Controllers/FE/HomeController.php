@@ -38,12 +38,12 @@ class HomeController extends Controller
     public function searchName(Request $request)
     {
         $keywords = $request->search;
-        $search = Product::selectRaw('products.*, categories.*')
+        $products = Product::selectRaw('products.*, categories.*')
         ->join('categories', 'categories.category_id', 'like', 'products.category_id')
         ->where('product_name','like','%'.$keywords.'%')
         ->orWhere('category_name_1','like','%'.$keywords.'%')
         ->orWhere('category_name_2','like','$'.$keywords.'$')->get();
-        return view('fe.search',compact('search'));
+        return view('fe.shop',compact('products'));
     }
 
     public function about()
