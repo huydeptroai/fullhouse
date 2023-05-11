@@ -33,11 +33,9 @@
                         <h2 class="product-name">{{$product->product_name ?? ''}}</h2>
                         <div class="product-rating" style="font-size:16px;">
                             <strong>{{number_format($avgRating,2) }} </strong>
-                                @for($i=1; $i<=5; $i++) @php $color=($i <= round($avgRating)) ? "color: #ffcc00;" : "color: #ccc;";
-                                    @endphp
-                                    <i class="fa fa-star" aria-hidden="true" style="cursor:pointer;{{$color}}font-size:30px;"></i>
+                            @for($i=1; $i<=5; $i++) @php $color=($i <=round($avgRating)) ? "color: #ffcc00;" : "color: #ccc;" ; @endphp <i class="fa fa-star" aria-hidden="true" style="cursor:pointer;{{$color}}font-size:30px;"></i>
                                 @endfor
-                            <a href="#review" class="count-review"> ({{count($product->reviews)}} review)</a>
+                                <a href="#review" class="count-review"> ({{count($product->reviews)}} review)</a>
 
                         </div>
                         <div class="short-desc">
@@ -213,7 +211,7 @@
                                                                     <img class="profile-user-img img-fluid img-circle" src="{{ asset('admin/dist/img/'.Auth::user()->profile['avatar']) ?? 'user1-128x128.jpg' }}" alt="User profile picture" height="80" width="80">
                                                                     <div class="comment-form-rating">
                                                                         <span>Your rating: </span>
-                                                                        <p class="stars">
+                                                                        <p class="stars" style="font-size: 20px;">
                                                                             <label for="rated-1"></label>
                                                                             <input type="radio" id="rated-1" name="rating" value="1">
                                                                             <label for="rated-2"></label>
@@ -329,6 +327,8 @@
                 dataType: "json",
                 success: function(data) {
                     alert('success!');
+                    console.log(data);
+                    $('#list_comment').append(data);
                 }
             });
 

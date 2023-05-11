@@ -10,6 +10,9 @@ class Newsletter extends Model
     use HasFactory;
     protected $primaryKey = 'email';
     protected $table = 'newsletters';
+    
+    protected $fillable = ['email'];
+
     public $incrementing = false;
     public $timestamps = false;
 }

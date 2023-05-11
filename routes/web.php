@@ -92,6 +92,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/shipping-policy', 'shippingPolicy')->name('shippingPolicy');
     Route::get('/warranty-policy', 'warrantyPolicy')->name('warrantyPolicy');
     Route::get('/order-processing', 'thankyou')->name('thankyou');
+    Route::post('/new-letter', 'newLetter')->name('newLetter');
 });
 
 

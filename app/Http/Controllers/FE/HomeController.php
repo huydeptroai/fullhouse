@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Models\Category;
+use App\Models\Newsletter;
 
 
 class HomeController extends Controller
@@ -23,7 +24,7 @@ class HomeController extends Controller
         $product_office = Product::where('category_id', 'like', 'O%')->get();
 
         $categories = Category::all();
-        
+
         return view('fe.home', [
             'product_sale' => $product_sale,
             'product_latest' => $product_latest,
@@ -39,11 +40,11 @@ class HomeController extends Controller
     {
         $keywords = $request->search;
         $products = Product::selectRaw('products.*, categories.*')
-        ->join('categories', 'categories.category_id', 'like', 'products.category_id')
-        ->where('product_name','like','%'.$keywords.'%')
-        ->orWhere('category_name_1','like','%'.$keywords.'%')
-        ->orWhere('category_name_2','like','$'.$keywords.'$')->get();
-        return view('fe.shop',compact('products'));
+            ->join('categories', 'categories.category_id', 'like', 'products.category_id')
+            ->where('product_name', 'like', '%' . $keywords . '%')
+            ->orWhere('category_name_1', 'like', '%' . $keywords . '%')
+            ->orWhere('category_name_2', 'like', '$' . $keywords . '$')->get();
+        return view('fe.shop', compact('products'));
     }
 
     public function about()
@@ -74,5 +75,21 @@ class HomeController extends Controller
     public function thankyou()
     {
         return view('fe.thankyou');
+    }
+
+    public function newLetter(Request $request)
+    {
+        $email = $request->email;
+        // dd($email);
+        $data = Newsletter::where('email', 'like', $email)->first();
+        if($data){
+            return response()->json($data);
+        }
+        
+        $data = Newsletter::create([
+            'email' => $email
+        ]);
+        // return response()->json(['success'=>'Thank you for your subscribe']);
+        return response()->json($data);
     }
 }

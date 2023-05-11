@@ -72,7 +72,7 @@
 
 	<!-- login show -->
 	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 	<script>
 		const wrapper = document.querySelector('.wrapper');
 		const loginLink = document.querySelector('.login-link');
@@ -289,7 +289,24 @@
 
 			});
 
+			$('#frm_new_letter').submit(function(e) {
+				e.preventDefault();
 
+				var email = $('#email_new_letter').val();
+				var url = "{{ route('newLetter')}}";
+				// alert(email);
+				$.ajax({
+					url: url,
+					method: "POST",
+					data: {
+						email: email
+					},
+					success: function(data) {
+						// console.log(data);
+						$('#result_new_letter').html('Thank you for your subscribe');
+					}
+				});
+			});
 		});
 	</script>
 
