@@ -13,8 +13,10 @@ use App\Http\Controllers\FE\ProfileController;
 use App\Http\Controllers\FE\HomeController;
 use App\Http\Controllers\FE\CategoryController;
 use App\Http\Controllers\FE\ReviewController;
+use App\Http\Controllers\FE\WishListController;
 use App\Models\Review;
 use App\Models\Role;
+use App\Models\WishList;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -54,6 +56,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::post('/select-delivery', [ProfileController::class, 'select_delivery']);
+
+    Route::controller(CartController::class)->group(function () {
+        Route::get('/cart', 'cart')->name('cart');
+        Route::post('add-cart', 'addCart')->name('addCart');
+        Route::get('add-cart', 'showCart')->name('showCart');
+        Route::DELETE('delete-cart/{cart_id}', 'destroy')->name('deleteCart');
+    });
+    
+    Route::controller(WishListController::class)->group(function () {
+        Route::get('show-wishlist', 'showWishlist')->name('showWishList');
+        Route::post('add-wishlist', 'addWishlist')->name('addWishList');
+        Route::DELETE('delete-wishlist/{wish_list_id}', 'destroy')->name('deleteWishList');
+    });
 
     Route::controller(CheckOutController::class)->group(function () {
         Route::get('/checkout', 'viewOrder')->name('checkout');
@@ -98,12 +113,7 @@ Route::controller(HomeController::class)->group(function () {
 });
 
 
-Route::controller(CartController::class)->group(function () {
-    Route::get('/cart', 'cart')->name('cart');
-    Route::post('add-cart', 'addCart')->name('addCart');
-    Route::get('add-cart', 'showCart')->name('showCart');
-    Route::DELETE('delete-cart/{cart_id}', 'destroy')->name('deleteCart');
-});
+
 
 Route::get('/category-search-by-name/{category_name}', [CategoryController::class, 'searchByCategoryName'])->name('searchByCategoryName');
 Route::post('/search-price', [CategoryController::class, 'searchPrice'])->name('searchPrice');

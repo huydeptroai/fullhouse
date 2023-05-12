@@ -76,66 +76,48 @@
 									<ul class="list-cate">
 										<li class="level-0"><a href="{{ route('product.index')}}">All Category</a></li>
 
-										<li class="level-1"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Office furniture']) }}">-Office
+										<li class="level-1"><a href="{{ route('searchByCategoryName',['category_name'=>'Office furniture']) }}">-Office
 												furniture</a></li>
-										<li class="level-2"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Desk Office']) }}">Desk
+										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Desk Office']) }}">Desk
 												Office</a></li>
-										<li class="level-2"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Chair Office']) }}">Chair
+										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Chair Office']) }}">Chair
 												Office</a></li>
-										<li class="level-2"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Cabinet-shelves Office']) }}">Cabinet-shelves
+										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Cabinet-shelves Office']) }}">Cabinet-shelves
 												Office</a></li>
-										<li class="level-1"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Living furniture']) }}">-Living
+										<li class="level-1"><a href="{{ route('searchByCategoryName',['category_name'=>'Living furniture']) }}">-Living
 												furniture</a></li>
 										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Sofa']) }}">Sofa
 										</li>
-										<li class="level-2"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Sofa table']) }}">Sofa table
+										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Sofa table']) }}">Sofa table
 										</li>
 										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'TV Shelf']) }}">TV
 												Shelf
 										</li>
-										<li class="level-2"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Bookshelf-Decorative shelf']) }}">Bookshelf-Decorative
+										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Bookshelf-Decorative shelf']) }}">Bookshelf-Decorative
 												shelf</li>
-										<li class="level-2"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Decorative cabinets']) }}">Decorative
+										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Decorative cabinets']) }}">Decorative
 												cabinets</li>
-										<li class="level-2"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Combo living room']) }}">Combo
+										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Combo living room']) }}">Combo
 												living room</li>
-										<li class="level-1"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Kitchen-Dining furniture']) }}">-Kitchen
+										<li class="level-1"><a href="{{ route('searchByCategoryName',['category_name'=>'Kitchen-Dining furniture']) }}">-Kitchen
 												- Dining furniture</li>
-										<li class="level-2"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Dining table']) }}">Dining
+										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Dining table']) }}">Dining
 												table</li>
-										<li class="level-2"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Dining chair']) }}">Dining
+										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Dining chair']) }}">Dining
 												chair</li>
-										<li class="level-2"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Dining table and chair set']) }}">Dining
+										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Dining table and chair set']) }}">Dining
 												table and chair set</li>
-										<li class="level-2"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Kitchen cabinets']) }}">Kitchen
+										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Kitchen cabinets']) }}">Kitchen
 												cabinets</li>
-										<li class="level-1"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Bedroom furniture']) }}">-Bedroom
+										<li class="level-1"><a href="{{ route('searchByCategoryName',['category_name'=>'Bedroom furniture']) }}">-Bedroom
 												furniture</li>
 										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Bed']) }}">Bed
 										</li>
-										<li class="level-2"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Wardrobe-clothes shelves']) }}">Wardrobe
+										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Wardrobe-clothes shelves']) }}">Wardrobe
 												- clothes shelves</li>
-										<li class="level-2"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Makeup table']) }}">Makeup
+										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Makeup table']) }}">Makeup
 												table</li>
-										<li class="level-2"><a
-												href="{{ route('searchByCategoryName',['category_name'=>'Combo bedroom']) }}">Combo
+										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Combo bedroom']) }}">Combo
 												bedroom</li>
 									</ul>
 								</div>
@@ -146,10 +128,10 @@
 					<div class="wrap-icon right-section">
 
 						<div class="wrap-icon-section wishlist">
-							<a href="#" class="link-direction">
+							<a href="#" class="link-direction btnWL-popup">
 								<i class="fa fa-heart" aria-hidden="true"></i>
 								<div class="left-info">
-									<span class="index count-product-wish">0 item</span>
+									<span class="index count-product-wish" id="count-wl">0 item(s)</span>
 									<span class="title">Wishlist</span>
 								</div>
 							</a>
@@ -159,7 +141,7 @@
 							<a href="#" class="link-direction btnCart-popup">
 								<i class="fa fa-shopping-basket" aria-hidden="true"></i>
 								<div class="left-info">
-									<span class="index count-product-cart" id="count">4 items</span>
+									<span class="index count-product-cart" id="count">0 items(s)</span>
 									<span class="title">CART</span>
 								</div>
 							</a>

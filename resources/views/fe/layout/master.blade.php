@@ -22,6 +22,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/color-01.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/login.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/site-cart.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/wish-list.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('/frontend/css/reset.css') }}">
 
 	@yield('myCss')
@@ -53,7 +54,8 @@
 
 	@include('fe.layout.partials.login')
 
-	@include('fe.layout.partials.site_cart')
+	@include('fe.layout.partials.side_cart')
+	@include('fe.layout.partials.wish_list')
 
 	<!-- jQuery -->
 	<!-- <script src="{{ asset('/admin/plugins/jquery/jquery.min.js') }}"></script> -->
@@ -70,19 +72,25 @@
 	<script src="{{ asset('/frontend/js/functions.js') }}"></script>
 	@yield('time')
 
-	<!-- login show -->
+	<!-- login/cart show -->
 	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 	<script>
+		//login/register
 		const wrapper = document.querySelector('.wrapper');
 		const loginLink = document.querySelector('.login-link');
 		const registerLink = document.querySelector('.register-link');
 		const btnPopup = document.querySelector('.btnLogin-popup');
 		const iconClose = document.querySelector('.icon-close');
-
+		//cart
 		const wrapper_cart = document.querySelector('.wrapper-cart');
 		const btnCart = document.querySelector('.btnCart-popup');
 		const iconCloseCart = document.querySelector('.icon-close-cart');
+		//wish-list
+		const wrapper_wl = document.querySelector('.wrapper-wish-list');
+		const btnWL = document.querySelector('.btnWL-popup');
+		const iconCloseWL = document.querySelector('.icon-close-wl');
+
 		//register
 		registerLink.addEventListener('click', () => {
 			wrapper.classList.add('active');
@@ -95,6 +103,7 @@
 		btnPopup.addEventListener('click', () => {
 			wrapper.classList.add('active-popup');
 			wrapper_cart.classList.remove('active-popup');
+			wrapper_wl.classList.remove('active-popup');
 		});
 		//close-login
 		iconClose.addEventListener('click', () => {
@@ -105,10 +114,22 @@
 		btnCart.addEventListener('click', () => {
 			wrapper_cart.classList.add('active-popup');
 			wrapper.classList.remove('active-popup');
+			wrapper_wl.classList.remove('active-popup');
 		});
 		//close-cart
 		iconCloseCart.addEventListener('click', () => {
 			wrapper_cart.classList.remove('active-popup');
+		});
+
+		// wish-list actions
+		btnWL.addEventListener('click', () => {
+			wrapper_wl.classList.add('active-popup');
+			wrapper.classList.remove('active-popup');
+			wrapper_cart.classList.remove('active-popup');
+		});
+		//close-wish-list
+		iconCloseWL.addEventListener('click', () => {
+			wrapper_wl.classList.remove('active-popup');
 		});
 	</script>
 
@@ -136,6 +157,7 @@
 				};
 				postAjax(data);
 			});
+
 
 			//edit cart
 			$('body').on('change', 'input[name="product-quatity"]', function(e) {
@@ -187,7 +209,7 @@
 							total += parseInt(v.amount);
 							let path = "{{ asset('assets/img/upload/product') }}" + "/" + arr_img[0];
 							let id = v.product_id;
-							let detail = "{{ url('/product')}}"+"/"+ id;
+							let detail = "{{ url('/product')}}" + "/" + id;
 
 							cart += `<div class="product-box" id="cart_id_${v.id}">
 										<span class="icon-close delete-cart" data-cid="${v.id}">
@@ -264,6 +286,85 @@
 						success: function(data) {
 							$("#cart_id_" + cart_id).remove();
 							setTimeout(getCart, 1000);
+						},
+						error: function(data) {
+							// console.log('Error:', data);
+							console.log(JSON.stringify(data));
+						}
+					});
+				}
+			});
+
+
+			//create wish-list
+			$('.add-to-wishlist').click(function(e) {
+				e.preventDefault();
+				let pid = $(this).data("id") ?? '';
+				alert(pid);
+				$.ajax({
+					type: "POST",
+					url: "{{route('addWishList')}}",
+					data: {
+						pid: pid
+					},
+					success: function(data) {
+						setTimeout(getWishList(), 1000);
+					}
+				});
+			});
+
+			getWishList();
+
+			function getWishList() {
+				$.get("{{ route('showWishList')}}", function(data) {
+					// console.log(data);
+					var wl = '';
+					let count = 0;
+					let img = '';
+
+					$.each(data, function(k, v) {
+						var arr_img = JSON.parse(v.product_image);
+						count++;
+						let path = "{{ asset('assets/img/upload/product') }}" + "/" + arr_img[0];
+						let id = v.product_id;
+						let detail = "{{ url('/product')}}" + "/" + id;
+
+						wl += `<div class="product-box" id="wl_id_${v.id}">
+										<span class="icon-close delete-wl" data-wid="${v.id}">
+											<ion-icon name="close-outline"></ion-icon>
+										</span>
+										<a class="p-image" href="${detail}">
+											<div class="product-image" style="width:100px">
+												<figure><img src="${path}" alt="${v.product_image}" width="100" height="100"></figure>
+											</div>
+											<p class="product-name">${v.product_name}</p>
+										</a>
+										<div class="p-info">
+											<p class="product-price">$${v.product_price}</p>
+											<p class="product-price">$${v.product_price - v.discount}</p>
+										</div>
+									</div>`;
+
+					});
+
+					$('#content-wish-list').html(wl);
+					$('#count-wl').html(count + ' items');
+				});
+			}
+
+			//delete wl
+			$('body').on('click', '.delete-wl', function(e) {
+				e.preventDefault();
+
+				let wl_id = $(this).data("wid") ?? '';
+
+				if (confirm('Delete this item?')) {
+					$.ajax({
+						type: "DELETE",
+						url: "{{ url('delete-wishlist')}}" + '/' + wl_id,
+						success: function(data) {
+							$("#wl_id_" + wl_id).remove();
+							setTimeout(getWishList, 1000);
 						},
 						error: function(data) {
 							// console.log('Error:', data);

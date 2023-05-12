@@ -107,8 +107,7 @@
 											<li class="menu-item"><a href="{{route('about')}}" class="link-term">About us</a></li>
 											<li class="menu-item"><a href="{{route('contact')}}" class="link-term">Contact Us</a></li>
 											<li class="menu-item"><a href="#" class="link-term">Wish list</a></li>
-											<li class="menu-item"><a href="#" class="link-term">Cart</a></li>
-											<li class="menu-item"><a href="#" class="link-term">Order History</a></li>
+											<li class="menu-item"><a href="{{route('cart')}}" class="link-term">Cart</a></li>
 										</ul>
 									</div>
 								</div>

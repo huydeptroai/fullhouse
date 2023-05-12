@@ -31,6 +31,10 @@ class CartController extends Controller
         ]);
     }
 
+    /**
+     * Display the side_cart : master-page.
+     */
+
     public function showCart()
     {
         $user_id = Auth::id();
@@ -73,8 +77,6 @@ class CartController extends Controller
         );
         return response()->json($cart);
     }
-
-    
 
     public function destroy($cart_id)
     {

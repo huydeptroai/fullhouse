@@ -21,7 +21,7 @@
 			<!--end main products area-->
 			
 			<!-- site bar start -->
-			@include('fe.shop.partials.site-bar-filter')
+			@include('fe.shop.partials.side-bar-filter')
 			
 			<!--end sitebar-->
 
