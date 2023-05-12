@@ -23,16 +23,15 @@ class WishListController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
-
     }
 
     public function addWishList(Request $request)
     {
         $user_id = Auth::id();
         // $wlExist = WishList::where('product_id', 'like', $request->product_id)
-        //     ->where('user_id',$user_id)
+        //     ->where('user_id', $user_id)
         //     ->first();
-        // if ($wlExist){
+        // if ($wlExist) {
         //     return response()->json($wlExist);
         // }
         $wish_list = WishList::create([
@@ -40,7 +39,6 @@ class WishListController extends Controller
             'product_id' => $request->pid
         ]);
 
-        dd($wish_list);
 
         return response()->json($wish_list);
     }
