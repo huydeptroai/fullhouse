@@ -14,7 +14,7 @@
         @foreach($products_sale as $product)
         <div class="product product-style-2 equal-elem">
             <div class="product-thumnail">
-                <a href="{{route('product.show', $product->product_id)}}" title="{{$product->product_name}}">
+                <a href="{{ route('productDetail',['product_slug' => $product->product_slug]) }}" title="{{$product->product_name}}">
                     <figure>
                         <img src="{{ asset('assets/img/upload/product/'.$product->product_image['0']) }}" width="800" height="800" alt="{{$product->product_image[0]}}">
                     </figure>
@@ -27,12 +27,12 @@
                     @endif
                 </div>
                 <div class="wrap-btn">
-                    <a href="{{route('product.show', $product->product_id)}}" class="function-link">quick view</a>
+                    <a href="{{ route('productDetail',['product_slug' => $product->product_slug]) }}" class="function-link">quick view</a>
                     <a href="#" class="function-link add-to-wishlist" data-id="{{$product->product_id}}">Wishlist</a>
                 </div>
             </div>
             <div class="product-info" style="margin-top: auto;">
-                <a href="{{route('product.show', $product->product_id)}}" class="product-name">
+                <a href="{{ route('productDetail',['product_slug' => $product->product_slug]) }}" class="product-name">
                     <span>{{$product->product_name}}</span>
                 </a>
                 <div class="wrap-price">

@@ -16,12 +16,12 @@ return new class extends Migration
             $table->id();
             $table->datetime('order_date')->default(Carbon::now());
 
-            $table->string('receiver_name',30);
-            $table->string('receiver_phone',15);
-            $table->string('shipping_address',50);
-            $table->string('shipping_district',30);
-            $table->string('shipping_city',30);
-            $table->decimal('shipping_fee',8,2)->nullable();
+            $table->string('receiver_name', 30);
+            $table->string('receiver_phone', 15);
+            $table->string('shipping_address', 50)->nullable();
+            $table->string('shipping_district', 30)->nullable();
+            $table->string('shipping_city', 30)->nullable();
+            $table->decimal('shipping_fee', 8, 2)->nullable();
 
             $table->tinyInteger('payment_method')->default(0)->comment('0:COD, 1: bank');
 

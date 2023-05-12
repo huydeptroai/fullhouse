@@ -152,8 +152,7 @@
 				if (data.quantity == 0) {
 					return;
 				}
-				// alert(data.pid);
-				console.log(data);
+				// console.log(data);
 				postAjax(data);
 			});
 
@@ -188,8 +187,7 @@
 							total += parseInt(v.amount);
 							let path = "{{ asset('assets/img/upload/product') }}" + "/" + arr_img[0];
 							let id = v.product_id;
-							let detail = "{{ route('product.show', " + id + ") }}";
-							// let detail = "{{ url('/product/show/', " + id + ") }}";
+							let detail = "{{ url('/product')}}"+"/"+ id;
 
 							cart += `<div class="product-box" id="cart_id_${v.id}">
 										<span class="icon-close delete-cart" data-cid="${v.id}">
@@ -210,28 +208,20 @@
 										</div>
 									</div>`;
 
-							cart_page += `
-									<li class="pr-cart-item" id="cart_id_${v.id}">
-									<!-- image start -->
+							cart_page += `<li class="pr-cart-item" id="cart_id_${v.id}">
 									<div class="product-image">
 										<figure><img src="${path}" alt="${v.product_name}"></figure>
 									</div>
-									<!-- image end-->
-									<!-- name start-->
 									<div class="product-name">
 										<a class="link-to-product" href="${detail}">
 											<p>${v.product_name}</p>
 											<small>${v.product_id}</small>
 										</a>
 									</div>
-									<!-- name end-->
-									<!-- price -->
 									<div class="price-field product-price">
 										<p class="price">$${v.product_price}</p>
 										<p class="price" style="text-decoration: line-through;color:red">$${v.discount}</p>
 									</div>
-									<!-- price end -->
-									<!-- quantity start -->
 									<div class="quantity">
 										<div class="quantity-input">
 											<input type="text" name="product-quatity" value="${v.quantity}" data-id="${v.product_id}" data-max="120" pattern="[0-9]*">
@@ -239,20 +229,15 @@
 											<a class="btn btn-reduce" href="#"></a>
 										</div>
 									</div>
-									<!-- quantity end -->
-									<!-- amount start-->
 									<div class="price-field sub-total">
 										<p class="price">$${v.amount}</p>
 									</div>
-									<!-- amount end-->
-									<!-- action delete -->
 									<div class="delete delete-cart" data-cid="${v.id}">
 										<a href="#" class="btn btn-delete" title="">
 											<span>Delete from your cart</span>
 											<i class="fa fa-times-circle" aria-hidden="true"></i>
 										</a>
 									</div>
-									<!-- action delete end -->
 								</li>`;
 						});
 
@@ -264,8 +249,8 @@
 					}
 				);
 			};
-			getCart();
 
+			getCart();
 			//delete cart
 			$('body').on('click', '.delete-cart', function(e) {
 				e.preventDefault();
@@ -288,13 +273,11 @@
 				}
 			});
 
-
+			//subscribe input email
 			$('#frm_new_letter').submit(function(e) {
 				e.preventDefault();
-
 				var email = $('#email_new_letter').val();
 				var url = "{{ route('newLetter')}}";
-				// alert(email);
 				$.ajax({
 					url: url,
 					method: "POST",
@@ -302,7 +285,6 @@
 						email: email
 					},
 					success: function(data) {
-						// console.log(data);
 						$('#result_new_letter').html('Thank you for your subscribe');
 					}
 				});

@@ -43,6 +43,8 @@ Route::get('/', function () {
 //     return view('admin.dashboard');
 // })->middleware(['auth', 'verified'])->name('admin.dashboard');
 
+
+
 Route::middleware('auth')->group(function () {
 
     Route::post('/review', [ReviewController::class, 'store'])->name('review.store');
@@ -61,7 +63,7 @@ Route::middleware('auth')->group(function () {
         Route::post('order', 'createOrder')->name('createOrder');
     });
 
-    // ============= back-end Admin ===============
+    // ============= Admin ===============
     Route::group(['middleware' => 'checkAdmin', 'prefix' => 'admin'], function () {
 
 
@@ -83,7 +85,7 @@ Route::middleware('auth')->group(function () {
 
 // ============= front-end ===============
 Route::resource('/product', App\Http\Controllers\FE\ProductController::class)->names('product');
-Route::get('/product/{product_slug}', [ProductController::class, 'productDetail'])->name('product.detail');
+Route::get('/shop/{product_slug}', [ProductController::class, 'productDetail'])->name('productDetail');
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/home', 'home')->name('home');

@@ -30,7 +30,7 @@
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle" src="{{ asset('admin/dist/img/'.$user->profile['avatar']) }}" alt="User profile picture">
+                                <img class="profile-user-img img-fluid img-circle" src="{{$user->profile['avatar'] ?? asset('admin/dist/img/'.$user->profile['avatar']) }}" alt="User profile picture">
                             </div>
 
                             <h3 class="profile-username text-center">{{$user->name}}</h3>
@@ -93,7 +93,7 @@
                                     @forelse($user->reviews as $review)
                                     <div class="post clearfix">
                                         <div class="user-block">
-                                            <img class="img-circle img-bordered-sm" src="{{ asset('admin/dist/img/'.$user->profile['avatar']) }}" alt="user image">
+                                            <img class="img-circle img-bordered-sm" src="{{$user()->profile['avatar'] ?? asset('admin/dist/img/'.$user->profile['avatar']) }}" alt="user image">
                                             <span class="username">
                                                 <a href="#">{{$user->name}}</a>
                                                 <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
@@ -103,7 +103,9 @@
                                             </span>
                                         </div>
                                         <!-- /.user-block -->
-                                        About: <b>{{$review->product->product_name}} - {{$review->product_id}}</b>
+                                        About: <a href="{{ route('admin.product.show', $review->product_id)}}">
+                                            <b>{{$review->product->product_name}} - {{$review->product_id}}</b>
+                                        </a>
                                         <p>{{$review->content}}</p>
 
                                         <p>
@@ -295,6 +297,7 @@
                                             <label for="" class="col-sm-2 col-form-label">Gender</label>
                                             <div class="col-sm-10 row align-items-center">
                                                 <div class="custom-control custom-radio">
+                                                   
                                                     <input class="custom-control-input" type="radio" name="gender" value="Male" @if($user->profile['gender'] == 'Male')
                                                     checked
                                                     @endif

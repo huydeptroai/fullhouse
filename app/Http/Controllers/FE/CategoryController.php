@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
-
+;
 class CategoryController extends Controller
 {
     public function searchByCategoryName($category_name)
@@ -17,7 +17,7 @@ class CategoryController extends Controller
         ->orWhere('category_name_2', 'like', $category_name)
         ->get();
 
-        return view('fe.shop', compact('products'));
+        return view('fe.shop.shop', compact('products'));
     }
 
     public function searchPrice(Request $request)
@@ -26,7 +26,7 @@ class CategoryController extends Controller
         $max = $request->input('max');
         $products = Product::where('product_price','>=',$min)->where('product_price','<=',$max)->get();
 
-        return view('fe.shop', compact('products'));
+        return view('fe.shop.shop', compact('products'));
     }
 
 

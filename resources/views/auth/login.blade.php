@@ -24,8 +24,8 @@
                             @csrf
 
                             <fieldset class="wrap-title">
-                                <h3 class="form-title">Log in to your account</h3>
-                            </fieldset>
+                                    <h3 class="form-title">Log in to your account</h3>
+                                </fieldset>
 
                             <!-- Email Address -->
                             <fieldset class="wrap-input">
@@ -55,14 +55,14 @@
                             </fieldset>
 
                             <fieldset class="wrap-input">
-                                <button type="submit" class="btn btn-submit col-md-offset-6">
+                                <button type="submit" class="btn btn-submit col-md-offset-9">
                                     {{ __('Log in') }}
                                 </button>
                             </fieldset>
                         </form>
                         <hr>
                         <h3 class="form-title" style="text-align:center;">-- or sign in with ---</h3>
-                        <div>
+                        <div class="d-flex justify-content-md-around">
                             <a href="{{ route('google')}}" style="width: 30px;">
                                 <button class="btn" style="background-color: red;">
                                     Google+

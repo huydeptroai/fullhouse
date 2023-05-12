@@ -19,7 +19,7 @@ class ProductController extends Controller
     {
         $products = Product::all();
         $prods_popular = "";
-        return view('fe.shop', compact('products'));
+        return view('fe.shop.shop', compact('products'));
     }
 
     /**
@@ -48,7 +48,7 @@ class ProductController extends Controller
         $prods_related = Product::where('category_id', 'like', $product->category_id)
             ->limit(8)
             ->get();
-        return view('fe.product-detail', [
+        return view('fe.detail.product-detail', [
             'product' => $product,
             'avgRating' => $avgRating,
             'prods_related' => $prods_related
@@ -81,12 +81,16 @@ class ProductController extends Controller
 
     public function productDetail($product_slug)
     {
-        // dd($product_slug);
-        try {
-            $product = Product::where('product_slug', 'like', $product_slug)->first();
-        } catch (\Throwable $th) {
-            abort(404);
-        }
-        return view('fe.product-detail', compact('product'));
+        $product = Product::where('product_slug', 'like', $product_slug)->first();
+
+        $avgRating = Review::where('product_id', $product->product_id)->avg('rating');
+        $prods_related = Product::where('category_id', 'like', $product->category_id)
+            ->limit(8)
+            ->get();
+        return view('fe.detail.product-detail', [
+            'product' => $product,
+            'avgRating' => $avgRating,
+            'prods_related' => $prods_related
+        ]);
     }
 }

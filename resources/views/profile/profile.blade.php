@@ -138,27 +138,29 @@
 
                             <div class="active tab-pane" id="activity">
                                 <!-- Post -->
+                                @forelse($user->reviews as $review)
+                                
                                 <div class="post clearfix">
                                     <div class="user-block">
-                                        <img class="img-circle img-bordered-sm" src="{{ $user->profile['avatar'] }}" alt="user image">
+                                        <img class="img-circle img-bordered-sm" src="{{$user->profile['avatar'] ?? asset('admin/dist/img/'.$user->profile['avatar']) }}" alt="user image">
                                         <span class="username">
                                             <a href="#">{{$user->name}}</a>
                                             <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
                                         </span>
-                                        <span class="description">Shared publicly - 7:30 PM today</span>
+                                        <span class="description">Create at -
+                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $review->created_at)->diffForHumans()}}
+                                        </span>
                                     </div>
                                     <!-- /.user-block -->
-                                    <p>
-                                        Lorem ipsum represents a long-held tradition for designers,
-                                        typographers and the like. Some people hate it and argue for
-                                        its demise, but others ignore the hate as they create awesome
-                                        tools to help create filler text for everyone from bacon lovers
-                                        to Charlie Sheen fans.
-                                    </p>
+                                    About: <a href="{{ route('productDetail',['product_slug' => $review->product->product_slug]) }}">
+                                        <b>{{$review->product->product_name}} - {{$review->product_id}}</b>
+                                    </a>
+                                    <p>{{$review->content}}</p>
 
                                     <p>
                                         <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
                                         <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+
                                         <span class="float-right">
                                             <a href="#" class="link-black text-sm">
                                                 <i class="far fa-comments mr-1"></i> Comments (5)
@@ -166,8 +168,19 @@
                                         </span>
                                     </p>
 
-                                    <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
+                                    <form class="form-horizontal">
+                                        <div class="input-group input-group-sm mb-0">
+                                            <input class="form-control form-control-sm" placeholder="Response">
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-danger">Send</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
                                 </div>
+                                @empty
+                                <div class="post">No data</div>
+                                @endforelse
                                 <!-- /.post -->
 
                             </div>
@@ -232,7 +245,7 @@
                                                                             <td>
                                                                                 <p>{{$od->product->product_name}}</p>
                                                                                 <p>
-                                                                                    {{$od->product->product_id}} - 
+                                                                                    {{$od->product->product_id}} -
                                                                                 </p>
 
                                                                             </td>

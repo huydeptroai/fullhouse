@@ -34,7 +34,6 @@ class CartController extends Controller
     public function showCart()
     {
         $user_id = Auth::id();
-
         $carts = Cart::selectRaw(
             'carts.*,
             products.*,
@@ -45,27 +44,24 @@ class CartController extends Controller
             ->get();
 
         return response()->json($carts);
-        // return response()->json($img);
     }
 
     public function addCart(Request $request)
     {
 
-        // dd($request);
         $user_id = Auth::id();
-        // dd($user_id);
         $pid = $request->pid;
         $quantity = $request->quantity;
-        $action = $request->action;
-        // dd($pid);
 
+        //set quantity
         if ($request->action != 'edit') {
-            $cart = Cart::where('product_id', 'like', $pid)->where('user_id', $user_id)->first();
-            if ($cart != null) {
-                $quantity += $cart->quantity;
+            $cartExist = Cart::where('product_id', 'like', $pid)->where('user_id', $user_id)->first();
+            if ($cartExist != null) {
+                $quantity += $cartExist->quantity;
             }
         }
 
+        //save cart item
         $cart = Cart::updateOrCreate(
             [
                 'user_id' => $user_id,
@@ -75,24 +71,16 @@ class CartController extends Controller
                 'quantity' => $quantity
             ]
         );
-        // dd($cart);
-        // return response()->json($cart);
-        // return redirect()->action([CartController::class, 'showCart']);
-        $this->showCart();
+        return response()->json($cart);
     }
 
-    public function update(Request $request, Cart $cart)
-    {
-        //
-    }
-
+    
 
     public function destroy($cart_id)
     {
         $cart = Cart::find($cart_id);
         $cart->delete();
         return response()->json($cart);
-        // return redirect()->action([CartController::class, 'showCart']);
     }
 
     // public function postCoupon(Request $request)
@@ -112,4 +100,5 @@ class CartController extends Controller
     //     }
     //     return 0;
     // }
+
 }

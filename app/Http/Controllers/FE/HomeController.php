@@ -41,7 +41,7 @@ class HomeController extends Controller
             ->where('product_name', 'like', '%' . $keywords . '%')
             ->orWhere('category_name_1', 'like', '%' . $keywords . '%')
             ->orWhere('category_name_2', 'like', '$' . $keywords . '$')->get();
-        return view('fe.shop', compact('products'));
+        return view('fe.shop.shop', compact('products'));
     }
 
     public function about()
