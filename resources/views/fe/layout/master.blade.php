@@ -344,7 +344,7 @@
 										</a>
 										<div class="p-info">
 											<p class="product-price">$${v.product_price}</p>
-											<p class="product-price">$${v.product_price - v.discount}</p>
+											<p class="product-price" style="font-d">$${v.product_price - v.discount}</p>
 										</div>
 									</div>`;
 
@@ -354,7 +354,7 @@
 					$('#count-wl').html(count + ' items');
 				});
 			}
-
+			
 			//delete wl
 			$('body').on('click', '.delete-wl', function(e) {
 				e.preventDefault();

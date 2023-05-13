@@ -35,6 +35,7 @@
 				<a href="#" class="btn view-cart">View Cart</a>
 				<a href="#" class="btn view-checkout">Checkout</a>
 			</div>
+
 		</div>
 
 	</div>
