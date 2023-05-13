@@ -27,13 +27,13 @@
 			</div>
 
 		</div>
-		
+
 
 		<div class="summary-site-cart">
 			<p class="total-cart">Total: $ 0.00</p>
 			<div class="group-btn">
-				<a href="{{ route('cart')}}" class="btn">View Cart</a>
-				<a href="{{ Route('checkout') }}" class="btn">Checkout</a>
+				<a href="#" class="btn view-cart">View Cart</a>
+				<a href="#" class="btn view-checkout">Checkout</a>
 			</div>
 		</div>
 

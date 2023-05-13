@@ -271,6 +271,9 @@
 					}
 				);
 			};
+			
+			$('.view-cart').attr("href","{{route('cart')}}");
+			$('.view-checkout').attr("href","{{route('checkout')}}");
 
 			getCart();
 			//delete cart

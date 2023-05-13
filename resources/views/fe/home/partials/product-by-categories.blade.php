@@ -166,8 +166,8 @@
                                     @endif
                                 </div>
                             </div>
-                            <div style="margin:auto 0 0 0;">
-                                <a href="#" class="btn btn-warning add-to-cart " data-id="{{$product->product_id}}">Add To Cart</a>
+                            <div>
+                                <a href="#" class="btn btn-warning add-to-cart" data-id="{{$product->product_id}}">Add To Cart</a>
                             </div>
                         </div>
                         @empty

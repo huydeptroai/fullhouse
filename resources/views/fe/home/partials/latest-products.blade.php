@@ -28,6 +28,7 @@
                             </div>
                             <div class="wrap-btn">
                                 <a href="{{route('product.show', $product->product_id)}}" class="function-link">quick view</a>
+                                <a href="#" class="function-link add-to-wishlist" data-id="{{$product->product_id}}">Wishlist</a>
                             </div>
                         </div>
                         <div class="product-info">
@@ -40,6 +41,9 @@
                                 <span style="text-decoration: line-through;">${{number_format($product->product_price,2)}}</span>
                                 @endif
                             </div>
+                        </div>
+                        <div style="margin:auto 0 0 0;">
+                            <a href="#" class="btn btn-warning add-to-cart " data-id="{{$product->product_id}}">Add To Cart</a>
                         </div>
                     </div>
 

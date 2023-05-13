@@ -141,12 +141,12 @@
     justify-content: space-between;
     align-items: center;
 }
-.wrapper-cart .summary-site-cart .btn {
+.wrapper-cart .summary-site-cart .group-btn .btn {
     /* position: relative; */
     width: 100px;
     height: 45px;
     margin: 10px;
-    /* padding: 10px 0 0 0; */
+    padding: 10px 0 0 0!important;
     background: #ffa500;
     border: none;
     outline: none;
