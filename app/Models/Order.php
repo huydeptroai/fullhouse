@@ -47,4 +47,12 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class, 'order_details', 'order_id', 'product_id');
     }
+
+    //total of 1 order
+    public function getTotal() 
+    {
+        return $this->orderDetails->sum(function($item){
+            return $item->price * $item->quantity;
+        });
+    }
 }

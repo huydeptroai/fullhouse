@@ -90,6 +90,7 @@
 </main>
 @endsection
 
+
 @section('time')
 <script>
 	(function($) {

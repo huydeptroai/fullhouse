@@ -17,6 +17,7 @@ use App\Http\Requests\OrderRequest;
 
 class CheckOutController extends Controller
 {
+    //show information in checkout-page
     public function viewOrder(Request $request)
     {
         $provinces = Province::orderby("administrative_region_id", "asc")
@@ -42,8 +43,10 @@ class CheckOutController extends Controller
         return response()->json($districts);
     }
 
+
     public function createOrder(Request $request)
     {
+        //1. Insert Order
         $data = $request->all();
         $data['shipping_fee'] = $request->method_shipping == 1 ? $this->shippingFee($data) : 0;
 
@@ -62,7 +65,15 @@ class CheckOutController extends Controller
         $data['order_date'] = date('Y-m-d', time());
         $data['status'] = 0; //order dang xu ly
 
+        $od_coupon = $this->calcCoupon($data['coupon_code'], $data['value_order']);
+
+        
+        $data['note'] .= " (The customer has coupon ".$data['coupon_code'].")";
+
+
         $order = Order::create($data);
+
+        //2. Insert OrderDetail
         $carts = Cart::where('user_id', $data['user_id'])->get();
 
         foreach ($carts as $cart) {
@@ -73,7 +84,8 @@ class CheckOutController extends Controller
                 'price' => $cart->product->product_price - $cart->product->discount,
                 'quantity' => $cart->quantity,
             ]);
-            //delete cart-item
+
+            //3. delete cart-item
             $cart->delete();
         }
 
@@ -91,6 +103,7 @@ class CheckOutController extends Controller
         if ($value_order >= AMOUNT) {
             return 0;
         }
+        
         $shipping_fee = 0;
         switch ($city_code) {
                 //HCM city
@@ -149,16 +162,10 @@ class CheckOutController extends Controller
         }
     }
 
-
-    public function postCoupon(Request $request)
+    //Coupon
+    public function calcCoupon($code, $value_order)
     {
-        $code = trim($request->code);
-        $value_order = $request->value_order;
-
         $order_coupon = [];
-        if (session()->has('order_coupon')) {
-            $order_coupon = session()->get('order_coupon');
-        }
 
         $coupon = Coupon::where('code', 'like', $code)
             ->where('status', 1)
@@ -176,6 +183,22 @@ class CheckOutController extends Controller
             'coupon' => $coupon,
             'value' => $value
         ];
+
+        return $order_coupon;
+    }
+
+
+    public function postCoupon(Request $request)
+    {
+        $code = trim($request->code);
+        $value_order = $request->value_order;
+
+        $order_coupon = [];
+        if (session()->has('order_coupon')) {
+            $order_coupon = session()->get('order_coupon');
+        }
+
+        $order_coupon = $this->calcCoupon($code, $value_order);
 
         session()->put('order_coupon', $order_coupon);
 

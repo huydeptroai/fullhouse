@@ -66,47 +66,47 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        // dd($request->all());
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
 
+        $info = [];
+
         $image_path = 'assets/img/upload/user';
         if (!file_exists($image_path)) {
             mkdir($image_path, 0777, true);
         }
-        $path = 'assets/img/upload/category/' . $request->avatar;
+        $path = 'assets/img/upload/user/' . $request->avatar;
         if ($request->hasFile('avatar')) {
             if (File::exists($path)) {
                 File::delete($path);
             }
             $file = $request->file('avatar');
-            $ext = $file->getClientOriginalExtension();
+            // $ext = $file->getClientOriginalExtension();
             // if ($ext != 'jpg' && $ext != 'jpeg' && $ext != 'png') {
             //     return redirect('/club/create');
             // }
             $imageFile = trim($file->getClientOriginalName());
             $file->move($image_path, $imageFile);
+            $info['avatar'] = 'assets/img/upload/user/' . $imageFile;
         }
 
-        try {
-            $city = Province::where('code', $request->city)->first()->full_name_en;
-            $district = District::where('code', $request->district)->first()->full_name_en;
-            $ward = Ward::where('code', $request->ward)->first()->full_name_en;
-        } catch (\Throwable $th) {
-            //throw $th;
+        if (isset($request->city) && isset($request->district) && isset($request->ward)) {
+            try {
+                $city = Province::where('code', $request->city)->first();
+                $district = District::where('code', $request->district)->first();
+                $ward = Ward::where('code', $request->ward)->first();
+                $info['city'] = $city->full_name_en ?? '';
+                $info['district'] = $district->full_name_en ?? '';
+                $info['ward'] = $ward->full_name_en ?? '';
+            } catch (\Throwable $th) {
+                throw $th;
+            }
         }
 
-        $request->user()->profile = [
-            'avatar' => $imageFile ?? 'user1-128x128.jpg',
-            'gender' => $request->gender,
-            'dob' => $request->dob,
-            'city' => $city ?? '',
-            'district' => $district ?? '',
-            'ward' => $ward ?? ''
-        ];
+        $request->user()->profile = $info;
 
         $request->user()->save();
 

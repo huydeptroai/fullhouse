@@ -60,7 +60,7 @@
                                         <td>
                                             <a href="{{ route('admin.user.show', $user->id)}}">
                                                 <div class="d-flex align-items-center">
-                                                    <img src="{{ asset('admin/dist/img/'.$user->profile['avatar']) }}" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+                                                    <img src="{{ $user->getAvatar() }}" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
                                                     <div class="ms-3">
                                                         <p class="fw-bold mb-1">{{$user->name}} - {{$user->phone}}</p>
                                                         <p class="text-muted mb-0">{{$user->email}}</p>

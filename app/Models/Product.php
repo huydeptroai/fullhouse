@@ -31,7 +31,8 @@ class Product extends Model
         'featured',
         'category_id'
     ];
-
+    
+    //relationship
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
@@ -63,9 +64,11 @@ class Product extends Model
         return $this->belongsToMany(Order::class, 'product_id', 'order_id');
     }
 
+    //get information
     public function bestSeller()
     {
-        return OrderDetail::where('product_id', 'like', $this->product_id)->count('*');
+        return OrderDetail::selectRaw('count("product_id") as count')
+            ->where('product_id', 'like', $this->product_id)->get();
     }
 
     public function avgRating()
@@ -73,7 +76,7 @@ class Product extends Model
         return Review::where('product_id', 'like', $this->product_id)->avg('rating');
     }
 
-    public function newProduct()
+    public function isNewProduct()
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('m') == Carbon::now()->month;
     }

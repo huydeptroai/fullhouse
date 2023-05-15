@@ -29,4 +29,9 @@ class OrderDetail extends Model
     {
         return $this->belongsTo(Product::class, 'product_id', 'product_id');
     }
+
+    public function amount()
+    {
+        return $this->price * $this->quantity;
+    }
 }

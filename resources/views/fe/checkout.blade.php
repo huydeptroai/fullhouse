@@ -24,110 +24,23 @@
 
 			<form action="{{ route('createOrder') }}" method="post" name="frm-billing">
 				@csrf
-				<div class="wrap-address-billing col-md-8 px-3">
+				<div class="wrap-address-billing col-12 col-md-8 px-3">
 					<h3 class="box-title">Information Order</h3>
 					<div class="">
 						<div class="col-12 col-md-6 form-group">
-							<label for="fname">Full name<span>*</span></label>
-							<input class="form-control" type="text" name="receiver_name" value="{{old('receiver_name', $user->name)}}" required placeholder="Your name">
+							<label for="receiver_name">Full name<span>*</span></label>
+							<input class="form-control" name="receiver_name" value="{{old('receiver_name', $user->name)}}" required placeholder="Your receiver's name">
 							<small class="text-danger">{{$errors->first('receiver_name')}}</small>
 						</div>
 						<div class="col-12 col-md-6 form-group">
-							<label for="phone">Phone number<span>*</span></label>
-							<input class="form-control" id="phone" type="number" name="receiver_phone" value="{{old('receiver_phone', $user->phone)}}" required placeholder="10 digits format">
+							<label for="">Phone number<span>*</span></label>
+							<input class="form-control" id="phone" name="receiver_phone" value="{{old('receiver_phone', $user->phone)}}" required placeholder=" receiver_phone - 10 digits format">
 							<small class="text-danger">{{$errors->first('receiver_phone')}}</small>
 						</div>
 
-						<div class="col-12 form-group">
+						<div class="col-12 form-group" style="padding: 0 12px;">
 							<label for="country">Note: </label>
-							<textarea class="form-control" name="note" id="note" cols="30" rows="5" placeholder="Note for this order, if have">{{old('note')}}</textarea>
-						</div>
-
-						<!-- shipping -->
-						<div class="summary-item shipping-method">
-							<h4 class="title-box f-title">Shipping method</h4>
-							<div class="choose-payment-methods">
-								<!-- at store -->
-								<label class="payment-method">
-									<input name="method_shipping" id="method_shipping_no" value="0" type="radio" checked>
-									<span>No Shipping</span>
-									<span class="payment-desc">Please you call before.
-										<p>Address at: No 391A, Nam Ky Khoi Nghia Street, District 3, HCM City</p>
-									</span>
-								</label>
-								<!-- shipping to address -->
-								<label class="payment-method">
-									<input name="method_shipping" id="method_shipping" value="1" type="radio">
-									<span>Shipping to: </span>
-									<span class="payment-desc">
-
-										<div class="col-12 col-md-4">
-											<label for="">City/Province <span>*</span>:</label>
-											<select style="display:flex;" class="form-control" name="shipping_city" id="city">
-												<option value="" selected>Select city/province</option>
-												@foreach($provinces as $item)
-												<option value="{{$item->code}}">{{$item->full_name_en}}</option>
-												@endforeach
-											</select>
-										</div>
-
-										<div class="col-12 col-md-4">
-											<label for="phone">District: <span>*</span></label>
-											<select class="form-control" name="shipping_district" id="shipping_district" value="{{old('shipping_district')}}" required>
-												<option value="">-- Select district --</option>
-											</select>
-											<small class="text-danger">{{$errors->first('shipping_district')}}</small>
-										</div>
-
-										<div class="col-12 col-md-4">
-											<label for="add">Address:</label>
-											<input class="form-control" id="shipping_address" type="text" name="shipping_address" value="{{ old('shipping_address')}}" required placeholder="Street at apartment number">
-											<small class="text-danger">{{ $errors->first('shipping_address') }}</small>
-										</div>
-
-									</span>
-								</label>
-
-							</div>
-						</div>
-
-						<div class="choose-payment-methods">
-							<h4 class="title-box f-title">Shipping method</h4>
-							<label class="payment-method">
-								<input name="payment_method" id="payment-method-bank" value="0" type="radio">
-								<span>Direct Bank Transder</span>
-								<span class="payment-desc">
-									<table class="shop_attributes">
-										<tbody>
-											<tr>
-												<th>Account Name:</th>
-												<td>FULL HOUSE</td>
-											</tr>
-											<tr>
-												<th>Account No:</th>
-												<td>0123456789</td>
-											</tr>
-											<tr>
-												<th>At Bank:</th>
-												<td>BIDV - ABC</td>
-											</tr>
-										</tbody>
-									</table>
-								</span>
-							</label>
-
-							<label class="payment-method">
-								<input name="payment_method" id="payment-method-visa" value="1" type="radio">
-								<span>COD</span>
-								<span class="payment-desc">There are many variations of passages of Lorem Ipsum available</span>
-							</label>
-
-							<label class="payment-method">
-								<input name="payment_method" id="payment-method-paypal" value="2" type="radio">
-								<span>Paypal</span>
-								<span class="payment-desc">You can pay with your credit</span>
-								<span class="payment-desc">card if you don't have a paypal account</span>
-							</label>
+							<textarea class="form-control" name="note" id="note" cols="27" rows="5" placeholder="Note for this order, if have">{{old('note')}}</textarea>
 						</div>
 						<!-- <p class="row-in-form fill-wife">
 							<label class="checkbox-field">
@@ -139,22 +52,111 @@
 								<span>Ship to a different address?</span>
 							</label>
 						</p> -->
+
+						<!-- shipping -->
+						<div class="summary-item shipping-method">
+							<h4 class="title-box f-title">Shipping method</h4>
+							<div class="choose-payment-methods" style="padding: 0 12px;">
+								<!-- at store -->
+								<label class="payment-method">
+									<input name="method_shipping" id="method_shipping_no" value="0" type="radio" checked>
+									<span>No Shipping</span>
+									<span class="payment-desc">Please you call before.
+										<p>Address at: No 391A, Nam Ky Khoi Nghia Street, District 3, HCM City</p>
+									</span>
+								</label>
+
+								<!-- shipping to address -->
+								<label class="payment-method">
+									<input name="method_shipping" id="method_shipping" value="1" type="radio">
+									<span>Shipping to: </span>
+									<span class="payment-desc">
+									</span>
+								</label>
+
+								<table class="shop_attributes">
+									<tbody>
+										<tr>
+											<td class="col-4 form-group">
+												<select id="shipping_city" name="shipping_city" class="use-chosen" aria-placeholder="Select city/province">
+													<!-- <option value="" selected="selected">Select city/province</option> -->
+													@foreach($provinces as $item)
+													<option value="{{$item->code}}">{{$item->full_name_en}}</option>
+													@endforeach
+												</select>
+											</td>
+											<td class="col-4 form-group">
+												<select class="use-chosen form-control" name="shipping_district" id="shipping_district" value="{{old('shipping_district')}}">
+													<option value="">-- Select district --</option>
+												</select>
+												<small class="text-danger">{{$errors->first('shipping_district')}}</small>
+											</td>
+											<td class="col-4 form-group">
+												<input class="col-12" id="shipping_address" type="text" name="shipping_address" value="{{ old('shipping_address')}}" placeholder="Enter No.house, street..">
+												<small class="text-danger">{{ $errors->first('shipping_address') }}</small>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+
+						<div class="summary-item choose-payment-methods mt-3">
+							<h4 class="title-box f-title">Payment method</h4>
+							<div style="padding: 0 12px;">
+								<label class="payment-method">
+									<input name="payment_method" id="payment-method-bank" value="0" type="radio">
+									<span>Direct Bank Transder</span>
+									<span class="payment-desc">
+										<table class="shop_attributes">
+											<tbody>
+												<tr>
+													<th>Account Name:</th>
+													<td>FULL HOUSE</td>
+												</tr>
+												<tr>
+													<th>Account No:</th>
+													<td>0123456789</td>
+												</tr>
+												<tr>
+													<th>At Bank:</th>
+													<td>BIDV - ABC</td>
+												</tr>
+											</tbody>
+										</table>
+									</span>
+								</label>
+								<label class="payment-method">
+									<input name="payment_method" id="payment-method-visa" value="1" type="radio">
+									<span>COD</span>
+									<span class="payment-desc">There are many variations of passages of Lorem Ipsum available</span>
+								</label>
+								<label class="payment-method">
+									<input name="payment_method" id="payment-method-paypal" value="2" type="radio">
+									<span>Paypal</span>
+									<span class="payment-desc">You can pay with your credit</span>
+									<span class="payment-desc">card if you don't have a paypal account</span>
+								</label>
+							</div>
+						</div>
+
 					</div>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-12 col-md-4">
 					<div class="summary summary-checkout">
-						<div class="summary-item col-12">
-							<h4 class="title-box">Total cart: <span class="total-cart">$ 0.00</span></h4>
+						<div class="col-12">
+							<h4 class="title-box f-title">Total cart: <span class="total-cart" style="text-align: right;">$ 0.00</span> </h4>
 							<input type="hidden" class="total-cart" name="value_order" value="">
 						</div>
+						<hr>
 
-						<div class="summary-item col-12">
+						<div class="col-12">
 							<b class="">Shipping fee: <span class="shipping-fee">$ 0.00</span></b>
 							<input type="hidden" class="total-cart" name="shipping_fee" value="">
 						</div>
 						<hr>
-						<div class="summary-item col-12">
+						<div class="col-12">
 							<label class="">Coupon code:</label>
 							<input class="form-control col-5" id="coupon-code" type="text" name="coupon_code" value="{{ old('coupon_code')}}" placeholder="Enter Your Coupon code">
 
@@ -165,11 +167,12 @@
 						</div>
 
 						<hr>
-						<div class="summary-item payment-method">
-							<p class="summary-info grand-total">
-								<span>Grand Total</span> <span class="grand-total-price" style="font-size: 2em;"> $ 0.00</span>
-							</p>
-							<button type="submit" class="btn btn-medium">Place order now</button>
+						<div class="col-12">
+							<h4 class="summary-info grand-total">
+								<span>Grand Total</span>
+								<span class="grand-total-price" style="font-size: 2em;text-align:right;"> $ 0.00</span>
+							</h4>
+							<button type="submit" class="btn btn-warning btn-block">Place order now</button>
 						</div>
 					</div>
 				</div>
@@ -186,35 +189,58 @@
 					<div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="4" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"4"}}'>
 
 						@foreach($products as $product)
-						<div class="product product-style-2 equal-elem ">
+						<div class="product product-style-2 equal-elem" style="display: flex;flex-direction: column;justify-content: space-between;align-items: stretch;">
 							<div class="product-thumnail">
-								<a href="{{route('product.show', $product->product_id)}}" title="{{$product->product_name}}">
+								<a href="{{ route('productDetail',['product_slug' => $product->product_slug]) }}" title="{{$product->product_name}}">
 									<figure>
-										<img src="{{ asset('assets/img/upload/product/'.$product->product_image['0']) }}" width="800" height="800" alt="{{$product->product_image['0']}}">
+										<img src="{{ asset('assets/img/upload/product/'.$product->product_image['0']) }}" width="800" height="800" alt="{{$product->product_image[0]}}">
 									</figure>
 								</a>
 								<div class="group-flash">
 									@if($product->discount > 0)
 									<span class="flash-item sale-label">
-										sale {{number_format($product->discount/$product->product_price*100,0)}}%
+										sale {{ $product->saleOff() }}%
 									</span>
+									@endif
+
+									@if( $product->isNewProduct() )
+									<span class="flash-item new-label">new</span>
+									@endif
+
+									@if($product->avgRating() > 3)
+									<span class="flash-item bestseller-label">Bestseller</span>
 									@endif
 								</div>
 								<div class="wrap-btn">
-									<a href="{{route('product.show', $product->product_id)}}" class="function-link">quick view</a>
+									<a href="{{ route('productDetail',['product_slug' => $product->product_slug]) }}" class="function-link">quick view</a>
+									<a href="#" class="function-link add-to-wishlist" data-id="{{$product->product_id}}">Wishlist</a>
 								</div>
 							</div>
 							<div class="product-info">
-								<a href="{{route('product.show', $product->product_id)}}" class="product-name"><span>{{$product->product_name}}</span></a>
-								<div class="wrap-price">
-									<span class="product-price">
-										${{number_format($product->product_price - $product->discount,2)}}
-									</span>
+								<a href="{{ route('productDetail',['product_slug' => $product->product_slug]) }}" class="product-name">
+									<span>{{$product->product_name}} - {{$product->product_id}}</span>
+								</a>
+							</div>
+							<div class="col-12" style="display: flex;flex-direction: column;justify-content: space-between;align-items:flex-end;">
+								<div class="col-12" style="display:flex-item;font-size:16px;">
+									<strong class="product-price" style="color:green;">
+										$ {{number_format($product->product_price - $product->discount,2)}}
+									</strong>
 									@if($product->discount > 0)
-									<span style="text-decoration: line-through;">${{number_format($product->product_price,2)}}</span>
+									<span style="text-decoration: line-through;color:red;">$ {{number_format($product->product_price,2)}}</span>
 									@endif
 								</div>
+								@if($product->avgRating() > 0)
+								<div class="col-12" style="display:flex-item;font-size:12px;">
+									<strong>{{number_format( $product->reviews->avg('rating'),2) }} </strong>
+									@for($i=1; $i<=5; $i++) @php $avg=$product->reviews->avg('rating');
+										$color=($i <=round($avg)) ? "color: #ffcc00;" : "color: #ccc;" ; @endphp <i class="fa fa-star" aria-hidden="true" style="cursor:pointer;{{$color}}font-size:15px;"></i>
+											@endfor
+											<a href="{{ route('productDetail',['product_slug' => $product->product_slug]) }}" class="count-review"> ({{count($product->reviews)}} reviews)</a>
+								</div>
+								@endif
 							</div>
+							<button style="margin:auto 0 0 0;width: 100%;" class="btn btn-success add-to-cart" data-id="{{$product->product_id}}">Add To Cart</button>
 						</div>
 
 						@endforeach
@@ -283,14 +309,13 @@
 
 	// <!-- select city/district -->
 	jQuery(document).ready(function() {
-		$('#shipping_district').html("<option value='0'>-- Select district --</option>");
 
 		$('#shipping_city').change(function() {
 			var code = $(this).val();
 			// Empty the dropdown
 			$('#shipping_district').find('option').not(':first').remove();
 
-			// AJAX request 
+			// AJAX request
 			$.ajax({
 				url: 'district/' + code,
 				type: 'get',
@@ -299,6 +324,7 @@
 					$.each(response, function(k, v) {
 						var option = `<option value="${v.code}">${v.full_name_en}</option>`;
 						$("#shipping_district").append(option);
+						$("#shipping_district").trigger("chosen:updated");
 						console.log(option);
 					});
 				}

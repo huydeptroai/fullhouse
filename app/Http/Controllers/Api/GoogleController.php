@@ -15,53 +15,6 @@ use Illuminate\Support\Facades\Redirect;
 
 class GoogleController extends Controller
 {
-    // public function loginCallback(Request $request)
-    // {
-    //     try {
-    //         $state = $request->input('state');
-    //         parse_str($state, $result);
-
-    //         $googleUser = Socialite::driver('google')->stateless()->user();
-    //         dd($googleUser);
-
-    //         $user = User::where('email', $googleUser->email)->first();
-    //         if ($user) {
-    //             Auth::login($user);
-    //             return redirect('/home');
-    //         } else {
-
-    //             $profile = [
-    //                 'avatar' => $googleUser->avatar ?? 'user1-128x128.jpg',
-    //                 'gender' => null,
-    //                 'dob' => null,
-    //                 'city' => null,
-    //                 'district' => null,
-    //                 'ward' => null
-    //             ];
-
-    //             $user = User::create(
-    //                 [
-    //                     'email' => $googleUser->email,
-    //                     'name' => $googleUser->name,
-    //                     'google_id' => $googleUser->id,
-    //                     'password' => Hash::make('12345678'),
-    //                     'role' => 2,
-    //                     'profile' => $profile
-    //                 ]
-    //             );
-    //             return response()->json([
-    //                 'status' => __('google sign in successful'),
-    //                 'data' => $user,
-    //             ], Response::HTTP_CREATED);
-    //         }
-    //     } catch (\Exception $exception) {
-    //         return response()->json([
-    //             'status' => __('google sign in failed'),
-    //             'error' => $exception,
-    //             'message' => $exception->getMessage()
-    //         ], Response::HTTP_BAD_REQUEST);
-    //     }
-    // }
 
     public function redirectToGoogle()
     {
@@ -78,14 +31,9 @@ class GoogleController extends Controller
         $loginUrl = session('googleLoginUrl') ?? '/';
         try {
             $googleUser = Socialite::driver('google')->user();
-            
+
             $profile = [
-                'avatar' => $googleUser->getAvatar() ?? '',
-                'gender' => '',
-                'dob' => '1996-02-14',
-                'city' => '',
-                'district' => '',
-                'ward' => ''
+                'avatar_link' => $googleUser->getAvatar() ?? ''
             ];
 
             $user = User::updateOrCreate([
@@ -102,9 +50,8 @@ class GoogleController extends Controller
 
             return redirect(RouteServiceProvider::HOME);
         } catch (\Throwable $th) {
-            throw $th;
+            // throw $th;
             return Redirect::to($loginUrl);
         }
     }
-
 }

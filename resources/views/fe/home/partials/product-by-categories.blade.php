@@ -47,8 +47,16 @@
                                 <div class="group-flash">
                                     @if($product->discount > 0)
                                     <span class="flash-item sale-label">
-                                        sale {{number_format($product->discount/$product->product_price*100,0)}}%
+                                        sale {{ $product->saleOff() }}%
                                     </span>
+                                    @endif
+
+                                    @if( $product->isNewProduct() )
+                                    <span class="flash-item new-label">new</span>
+                                    @endif
+
+                                    @if($product->avgRating() > 3)
+                                    <span class="flash-item bestseller-label">Bestseller</span>
                                     @endif
                                 </div>
                                 <div class="wrap-btn">
@@ -104,8 +112,16 @@
                                 <div class="group-flash">
                                     @if($product->discount > 0)
                                     <span class="flash-item sale-label">
-                                        sale {{number_format($product->discount/$product->product_price*100,0)}}%
+                                        sale {{ $product->saleOff() }}%
                                     </span>
+                                    @endif
+
+                                    @if( $product->isNewProduct() )
+                                    <span class="flash-item new-label">new</span>
+                                    @endif
+
+                                    @if($product->avgRating() > 3)
+                                    <span class="flash-item bestseller-label">Bestseller</span>
                                     @endif
                                 </div>
                                 <div class="wrap-btn">
@@ -163,8 +179,16 @@
                                 <div class="group-flash">
                                     @if($product->discount > 0)
                                     <span class="flash-item sale-label">
-                                        sale {{number_format($product->discount/$product->product_price*100,0)}}%
+                                        sale {{ $product->saleOff() }}%
                                     </span>
+                                    @endif
+
+                                    @if( $product->isNewProduct() )
+                                    <span class="flash-item new-label">new</span>
+                                    @endif
+
+                                    @if($product->avgRating() > 3)
+                                    <span class="flash-item bestseller-label">Bestseller</span>
                                     @endif
                                 </div>
                                 <div class="wrap-btn">
@@ -225,7 +249,7 @@
                                     </span>
                                     @endif
 
-                                    @if( $product->newProduct() )
+                                    @if( $product->isNewProduct() )
                                     <span class="flash-item new-label">new</span>
                                     @endif
 

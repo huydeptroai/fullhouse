@@ -35,11 +35,11 @@
             <div class="col-md-3">
                 <div class="card card-warning card-outline">
                     <div class="card-body box-profile">
-                        
+
 
                         <!-- Profile Image -->
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="{{ $user->profile['avatar'] ?? asset('admin/dist/img/'.$user->profile['avatar']) }}" alt="User profile picture">
+                            <img class="profile-user-img img-fluid img-circle" src="{{ $user->getAvatar() ?? '' }}" alt="User profile picture">
                         </div>
                         <h3 class="profile-username text-center">{{$user->name}}</h3>
                         <p class="text-muted text-center">{{$user->role === 1 ? 'Admin' : 'User'}}</p>
@@ -47,24 +47,20 @@
                             <li class="list-group-item">
                                 <b>Gender</b>
                                 <a class="float-right">
-                                    @isset($user->profile['gender'])
-                                    {{$user->profile['gender'] ?? "Male" }}
-                                    @endisset
+                                    {{$user->getGender() ?? "" }}
                                 </a>
                             </li>
                             <li class="list-group-item">
                                 <b>Data of birth</b>
                                 <a class="float-right">
-                                    @isset($user->profile['dob'])
-                                    {{ $user->profile['dob']}}
-                                    @endisset
+                                    {{ $user->getDob() }}
                                 </a>
                             </li>
                             <li class="list-group-item">
                                 <b>Created at</b>
                                 <a class="float-right">
                                     @isset($user->created_at)
-                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)}}
+                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->format('d-m-Y') }}
                                     @endisset
                                 </a>
                             </li>
@@ -136,29 +132,42 @@
                     </div><!-- /.card-header -->
                     <div class="card-body">
                         <div class="tab-content">
-
                             <div class="active tab-pane" id="activity">
                                 <!-- Post -->
                                 @forelse($user->reviews as $review)
-                                
+                                <hr>
+                                <div class="time-label">
+                                    <span class="bg-danger"><i class="far fa-clock"></i>
+                                        @isset($user->created_at)
+                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $review->created_at)->format('d-m-Y')}}
+                                        @endisset
+                                    </span>
+                                </div>
                                 <div class="post clearfix">
-                                    <div class="user-block">
-                                        <img class="img-circle img-bordered-sm" src="{{$user->profile['avatar'] ?? asset('admin/dist/img/'.$user->profile['avatar']) }}" alt="user image">
-                                        <span class="username">
-                                            <a href="#">{{$user->name}}</a>
-                                            <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                                        </span>
-                                        <span class="description">Create at -
-                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $review->created_at)->diffForHumans()}}
-                                        </span>
-                                    </div>
-                                    <!-- /.user-block -->
-                                    About: <a href="{{ route('productDetail',['product_slug' => $review->product->product_slug]) }}">
-                                        <b>{{$review->product->product_name}} - {{$review->product_id}}</b>
-                                    </a>
-                                    <p>{{$review->content}}</p>
+                                    <span class="col-sm-3">
+                                        <img class="img-circle img-bordered-sm" src="{{  asset('assets/img/upload/product/'.$review->product->product_image['0']) }}" alt="user image" height="100" width="100">
 
-                                    <p>
+                                    </span>
+                                    <!-- /.user-block -->
+                                    <span class="col-sm-9">
+                                        <p>
+                                            <span>
+                                                <a href="{{ route('productDetail',['product_slug' => $review->product->product_slug]) }}">
+                                                    <b>{{$review->product->product_name}} - {{$review->product_id}}</b>
+                                                </a>
+                                                <a href="#" class="btn"><i class="fas fa-times"></i></a>
+                                            </span>
+                                            <br>
+                                            <span class="description">Create at -
+                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $review->created_at)->diffForHumans()}}
+                                            </span>
+                                        </p>
+
+                                        <b>Comment:</b>
+                                        <p>{{$review->content}}</p>
+                                    </span>
+
+                                    <!-- <p>
                                         <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
                                         <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
 
@@ -176,7 +185,7 @@
                                                 <button type="submit" class="btn btn-danger">Send</button>
                                             </div>
                                         </div>
-                                    </form>
+                                    </form> -->
 
                                 </div>
                                 @empty
@@ -252,11 +261,16 @@
                                                                             </td>
                                                                             <td>{{$od->quantity}}</td>
                                                                             <td>$ {{number_format($od->price,2)}}</td>
-                                                                            <td>$ {{number_format($od->quantity * $od->price,2)}}</td>
+                                                                            <td>$ {{number_format($od->amount(),2)}}</td>
                                                                         </tr>
-
                                                                         @endforeach
                                                                     </tbody>
+                                                                    <tfoot>
+                                                                        <tr>
+                                                                            <th colspan="4" class="text-right">Total Amount</th>
+                                                                            <th>$ {{number_format( $order->getTotal(),2) }}</th>
+                                                                        </tr>
+                                                                    </tfoot>
                                                                 </table>
 
                                                                 @endif
@@ -277,6 +291,7 @@
 
                                             </div>
                                             <div class="timeline-footer" style="text-align:right">
+                                           
                                                 Status: <b>{{ $order->status == 0 ? 'processing' : 'shipped'}}</b>
                                             </div>
                                         </div>
@@ -313,7 +328,7 @@
                                     <div class="form-group row">
                                         <label for="" class="col-sm-2 col-form-label">Avatar</label>
                                         <div class="col-sm-5 input-group custom-file">
-                                            <input type="file" class="custom-file-input" id="avatar" name="avatar" value="{{old('avatar', $user->profile['avatar'])}}">
+                                            <input type="file" class="custom-file-input" id="avatar" name="avatar" value="{{old('avatar')}}">
                                             <small class="mt-2">{{$errors->first('avatar')}}</small>
                                         </div>
                                         <div class="col-sm-5" id=image-grid></div>
@@ -362,39 +377,56 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
+
+                                    <div class="form-group row align-items-center">
                                         <label for="" class="col-sm-2 col-form-label">Birthday:</label>
                                         <div class="col-sm-10">
-                                            <input type="date" class="form-control" id="dob" name="dob" value="{{ old('dob', $user->profile['dob'] ?? '')}}">
+                                            <input type="date" class="form-control-date" id="dob" name="dob" value="{{ old('dob', $user->getDob() ?? '') }}">
+                                            <small class="mt-2">{{$errors->first('phone')}}</small>
                                         </div>
                                     </div>
+
+                                    @php
+                                    $male = '';
+                                    $female = $male === 'checked' ? '': 'checked';
+                                    if($user->getGender() == 'Male'){
+                                    $male = 'checked';
+                                    $female = $male === 'checked' ? '': 'checked';
+                                    }else{
+                                    $female = 'checked';
+                                    $male = $female === 'checked' ? '': 'checked';
+                                    }
+                                    @endphp
 
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Gender</label>
                                         <div class="col-sm-10 row align-items-center">
-                                            <div class="form-check form-check">
-                                                <label class="form-check-label  ">
-                                                    <input class="form-check-input form-control" type="radio" name="gender" id="male" value="Male" checked> Male
+                                            <div class="row-in-form">
+                                                <label class="checkbox-field">
+                                                    <input name="gender" id="male" value="Male" type="checkbox" {{$male}} />
+                                                    <span> Male</span>
+                                                </label>
+                                                <label class="checkbox-field">
+                                                    <input name="gender" id="female" value="Female" type="checkbox" {{$female}} />
+                                                    <span> Female</span>
                                                 </label>
                                             </div>
-
-                                            <div class="form-check form-check-inline ml-3">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input form-control" type="radio" name="gender" id="female" value="Female"> Female
-                                                </label>
-                                            </div>
-
-
                                         </div>
                                     </div>
+                                    <select name="" id="">
+                                        <option value="" selected disabled>Select Country</option>
+                                        <option value="" selected disabled>Select Country</option>
+                                        <option value="" selected disabled>Select Country</option>
+                                        <option value="" selected disabled>Select Country</option>
+                                        <option value="" selected disabled>Select Country</option>
+                                    </select>
 
                                     <!-- address -->
                                     <div class="form-group row">
                                         <label for="" class="col-sm-2 col-form-label">Address</label>
                                         <div class="col-sm-3">
-                                            <div>{{ $user->profile['city'] }}</div>
-                                            <select class="form-control choose city" name="city" id="city" value="{{ old('city')}}" required>
-                                                <option selected>---City/Province---</option>
+                                            <select class="use-chosen choose city" name="city" id="city" value="{{ old('city')}}">
+                                                <option>---City/Province---</option>
                                                 @foreach($provinces as $item)
                                                 <option value="{{$item->code}}">{{$item->full_name_en}}</option>
                                                 @endforeach
@@ -402,17 +434,13 @@
                                         </div>
 
                                         <div class="col-sm-3">
-                                            <div>{{$user->profile['district']}}</div>
-                                            <select class="form-control province choose" name="district" id="district" value="{{ old('district')}}" required>
-                                                @isset($user->profile['district'])
+                                            <select class="form-control province choose" name="district" id="district" value="{{ old('district')}}">
                                                 <option selected>---District---</option>
-                                                @endisset
                                             </select>
                                         </div>
                                         <div class="col-sm-4">
-                                            <div>{{$user->profile['ward']}}</div>
                                             <select class="form-control" name="ward" id="ward" value="{{ old('ward')}}" required>
-                                                <option selected>--- Ward ---</option>
+                                                <option>--- Ward ---</option>
                                             </select>
                                         </div>
                                     </div>
@@ -422,7 +450,7 @@
                                     <!-- submit -->
                                     <div class="form-group row">
                                         <div class="offset-sm-2 col-sm-10">
-                                            <button type="submit" class="btn btn-danger">Submit</button>
+                                            <button type="submit" class="btn btn-danger">Update</button>
                                         </div>
 
                                         @if (session('status') === 'profile-updated')
@@ -500,7 +528,6 @@
                     console.log(data);
                     $('#' + result).html(data);
 
-                    al
                 }
             })
         });

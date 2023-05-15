@@ -26,7 +26,7 @@
                                 </span>
                                 @endif
 
-                                @if( $product->newProduct() )
+                                @if( $product->isNewProduct() )
                                 <span class="flash-item new-label">new</span>
                                 @endif
 

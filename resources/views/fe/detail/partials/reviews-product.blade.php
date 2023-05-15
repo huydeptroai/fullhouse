@@ -1,51 +1,10 @@
 <div class="tab-content-item " id="review">
     <div class="wrap-review-form">
-
-        <div id="comments">
-            <h2 class="woocommerce-Reviews-title">
-                {{ count($product->reviews) }} review(s) for <span>{{$product->product_name}} {{$product->product_id}}</span>
-            </h2>
-            <hr>
-
-            <ol class="commentlist" id="list_comment">
-                @foreach($product->reviews as $review)
-                <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1" id="review_id_{{ $review->id }}">
-                    <div id="comment-20" class="comment_container">
-                        <img class="profile-user-img img-fluid img-circle" src="{{ $review->user->profile['avatar'] }}" alt="User profile picture" height="80" width="80">
-
-                        <div class="comment-text">
-                            <!-- <div class="star-rating"> -->
-                            <div class="rating">
-                                @for($i=1; $i<=5; $i++) @php $color=($i <=$review->rating) ? "color: #ffcc00;" : "color: #ccc;";
-                                    @endphp
-                                    <i class="fa fa-star" aria-hidden="true" style="cursor:pointer;<?php echo $color ?> font-size:30px;"></i>
-                                    @endfor
-
-                            </div>
-                            <p class="meta">
-                                <strong class="woocommerce-review__author">{{$review->user->name}}</strong>
-                                <span>–</span>
-                                <time class="woocommerce-review__published-date">
-                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $review->updated_at)->diffForHumans()}}
-                                </time>
-                            </p>
-                            <div class="description">
-                                <p>{{$review->content}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                @endforeach
-            </ol>
-
-        </div><!-- #comments -->
-
         <div id="review_form_wrapper">
             <div id="review_form">
                 <div id="respond" class="comment-respond">
                     @if(Auth::check())
 
-                    <hr>
                     <p class="comment-notes">
                         <span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span>
                     </p>
@@ -78,7 +37,7 @@
                                                 <input type="radio" id="rated-5" name="rating" value="5" checked="checked">
                                             </p>
                                         </div>
-                                        
+
                                     </div>
                                     <div class="description col-md-9">
                                         <textarea id="content" name="content" rows="8" placeholder="You can enter here..." style="border:1px solid gray;width:100%;padding: 5px;"></textarea>
@@ -97,6 +56,48 @@
                 </div><!-- .comment-respond-->
             </div><!-- #review_form -->
         </div><!-- #review_form_wrapper -->
+
+        <div id="comments">
+            <h2 class="woocommerce-Reviews-title">
+                {{ count($product->reviews) }} review(s) for <span>{{$product->product_name}} {{$product->product_id}}</span>
+            </h2>
+            <hr>
+
+            <ol class="commentlist" id="list_comment">
+                @foreach($product->reviews as $review)
+                <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1" id="review_id_{{ $review->id }}">
+                    <div id="comment-20" class="comment_container">
+                        <img class="profile-user-img img-fluid img-circle" src="{{ $review->user->getAvatar() }}" alt="User profile picture" height="80" width="80">
+
+                        <div class="comment-text">
+                            <!-- <div class="star-rating"> -->
+                            <div class="rating">
+                                @for($i=1; $i<=5; $i++) @php $color=($i <=$review->rating) ? "color: #ffcc00;" : "color: #ccc;";
+                                    @endphp
+                                    <i class="fa fa-star" aria-hidden="true" style="cursor:pointer;<?php echo $color ?> font-size:20px;"></i>
+                                    @endfor
+
+                            </div>
+                            <p class="meta">
+                                <strong class="woocommerce-review__author">{{$review->user->name}}</strong>
+                                <span>–</span>
+                                <time class="woocommerce-review__published-date">
+                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $review->updated_at)->diffForHumans()}}
+                                </time>
+                                <a href="#" class="btn"><i class="fas fa-times" style="font-size: 20px;"></i></a>
+                            </p>
+                            <div class="description">
+                                <p>{{$review->content}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                @endforeach
+            </ol>
+
+        </div><!-- #comments -->
+
+
 
     </div>
 </div>
