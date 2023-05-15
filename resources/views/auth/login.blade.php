@@ -20,12 +20,9 @@
                         <p style="color:green;">{{session('status')}}</p>
                         @endif
 
+                        <h3 class="form-title">Log in to your account</h3>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
-
-                            <fieldset class="wrap-title">
-                                    <h3 class="form-title">Log in to your account</h3>
-                                </fieldset>
 
                             <!-- Email Address -->
                             <fieldset class="wrap-input">
@@ -46,7 +43,7 @@
                                 <label class="remember-field">
                                     <input class="frm-input " name="remember" id="remember" type="checkbox"><span>{{ __('Remember me') }}</span>
                                 </label>
-                                
+
                                 @if (Route::has('password.request'))
                                 <a class="link-function left-position" href="{{ route('password.request') }}">
                                     {{ __('Forgot your password?') }}

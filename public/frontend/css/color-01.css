@@ -137,5 +137,6 @@
     .fc-info-item
     .wrap-left-info
     .fc-desc {
-    color: #ffc2c4 !important;
+    /* color: #ffc2c4 !important; */
+    color: #fff !important;
 }

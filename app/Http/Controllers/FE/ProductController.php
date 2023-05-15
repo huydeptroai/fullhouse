@@ -43,14 +43,11 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $avgRating = Review::where('product_id', $product->product_id)->avg('rating');
-        // $avgRating = round($avgRating);
         $prods_related = Product::where('category_id', 'like', $product->category_id)
             ->limit(8)
             ->get();
         return view('fe.detail.product-detail', [
             'product' => $product,
-            'avgRating' => $avgRating,
             'prods_related' => $prods_related
         ]);
     }

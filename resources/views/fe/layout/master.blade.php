@@ -138,6 +138,7 @@
 	<!-- add to cart -->
 	<script>
 		$(document).ready(function() {
+
 			const url = "{{ Route('addCart') }}" ?? "";
 
 			$.ajaxSetup({
@@ -149,32 +150,12 @@
 			$('.add-to-cart').click(function(e) {
 				e.preventDefault();
 				let pid = $(this).data("id") ?? '';
-				let quantity = $('input[name="product-quatity"]').val() ?? 1;
+				let quantity = $('#product_qty_' + pid).val() ?? 1;
 
 				var data = {
 					pid: pid,
 					quantity: quantity
 				};
-				postAjax(data);
-			});
-
-
-			//edit cart
-			$('body').on('change', 'input[name="product-quatity"]', function(e) {
-				e.preventDefault();
-				//Note: we have many input with this name;
-				let pid = $(this).data("id") ?? '';
-				let quantity = $(this).val() ?? '';
-
-				var data = {
-					pid: pid,
-					quantity: quantity,
-					action: 'edit'
-				};
-				if (data.quantity == 0) {
-					return;
-				}
-				// console.log(data);
 				postAjax(data);
 			});
 
@@ -224,7 +205,7 @@
 										<div class="p-info">
 											<span class="product-price">$${v.price}</span>
 											<span class="product-quantity">
-												<input type="number" name="product-quatity qty_${v.product_id}" value="${v.quantity}" data-id="${v.product_id}">
+												<input type="number" id="product_qty_${v.product_id}" name="product-quatity" value="${v.quantity}" data-id="${v.product_id}" pattern="[0-9]*">
 											</span>
 											<span class="product-amount">$${v.amount}</span>
 										</div>
@@ -247,8 +228,8 @@
 									<div class="quantity">
 										<div class="quantity-input">
 											<input type="text" name="product-quatity" value="${v.quantity}" data-id="${v.product_id}" data-max="120" pattern="[0-9]*">
-											<a class="btn btn-increase" href="#"></a>
-											<a class="btn btn-reduce" href="#"></a>
+											<a class="btn btn-increase btn-qty" href="#"></a>
+											<a class="btn btn-reduce btn-qty" href="#"></a>
 										</div>
 									</div>
 									<div class="price-field sub-total">
@@ -271,11 +252,59 @@
 					}
 				);
 			};
-			
-			$('.view-cart').attr("href","{{route('cart')}}");
-			$('.view-checkout').attr("href","{{route('checkout')}}");
+
+			$('.view-cart').attr("href", "{{route('cart')}}");
+			$('.view-checkout').attr("href", "{{route('checkout')}}");
 
 			getCart();
+
+			//edit side-cart
+			$('body').on('change', 'input[name="product-quatity"]', function(e) {
+				e.preventDefault();
+				//Note: we have many input with this name;
+				let pid = $(this).data("id") ?? '';
+				let quantity = $('#product_qty_'+pid).val() ?? '';
+
+				var data = {
+					pid: pid,
+					quantity: quantity,
+					action: 'edit'
+				};
+				if (data.quantity == 0) {
+					return;
+				}
+				postAjax(data);
+			});
+
+			//edit quantity in cart by button
+			$("body").on('click', ".btn-qty", function(e) {
+				e.preventDefault();
+				var _this = $(this);
+				var _input = $(this).siblings('input[name=product-quatity]');
+				var _current_value = _input.val();
+				var _max_value = _input.attr("data-max");
+
+				var data = {};
+				data.pid = _input.attr("data-id");
+				data.quantity = _current_value;
+				data.action = "edit";
+
+				if (_this.hasClass("btn-reduce")) {
+					if (parseInt(_current_value, 10) > 1) {
+						data.quantity = parseInt(_current_value, 10) - 1;
+						_input.val(data.quantity);
+					}
+				} else {
+					if (parseInt(_current_value, 10) < parseInt(_max_value, 10)) {
+						data.quantity = parseInt(_current_value, 10) + 1;
+						_input.val(data.quantity);
+					}
+				}
+				// console.log(data);
+				postAjax(data);
+
+			});
+
 			//delete cart
 			$('body').on('click', '.delete-cart', function(e) {
 				e.preventDefault();
@@ -298,6 +327,7 @@
 				}
 			});
 
+			
 
 			//create wish-list
 			$('.add-to-wishlist').click(function(e) {
@@ -354,7 +384,7 @@
 					$('#count-wl').html(count + ' items');
 				});
 			}
-			
+
 			//delete wl
 			$('body').on('click', '.delete-wl', function(e) {
 				e.preventDefault();

@@ -3,8 +3,9 @@
 
         <div id="comments">
             <h2 class="woocommerce-Reviews-title">
-                {{ count($product->reviews) }} review(s) for <span>{{$product->product_name}}</span>
+                {{ count($product->reviews) }} review(s) for <span>{{$product->product_name}} {{$product->product_id}}</span>
             </h2>
+            <hr>
 
             <ol class="commentlist" id="list_comment">
                 @foreach($product->reviews as $review)
@@ -57,8 +58,13 @@
 
                                     <div class="col-md-3">
                                         <img class="profile-user-img img-fluid img-circle" src="{{ Auth::user()->profile['avatar'] ?? asset('admin/dist/img/'.Auth::user()->profile['avatar']) }}" alt="User profile picture" height="80" width="80">
+                                        <p class="meta">
+                                            <strong class="woocommerce-review__author">
+                                                {{ Auth::user()->name}}
+                                            </strong>
+                                        </p>
                                         <div class="comment-form-rating">
-                                            <span>Your rating: </span>
+                                            <span>Your rating >> </span>
                                             <p class="stars" style="font-size: 20px;">
                                                 <label for="rated-1"></label>
                                                 <input type="radio" id="rated-1" name="rating" value="1">
@@ -72,11 +78,7 @@
                                                 <input type="radio" id="rated-5" name="rating" value="5" checked="checked">
                                             </p>
                                         </div>
-                                        <p class="meta">
-                                            <strong class="woocommerce-review__author">
-                                                {{ Auth::user()->name}}
-                                            </strong>
-                                        </p>
+                                        
                                     </div>
                                     <div class="description col-md-9">
                                         <textarea id="content" name="content" rows="8" placeholder="You can enter here..." style="border:1px solid gray;width:100%;padding: 5px;"></textarea>

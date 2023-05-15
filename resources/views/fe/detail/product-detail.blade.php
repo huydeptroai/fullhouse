@@ -32,10 +32,11 @@
                     <div class="detail-info">
                         <h2 class="product-name">{{$product->product_name ?? ''}}</h2>
                         <div class="product-rating" style="font-size:16px;">
-                            <strong>{{number_format($avgRating,2) }} </strong>
-                            @for($i=1; $i<=5; $i++) @php $color=($i <=round($avgRating)) ? "color: #ffcc00;" : "color: #ccc;" ; @endphp <i class="fa fa-star" aria-hidden="true" style="cursor:pointer;{{$color}}font-size:30px;"></i>
-                                @endfor
-                                <a href="#review" class="count-review"> ({{count($product->reviews)}} review)</a>
+                            <strong>{{number_format( $product->reviews->avg('rating'),2) }} </strong>
+                            @for($i=1; $i<=5; $i++) @php $avg=$product->reviews->avg('rating');
+                                $color=($i <= round($avg)) ? "color: #ffcc00;" : "color: #ccc;" ; @endphp <i class="fa fa-star" aria-hidden="true" style="cursor:pointer;{{$color}}font-size:30px;"></i>
+                                    @endfor
+                                    <a href="#review" class="count-review"> ({{count($product->reviews)}} reviews)</a>
 
                         </div>
                         <div class="short-desc">
@@ -77,7 +78,7 @@
                         <div class="quantity">
                             <span>Quantity:</span>
                             <div class="quantity-input">
-                                <input type="text" id="product_qty" name="product-quatity qty_{{$product->product_id}}" value="1" data-max="120" pattern="[0-9]*">
+                                <input type="number" id="product_qty_{{$product->product_id}}" name="product-quatity" data-id="{{$product->product_id}}" value="1" data-max="120" pattern="[0-9]*">
                                 <a class="btn btn-reduce" href="#"></a>
                                 <a class="btn btn-increase" href="#"></a>
                             </div>
@@ -86,7 +87,8 @@
                             <a href="#" class="btn add-to-cart" data-id="{{$product->product_id}}">Add to Cart</a>
                             <div class="wrap-btn">
                                 <a href="#" class="btn btn-compare">Add Compare</a>
-                                <a href="#" class="btn btn-wishlist">Add Wishlist</a>
+                                <!-- <a href="#" class="btn btn-wishlist">Add Wishlist</a> -->
+                                <a href="#" class="btn btn-wishlist add-to-wishlist" data-id="{{$product->product_id}}">Add Wishlist</a>
                             </div>
                         </div>
 
@@ -104,12 +106,12 @@
                             <div class="tab-content-item active" id="description">
                                 <p>{{ $product->product_description}}</p>
                             </div>
-                            
-                            @include('fe.detail.partials.add-information') 
-                            
+
+                            @include('fe.detail.partials.add-information')
+
                             <!-- review start -->
                             @include('fe.detail.partials.reviews-product')
-                            
+
                             <!-- review end -->
                         </div>
                     </div>
@@ -120,7 +122,7 @@
 
             <!-- related product-->
             @include('fe.detail.partials.related-product')
-            
+
             <!-- related product end-->
 
         </div><!--end row-->
@@ -150,9 +152,10 @@
                 type: "POST",
                 dataType: "json",
                 success: function(data) {
-                    alert('success!');
-                    console.log(data);
+                    // alert('success!');
                     $('#list_comment').append(data);
+                    $('#commentform').reset();
+                    window.location.reload();
                 }
             });
 

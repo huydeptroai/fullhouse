@@ -8,8 +8,8 @@
                         <i class="fa fa-truck" aria-hidden="true"></i>
                         <div class="right-content">
                             <b class="title">Free Shipping</b>
-                            <span class="subtitle">On Oder Over $99</span>
-                            <p class="desc">Lorem Ipsum is simply dummy text of the printing...</p>
+                            <span class="subtitle">On Oder Over $250</span>
+                            <p class="desc">...</p>
                         </div>
                     </a>
                 </li>
@@ -20,7 +20,7 @@
                         <div class="right-content">
                             <b class="title">Special Offer</b>
                             <span class="subtitle">Get a gift!</span>
-                            <p class="desc">Lorem Ipsum is simply dummy text of the printing...</p>
+                            <p class="desc">...</p>
                         </div>
                     </a>
                 </li>
@@ -31,7 +31,7 @@
                         <div class="right-content">
                             <b class="title">Order Return</b>
                             <span class="subtitle">Return within 7 days</span>
-                            <p class="desc">Lorem Ipsum is simply dummy text of the printing...</p>
+                            <p class="desc">...</p>
                         </div>
                     </a>
                 </li>

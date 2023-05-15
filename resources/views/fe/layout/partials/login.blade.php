@@ -38,9 +38,10 @@ $active = 'active-popup'
 				<small style="color:red;">{{$errors->first('password')}}</small>
 			</div>
 
+			
 			<div class="remember-forgot">
-				<label for="remember_me" class="">
-					<input id="remember_me" type="checkbox" name="remember" >
+				<label for="remember" class="">
+					<input id="remember" type="checkbox" name="remember">
 					<span class="">{{ __('Remember me') }}</span>
 				</label>
 			</div>

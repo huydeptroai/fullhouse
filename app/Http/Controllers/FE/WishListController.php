@@ -13,8 +13,6 @@ class WishListController extends Controller
     {
         try {
             $user_id = Auth::id();
-            // $wish_lists = WishList::all();
-
             $wish_lists = WishList::selectRaw('wish_lists.*, products.*')
                 ->join('products', 'wish_lists.product_id', 'like', 'products.product_id')
                 ->where('wish_lists.user_id', $user_id)
@@ -28,17 +26,16 @@ class WishListController extends Controller
     public function addWishList(Request $request)
     {
         $user_id = Auth::id();
-        // $wlExist = WishList::where('product_id', 'like', $request->product_id)
-        //     ->where('user_id', $user_id)
-        //     ->first();
-        // if ($wlExist) {
-        //     return response()->json($wlExist);
-        // }
+        $product_id = $request->pid;
+        $wishExist = WishList::where('user_id', $user_id)->where('product_id', 'like', $product_id)->first();
+        if ($wishExist){
+            return response()->json($wishExist);
+        }
+
         $wish_list = WishList::create([
             'user_id' => $user_id,
             'product_id' => $request->pid
         ]);
-
 
         return response()->json($wish_list);
     }

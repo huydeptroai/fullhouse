@@ -4173,9 +4173,9 @@ article.single-post blockquote p:last-child::after {
     position: absolute;
     top: 50%;
     left: 50%;
-    /*transform: translate( -50% , -50% );*/
-    /*-webkit-transform: translate( -50% , -50% );*/
-    /*-ms-transform: translate( -50% , -50% );*/
+    transform: translate( -50% , -50% );
+    /* -webkit-transform: translate( -50% , -50% ); */
+    /* -ms-transform: translate( -50% , -50% ); */
 }
 .wrap-iten-in-cart .products-cart .quantity .quantity-input .btn:hover::before,
 .wrap-iten-in-cart .products-cart .quantity .quantity-input .btn:hover::after {
@@ -4205,9 +4205,9 @@ article.single-post blockquote p:last-child::after {
     margin-top: -5px;
     background-color: #666666;
     display: block;
-    /*    transform: translate(-6px, 4px);
-    -webkit-transform: translate(-6px, 4px);
-    -ms-transform: translate(-6px, 4px);*/
+       transform: translate(-6px, 4px);
+    /* -webkit-transform: translate(-6px, 4px); */
+    /* -ms-transform: translate(-6px, 4px); */
 }
 .wrap-iten-in-cart .products-cart .delete a:focus,
 .wrap-iten-in-cart .products-cart .delete a.btn {
@@ -4256,7 +4256,7 @@ article.single-post blockquote p:last-child::after {
     text-align: left;
     text-transform: uppercase;
     font-weight: 700;
-    border-bottom: 1px solid #e6e6e6;
+    /* border-bottom: 1px solid #e6e6e6; */
     margin-bottom: 18px;
     padding-bottom: 26px;
     margin-top: 0;
@@ -5065,7 +5065,7 @@ table.shop_attributes tbody {
 }
 .summary-checkout .summary-item {
     display: block;
-    float: left;
+    /* float: left; */
     width: 50%;
 }
 .summary-checkout .summary-item.payment-method {

@@ -11,6 +11,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Redirect;
 
 class GoogleController extends Controller
 {
@@ -64,6 +65,7 @@ class GoogleController extends Controller
 
     public function redirectToGoogle()
     {
+        session()->flash('googleLoginUrl', url()->previous());
         try {
             return Socialite::driver('google')->redirect();
         } catch (\Throwable $th) {
@@ -73,9 +75,10 @@ class GoogleController extends Controller
 
     public function loginWithGoogle()
     {
+        $loginUrl = session('googleLoginUrl') ?? '/';
         try {
             $googleUser = Socialite::driver('google')->user();
-
+            
             $profile = [
                 'avatar' => $googleUser->getAvatar() ?? '',
                 'gender' => '',
@@ -100,6 +103,8 @@ class GoogleController extends Controller
             return redirect(RouteServiceProvider::HOME);
         } catch (\Throwable $th) {
             throw $th;
+            return Redirect::to($loginUrl);
         }
     }
+
 }

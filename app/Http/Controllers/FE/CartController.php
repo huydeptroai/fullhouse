@@ -12,23 +12,23 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+
     /**
      * Display the cart page.
      */
     public function cart()
     {
-        // $cart = Cart::all();
-        $product_popular = Product::all();
-        $user_id = Auth::id();
-        $carts = Cart::selectRaw('carts.*, products.*, ((product_price-discount) * carts.quantity) as amount')
-            ->join('products', 'carts.product_id', 'like', 'products.product_id')
-            ->where('user_id', $user_id)
-            ->get();
+        if (Auth::check()) {
 
-        return view('fe.cart', [
-            'carts' => $carts,
-            'products' => $product_popular
-        ]);
+            $product_popular = Product::all();
+            $user_id = Auth::id();
+            $carts = $this->listCart($user_id);
+
+            return view('fe.cart', [
+                'carts' => $carts,
+                'products' => $product_popular
+            ]);
+        }
     }
 
     /**
@@ -37,46 +37,56 @@ class CartController extends Controller
 
     public function showCart()
     {
-        $user_id = Auth::id();
-        $carts = Cart::selectRaw(
+        if (Auth::check()) {
+            $user_id = Auth::id();
+            $carts = $this->listCart($user_id);
+            return response()->json($carts);
+        }
+    }
+
+    public function listCart($user_id = '')
+    {
+        return Cart::selectRaw(
             'carts.*,
             products.*,
             (product_price - discount) as price,
             ((product_price-discount) * carts.quantity) as amount'
         )->join('products', 'carts.product_id', 'like', 'products.product_id')
             ->where('carts.user_id', $user_id)
+            ->orderBy('id', 'desc')
             ->get();
-
-        return response()->json($carts);
     }
 
     public function addCart(Request $request)
     {
+        if (Auth::check()) {
 
-        $user_id = Auth::id();
-        $pid = $request->pid;
-        $quantity = $request->quantity;
+            $user_id = Auth::id();
+            $pid = $request->pid;
+            $quantity = $request->quantity;
 
-        //set quantity
-        if ($request->action != 'edit') {
-            $cartExist = Cart::where('product_id', 'like', $pid)->where('user_id', $user_id)->first();
-            if ($cartExist != null) {
-                $quantity += $cartExist->quantity;
+            //set quantity for Cart-item
+            if ($request->action != 'edit') {
+                $cartExist = Cart::where('product_id', 'like', $pid)->where('user_id', $user_id)->first();
+                if ($cartExist) {
+                    $quantity += $cartExist->quantity;
+                }
             }
-        }
 
-        //save cart item
-        $cart = Cart::updateOrCreate(
-            [
-                'user_id' => $user_id,
-                'product_id' => $pid
-            ],
-            [
-                'quantity' => $quantity
-            ]
-        );
-        return response()->json($cart);
+            //save cart item
+            $cart = Cart::updateOrCreate(
+                [
+                    'user_id' => $user_id,
+                    'product_id' => $pid
+                ],
+                [
+                    'quantity' => $quantity
+                ]
+            );
+            return response()->json($cart);
+        }
     }
+
 
     public function destroy($cart_id)
     {

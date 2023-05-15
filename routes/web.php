@@ -14,12 +14,8 @@ use App\Http\Controllers\FE\HomeController;
 use App\Http\Controllers\FE\CategoryController;
 use App\Http\Controllers\FE\ReviewController;
 use App\Http\Controllers\FE\WishListController;
-use App\Models\Review;
-use App\Models\Role;
-use App\Models\WishList;
 use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,12 +37,6 @@ Route::get('/', function () {
 
 
 
-// Route::get('/admin/dashboard', function () {
-//     return view('admin.dashboard');
-// })->middleware(['auth', 'verified'])->name('admin.dashboard');
-
-
-
 Route::middleware('auth')->group(function () {
 
     Route::post('/review', [ReviewController::class, 'store'])->name('review.store');
@@ -63,7 +53,7 @@ Route::middleware('auth')->group(function () {
         Route::get('add-cart', 'showCart')->name('showCart');
         Route::DELETE('delete-cart/{cart_id}', 'destroy')->name('deleteCart');
     });
-    
+
     Route::controller(WishListController::class)->group(function () {
         Route::get('show-wishlist', 'showWishlist')->name('showWishList');
         Route::post('add-wishlist', 'addWishlist')->name('addWishList');
@@ -102,6 +92,10 @@ Route::middleware('auth')->group(function () {
 Route::resource('/product', App\Http\Controllers\FE\ProductController::class)->names('product');
 Route::get('/shop/{product_slug}', [ProductController::class, 'productDetail'])->name('productDetail');
 
+Route::get('/category-search-by-name/{category_name}', [CategoryController::class, 'searchByCategoryName'])->name('searchByCategoryName');
+Route::post('/search-price', [CategoryController::class, 'searchPrice'])->name('searchPrice');
+
+
 Route::controller(HomeController::class)->group(function () {
     Route::get('/home', 'home')->name('home');
     Route::get('/about', 'about')->name('about');
@@ -110,14 +104,10 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/warranty-policy', 'warrantyPolicy')->name('warrantyPolicy');
     Route::get('/order-processing', 'thankyou')->name('thankyou');
     Route::post('/new-letter', 'newLetter')->name('newLetter');
+
+    Route::post('/search-name', 'searchName')->name('searchName');
 });
 
-
-
-
-Route::get('/category-search-by-name/{category_name}', [CategoryController::class, 'searchByCategoryName'])->name('searchByCategoryName');
-Route::post('/search-price', [CategoryController::class, 'searchPrice'])->name('searchPrice');
-Route::post('/search-name', [HomeController::class, 'searchName'])->name('searchName');
 
 
 

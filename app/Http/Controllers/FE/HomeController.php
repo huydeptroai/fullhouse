@@ -9,14 +9,17 @@ use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Models\Category;
 use App\Models\Newsletter;
-
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
     public function home()
     {
         $products_sale = Product::where('discount', '>', 0)->limit(8)->get();
-        $products_latest = Product::orderByDesc('updated_at')->limit(8)->get();
+        
+        $products_latest = Product::orderByDesc('updated_at')
+        ->whereMonth('created_at', Carbon::now()->month)
+        ->limit(8)->get();
 
         $products_living = Product::where('category_id', 'like', 'L%')->limit(8)->get();
         $products_dining = Product::where('category_id', 'like', 'K%')->limit(8)->get();

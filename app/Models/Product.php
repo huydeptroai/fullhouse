@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -60,5 +61,25 @@ class Product extends Model
     public function orders()
     {
         return $this->belongsToMany(Order::class, 'product_id', 'order_id');
+    }
+
+    public function bestSeller()
+    {
+        return OrderDetail::where('product_id', 'like', $this->product_id)->count('*');
+    }
+
+    public function avgRating()
+    {
+        return Review::where('product_id', 'like', $this->product_id)->avg('rating');
+    }
+
+    public function newProduct()
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('m') == Carbon::now()->month;
+    }
+
+    public function saleOff()
+    {
+        return number_format($this->discount / $this->product_price * 100, 0);
     }
 }

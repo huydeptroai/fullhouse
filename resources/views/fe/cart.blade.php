@@ -14,34 +14,24 @@
         <div class="main-content-area">
             <!--1 cart start -->
             <div class="wrap-iten-in-cart">
-                <h3 class="box-title">Products Name</h3>
+                <h3 class="box-title">Shopping Cart</h3>
                 <ul class="products-cart" id="cart-page">
                     <!-- cart 1 start -->
-                    @php
-                    $total = 0
-                    @endphp
                     @forelse($carts as $cart)
                     <li class="pr-cart-item" id="cart_id_{{$cart->id}}">
-                        <!-- image start -->
                         <div class="product-image">
                             <figure><img src="{{  asset('assets/img/upload/product/'.$cart->product->product_image['0']) }}" alt=""></figure>
                         </div>
-                        <!-- image end-->
-                        <!-- name start-->
                         <div class="product-name">
                             <a class="link-to-product" href="{{ route('productDetail',['product_slug' => $cart->product->product_slug]) }}">
                                 <p>{{$cart->product_name}}</p>
                                 <small>{{$cart->product_id}}</small>
                             </a>
                         </div>
-                        <!-- name end-->
-                        <!-- price -->
                         <div class="price-field product-price">
                             <p class="price">${{$cart->product_price}}</p>
                             <p class="price" style="text-decoration: line-through;color:red">${{$cart->discount}}</p>
                         </div>
-                        <!-- price end -->
-                        <!-- quantity start -->
                         <div class="quantity">
                             <div class="quantity-input">
                                 <input type="text" name="product-quatity" value="{{$cart->quantity}}" data-id="{{$cart->product_id}}" data-max="120" pattern="[0-9]*">
@@ -49,22 +39,16 @@
                                 <a class="btn btn-reduce" href="#"></a>
                             </div>
                         </div>
-                        <!-- quantity end -->
-                        <!-- amount start-->
                         <div class="price-field sub-total">
                             <p class="price">${{$cart->amount}}</p>
                         </div>
-                        <!-- amount end-->
-                        <!-- action delete -->
                         <div class="delete delete-cart" data-cid="{{$cart->id}}">
                             <a href="#" class="btn btn-delete" title="">
                                 <span>Delete from your cart</span>
                                 <i class="fa fa-times-circle" aria-hidden="true"></i>
                             </a>
                         </div>
-                        <!-- action delete end -->
                     </li>
-                    <?php $total += $cart->amount ?>
                     @empty
                     <li class="pr-cart-item">
                         <p>No thing</p>
@@ -72,40 +56,20 @@
                     </li>
                     @endforelse
                     <!-- cart 1 end -->
-
                 </ul>
             </div>
             <!-- cart end -->
             <!--2 summary start -->
             <div class="summary">
-                <div class="order-summary">
+                <div class="order-summary col-12 col-md-6">
                     <!-- <h4 class="title-box">Order Summary</h4> -->
-                    <h4 class="summary-info" style="font-size: 1.5em;">
-                        <span class="title">Subtotal: </span>
-                        <span class="index total-cart">${{ $total }}</span>
+                    <h4 class="summary-info" style="font-size: 1.5em;border-bottom: 1px solid black;">
+                        <span class="title">Total: </span>
+                        <span class="index total-cart">${{ $carts->sum('amount') }}</span>
                     </h4>
-
-                    <!-- <div class="summary-item">
-                        <p class="row-in-form">
-                            <label class="col-4" for="coupon-code">Discount code:</label>
-                            <input class="col-8" id="coupon-code" type="text" name="coupon-code" value="" placeholder="Enter Your Coupon code" data-total="{{$total}}">
-                        </p>
-                        <a href="#" class="title">
-                            Check coupon code
-                        </a>
-                    </div>
-
-                    <p class="summary-info">
-                        <span class="title">Discount:</span>
-                        <b class="index value-coupon">0</b>
-                    </p>
-                    <p class="summary-info total-info ">
-                        <span class="title">Total</span>
-                        <b class="index result">${{ $total }}</b>
-                    </p> -->
                 </div>
 
-                <div class="checkout-info">
+                <div class="checkout-info col-12 col-md-6">
                     <a class="btn btn-checkout" href="{{route('checkout')}}">Check out</a>
                     <a class="link-to-shop" href="{{route('product.index')}}">
                         Continue Shopping

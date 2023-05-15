@@ -148,6 +148,7 @@
     /* accent-color: #fff; */
     accent-color: #162938;
     margin-right: 3px;
+    border: 1px solid #000;
 }
 
 .wrapper .remember-forgot a {

@@ -23,5 +23,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/google', [\App\Http\Controllers\Api\GoogleController::class, 'redirectToGoogle'])->name('google');
-// Route::get('/callback', [\App\Http\Controllers\Api\GoogleController::class, 'handleGoogleCallBack']);
 Route::get('/callback', [\App\Http\Controllers\Api\GoogleController::class, 'loginWithGoogle']);

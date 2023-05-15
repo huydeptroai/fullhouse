@@ -3,7 +3,6 @@
 @section('title', 'Checkout')
 
 @section('myCss')
-<!-- <link rel="stylesheet" href="{{ asset('/frontend/css/mdb.form.css') }}"> -->
 @endsection
 
 @section('content')
@@ -18,158 +17,82 @@
 			</ul>
 		</div>
 		<div class=" main-content-area">
-			
+
 			@if (session('success'))
 			<div class="alert alert-success">{{ session('success') }}</div>
 			@endif
 
-			<form action="{{ route('createOrder') }}" method="post">
+			<form action="{{ route('createOrder') }}" method="post" name="frm-billing">
 				@csrf
-				<div class="wrap-address-billing">
-					<h3 class="box-title">Billing Address</h3>
-					<div name="frm-billing">
-						<p class="row-in-form form-group">
+				<div class="wrap-address-billing col-md-8 px-3">
+					<h3 class="box-title">Information Order</h3>
+					<div class="">
+						<div class="col-12 col-md-6 form-group">
 							<label for="fname">Full name<span>*</span></label>
 							<input class="form-control" type="text" name="receiver_name" value="{{old('receiver_name', $user->name)}}" required placeholder="Your name">
 							<small class="text-danger">{{$errors->first('receiver_name')}}</small>
-						</p>
-						<p class="row-in-form form-group">
+						</div>
+						<div class="col-12 col-md-6 form-group">
 							<label for="phone">Phone number<span>*</span></label>
 							<input class="form-control" id="phone" type="number" name="receiver_phone" value="{{old('receiver_phone', $user->phone)}}" required placeholder="10 digits format">
 							<small class="text-danger">{{$errors->first('receiver_phone')}}</small>
-						</p>
-						<p class="row-in-form form-group">
-							<label for="phone">City/Province <span>*</span></label>
-							<select class="form-control" name="shipping_city" id="shipping_city" value="{{old('shipping_city')}}" required>
-								<option value="">-- Select city/province --</option>
-								@foreach($provinces as $item)
-								<option value="{{$item->code}}">{{$item->full_name_en}}</option>
-								@endforeach
-							</select>
-							<small class="text-danger">{{$errors->first('shipping_city')}}</small>
-						</p>
-						<p class="row-in-form form-group">
-							<label for="phone">District: <span>*</span></label>
-							<select class="form-control" name="shipping_district" id="shipping_district" value="{{old('shipping_district')}}" required>
-								<option value="">-- Select district --</option>
-							</select>
-							<small class="text-danger">{{$errors->first('shipping_district')}}</small>
-						</p>
-						<p class="row-in-form form-group">
-							<label for="add">Address:</label>
-							<input class="form-control" id="shipping_address" type="text" name="shipping_address" value="{{ old('shipping_address')}}" required placeholder="Street at apartment number">
-							<small class="text-danger">{{ $errors->first('shipping_address') }}</small>
-						</p>
-						<p class="row-in-form form-group">
+						</div>
+
+						<div class="col-12 form-group">
 							<label for="country">Note: </label>
-							<textarea class="form-control" name="note" id="note" cols="30" rows="10" placeholder="Note for this order, if have">{{old('note')}}</textarea>
-						</p>
-						<!-- <p class="row-in-form fill-wife">
-							<label class="checkbox-field">
-								<input name="create-account" id="create-account" value="forever" type="checkbox">
-								<span>Create an account?</span>
-							</label>
-							<label class="checkbox-field">
-								<input name="different-add" id="different-add" value="forever" type="checkbox">
-								<span>Ship to a different address?</span>
-							</label>
-						</p> -->
-					</div>
-				</div>
-
-				<div class="summary summary-checkout">
-					<h4 class="summary-info">
-						<span class="title-box">Total cart:</span>
-						<span class="total-cart">
-							<!--show total cart form data -->$ 0.00
-						</span>
-						<input type="hidden" class="total-cart" name="value_order" value="">
-					</h4>
-
-					<hr>
-					<div class="summary-item shipping-method">
-
-						<h4 class="title-box f-title">Shipping method</h4>
-						<div class="choose-payment-methods">
-							<label class="payment-method">
-								<input name="method_shipping" id="method_shipping" value="1" type="radio">
-								<span>Shipping fee: </span>
-								<span class="shipping-fee" style="font-size: 16px;"> $ 0.00</span>
-
-								<span class="payment-desc">
-									<table class="shop_attributes" style="table-layout: fixed;text-align:center;">
-										<tbody>
-											<tr>
-												<th>Value_Order:</th>
-												<td>
-													< $250.00 </td>
-												<td> >= $250.00 </td>
-											</tr>
-											<tr>
-												<th>HCM Urban</th>
-												<td>
-													<p>4% of order</p>
-													<small> (between $5.00 and $25.00) </small>
-												</td>
-												<td> free</td>
-											</tr>
-											<tr>
-												<th>HCM Suburban</th>
-												<td>
-													<p>6% of order</p>
-													<small> (between $5.00 and $25.00) </small>
-												</td>
-												<td>free</td>
-											</tr>
-											<tr>
-												<th>HCM Suburban</th>
-												<td>
-													<p>8% of order</p>
-													<small> between $5.00 and $25.00 </small>
-												</td>
-												<td>free</td>
-											</tr>
-											<tr>
-												<th>Other City/Province</th>
-												<td>
-													<p>10% of order</p>
-													<small> between $5.00 and $25.00 </small>
-												</td>
-												<td>free</td>
-											</tr>
-										</tbody>
-									</table>
-								</span>
-							</label>
-							<label class="payment-method">
-								<input name="method_shipping" id="method_shipping_no" value="0" type="radio" checked>
-								<span>No Shipping</span>
-								<span class="payment-desc">Please you call before.</span>
-							</label>
-
+							<textarea class="form-control" name="note" id="note" cols="30" rows="5" placeholder="Note for this order, if have">{{old('note')}}</textarea>
 						</div>
 
+						<!-- shipping -->
+						<div class="summary-item shipping-method">
+							<h4 class="title-box f-title">Shipping method</h4>
+							<div class="choose-payment-methods">
+								<!-- at store -->
+								<label class="payment-method">
+									<input name="method_shipping" id="method_shipping_no" value="0" type="radio" checked>
+									<span>No Shipping</span>
+									<span class="payment-desc">Please you call before.
+										<p>Address at: No 391A, Nam Ky Khoi Nghia Street, District 3, HCM City</p>
+									</span>
+								</label>
+								<!-- shipping to address -->
+								<label class="payment-method">
+									<input name="method_shipping" id="method_shipping" value="1" type="radio">
+									<span>Shipping to: </span>
+									<span class="payment-desc">
 
-						<div class="summary-info">
-							<h4 class="title-box"></h4>
-							<p class="row-in-form">
-								<label for="coupon-code">Coupon code:</label>
-								<input class="col-8" id="coupon-code" type="text" name="coupon-code" value="{{ old('coupon-code')}}" placeholder="Enter Your Coupon code">
+										<div class="col-12 col-md-4">
+											<label for="">City/Province <span>*</span>:</label>
+											<select style="display:flex;" class="form-control" name="shipping_city" id="city">
+												<option value="" selected>Select city/province</option>
+												@foreach($provinces as $item)
+												<option value="{{$item->code}}">{{$item->full_name_en}}</option>
+												@endforeach
+											</select>
+										</div>
 
-							</p>
-							<p class="summary-info">
-								<span class="title">Discount:</span>
-								<b class="index value-coupon" style="font-size: 16px;">$ 0.00</b>
-							</p>
-							<a href="#" class="btn btn-small">Apply</a>
+										<div class="col-12 col-md-4">
+											<label for="phone">District: <span>*</span></label>
+											<select class="form-control" name="shipping_district" id="shipping_district" value="{{old('shipping_district')}}" required>
+												<option value="">-- Select district --</option>
+											</select>
+											<small class="text-danger">{{$errors->first('shipping_district')}}</small>
+										</div>
+
+										<div class="col-12 col-md-4">
+											<label for="add">Address:</label>
+											<input class="form-control" id="shipping_address" type="text" name="shipping_address" value="{{ old('shipping_address')}}" required placeholder="Street at apartment number">
+											<small class="text-danger">{{ $errors->first('shipping_address') }}</small>
+										</div>
+
+									</span>
+								</label>
+
+							</div>
 						</div>
 
-					</div>
-
-					<div class="summary-item payment-method">
-						<h4 class="title-box">Payment Method</h4>
-
 						<div class="choose-payment-methods">
+							<h4 class="title-box f-title">Shipping method</h4>
 							<label class="payment-method">
 								<input name="payment_method" id="payment-method-bank" value="0" type="radio">
 								<span>Direct Bank Transder</span>
@@ -192,11 +115,13 @@
 									</table>
 								</span>
 							</label>
+
 							<label class="payment-method">
 								<input name="payment_method" id="payment-method-visa" value="1" type="radio">
 								<span>COD</span>
 								<span class="payment-desc">There are many variations of passages of Lorem Ipsum available</span>
 							</label>
+
 							<label class="payment-method">
 								<input name="payment_method" id="payment-method-paypal" value="2" type="radio">
 								<span>Paypal</span>
@@ -204,18 +129,55 @@
 								<span class="payment-desc">card if you don't have a paypal account</span>
 							</label>
 						</div>
+						<!-- <p class="row-in-form fill-wife">
+							<label class="checkbox-field">
+								<input name="create-account" id="create-account" value="forever" type="checkbox">
+								<span>Create an account?</span>
+							</label>
+							<label class="checkbox-field">
+								<input name="different-add" id="different-add" value="forever" type="checkbox">
+								<span>Ship to a different address?</span>
+							</label>
+						</p> -->
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="summary summary-checkout">
+						<div class="summary-item col-12">
+							<h4 class="title-box">Total cart: <span class="total-cart">$ 0.00</span></h4>
+							<input type="hidden" class="total-cart" name="value_order" value="">
+						</div>
+
+						<div class="summary-item col-12">
+							<b class="">Shipping fee: <span class="shipping-fee">$ 0.00</span></b>
+							<input type="hidden" class="total-cart" name="shipping_fee" value="">
+						</div>
 						<hr>
-						<p class="summary-info grand-total">
-							<span>Grand Total</span> <span class="grand-total-price" style="font-size: 2em;"> $ 0.00</span>
-						</p>
+						<div class="summary-item col-12">
+							<label class="">Coupon code:</label>
+							<input class="form-control col-5" id="coupon-code" type="text" name="coupon_code" value="{{ old('coupon_code')}}" placeholder="Enter Your Coupon code">
 
-						<button type="submit" class="btn btn-medium">Place order now</button>
+							<div class="row" style="margin:0 20px;">
+								<span class="title"> => Discount:</span>
+								<b class="value-coupon" style="font-size: 16px;">$ 0.00</b>
+							</div>
+						</div>
 
+						<hr>
+						<div class="summary-item payment-method">
+							<p class="summary-info grand-total">
+								<span>Grand Total</span> <span class="grand-total-price" style="font-size: 2em;"> $ 0.00</span>
+							</p>
+							<button type="submit" class="btn btn-medium">Place order now</button>
+						</div>
 					</div>
 				</div>
 			</form>
 
 
+			<div style="clear: left;"></div>
+			<hr>
 			<!-- products most view -->
 			<!-- <div class="wrap-show-advance-info-box style-1 box-in-site"> -->
 			<div class="style-1" style="margin-top: 5%;">
