@@ -93,7 +93,6 @@ Route::resource('/product', App\Http\Controllers\FE\ProductController::class)->n
 Route::get('/shop/{product_slug}', [ProductController::class, 'productDetail'])->name('productDetail');
 
 Route::get('/category-search-by-name/{category_name}', [CategoryController::class, 'searchByCategoryName'])->name('searchByCategoryName');
-Route::post('/search-price', [CategoryController::class, 'searchPrice'])->name('searchPrice');
 
 
 Route::controller(HomeController::class)->group(function () {

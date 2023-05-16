@@ -20,14 +20,14 @@ class CategoryController extends Controller
         return view('fe.shop.shop', compact('products'));
     }
 
-    public function searchPrice(Request $request)
-    {
-        $min = $request->input('min');
-        $max = $request->input('max');
-        $products = Product::where('product_price','>=',$min)->where('product_price','<=',$max)->get();
+    // public function searchPrice(Request $request)
+    // {
+    //     $min = $request->input('min');
+    //     $max = $request->input('max');
+    //     $products = Product::where('product_price','>=',$min)->where('product_price','<=',$max)->get();
 
-        return view('fe.shop.shop', compact('products'));
-    }
+    //     return view('fe.shop.shop', compact('products'));
+    // }
 
 
 }
