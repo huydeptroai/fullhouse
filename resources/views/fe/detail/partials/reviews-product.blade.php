@@ -16,7 +16,7 @@
                                 <div class="comment-text">
 
                                     <div class="col-md-3">
-                                        <img class="profile-user-img img-fluid img-circle" src="{{ Auth::user()->profile['avatar'] ?? asset('admin/dist/img/'.Auth::user()->profile['avatar']) }}" alt="User profile picture" height="80" width="80">
+                                        <img class="profile-user-img img-fluid img-circle" src="{{ Auth::user()->getAvatar() }}" alt="User profile picture" height="80" width="80">
                                         <p class="meta">
                                             <strong class="woocommerce-review__author">
                                                 {{ Auth::user()->name}}

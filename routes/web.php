@@ -66,6 +66,7 @@ Route::middleware('auth')->group(function () {
         Route::post('coupon', 'postCoupon')->name('postCoupon');
         Route::post('show-coupon', 'showCoupon')->name('showCoupon');
         Route::post('order', 'createOrder')->name('createOrder');
+        Route::post('shipping-fee', 'postShippingFee')->name('postShippingFee');
     });
 
     // ============= Admin ===============

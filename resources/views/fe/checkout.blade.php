@@ -78,8 +78,8 @@
 									<tbody>
 										<tr>
 											<td class="col-4 form-group">
-												<select id="shipping_city" name="shipping_city" class="use-chosen" aria-placeholder="Select city/province">
-													<!-- <option value="" selected="selected">Select city/province</option> -->
+												<select id="shipping_city" name="shipping_city" class="use-chosen" value="{{ old('shipping_city')}}">
+													<option value="" selected="selected">Select city/province</option>
 													@foreach($provinces as $item)
 													<option value="{{$item->code}}">{{$item->full_name_en}}</option>
 													@endforeach
@@ -147,13 +147,19 @@
 					<div class="summary summary-checkout">
 						<div class="col-12">
 							<h4 class="title-box f-title">Total cart: <span class="total-cart" style="text-align: right;">$ 0.00</span> </h4>
-							<input type="hidden" class="total-cart" name="value_order" value="">
+							<input type="hidden" class="total-cart" id="value_order" name="value_order" value="">
 						</div>
 						<hr>
 
 						<div class="col-12">
-							<b class="">Shipping fee: <span class="shipping-fee">$ 0.00</span></b>
-							<input type="hidden" class="total-cart" name="shipping_fee" value="">
+							<b class="">Shipping fee:
+								<span class="shipping_fee">$ 0.00</span>
+								<input type="hidden" id="shipping_fee" name="shipping_fee" value="">
+								<a href="#" id="calculator_fee">
+									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+									Calculator fee
+								</a>
+							</b>
 						</div>
 						<hr>
 						<div class="col-12">
@@ -169,8 +175,8 @@
 						<hr>
 						<div class="col-12">
 							<h4 class="summary-info grand-total">
-								<span>Grand Total</span>
-								<span class="grand-total-price" style="font-size: 2em;text-align:right;"> $ 0.00</span>
+								<span>Grand Total: </span>
+								<span class="grand-total-price total-cart" style="font-size: 2em;text-align:right;"> $ 0.00</span>
 							</h4>
 							<button type="submit" class="btn btn-warning btn-block">Place order now</button>
 						</div>
@@ -274,8 +280,6 @@
 		});
 		post_coupon();
 
-
-
 		function post_coupon() {
 			let coupon_code = $('#coupon-code').val().toUpperCase() ?? '';
 			let value_order = $('input[name="value_order"]').val() ?? 0;
@@ -325,11 +329,63 @@
 						var option = `<option value="${v.code}">${v.full_name_en}</option>`;
 						$("#shipping_district").append(option);
 						$("#shipping_district").trigger("chosen:updated");
-						console.log(option);
+						// console.log(option);
 					});
 				}
 			});
 		});
+
+		//shipping fee
+		$('#calculator_fee').click(function(e) {
+			e.preventDefault();
+			showShippingFee();
+			// var method_shipping = $('#method_shipping').is(":checked") ? $('#method_shipping').val() : 0;
+			// var method_shipping = $('#method_shipping:checked').val() ?? 0;
+			// if (method_shipping == 1) {
+			// 	let data = {
+			// 		'shipping_city': $('#shipping_city').val() ?? 0,
+			// 		'shipping_district': $('#shipping_district').val() ?? 0,
+			// 		'value_order': $('#value_order').val() ?? 0
+			// 	}
+			// 	// console.log(data);
+			// 	$.ajax({
+			// 		url: "{{ route('postShippingFee') }}",
+			// 		type: 'POST',
+			// 		data: data,
+			// 		success: function(data) {
+			// 			console.log(data);
+			// 			$('.shipping_fee').html("$ " + data.toFixed(2));
+			// 			$('#shipping_fee').val(data.toFixed(2));
+			// 		}
+			// 	});
+			// }
+		});
+
+		showShippingFee();
+
+		function showShippingFee(){
+			var method_shipping = $('#method_shipping:checked').val() ?? 0;
+			if (method_shipping == 1) {
+				let data = {
+					'shipping_city': $('#shipping_city').val() ?? 0,
+					'shipping_district': $('#shipping_district').val() ?? 0,
+					'value_order': $('#value_order').val() ?? 0
+				}
+				// console.log(data);
+				$.ajax({
+					url: "{{ route('postShippingFee') }}",
+					type: 'POST',
+					data: data,
+					success: function(data) {
+						console.log(data);
+						$('.shipping_fee').html("$ " + data.toFixed(2));
+						$('#shipping_fee').val(data);
+					}
+				});
+			}
+		}
+
+
 	});
 </script>
 @endsection

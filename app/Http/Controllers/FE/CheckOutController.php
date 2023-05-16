@@ -46,6 +46,7 @@ class CheckOutController extends Controller
 
     public function createOrder(Request $request)
     {
+        // dd($request);
         //1. Insert Order
         $data = $request->all();
         $data['shipping_fee'] = $request->method_shipping == 1 ? $this->shippingFee($data) : 0;
@@ -66,9 +67,9 @@ class CheckOutController extends Controller
         $data['status'] = 0; //order dang xu ly
 
         $od_coupon = $this->calcCoupon($data['coupon_code'], $data['value_order']);
+        dd($od_coupon);
 
-        
-        $data['note'] .= " (The customer has coupon ".$data['coupon_code'].")";
+        $data['note'] .= " (The customer has coupon " . $data['coupon_code'] . ")";
 
 
         $order = Order::create($data);
@@ -103,7 +104,7 @@ class CheckOutController extends Controller
         if ($value_order >= AMOUNT) {
             return 0;
         }
-        
+
         $shipping_fee = 0;
         switch ($city_code) {
                 //HCM city
@@ -162,6 +163,13 @@ class CheckOutController extends Controller
         }
     }
 
+    public function postShippingFee(Request $request)
+    {
+        $data = $request->all();
+        $shipping_fee = $this->shippingFee($data);
+        return response()->json($shipping_fee);
+    }
+
     //Coupon
     public function calcCoupon($code, $value_order)
     {
@@ -184,7 +192,8 @@ class CheckOutController extends Controller
             'value' => $value
         ];
 
-        return $order_coupon;
+        // return $order_coupon;
+        return $value;
     }
 
 
@@ -198,7 +207,24 @@ class CheckOutController extends Controller
             $order_coupon = session()->get('order_coupon');
         }
 
-        $order_coupon = $this->calcCoupon($code, $value_order);
+        // $order_coupon = $this->calcCoupon($code, $value_order);
+        $coupon = Coupon::where('code', 'like', $code)
+            ->where('status', 1)
+            ->where('value_order', '<=', $value_order)
+            ->first();
+
+        $times = Order::where('coupon_id', $coupon->id)->count('*');
+
+        $value = 0;
+        if ($coupon->times > $times) {
+            $value = $coupon->value;
+        }
+
+        $order_coupon[$code] = [
+            'coupon' => $coupon,
+            'value' => $value
+        ];
+
 
         session()->put('order_coupon', $order_coupon);
 

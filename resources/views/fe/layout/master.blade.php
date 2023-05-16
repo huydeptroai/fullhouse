@@ -249,6 +249,7 @@
 						$('#count').html(count + ' items');
 						$('.total-cart').html(' $ ' + total.toFixed(2));
 						$('input[name="value_order"]').val(total.toFixed(2));
+						$('#value_order').val(total.toFixed(2));
 					}
 				);
 			};

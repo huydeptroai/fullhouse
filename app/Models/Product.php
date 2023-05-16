@@ -67,8 +67,11 @@ class Product extends Model
     //get information
     public function bestSeller()
     {
-        return OrderDetail::selectRaw('count("product_id") as count')
-            ->where('product_id', 'like', $this->product_id)->get();
+        return Product::selectRaw('products.*, count("product_id") as count_product')
+            ->leftJoin('order_details', 'order_details.product_id', 'like', 'products.category_id')
+            ->groupBy('products.product_id')
+            ->orderBy('count_product', 'desc')
+            ->get();
     }
 
     public function avgRating()
