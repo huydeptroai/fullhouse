@@ -13,7 +13,7 @@
 					<div class="topbar-menu right-menu">
 						<ul>
 							<li class="menu-item">
-								<a title="Register or Login" href="#" class="btnLogin-popup">
+								<a title="Register or Login" href="#" class="btnLogin-popup" style="font-size: 1.2em;">
 									@if(!Auth::check())
 									<strong>{{__('Login')}}</strong>
 									@endif
@@ -180,44 +180,16 @@
 							<li class="menu-item">
 								<a href="{{route('contact')}}" class="link-term mercado-item-title">Contact Us</a>
 							</li>
+							<!-- @if(!Auth::check())
 							<li class="menu-item">
 								<a title="Register or Login" href="{{route('login')}}" class="">
-									@if(!Auth::check())
 									<strong>{{__('Login')}}</strong>
-									@endif
 								</a>
 							</li>
+							@endif -->
 						</ul>
 					</div>
 				</div>
-
-				<!-- <div class="header-nav-section">
-					<div class="container">
-						<ul class="nav menu-nav clone-main-menu" id="mercado_haead_menu" data-menuname="Sale Info">
-							<li class="menu-item">
-								<a href="{{route('product.index')}}" class="link-term">Weekly Featured</a>
-								<span class="nav-label hot-label">hot</span>
-							</li>
-							<li class="menu-item">
-								<a href="{{route('product.index')}}" class="link-term">Hot Sale items</a>
-								<span class="nav-label hot-label">hot</span>
-							</li>
-							<li class="menu-item">
-								<a href="{{route('product.index')}}" class="link-term">Top new items</a>
-								<span class="nav-label hot-label">hot</span>
-							</li>
-							<li class="menu-item">
-								<a href="{{route('product.index')}}" class="link-term">Top Selling</a>
-								<span class="nav-label hot-label">hot</span>
-							</li>
-							<li class="menu-item">
-								<a href="{{route('product.index')}}" class="link-term">Top rated items</a>
-								<span class="nav-label hot-label">hot</span>
-							</li>
-						</ul>
-					</div>
-				</div> -->
-
 			</div>
 		</div>
 	</div>

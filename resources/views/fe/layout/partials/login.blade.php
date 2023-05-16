@@ -38,11 +38,10 @@ $active = 'active-popup'
 				<small style="color:red;">{{$errors->first('password')}}</small>
 			</div>
 
-			
 			<div class="remember-forgot">
-				<label for="remember" class="">
-					<input id="remember" type="checkbox" name="remember">
-					<span class="">{{ __('Remember me') }}</span>
+				<label for="remember" class="remember-field" style="display:flex;align-items:center;">
+					<input type="checkbox" name="remember" style="width:16px;height:16px;margin-right: 3px; border: 2px solid #000;">
+					{{ __('Remember me') }}
 				</label>
 			</div>
 
@@ -60,19 +59,17 @@ $active = 'active-popup'
 		</div>
 
 		<!-- sign in by social -->
-		<!-- <i class="fa-brands fa-google" style="font-size: 30px;"></i> -->
 		<div class="social-auth-links text-center mb-3">
 			<hr>
 			<p>- OR Sign in with -</p>
 			<a href="{{ route('google')}}" style="width: 30px;">
-				<button class="btn" style="background-color: red;">
+				<button class="btn" style="background-color: #EA4335;;">
 					Google+
-					<!-- <ion-icon name="logo-google"></ion-icon> -->
 				</button>
 			</a>
 			<hr>
 			<a href="#" class="mt-3">
-				<button class="btn" style="background-color: #00BFFF;">
+				<button class="btn" style="background-color: #4267b2;">
 					Facebook
 				</button>
 			</a>

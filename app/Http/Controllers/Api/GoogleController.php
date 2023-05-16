@@ -19,11 +19,7 @@ class GoogleController extends Controller
     public function redirectToGoogle()
     {
         session()->flash('googleLoginUrl', url()->previous());
-        try {
-            return Socialite::driver('google')->redirect();
-        } catch (\Throwable $th) {
-            throw $th;
-        }
+        return Socialite::driver('google')->redirect();
     }
 
     public function loginWithGoogle()
@@ -31,21 +27,10 @@ class GoogleController extends Controller
         $loginUrl = session('googleLoginUrl') ?? '/';
         try {
             $googleUser = Socialite::driver('google')->user();
-
-            $profile = [
-                'avatar_link' => $googleUser->getAvatar() ?? ''
-            ];
-
-            $user = User::updateOrCreate([
-                'email' => $googleUser->getEmail()
-            ], [
-                'google_id' => $googleUser->getId(),
-                'name' => $googleUser->getName(),
-                'password' => Hash::make('12345678'),
-                'role' => 2,
-                'profile' => $profile
+            $user = $this->updateOrCreateAccount($googleUser, 'google');
+            $user->update([
+                'last_login_at' => now()
             ]);
-
             Auth::login($user);
 
             return redirect(RouteServiceProvider::HOME);
@@ -53,5 +38,25 @@ class GoogleController extends Controller
             // throw $th;
             return Redirect::to($loginUrl);
         }
+    }
+
+    public function updateOrCreateAccount($data, $provider = null)
+    {
+        $profile = [
+            'avatar_link' => $data->getAvatar() ?? '',
+        ];
+
+        $user = User::updateOrCreate([
+            'email' => $data->getEmail()
+        ], [
+            'provider_id' => $data->getId(),
+            'provider' => $provider,
+            'name' => $data->getName(),
+            'password' => Hash::make('12345678'),
+            'role' => 2,
+            'profile' => $profile
+        ]);
+
+        return $user;
     }
 }

@@ -180,9 +180,6 @@
                         " - $" +
                         $("#slider-range").slider("values", 1)
                 );
-
-                $("#price_min").val($("#slider-range").slider("values", 0));
-                $("#price_max").val($("#slider-range").slider("values", 1));
             }
         },
         /* ---------------------------------------------

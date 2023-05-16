@@ -21,35 +21,35 @@
 
                                 <!-- Name -->
                                 <fieldset class="wrap-input">
-                                    <label for="name">Name</label>
-                                    <input type="text" name="name" id="name" value="{{ old('name')}}" required autofocus placeholder="name" />
+                                    <label for="name">Name (<span style="color:red;">*</span>)</label>
+                                    <input type="text" name="name" id="name" value="{{ old('name')}}" required autofocus placeholder="Enter your name" />
                                     <small class="mt-2">{{$errors->first('name')}}</small>
                                 </fieldset>
 
                                 <!-- Email Address -->
                                 <fieldset class="wrap-input">
-                                    <label for="email">Email</label>
-                                    <input type="email" name="email" id="email" value="{{ old('email')}}" required placeholder="username" />
+                                    <label for="email">Email (<span style="color:red;">*</span>)</label>
+                                    <input type="email" name="email" id="email" value="{{ old('email')}}" required placeholder="Enter your email" />
                                     <small class="mt-2">{{$errors->first('email')}}</small>
                                 </fieldset>
 
                                 <!-- Phone -->
                                 <fieldset class="wrap-input">
-                                    <label for="phone">Phone</label>
-                                    <input type="text" name="phone" id="phone" value="{{ old('phone')}}" required placeholder="phone" />
+                                    <label for="phone">Phone (<span style="color:red;">*</span>)</label>
+                                    <input type="text" name="phone" id="phone" value="{{ old('phone')}}" required placeholder="Enter your phone" />
                                     <small class="mt-2">{{$errors->first('phone')}}</small>
                                 </fieldset>
 
                                 <!-- Password -->
                                 <fieldset class="wrap-input item-width-in-half left-item">
-                                    <label for="password">Password</label>
+                                    <label for="password">Password (<span style="color:red;">*</span>)</label>
                                     <input type="password" name="password" id="password" required placeholder="new-password">
                                     <small class="mt-2">{{$errors->first('password')}}</small>
                                 </fieldset>
 
                                 <!-- Confirm Password -->
                                 <fieldset class="wrap-input item-width-in-half">
-                                    <label for="password_confirmation">Confirm Password</label>
+                                    <label for="password_confirmation">Confirm Password (<span style="color:red;">*</span>)</label>
                                     <input type="password" name="password_confirmation" id="password_confirmation" required placeholder="new-password">
                                     <small class="mt-2">{{$errors->first('password_confirmation')}}</small>
                                 </fieldset>

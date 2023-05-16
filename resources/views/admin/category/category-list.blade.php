@@ -88,7 +88,7 @@
                                                         {{ $item->category_name_2}}
                                                     </p>
                                                     <p class="text-muted mb-0">
-                                                        {{$item->count_product}} product(s)
+                                                        {{count($item->products)}} product(s)
                                                     </p>
                                                 </div>
                                             </div>

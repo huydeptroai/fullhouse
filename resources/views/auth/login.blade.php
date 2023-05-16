@@ -23,18 +23,17 @@
                         <h3 class="form-title">Log in to your account</h3>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
-
                             <!-- Email Address -->
-                            <fieldset class="wrap-input">
-                                <label for="email">Email</label>
-                                <input type="email" name="email" id="email" value="{{ old('email') }}" required autofocus placeholder="username">
+                            <fieldset class="wrap-input" style="margin-top:20px;">
+                                <label for="email">Email (<span style="color:red;">*</span>)</label>
+                                <input type="email" name="email" id="email" value="{{ old('email') }}" required autofocus placeholder="Enter your email">
                                 <small class="mt-2">{{$errors->first('email')}}</small>
                             </fieldset>
 
                             <!-- Password -->
                             <fieldset class="wrap-input">
-                                <label for="password">Password</label>
-                                <input type="password" name="password" id="password" required placeholder="current-password">
+                                <label for="password">Password (<span style="color:red;">*</span>)</label>
+                                <input type="password" name="password" id="password" required placeholder="Enter your password">
                                 <small class="mt-2">{{$errors->first('password')}}</small>
                             </fieldset>
 
@@ -52,22 +51,25 @@
                             </fieldset>
 
                             <fieldset class="wrap-input">
-                                <button type="submit" class="btn btn-submit col-md-offset-9">
+                                <button type="submit" class="btn btn-submit col-md-offset-6">
                                     {{ __('Log in') }}
                                 </button>
                             </fieldset>
+                            <div class="login-register">
+                                <p>Don't have account? <a href="{{ route('register')}}" class="register-link">Register</a></p>
+                            </div>
                         </form>
                         <hr>
                         <h3 class="form-title" style="text-align:center;">-- or sign in with ---</h3>
-                        <div class="d-flex justify-content-md-around">
+                        <div style="display: flex;  justify-content: space-around;">
                             <a href="{{ route('google')}}" style="width: 30px;">
-                                <button class="btn" style="background-color: red;">
+                                <button class="btn" style="background-color: #EA4335;">
                                     Google+
                                     <!-- <ion-icon name="logo-google"></ion-icon> -->
                                 </button>
                             </a>
                             <a href="#" class="mt-3">
-                                <button class="btn" style="background-color: #00BFFF;">
+                                <button class="btn" style="background-color: #4267b2;">
                                     Facebook
                                 </button>
                             </a>

@@ -55,4 +55,25 @@ class Order extends Model
             return $item->price * $item->quantity;
         });
     }
+
+    
+    public function getShippingStatus() {
+        $order_status = [
+            1 => "ordered",
+            2 => "confirmed", 
+            3 => "packaged",
+            4 => "shipping",
+            5 => "delivered",
+            6 => "canceled",
+        ];
+        return $order_status[$this->status];
+    }
+
+    public function getPayment() {
+        $paymentMethod = [
+            0 => "COD",
+            1 => "BANK", 
+        ];
+        return $paymentMethod[$this->payment_method];
+    }
 }

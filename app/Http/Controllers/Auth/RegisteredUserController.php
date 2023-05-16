@@ -48,6 +48,9 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        $user->update([
+            'last_login_at' => now()
+        ]);
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);

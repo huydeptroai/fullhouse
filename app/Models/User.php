@@ -20,11 +20,14 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'google_id',
+        'provider_id',
+        'provider',
         'password',
         'phone',
         'role',
-        'profile'
+        'profile',
+        'status',
+        'last_login_at'
     ];
 
     /**
@@ -70,13 +73,12 @@ class User extends Authenticatable
 
     public function getAvatar()
     {
-        if(isset($this->profile['avatar_link']) && $this->profile['avatar_link']){
+        if (isset($this->profile['avatar_link']) && $this->profile['avatar_link']) {
             return $this->profile['avatar_link'];
         }
-        if(isset($this->profile['avatar']) && $this->profile['avatar']){
-            return asset('/assets/img/upload/user/'.$this->profile['avatar']);
-        }
-        else {
+        if (isset($this->profile['avatar']) && $this->profile['avatar']) {
+            return asset('/assets/img/upload/user/' . $this->profile['avatar']);
+        } else {
             return asset('/assets/img/upload/user/user1-128x128.jpg');
         }
     }

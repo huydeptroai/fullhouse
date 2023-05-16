@@ -86,7 +86,7 @@
 							<div class="item-content">
 								<div class="wrap-newletter-footer">
 									<form action="#" method="POST" class="frm-newletter" id="frm_new_letter">
-										
+
 										<input id="email_new_letter" type="email" class="input-email" name="email" value="{{old('email')}}" placeholder="Enter your email address">
 										<button type="submit" class="btn-submit">Subscribe</button>
 									</form>
@@ -170,10 +170,29 @@
 						<div class="back-link-row">
 							<ul class="list-back-link">
 								<li><span class="row-title">Category:</span></li>
-								<li><a href="#" class="redirect-back-link" title="">Office</a></li>
-								<li><a href="#" class="redirect-back-link" title="">Living</a></li>
-								<li><a href="#" class="redirect-back-link" title="">Dining</a></li>
-								<li><a href="#" class="redirect-back-link" title="">Bedroom</a></li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Office furniture']) }}" class="redirect-back-link">Office furniture</a></li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Desk Office']) }}" class="redirect-back-link">Desk Office</a></li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Chair Office']) }}">Chair
+										Office</a></li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Cabinet-shelves Office']) }}" class="redirect-back-link">Cabinet-shelves
+										Office</a></li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Living furniture']) }}" class="redirect-back-link">Living furniture</a></li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Sofa']) }}" class="redirect-back-link">Sofa</li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Sofa table']) }}" class="redirect-back-link">Sofa table</li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'TV Shelf']) }}" class="redirect-back-link">TV Shelf</li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Bookshelf-Decorative shelf']) }}" class="redirect-back-link">Bookshelf-Decorative shelf</li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Decorative cabinets']) }}" class="redirect-back-link">Decorative cabinets</li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Combo living room']) }}" class="redirect-back-link">Combo living room</li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Kitchen-Dining furniture']) }}" class="redirect-back-link">-Kitchen Dining furniture</li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Dining table']) }}" class="redirect-back-link">Dining table</li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Dining chair']) }}" class="redirect-back-link">Dining chair</li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Dining table and chair set']) }}" class="redirect-back-link">Dining table and chair set</li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Kitchen cabinets']) }}" class="redirect-back-link">Kitchen cabinets</li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Bedroom furniture']) }}" class="redirect-back-link">Bedroom furniture</li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Bed']) }}" class="redirect-back-link">Bed </li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Wardrobe-clothes shelves']) }}" class="redirect-back-link">Wardrobe - clothes shelves</li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Makeup table']) }}" class="redirect-back-link">Makeup table</li>
+								<li><a href="{{ route('searchByCategoryName',['category_name'=>'Combo bedroom']) }}" class="redirect-back-link">Combo bedroom</li>
 							</ul>
 						</div>
 					</div>

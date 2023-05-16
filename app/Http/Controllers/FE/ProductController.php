@@ -17,8 +17,41 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
         $prods_popular = "";
+        if(isset($_GET['sort_by'])){
+           $sort_by = $_GET['sort_by'];
+            if($sort_by == 'price-desc'){
+                $products = Product::orderby('product_price','ASC')->paginate(6)->appends(request()->query());
+            }elseif($sort_by == 'price'){
+                $products = Product::orderby('product_price','DESC')->paginate(6)->appends(request()->query());
+            }elseif($sort_by == 'name-desc'){
+                $products = Product::orderby('product_name','DESC')->paginate(6)->appends(request()->query());
+            }elseif($sort_by == 'name'){
+                $products = Product::orderby('product_name','ASC')->paginate(6)->appends(request()->query());
+            }elseif($sort_by == 'rating'){
+                $products = Product::selectRaw('products.*, reviews.*')
+                ->join('reviews', 'reviews.product_id', 'like', 'products.product_id')
+                ->orderby('rating','ASC')
+                ->paginate(6)->appends(request()->query());
+            }
+        }elseif(isset($_GET['price_min']) && $_GET['price_min']){
+            $price_min = $_GET['price_min'];
+            $price_max = $_GET['price_max'];
+
+            // $products = Product::where('product_price', '>=', ($price_min.'-discount'))
+            //     ->where('product_price', '<=', ($price_min.'-discount'))
+            //     ->get();
+            // $products = DB::table('products')
+            // ->select('product_id','product_price','discount','product_slug','product_name','product_image')
+            // ->groupBy('product_id','product_price','discount','product_slug','product_name','product_image')
+            //     ->havingRaw('product_price - discount >='.$price_min)->get();
+
+
+            // $products = $prods->whereBetween('price_brand',[$price_min,$price_max])->get();
+        }
+        else{
+            $products = Product::all();
+        }
         return view('fe.shop.shop', compact('products'));
     }
 
