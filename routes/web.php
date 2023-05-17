@@ -94,7 +94,7 @@ Route::middleware('auth')->group(function () {
 Route::resource('/product', App\Http\Controllers\FE\ProductController::class)->names('product');
 Route::get('/shop/{product_slug}', [ProductController::class, 'productDetail'])->name('productDetail');
 
-Route::get('/category-search-by-name/{category_name}', [CategoryController::class, 'searchByCategoryName'])->name('searchByCategoryName');
+Route::get('/category-search-by-name/{category_name}', [ProductController::class, 'searchByCategoryName'])->name('searchByCategoryName');
 
 
 Route::controller(HomeController::class)->group(function () {

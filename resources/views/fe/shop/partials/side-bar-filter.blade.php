@@ -12,8 +12,7 @@
 								Office</a></li>
 						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Chair Office']) }}">Chair
 								Office</a></li>
-						<li class="level-2"><a
-								href="{{ route('searchByCategoryName',['category_name'=>'Cabinet-shelves Office']) }}">Cabinet-shelves
+						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Cabinet-shelves Office']) }}">Cabinet-shelves
 								Office</a></li>
 					</ul>
 				</li>
@@ -30,31 +29,25 @@
 						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'TV Shelf']) }}">TV
 								Shelf
 						</li>
-						<li class="level-2"><a
-								href="{{ route('searchByCategoryName',['category_name'=>'Bookshelf-Decorative shelf']) }}">Bookshelf-Decorative
+						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Bookshelf-Decorative shelf']) }}">Bookshelf-Decorative
 								shelf</li>
-						<li class="level-2"><a
-								href="{{ route('searchByCategoryName',['category_name'=>'Decorative cabinets']) }}">Decorative
+						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Decorative cabinets']) }}">Decorative
 								cabinets</li>
-						<li class="level-2"><a
-								href="{{ route('searchByCategoryName',['category_name'=>'Combo living room']) }}">Combo
+						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Combo living room']) }}">Combo
 								living room</li>
 					</ul>
 				</li>
 				<li class="category-item has-child-cate">
-					<a href="{{ route('searchByCategoryName',['category_name'=>'Kitchen-Dining furniture']) }}"
-						class="cate-link">Kitchen - Dining Furniture</a>
+					<a href="{{ route('searchByCategoryName',['category_name'=>'Kitchen-Dining furniture']) }}" class="cate-link">Kitchen - Dining Furniture</a>
 					<span class="toggle-control">+</span>
 					<ul class="sub-cate">
 						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Dining table']) }}">Dining
 								table</li>
 						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Dining chair']) }}">Dining
 								chair</li>
-						<li class="level-2"><a
-								href="{{ route('searchByCategoryName',['category_name'=>'Dining table and chair set']) }}">Dining
+						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Dining table and chair set']) }}">Dining
 								table and chair set</li>
-						<li class="level-2"><a
-								href="{{ route('searchByCategoryName',['category_name'=>'Kitchen cabinets']) }}">Kitchen
+						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Kitchen cabinets']) }}">Kitchen
 								cabinets</li>
 					</ul>
 				</li>
@@ -65,8 +58,7 @@
 					<ul class="sub-cate">
 						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Bed']) }}">Bed
 						</li>
-						<li class="level-2"><a
-								href="{{ route('searchByCategoryName',['category_name'=>'Wardrobe-clothes shelves']) }}">Wardrobe
+						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Wardrobe-clothes shelves']) }}">Wardrobe
 								- clothes shelves</li>
 						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Makeup table']) }}">Makeup
 								table</li>
@@ -118,7 +110,7 @@
 				<form id="priceForm">
 					<input type="hidden" name="price_min" id="price_min" value="" readonly>
 					<input type="hidden" name="price_max" id="price_max" value="" readonly>
-					<button type="submit" class="filter-submit">Filter</button>
+					<button type="submit" class="btn btn-warning filter-submit">Filter</button>
 				</form>
 			</div>
 		</div>
@@ -129,68 +121,32 @@
 		<h2 class="widget-title">Popular Products</h2>
 		<div class="widget-content">
 			<ul class="products">
+				@foreach($prods_popular as $product)
 				<li class="product-item">
 					<div class="product product-widget-style">
 						<div class="thumbnnail">
-							<a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
-								<figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}"
-										alt=""></figure>
+							<a href="{{ route('productDetail',['product_slug' => $product->product_slug]) }}" title="{{$product->product_name}}">
+								<figure>
+									<img src="{{ asset('assets/img/upload/product/'.$product->product_image['0']) }}" width="800" height="800" alt="{{$product->product_image[0]}}">
+								</figure>
 							</a>
 						</div>
 						<div class="product-info">
-							<a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional
-									Speaker...</span></a>
-							<div class="wrap-price"><span class="product-price">$168.00</span></div>
-						</div>
-					</div>
-				</li>
-
-				<li class="product-item">
-					<div class="product product-widget-style">
-						<div class="thumbnnail">
-							<a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
-								<figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}"
-										alt=""></figure>
+							<a href="{{ route('productDetail',['product_slug' => $product->product_slug]) }}" class="product-name">
+								<span>{{$product->product_name}}</span>
 							</a>
-						</div>
-						<div class="product-info">
-							<a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional
-									Speaker...</span></a>
-							<div class="wrap-price"><span class="product-price">$168.00</span></div>
-						</div>
-					</div>
-				</li>
-
-				<li class="product-item">
-					<div class="product product-widget-style">
-						<div class="thumbnnail">
-							<a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
-								<figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}"
-										alt=""></figure>
-							</a>
-						</div>
-						<div class="product-info">
-							<a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional
-									Speaker...</span></a>
-							<div class="wrap-price"><span class="product-price">$168.00</span></div>
+							<div class="wrap-price">
+								<strong class="product-price" style="color:green;">
+									$ {{number_format($product->product_price - $product->discount,2)}}
+								</strong>
+								@if($product->discount > 0)
+								<span style="text-decoration: line-through;color:red;">$ {{number_format($product->product_price,2)}}</span>
+								@endif
+							</div>
 						</div>
 					</div>
 				</li>
-
-				<li class="product-item">
-					<div class="product product-widget-style">
-						<div class="thumbnnail">
-							<a href="detail.html" title="Mesh back office chair with footrest GAK-JO813">
-								<figure><img src="{{ asset('/frontend/images/products/office_01_ghe-van-phong-GAK-JO813l.jpg') }}"
-										alt=""></figure>
-							</a>
-						</div>
-						<div class="product-info">
-							<a href="#" class="product-name"><span>Mesh back office chair with footrest GAK-JO813</span></a>
-							<div class="wrap-price"><span class="product-price">$168.00</span></div>
-						</div>
-					</div>
-				</li>
+				@endforeach
 
 			</ul>
 		</div>

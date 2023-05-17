@@ -15,19 +15,11 @@ class CategoryController extends Controller
         ->join('categories', 'categories.category_id', 'like', 'products.category_id')
         ->where('category_name_1', 'like', $category_name)
         ->orWhere('category_name_2', 'like', $category_name)
-        ->get();
+        ->paginate(6)->appends(request()->query());
 
         return view('fe.shop.shop', compact('products'));
     }
 
-    // public function searchPrice(Request $request)
-    // {
-    //     $min = $request->input('min');
-    //     $max = $request->input('max');
-    //     $products = Product::where('product_price','>=',$min)->where('product_price','<=',$max)->get();
-
-    //     return view('fe.shop.shop', compact('products'));
-    // }
 
 
 }
