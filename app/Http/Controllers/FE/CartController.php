@@ -24,7 +24,7 @@ class CartController extends Controller
             $user_id = Auth::id();
             $carts = $this->listCart($user_id);
 
-            return view('fe.cart', [
+            return view('fe.order.cart', [
                 'carts' => $carts,
                 'products' => $product_popular
             ]);

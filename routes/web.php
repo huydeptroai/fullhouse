@@ -33,7 +33,7 @@ require __DIR__ . '/api.php';
 
 Route::get('/', function () {
     return redirect()->route('home');
-})->middleware(['countVisitor']);
+})->middleware(['countVisitor']); //count by [IP,user_id]
 
 
 
@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
         Route::post('show-coupon', 'showCoupon')->name('showCoupon');
         Route::post('order', 'createOrder')->name('createOrder');
         Route::post('shipping-fee', 'postShippingFee')->name('postShippingFee');
+        Route::get('/cancel-order/{order_id}', 'cancelOrder')->name('cancelOrder');
     });
 
     // ============= Admin ===============

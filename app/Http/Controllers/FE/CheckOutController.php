@@ -25,7 +25,7 @@ class CheckOutController extends Controller
             ->get();
         $user = Auth::user();
         $product = Product::all();
-        return view('fe.checkout', [
+        return view('fe.order.checkout', [
             'user' => $user,
             'provinces' => $provinces,
             'products' => $product
@@ -34,43 +34,52 @@ class CheckOutController extends Controller
 
     public function getDistricts($province_code = null)
     {
-        // dd($province_code);
         $districts = District::orderby("full_name_en", "asc")
             ->select('code', 'full_name_en')
             ->where('province_code', 'like', $province_code)
             ->get();
-        // dd($districts);
         return response()->json($districts);
     }
 
 
     public function createOrder(Request $request)
     {
-        // dd($request);
         //1. Insert Order
         $data = $request->all();
-        $data['shipping_fee'] = $request->method_shipping == 1 ? $this->shippingFee($data) : 0;
+        if ($request->method_shipping == 1) {
+            if ($request->shipping_city != null && $request->shipping_district != null) {
+                //shipping fee
+                $data['shipping_fee'] = $this->shippingFee($data);
 
-        try {
-            $data['shipping_city'] = Province::where('code', 'like', $request->shipping_city)
-                ->first()
-                ->full_name_en ?? '';
-            $data['shipping_district'] = District::where('code', 'like', $request->shipping_district)
-                ->first()
-                ->full_name_en ?? '';
-        } catch (\Throwable $th) {
-            //throw $th;
+                //get name city/district
+                $data['shipping_city'] = Province::where('code', 'like', $request->shipping_city)
+                    ->first()
+                    ->full_name_en ?? '';
+                $data['shipping_district'] = District::where('code', 'like', $request->shipping_district)
+                    ->first()
+                    ->full_name_en ?? '';
+            }
+        } else {
+            $data['shipping_fee'] = 0;
+            $data['shipping_city'] = 'HCM City';
+            $data['shipping_district'] = 'District 3';
+            $data['shipping_address'] = 'No 391A, Nam Ky Khoi Nghia Street';
         }
 
         $data['user_id'] = Auth::id();
         $data['order_date'] = date('Y-m-d', time());
-        $data['status'] = 0; //order dang xu ly
+        $data['status'] = 1; //ordered
 
-        $od_coupon = $this->calcCoupon($data['coupon_code'], $data['value_order']);
-        dd($od_coupon);
-
-        $data['note'] .= " (The customer has coupon " . $data['coupon_code'] . ")";
-
+        if ($request->has('coupon_code')) {
+            $coupon = Coupon::where('code', 'like', $data['coupon_code'])
+            ->where('status', 1)
+            ->where('value_order', '<=', $data['value_order'])
+            ->first();
+            if ($coupon) {
+                $data['coupon_id'] = $coupon->id;
+            }
+            $data['note'] .= " (The customer has coupon " . $data['coupon_code'] . ")";
+        }
 
         $order = Order::create($data);
 
@@ -78,7 +87,7 @@ class CheckOutController extends Controller
         $carts = Cart::where('user_id', $data['user_id'])->get();
 
         foreach ($carts as $cart) {
-            //Insert thao tác dưới dạng query builder, nên lúc build như nào, nó sẽ ra như vậy
+            //Insert Order Detail
             $od = OrderDetail::insert([
                 'order_id' => $order->id,
                 'product_id' => $cart->product_id,
@@ -90,9 +99,10 @@ class CheckOutController extends Controller
             $cart->delete();
         }
 
-        return redirect()->route('thankyou')->with('success', 'You are order successfully! Your order is processing');
+        return view('fe.order.thankyou', compact('order'));
     }
 
+    //======= Shipping fee ======
     public function shippingFee($data)
     {
         define('AMOUNT', 250);
@@ -170,7 +180,9 @@ class CheckOutController extends Controller
         return response()->json($shipping_fee);
     }
 
-    //Coupon
+
+
+    //======= Coupon ======
     public function calcCoupon($code, $value_order)
     {
         $order_coupon = [];
@@ -237,5 +249,38 @@ class CheckOutController extends Controller
             $order_coupon = $request->session()->get('order_coupon');
             return response()->json($order_coupon);
         }
+    }
+
+    public function cancelOrder($order_id)
+    {
+        $order = Order::find($order_id);
+        $order->status = 6;
+        $order->save();
+        return redirect()->route('product.index');
+    }
+
+    public function confirmOrder(Request $request)
+    {
+        $order = Order::find($request->order_id);
+        $order->status = 2;
+
+        //payment
+        $order->payment_method = $request->payment_method;
+        switch ($order->payment_method) {
+            case 1:
+                # code...
+                break;
+            case 2:
+                # code...
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+        //save information
+        $order->save();
+        return redirect()->route('product.index');
     }
 }

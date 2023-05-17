@@ -101,45 +101,6 @@
 							</div>
 						</div>
 
-						<div class="summary-item choose-payment-methods mt-3">
-							<h4 class="title-box f-title">Payment method</h4>
-							<div style="padding: 0 12px;">
-								<label class="payment-method">
-									<input name="payment_method" id="payment-method-bank" value="0" type="radio">
-									<span>Direct Bank Transder</span>
-									<span class="payment-desc">
-										<table class="shop_attributes">
-											<tbody>
-												<tr>
-													<th>Account Name:</th>
-													<td>FULL HOUSE</td>
-												</tr>
-												<tr>
-													<th>Account No:</th>
-													<td>0123456789</td>
-												</tr>
-												<tr>
-													<th>At Bank:</th>
-													<td>BIDV - ABC</td>
-												</tr>
-											</tbody>
-										</table>
-									</span>
-								</label>
-								<label class="payment-method">
-									<input name="payment_method" id="payment-method-visa" value="1" type="radio">
-									<span>COD</span>
-									<span class="payment-desc">There are many variations of passages of Lorem Ipsum available</span>
-								</label>
-								<label class="payment-method">
-									<input name="payment_method" id="payment-method-paypal" value="2" type="radio">
-									<span>Paypal</span>
-									<span class="payment-desc">You can pay with your credit</span>
-									<span class="payment-desc">card if you don't have a paypal account</span>
-								</label>
-							</div>
-						</div>
-
 					</div>
 				</div>
 
@@ -152,14 +113,14 @@
 						<hr>
 
 						<div class="col-12">
-							<b class="">Shipping fee:
+							<h5 class="">Shipping fee:
 								<span class="shipping_fee">$ 0.00</span>
 								<input type="hidden" id="shipping_fee" name="shipping_fee" value="">
 								<a href="#" id="calculator_fee">
 									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
 									Calculator fee
 								</a>
-							</b>
+							</h5>
 						</div>
 						<hr>
 						<div class="col-12">
@@ -180,13 +141,14 @@
 							</h4>
 							<button type="submit" class="btn btn-warning btn-block">Place order now</button>
 						</div>
+						<a href="{{Route('thankyou')}}">Confirm Order</a>
 					</div>
 				</div>
 			</form>
 
 
 			<div style="clear: left;"></div>
-			<hr>
+			<p class="text-muted well well-sm shadow-none" style="margin-top: 10px;"></p>
 			<!-- products most view -->
 			<!-- <div class="wrap-show-advance-info-box style-1 box-in-site"> -->
 			<div class="style-1" style="margin-top: 5%;">

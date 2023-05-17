@@ -32,16 +32,16 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
     //many - one
-    public function coupon()    
+    public function coupon()
     {
         return $this->belongsTo(Coupon::class);
     }
     //one - many
     public function orderDetails()
     {
-        return $this->hasMany(OrderDetail::class,'order_id','id');
+        return $this->hasMany(OrderDetail::class, 'order_id', 'id');
     }
-    
+
     //many - many
     public function products()
     {
@@ -49,18 +49,25 @@ class Order extends Model
     }
 
     //total of 1 order
-    public function getTotal() 
+    public function getTotal()
     {
-        return $this->orderDetails->sum(function($item){
+        return $this->orderDetails->sum(function ($item) {
             return $item->price * $item->quantity;
         });
     }
 
-    
-    public function getShippingStatus() {
+    public function getSubtotal()
+    {
+        $coupon = $this->coupon->value != null ? $this->coupon->value : 0;
+        return $this->getTotal() + $this->shipping_fee - $coupon;
+    }
+
+
+    public function getShippingStatus()
+    {
         $order_status = [
             1 => "ordered",
-            2 => "confirmed", 
+            2 => "confirmed",
             3 => "packaged",
             4 => "shipping",
             5 => "delivered",
@@ -69,10 +76,11 @@ class Order extends Model
         return $order_status[$this->status];
     }
 
-    public function getPayment() {
+    public function getPayment()
+    {
         $paymentMethod = [
             0 => "COD",
-            1 => "BANK", 
+            1 => "BANK",
         ];
         return $paymentMethod[$this->payment_method];
     }

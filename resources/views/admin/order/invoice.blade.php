@@ -60,9 +60,9 @@
                                 To:
                                 <address>
                                     <strong>{{$order->user->name}}</strong><br>
-                                    {{$order->user->profile['ward']}},
-                                    {{$order->user->profile['district']}}<br>
-                                    {{$order->user->profile['city']}}<br>
+                                    {{ $order->user->getWard() }},
+                                    {{ $order->user->getDistrict() }}<br>
+                                    {{ $order->user->getCity() }}<br>
                                     Phone: {{$order->user->phone}}<br>
                                     Email: {{$order->user->email}}
                                 </address>

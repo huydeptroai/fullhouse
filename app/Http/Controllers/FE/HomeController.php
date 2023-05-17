@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Models\Category;
 use App\Models\Newsletter;
+use App\Models\Order;
 use Carbon\Carbon;
 
 class HomeController extends Controller
@@ -74,7 +75,8 @@ class HomeController extends Controller
 
     public function thankyou()
     {
-        return view('fe.thankyou');
+        $order = Order::first();
+        return view('fe.order.thankyou', compact('order'));
     }
 
     public function newLetter(Request $request)

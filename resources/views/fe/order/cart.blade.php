@@ -89,6 +89,7 @@
 
 
         </div><!--end main content area-->
+        
 
         <!--3 most viewed products  -->
         <!-- <div class="wrap-show-advance-info-box style-1 box-in-site"> -->
