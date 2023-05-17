@@ -30,9 +30,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $user = Auth::user();
-        $user->last_login = Carbon::now();
-
         if (Auth::user()->role === 1) {
             return redirect()->intended('/admin/dashboard');
         }

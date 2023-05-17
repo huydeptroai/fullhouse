@@ -72,7 +72,10 @@
 							@if($product->avgRating() > 3)
 							<span class="flash-item bestseller-label">Bestseller</span>
 							@endif
-
+						</div>
+						<div class="wrap-btn">
+							<a href="{{ route('productDetail',['product_slug' => $product->product_slug]) }}" class="function-link">quick view</a>
+							<a href="#" class="function-link add-to-wishlist" data-id="{{$product->product_id}}">Wishlist</a>
 						</div>
 					</div>
 

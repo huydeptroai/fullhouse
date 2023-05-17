@@ -70,13 +70,16 @@
                                         </td>
                                         <td>
                                             <p class="fw-normal mb-1">{{$user->role == 1 ? 'Admin' : 'User'}}</p>
-                                            <!-- <p class="text-muted mb-0">VIP</p> -->
+                                            
                                         </td>
                                         <td>
-                                            <span class="badge badge-success rounded-pill d-inline">Active</span>
+                                            <span class="badge badge-success rounded-pill d-inline">Active</span> <br>
+                                            <small class="text-muted mb-0">last_login_at:
+                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->last_login_at)->diffForHumans()}}
+                                            </small>
                                         </td>
                                         <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->diffForHumans()}}</td>
-                                        
+
                                     </tr>
 
                                     @empty

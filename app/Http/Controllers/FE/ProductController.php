@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Models\ViewProductData;
+use Carbon\Carbon;
 
 
 class ProductController extends Controller
@@ -18,8 +19,10 @@ class ProductController extends Controller
     public function index()
     {
         $prods_popular = ViewProductData::orderByDesc('count_order')->paginate(6)->appends(request()->query());
-        $prods_new = ViewProductData::orderByDesc('created_at')->paginate(6)->appends(request()->query());
-        // $products = ViewProductData::orderByDesc('amount_sell')->paginate(6)->appends(request()->query());
+        $prods_new = ViewProductData::orderByDesc('created_at')
+            ->where('created_at', '>', Carbon::now()->subDays(30))
+            ->paginate(6)->appends(request()->query());
+        $products = ViewProductData::orderByDesc('amount_sell')->paginate(6)->appends(request()->query());
 
         $sort_by = $_GET['sort_by'] ?? '';
         $item = $_GET['item'] ?? 6;

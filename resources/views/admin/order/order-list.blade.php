@@ -56,6 +56,7 @@
                                         <th>Date</th>
                                         <th>Customer</th>
                                         <th>Status</th>
+                                        <th>Payment</th>
                                         <th>Note</th>
                                         <th>Action</th>
                                     </tr>
@@ -70,17 +71,20 @@
                                             @endisset
                                         </td>
                                         <td>
-                                            <p>{{$order->receiver_name}}</p>
-                                            <p>{{$order->receiver_phone}}</p>
-                                            <p>{{$order->shipping_address}}, {{$order->shipping_district}}, {{$order->shipping_city}}</p>
+                                            <span>
+                                                {{$order->receiver_name}} <br>
+                                                {{$order->receiver_phone}} <br>
+                                                {{$order->shipping_address}}, {{$order->shipping_district}}, {{$order->shipping_city}}
+                                            </span>
                                         </td>
                                        
                                         <td>{{$order->status == 0 ? 'Processing' : 'Shipped'}}</td>
+                                        <td>{{$order->payment_method}}</td>
                                         <td>{{$order->note}}</td>
-                                        <td>Edit</td>
+                                        <td> <a href="#">Edit</a> </td>
                                     </tr>
                                     <tr class="expandable-body">
-                                        <td colspan="6">
+                                        <td colspan="7">
                                             <div style="max-width:100vw;overflow-x:auto;">
                                                 @if(isset($order->orderDetails) && is_object($order->orderDetails))
                                                 <table class="table table-bordered table-striped table-inverse">
@@ -98,16 +102,16 @@
                                                         <tr>
                                                             <td>{{$k + 1}}</td>
                                                             <td>
-                                                                <p>{{$od->product->product_name}}</p>
-                                                                <p>
-                                                                    {{$od->product->product_id}} -
-                                                                </p>
+                                                                <span>
+                                                                    {{$od->product->product_name}} -
+                                                                    {{$od->product->product_id}}
+                                                                </span>
+                                                               
                                                             </td>
                                                             <td>{{$od->quantity}}</td>
                                                             <td>$ {{number_format($od->price,2)}}</td>
                                                             <td>$ {{number_format($od->quantity * $od->price,2)}}</td>
                                                         </tr>
-
                                                         @endforeach
                                                     </tbody>
                                                     <tfoot>
@@ -138,171 +142,6 @@
                 </div>
                 <!-- /.col -->
             </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Simple Full Width Table</h3>
-
-                            <div class="card-tools">
-                                <ul class="pagination pagination-sm float-right">
-                                    <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body p-0">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 10px">#</th>
-                                        <th>Task</th>
-                                        <th>Progress</th>
-                                        <th style="width: 40px">Label</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1.</td>
-                                        <td>Update software</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-danger">55%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2.</td>
-                                        <td>Clean database</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar bg-warning" style="width: 70%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-warning">70%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3.</td>
-                                        <td>Cron job running</td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar bg-primary" style="width: 30%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-primary">30%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4.</td>
-                                        <td>Fix and squish bugs</td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar bg-success" style="width: 90%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-success">90%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>5.</td>
-                                        <td>Fix and squish bugs</td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar bg-success" style="width: 90%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-success">90%</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-
-                    <!-- /.card -->
-                </div>
-                <!-- /.col -->
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Status</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body p-0">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 10px">#</th>
-                                        <th>Task</th>
-                                        <th>Range</th>
-                                        <th style="width: 50px">Count_Order</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1.</td>
-                                        <td>Progress</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-danger">55%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2.</td>
-                                        <td>Confirm</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar bg-warning" style="width: 70%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-warning">70%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3.</td>
-                                        <td>Shipped</td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar bg-primary" style="width: 30%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-primary">30%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4.</td>
-                                        <td>Payment</td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar bg-success" style="width: 90%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-success">90%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>5.</td>
-                                        <td>Cancel</td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar bg-danger" style="width: 10%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-danger">10%</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
-                </div>
-                <!-- /.col -->
-            </div>
-            <!-- /.row -->
 
         </div><!-- /.container-fluid -->
     </section>
