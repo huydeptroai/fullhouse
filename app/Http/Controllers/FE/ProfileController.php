@@ -72,7 +72,7 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
-        $info = [];
+        $info = $request->all();
 
         $image_path = 'assets/img/upload/user';
         if (!file_exists($image_path)) {

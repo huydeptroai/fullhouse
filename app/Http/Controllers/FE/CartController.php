@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\ViewProductData;
 
 class CartController extends Controller
 {
@@ -20,7 +21,7 @@ class CartController extends Controller
     {
         if (Auth::check()) {
 
-            $product_popular = Product::all();
+            $product_popular = ViewProductData::orderByDesc('avg_rating')->limit(8)->get();
             $user_id = Auth::id();
             $carts = $this->listCart($user_id);
 

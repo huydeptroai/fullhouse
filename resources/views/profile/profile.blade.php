@@ -163,6 +163,18 @@
                                             </span>
                                         </p>
 
+                                        <p>@if($review->product->avgRating() > 0)
+
+                                        <div class="col-12" style="display:flex-item;font-size:12px;">
+                                            <strong>Rating: {{number_format( $review->rating,2) }} </strong>
+                                            @for($i=1; $i<=5; $i++) @php $color=($i <=$review->rating) ? "color: #ffcc00;" : "color: #ccc;";
+                                                @endphp
+                                                <i class="fa fa-star" aria-hidden="true" style="cursor:pointer;<?php echo $color ?> font-size:15px;"></i>
+                                                @endfor
+
+                                        </div>
+                                        @endif</p>
+
                                         <b>Comment:</b>
                                         <p>{{$review->content}}</p>
                                     </span>
@@ -291,7 +303,7 @@
 
                                             </div>
                                             <div class="timeline-footer" style="text-align:right">
-                                           
+
                                                 Status: <b>{{ $order->status == 0 ? 'processing' : 'shipped'}}</b>
                                             </div>
                                         </div>
@@ -387,15 +399,9 @@
                                     </div>
 
                                     @php
-                                    $male = '';
-                                    $female = $male === 'checked' ? '': 'checked';
-                                    if($user->getGender() == 'Male'){
-                                    $male = 'checked';
-                                    $female = $male === 'checked' ? '': 'checked';
-                                    }else{
-                                    $female = 'checked';
-                                    $male = $female === 'checked' ? '': 'checked';
-                                    }
+                                    $male = $user->getGender() === 'Male' ? 'checked' : '';
+                                    $female = $user->getGender() === 'Female' ? 'checked' : '';
+                                    $male = $female === 'checked' ? '' : 'checked';
                                     @endphp
 
                                     <div class="form-group row">

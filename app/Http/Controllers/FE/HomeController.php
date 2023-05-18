@@ -11,16 +11,17 @@ use App\Models\Category;
 use App\Models\Newsletter;
 use App\Models\Order;
 use Carbon\Carbon;
+use App\Models\ViewProductData;
 
 class HomeController extends Controller
 {
     public function home()
     {
         $products_sale = Product::where('discount', '>', 0)->limit(8)->get();
-        
+
         $products_latest = Product::orderByDesc('updated_at')
-        ->whereMonth('created_at', Carbon::now()->month)
-        ->limit(8)->get();
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->limit(8)->get();
 
         $products_living = Product::where('category_id', 'like', 'L%')->limit(8)->get();
         $products_dining = Product::where('category_id', 'like', 'K%')->limit(8)->get();
@@ -39,13 +40,16 @@ class HomeController extends Controller
 
     public function searchName(Request $request)
     {
+        $prods_popular = ViewProductData::orderByDesc('count_order')->limit(6)->get();
         $keywords = $request->search;
         $products = Product::selectRaw('products.*, categories.*')
             ->join('categories', 'categories.category_id', 'like', 'products.category_id')
             ->where('product_name', 'like', '%' . $keywords . '%')
             ->orWhere('category_name_1', 'like', '%' . $keywords . '%')
-            ->orWhere('category_name_2', 'like', '$' . $keywords . '$')->get();
-        return view('fe.shop.shop', compact('products'));
+            ->orWhere('category_name_2', 'like', '$' . $keywords . '$')
+            ->paginate(6)->appends(request()->query());
+
+        return view('fe.shop.shop', compact('products', 'prods_popular'));
     }
 
     public function about()

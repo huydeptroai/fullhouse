@@ -16,30 +16,6 @@
 							<div id="comment-20" class="comment_container">
 								<div class="comment-text">
 
-<<<<<<< HEAD
-                                    <div class="col-md-3">
-                                        <img class="profile-user-img img-fluid img-circle" src="{{ Auth::user()->getAvatar() }}" alt="User profile picture" height="80" width="80">
-                                        <p class="meta">
-                                            <strong class="woocommerce-review__author">
-                                                {{ Auth::user()->name}}
-                                            </strong>
-                                        </p>
-                                        <div class="comment-form-rating">
-                                            <span>Your rating >> </span>
-                                            <p class="stars" style="font-size: 20px;">
-                                                <label for="rated-1"></label>
-                                                <input type="radio" id="rated-1" name="rating" value="1">
-                                                <label for="rated-2"></label>
-                                                <input type="radio" id="rated-2" name="rating" value="2">
-                                                <label for="rated-3"></label>
-                                                <input type="radio" id="rated-3" name="rating" value="3">
-                                                <label for="rated-4"></label>
-                                                <input type="radio" id="rated-4" name="rating" value="4">
-                                                <label for="rated-5"></label>
-                                                <input type="radio" id="rated-5" name="rating" value="5" checked="checked">
-                                            </p>
-                                        </div>
-=======
 									<div class="col-md-3">
 										<img class="profile-user-img img-fluid img-circle" src="{{ Auth::user()->getAvatar() }}"
 											alt="User profile picture" height="80" width="80">
@@ -63,7 +39,6 @@
 												<input type="radio" id="rated-5" name="rating" value="5" checked="checked">
 											</p>
 										</div>
->>>>>>> cbc393c820039caf23d7bc634d1a62ba5da6cc6f
 
 									</div>
 									<div class="description col-md-9">

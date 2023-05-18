@@ -374,8 +374,8 @@
 											<p class="product-name">${v.product_name}</p>
 										</a>
 										<div class="p-info">
-											<p class="product-price">$${v.product_price}</p>
-											<p class="product-price" style="font-d">$${v.product_price - v.discount}</p>
+										<span class="product-price">$${v.product_price - v.discount}</span>
+										<span class="product-price" style="text-decoration: line-through;color:red;"> $${v.product_price}</span>
 										</div>
 									</div>`;
 

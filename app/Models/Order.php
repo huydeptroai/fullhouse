@@ -58,7 +58,10 @@ class Order extends Model
 
     public function getSubtotal()
     {
-        $coupon = $this->coupon->value != null ? $this->coupon->value : 0;
+        $coupon = 0;
+        if (isset($this->coupon) && $this->coupon != null) {
+            $coupon = $this->coupon->value;
+        }
         return $this->getTotal() + $this->shipping_fee - $coupon;
     }
 

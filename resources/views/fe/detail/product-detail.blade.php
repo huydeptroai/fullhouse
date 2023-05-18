@@ -1,6 +1,7 @@
 @extends('fe.layout.master')
 
-@section('title', '{{$product->product_slug}}')
+@section('title', $product->product_slug)
+
 @section('content')
 <main id="main" class="main-site">
     <div class="container">

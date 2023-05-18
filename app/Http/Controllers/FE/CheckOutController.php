@@ -70,7 +70,7 @@ class CheckOutController extends Controller
         $data['order_date'] = date('Y-m-d', time());
         $data['status'] = 1; //ordered
 
-        if ($request->has('coupon_code')) {
+        if ($request->coupon_code != null) {
             $coupon = Coupon::where('code', 'like', $data['coupon_code'])
             ->where('status', 1)
             ->where('value_order', '<=', $data['value_order'])

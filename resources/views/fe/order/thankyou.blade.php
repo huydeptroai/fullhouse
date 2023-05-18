@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-md-12 text-center">
                 <h2>Thank you for your order</h2>
-                <p>Date: {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->order_date)->format('d/m/Y')}}</p>
+                <p>Date: {{ \Carbon\Carbon::createFromFormat('Y-m-d', $order->order_date)->format('d/m/Y')}}</p>
                 <hr>
                 <!-- info row -->
                 <div class="row invoice-info text-left">
@@ -59,19 +59,21 @@
                             <tbody>
                                 <tr>
                                     <th>Total Order:</th>
-                                    <td style="font-size: 1.2em;text-align: right;"> $ {{ number_format($order->getTotal(),2) }}</td>
+                                    <td style="font-size: 1.2em;text-align: right;"> $ {{ number_format($order->getTotal(),2) ?? 0}}</td>
                                 </tr>
                                 <tr>
                                     <th>Shipping fee:</th>
-                                    <td style="font-size: 1.2em;text-align: right;"> $ {{ number_format($order->shipping_fee,2) }}</td>
+                                    <td style="font-size: 1.2em;text-align: right;"> $ {{ number_format($order->shipping_fee,2) ?? 0 }}</td>
                                 </tr>
+                                @if(isset($order->coupon))
                                 <tr>
                                     <th>Coupon:</th>
-                                    <td style="font-size: 1.2em;text-align: right;">($ {{ number_format($order->coupon->value,2) }})</td>
+                                    <td style="font-size: 1.2em;text-align: right;">($ {{ number_format($order->coupon->value,2) ?? 0 }})</td>
                                 </tr>
+                                @endif
                                 <tr>
                                     <th>Subtotal:</th>
-                                    <th style="font-size: 2em;text-align: right;text-decoration: underline black double;"> $ {{ number_format($order->getSubtotal(),2) }}</th>
+                                    <th style="font-size: 2em;text-align: right;text-decoration: underline black double;"> $ {{ number_format($order->getSubtotal(),2) ?? 0 }}</th>
                                 </tr>
                             </tbody>
                         </table>
@@ -154,8 +156,8 @@
                             </div>
                         </div>
                         <div class="col-md-6" style="display: flex;flex-direction: column;justify-content:end;align-items: center;">
-                        <input type="hidden" name="order_id" value="{{$order->id}}">
-                            <a href="#" type="submit" class="btn btn-success" style="width:200px;padding:10px;">Confirm order</a>
+                            <input type="hidden" name="order_id" value="{{$order->id}}">
+                            <a href="{{Route('home')}}" type="submit" class="btn btn-success" style="width:200px;padding:10px;">Confirm order</a>
                             <br>
                             <a href="{{ route('cancelOrder', ['order_id'=>$order->id]) }}" class="btn btn-danger" style="width: 200px;padding:10px;">Cancel order</a>
                         </div>

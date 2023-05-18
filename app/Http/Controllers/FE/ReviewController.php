@@ -26,8 +26,8 @@ class ReviewController extends Controller
             ]
         );
 
-        // return response()->json($review);
-        $this->showReview($review);
+        return response()->json($review);
+        // $this->showReview($review);
     }
 
     public function update(Request $request, Review $review)

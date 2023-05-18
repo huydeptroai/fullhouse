@@ -40,7 +40,7 @@
                             <th>Urban</th>
                             <td>
                                 4% of order
-                                <p>($5 <= shipping fee <=$25)</p>
+                                <p>($5 <= shipping fee <=$50)</p>
                             </td>
                             <td>Free</td>
                         </tr>
@@ -48,7 +48,7 @@
                             <th>Suburban 1</th>
                             <td>
                                 6% of order
-                                <p>($5 <= shipping fee <=$25)</p>
+                                <p>($5 <= shipping fee <=$50)</p>
                             </td>
                             <td>Free</td>
                         </tr>
@@ -56,7 +56,7 @@
                             <th>Suburban 2</th>
                             <td>
                                 8% of order
-                                <p>($5 <= shipping fee <=$25)</p>
+                                <p>($5 <= shipping fee <=$50)</p>
                             </td>
                             <td>Free</td>
                         </tr>
@@ -73,7 +73,7 @@
 
                 <h4>2. For orders from outside provinces</h4>
                 <p>Shipping fee: 10% of value order.</p>
-                <p>($5 <= shipping fee <=$25)</p>
+                <p>($5 <= shipping fee <=$50)</p>
 
                 <hr>
 
