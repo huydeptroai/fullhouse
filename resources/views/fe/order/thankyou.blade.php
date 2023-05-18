@@ -157,7 +157,7 @@
                         </div>
                         <div class="col-md-6" style="display: flex;flex-direction: column;justify-content:end;align-items: center;">
                             <input type="hidden" name="order_id" value="{{$order->id}}">
-                            <a href="{{Route('home')}}" type="submit" class="btn btn-success" style="width:200px;padding:10px;">Confirm order</a>
+                            <a href="{{Route('confirmOrder',['order_id'=>$order->id] )}}" type="submit" class="btn btn-success" style="width:200px;padding:10px;">Confirm order</a>
                             <br>
                             <a href="{{ route('cancelOrder', ['order_id'=>$order->id]) }}" class="btn btn-danger" style="width: 200px;padding:10px;">Cancel order</a>
                         </div>
@@ -167,7 +167,7 @@
                 <br>
                 <div class="text-muted well well-sm shadow-none" style="margin-top: 10px;"></div>
                 <!-- <p>A confirmation email was sent.</p> -->
-                <!-- <a href="{{ route('product.index')}}" class="btn btn-warning">Continue Shopping</a> -->
+                <a href="{{ route('product.index')}}" class="btn btn-warning">Continue Shopping</a>
             </div>
         </div>
     </div><!--end container-->

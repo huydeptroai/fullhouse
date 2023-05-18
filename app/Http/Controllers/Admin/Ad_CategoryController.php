@@ -14,7 +14,7 @@ class Ad_CategoryController extends Controller
      */
     public function index()
     {
-        $cates = Category::all();
+        $cates = Category::orderByDesc('created_at')->get();
         return view('admin.category.category-list', compact('cates'));
     }
 
@@ -120,6 +120,16 @@ class Ad_CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        //1. check isCategory
+        $categoryExist = Category::selectRaw('categories.category_id')
+        ->join('products', 'products.category_id', 'like', 'categories.category_id')
+        ->join('order_details', 'order_details.product_id', 'like', 'products.product_id')
+        ->where('category_id' ,'like', $category->category_id)->first();
+        if($categoryExist != null){
+            return redirect()->route('admin.category.index')->with('delete', 'Cannot delete this category! This category have exist in the order!');
+        }
+
+        //2. Delete Category
         $category = Category::find($category->category_id);
         $path = 'assets/img/upload/category/' . $category->category_image;
         if (File::exists($path)) {

@@ -14,6 +14,7 @@ use App\Models\Coupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\OrderRequest;
+use App\Models\ViewProductData;
 
 class CheckOutController extends Controller
 {
@@ -24,7 +25,7 @@ class CheckOutController extends Controller
             ->select('code', 'full_name_en')
             ->get();
         $user = Auth::user();
-        $product = Product::all();
+        $product = ViewProductData::orderByDesc('count_review')->limit(6)->get();
         return view('fe.order.checkout', [
             'user' => $user,
             'provinces' => $provinces,
@@ -264,20 +265,20 @@ class CheckOutController extends Controller
         $order = Order::find($request->order_id);
         $order->status = 2;
 
-        //payment
-        $order->payment_method = $request->payment_method;
-        switch ($order->payment_method) {
-            case 1:
-                # code...
-                break;
-            case 2:
-                # code...
-                break;
+        // //payment
+        // $order->payment_method = $request->payment_method;
+        // switch ($order->payment_method) {
+        //     case 1:
+        //         # code...
+        //         break;
+        //     case 2:
+        //         # code...
+        //         break;
 
-            default:
-                # code...
-                break;
-        }
+        //     default:
+        //         # code...
+        //         break;
+        // }
 
         //save information
         $order->save();

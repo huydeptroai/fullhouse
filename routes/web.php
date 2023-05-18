@@ -68,6 +68,7 @@ Route::middleware('auth')->group(function () {
         Route::post('order', 'createOrder')->name('createOrder');
         Route::post('shipping-fee', 'postShippingFee')->name('postShippingFee');
         Route::get('/cancel-order/{order_id}', 'cancelOrder')->name('cancelOrder');
+        Route::get('/confirm-order/{order_id}', 'confirmOrder')->name('confirmOrder');
     });
 
     // ============= Admin ===============

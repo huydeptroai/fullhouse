@@ -70,6 +70,7 @@
                                         </td>
                                         <td>
                                             <p class="fw-normal mb-1">{{$user->role == 1 ? 'Admin' : 'User'}}</p>
+                                            <p class="text-muted mb-0">{{$user->provider}}</p>
                                             
                                         </td>
                                         <td>

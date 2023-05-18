@@ -17,18 +17,6 @@
 			</div>
 		</div>
 
-		<!-- SidebarSearch Form -->
-		<div class="form-inline">
-			<div class="input-group" data-widget="sidebar-search">
-				<input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-				<div class="input-group-append">
-					<button class="btn btn-sidebar">
-						<i class="fas fa-search fa-fw"></i>
-					</button>
-				</div>
-			</div>
-		</div>
-
 		<!-- Sidebar Menu -->
 		<nav class="mt-2">
 			<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -132,12 +120,6 @@
 								<p>Report Sale</p>
 							</a>
 						</li>
-						<li class="nav-item">
-							<a href="#" class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>jsGrid</p>
-							</a>
-						</li>
 					</ul>
 				</li>
 
@@ -188,12 +170,6 @@
 								<p>Data User</p>
 							</a>
 						</li>
-						<li class="nav-item">
-							<a href="#" class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>Profile</p>
-							</a>
-						</li>
 
 						<li class="nav-item">
 							<a href="#" class="nav-link">
@@ -212,15 +188,17 @@
 						<p>Documentation</p>
 					</a>
 				</li>
-				<li class="nav-header">
-					<i class="fa-solid fa-right-from-bracket"></i>
-					<!-- Authentication -->
-					<form method="POST" action="{{ route('logout') }}">
-						@csrf
-						<a href="{{route('logout')}}" onclick="event.preventDefault();this.closest('form').submit();">
-							<i class="bi bi-box-arrow-right"></i>Log Out
-						</a>
-					</form>
+				<li class="nav-item">
+					<div class="nav-link">
+						<i class="fa-solid fa-right-from-bracket"></i>
+						<!-- Authentication -->
+						<form method="POST" action="{{ route('logout') }}">
+							@csrf
+							<a href="{{route('logout')}}" onclick="event.preventDefault();this.closest('form').submit();">
+								<i class="bi bi-box-arrow-right"></i>Log Out
+							</a>
+						</form>
+					</div>
 				</li>
 
 			</ul>

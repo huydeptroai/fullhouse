@@ -87,7 +87,8 @@
                                                             {{$item->category->category_name_1}}
                                                         </p>
                                                         <p class="text-muted mb-0">
-                                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->updated_at)->diffForHumans()}}
+                                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->updated_at)->diffForHumans()}} - 
+                                                            (in {{$item->orderDetails->count()}} orders)
                                                             
                                                         </p>
                                                     </div>

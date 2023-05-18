@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
-
+use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,7 @@ class Ad_ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::orderByDesc('created_at')->get();
         return view('admin.product.product-list', [
             'products' => $products
         ]);
@@ -34,7 +35,7 @@ class Ad_ProductController extends Controller
         //     abort(403);
         // }
 
-        $categories = Category::all();
+        $categories = Category::orderByDesc('created_at')->get();
         return view('admin.product.product-create', [
             'categories' => $categories,
         ]);
@@ -138,6 +139,12 @@ class Ad_ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        //1. check product in order
+        $orderExist = OrderDetail::where('product_id', 'like', $product->product_id)->get();
+        if($orderExist != null){
+            return redirect()->route('admin.product.index')->with('deleted', 'Cannot deleted product! This product had exist in the order!');
+        }
+        //2. delete product
         $imageFolder = 'assets/img/upload/product/';
         if ($product->product_image != null) {
             foreach ($product->product_image as $productImage) {
@@ -148,7 +155,6 @@ class Ad_ProductController extends Controller
             }
         }
         $product->delete();
-        // Product::withTrashed()->where('product_id', $product->product_id)->forceDelete();
         return redirect()->route('admin.product.index')->with('deleted', 'Product deleted successfully!');
     }
 }
