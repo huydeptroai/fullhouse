@@ -91,7 +91,7 @@ CREATE TABLE `carts` (
   KEY `carts_product_id_foreign` (`product_id`),
   CONSTRAINT `carts_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `carts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -304,7 +304,7 @@ CREATE TABLE `order_details` (
 
 LOCK TABLES `order_details` WRITE;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
-INSERT INTO `order_details` VALUES (12,'POF01003',200.00,1,NULL,NULL,NULL),(13,'POF01001',210.87,2,NULL,NULL,NULL),(14,'POF01001',210.87,2,NULL,NULL,NULL),(14,'POF01002',434.35,1,NULL,NULL,NULL),(15,'POF01001',210.87,1,NULL,NULL,NULL),(16,'POF01003',200.00,1,NULL,NULL,NULL),(16,'POF01004',76.30,2,NULL,NULL,NULL),(16,'POF01006',396.00,1,NULL,NULL,NULL),(16,'POF02001',132.17,1,NULL,NULL,NULL),(17,'POF01003',200.00,2,NULL,NULL,NULL),(18,'POF01001',210.87,1,NULL,NULL,NULL),(19,'POF01004',76.30,1,NULL,NULL,NULL),(22,'POF01003',200.00,5,NULL,NULL,NULL),(24,'POF01003',200.00,1,NULL,NULL,NULL),(26,'POF01003',200.00,1,NULL,NULL,NULL),(28,'POF01006',396.00,1,NULL,NULL,NULL),(29,'POF01001',210.87,1,NULL,NULL,NULL),(30,'POF01003',200.00,1,NULL,NULL,NULL),(31,'POF01001',210.87,3,NULL,NULL,NULL),(31,'POF01006',396.00,2,NULL,NULL,NULL),(32,'POF01003',200.00,1,NULL,NULL,NULL),(34,'POF01004',76.30,1,NULL,NULL,NULL),(35,'POF01004',76.30,1,NULL,NULL,NULL),(36,'POF01001',210.87,1,NULL,NULL,NULL),(38,'POF01001',210.87,1,NULL,NULL,NULL);
+INSERT INTO `order_details` VALUES (12,'POF01003',200.00,1,NULL,NULL,NULL),(13,'POF01001',210.87,2,NULL,NULL,NULL),(14,'POF01001',210.87,2,NULL,NULL,NULL),(14,'POF01002',434.35,1,NULL,NULL,NULL),(15,'POF01001',210.87,1,NULL,NULL,NULL),(16,'POF01003',200.00,1,NULL,NULL,NULL),(16,'POF01004',76.30,2,NULL,NULL,NULL),(16,'POF01006',396.00,1,NULL,NULL,NULL),(16,'POF02001',132.17,1,NULL,NULL,NULL),(17,'POF01003',200.00,2,NULL,NULL,NULL),(18,'POF01001',210.87,1,NULL,NULL,NULL),(49,'POF01004',76.30,1,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -324,22 +324,22 @@ CREATE TABLE `orders` (
   `shipping_district` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `shipping_city` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `shipping_fee` decimal(8,2) DEFAULT NULL,
-  `payment_method` tinyint NOT NULL DEFAULT '0' COMMENT '0:COD, 1: bank',
+  `payment_method` tinyint NOT NULL DEFAULT '1' COMMENT '0:COD, 1: bank',
   `note` text COLLATE utf8mb4_unicode_ci,
-  `status` tinyint DEFAULT '0',
+  `status` tinyint DEFAULT '1',
   `approved_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` bigint unsigned NOT NULL,
   `coupon_id` bigint unsigned DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `payment_status` tinyint DEFAULT '0',
+  `payment_status` tinyint DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `orders_user_id_foreign` (`user_id`),
   KEY `orders_coupon_id_foreign` (`coupon_id`),
   CONSTRAINT `orders_coupon_id_foreign` FOREIGN KEY (`coupon_id`) REFERENCES `coupons` (`id`),
   CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -348,7 +348,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (12,'2023-05-08 00:00:00','thach nguyen long vinh','0123456789','123','Ba Dinh District','Ha Noi City',8.00,2,' (The customer has coupon KM025)',2,NULL,2,1,NULL,'2023-05-07 18:10:18','2023-05-18 10:21:44',2),(13,'2023-05-08 00:00:00','thach nguyen long vinh','0123456789','123','Ba Dinh District','Ha Noi City',0.00,1,'abc',2,NULL,2,NULL,NULL,'2023-05-07 18:34:19','2023-05-07 18:34:19',1),(14,'2023-05-08 00:00:00','thach nguyen long vinh','0123456789','123','Thu Duc City','Ho Chi Minh City',0.00,1,'cnfhhava',4,NULL,2,NULL,NULL,'2023-05-07 18:52:27','2023-05-18 22:31:41',1),(15,'2023-05-09 00:00:00','thach nguyen long vinh','0123456789','aa','Ben Luc District','Long An Province',21.00,1,'ga',2,NULL,2,NULL,NULL,'2023-05-08 19:21:02','2023-05-08 19:21:02',1),(16,'2023-05-15 00:00:00','Vinh Thach Nguyen Long','0123456789','127, ap Tan Thuan Dong','Cu Chi District','Ho Chi Minh City',0.00,1,NULL,2,NULL,2,NULL,NULL,'2023-05-15 09:05:21','2023-05-15 09:05:21',1),(17,'2023-05-15 00:00:00','Vinh Thach Nguyen Long','0123456789','Long An','Cao Lanh District','Dong Thap Province',0.00,1,' (The customer has coupon KM025)',2,NULL,2,NULL,NULL,'2023-05-15 09:56:15','2023-05-15 09:56:15',1),(18,'2023-05-15 00:00:00','Vinh Thach Nguyen Long','0123456789','Xuan Khanh','Ninh Kieu District','Can Tho City',21.00,1,' (The customer has coupon Km025)',2,NULL,2,NULL,NULL,'2023-05-15 09:57:28','2023-05-15 09:57:28',1),(19,'2023-05-17 00:00:00','Vinh Thach Nguyen Long','0123456789','123, Nguyen Thanh','Binh Thanh District','Ho Chi Minh City',5.00,1,' (The customer has coupon )',2,NULL,2,NULL,NULL,'2023-05-16 19:53:19','2023-05-16 19:53:19',1),(22,'2023-05-18 00:00:00','Vinh Thach Nguyen Long','0123456789','123,mnh','Binh Minh Town','Vinh Long Province',0.00,1,' (The customer has coupon KM025)',2,NULL,2,NULL,NULL,'2023-05-17 18:12:00','2023-05-17 18:12:00',1),(24,'2023-05-18 00:00:00','Vinh Thach Nguyen Long','0123456789','123, abc','Binh Chanh District','Ho Chi Minh City',16.00,1,' (The customer has coupon KM025)',2,NULL,2,1,NULL,'2023-05-17 18:17:51','2023-05-17 18:17:51',1),(26,'2023-05-18 00:00:00','Vinh Thach Nguyen Long','0123456789','123, abc','Binh Minh Town','Vinh Long Province',20.00,1,NULL,2,NULL,2,NULL,NULL,'2023-05-17 18:45:56','2023-05-17 18:45:56',1),(28,'2023-05-18 00:00:00','Vinh Thach Nguyen Long','0123456789','No 391A, Nam Ky Khoi Nghia Street','District 3','HCM City',0.00,1,NULL,2,NULL,2,NULL,NULL,'2023-05-17 18:51:09','2023-05-17 18:51:09',1),(29,'2023-05-18 00:00:00','Vinh Thach Nguyen Long','0123456789','123, abc','Cai Rang District','Can Tho City',21.00,1,' (The customer has coupon KM025)',2,NULL,2,1,NULL,'2023-05-17 19:02:12','2023-05-17 19:02:12',1),(30,'2023-05-18 00:00:00','Vinh Thach Nguyen Long','0123456789','Long An','Long Ho District','Vinh Long Province',20.00,1,' (The customer has coupon Km025)',2,NULL,2,1,NULL,'2023-05-17 20:36:36','2023-05-17 20:37:02',1),(31,'2023-05-18 00:00:00','Vinh Thach Nguyen Long','0123456789','12233, vcb','Cam Thuy District','Thanh Hoa Province',0.00,1,' (The customer has coupon KM025)',2,NULL,2,1,NULL,'2023-05-17 21:16:20','2023-05-17 21:17:33',1),(32,'2023-05-18 00:00:00','Vinh Thach Nguyen Long','0123456789','Long An','District 1','Ho Chi Minh City',0.00,1,' (The customer has coupon KM025)',1,NULL,2,1,NULL,'2023-05-18 10:27:21','2023-05-18 10:27:21',1),(33,'2023-05-18 00:00:00','Vinh Thach Nguyen Long','0123456789','Long An','District 1','Ho Chi Minh City',0.00,2,' (The customer has coupon KM025)',2,NULL,2,1,NULL,'2023-05-18 10:43:42','2023-05-18 10:43:46',1),(34,'2023-05-18 00:00:00','Vinh Thach Nguyen Long','0123456789','asbnh','Binh Minh Town','Vinh Long Province',7.60,1,'Alo (The customer has coupon KM025)',1,NULL,2,NULL,NULL,'2023-05-18 10:47:51','2023-05-18 10:47:51',1),(35,'2023-05-18 00:00:00','Hunter','012345678','123, sas','Ben Tre City','Ben Tre Province',7.60,1,NULL,1,NULL,2,NULL,NULL,'2023-05-18 10:53:11','2023-05-18 10:53:11',1),(36,'2023-05-18 00:00:00','LONG VINH THACH NGUYEN','0939057012','qwe','Binh Minh Town','Vinh Long Province',0.00,1,NULL,1,NULL,6,NULL,NULL,'2023-05-18 11:05:16','2023-05-18 11:05:16',1),(37,'2023-05-18 00:00:00','LONG VINH THACH NGUYEN','0939057012','qwe','Chau Thanh District','Tay Ninh Province',0.00,1,NULL,1,NULL,6,NULL,NULL,'2023-05-18 11:06:04','2023-05-18 11:06:04',1),(38,'2023-05-18 00:00:00','LONG VINH THACH NGUYEN','0939057012','123','Ninh Kieu District','Can Tho City',0.00,1,NULL,1,NULL,6,NULL,NULL,'2023-05-18 11:08:46','2023-05-18 11:08:46',1),(39,'2023-05-18 00:00:00','LONG VINH THACH NGUYEN','0939057012','123',NULL,'92',NULL,1,NULL,6,NULL,6,NULL,NULL,'2023-05-18 11:09:50','2023-05-18 22:39:43',1);
+INSERT INTO `orders` VALUES (12,'2023-05-08 01:10:18','thach nguyen long vinh','0123456789','123','Ba Dinh District','Ha Noi City',8.00,2,' (The customer has coupon KM025)',2,NULL,2,1,NULL,'2023-05-07 18:10:18','2023-05-18 10:21:44',2),(13,'2023-05-08 01:34:19','thach nguyen long vinh','0123456789','123','Ba Dinh District','Ha Noi City',0.00,1,'abc',2,NULL,2,NULL,NULL,'2023-05-07 18:34:19','2023-05-07 18:34:19',1),(14,'2023-05-08 01:52:27','thach nguyen long vinh','0123456789','123','Thu Duc City','Ho Chi Minh City',0.00,1,'cnfhhava',4,NULL,2,NULL,NULL,'2023-05-07 18:52:27','2023-05-18 22:31:41',1),(15,'2023-05-09 02:21:02','thach nguyen long vinh','0123456789','aa','Ben Luc District','Long An Province',21.00,1,'ga',2,NULL,2,NULL,NULL,'2023-05-08 19:21:02','2023-05-08 19:21:02',1),(16,'2023-05-15 16:05:21','Vinh Thach Nguyen Long','0123456789','127, ap Tan Thuan Dong','Cu Chi District','Ho Chi Minh City',0.00,1,NULL,2,NULL,2,NULL,NULL,'2023-05-15 09:05:21','2023-05-15 09:05:21',1),(17,'2023-05-15 16:56:15','Vinh Thach Nguyen Long','0123456789','Long An','Cao Lanh District','Dong Thap Province',0.00,1,' (The customer has coupon KM025)',2,NULL,2,NULL,NULL,'2023-05-15 09:56:15','2023-05-15 09:56:15',1),(18,'2023-05-15 16:57:28','Vinh Thach Nguyen Long','0123456789','Xuan Khanh','Ninh Kieu District','Can Tho City',21.00,1,' (The customer has coupon Km025)',2,NULL,2,NULL,NULL,'2023-05-15 09:57:28','2023-05-15 09:57:28',1),(49,'2023-05-19 16:42:54','HUNTER@GMAIL.COM','0999999999','qe','An Phu District','An Giang Province',5.00,2,NULL,2,NULL,11,NULL,NULL,'2023-05-19 09:42:54','2023-05-19 09:43:28',2);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -503,7 +503,7 @@ CREATE TABLE `reviews` (
   KEY `reviews_product_id_FK` (`product_id`),
   CONSTRAINT `reviews_product_id_FK` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `reviews_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -512,7 +512,7 @@ CREATE TABLE `reviews` (
 
 LOCK TABLES `reviews` WRITE;
 /*!40000 ALTER TABLE `reviews` DISABLE KEYS */;
-INSERT INTO `reviews` VALUES (1,'Good, quick, friendly',5,2,'POF01001','2023-05-08 09:48:06','2023-05-10 23:38:57'),(2,'Alo',5,6,'POF01001','2023-05-10 23:51:35','2023-05-11 00:02:17'),(3,'good',5,2,'POF01004','2023-05-11 19:09:34','2023-05-11 19:09:34'),(4,'good',3,2,'POF01004','2023-05-11 19:09:38','2023-05-11 19:09:38'),(5,'Good',5,6,'POF01002','2023-05-14 08:12:09','2023-05-14 08:12:09'),(6,'Good',5,6,'POF01002','2023-05-14 08:14:45','2023-05-14 08:14:45'),(7,'OK good',4,6,'POF01002','2023-05-14 08:18:00','2023-05-14 08:18:00'),(8,'haiz',3,6,'POF01001','2023-05-14 08:26:13','2023-05-14 08:26:13'),(9,'call',4,2,'POF01004','2023-05-14 11:16:25','2023-05-14 11:16:25'),(10,'Good',4,2,'POF01003','2023-05-14 18:58:49','2023-05-14 18:58:49'),(11,'Good, quickly!',4,2,'POF01006','2023-05-14 21:45:45','2023-05-14 21:45:45');
+INSERT INTO `reviews` VALUES (1,'Good, quick, friendly',5,2,'POF01001','2023-05-08 09:48:06','2023-05-10 23:38:57'),(2,'Alo',5,6,'POF01001','2023-05-10 23:51:35','2023-05-11 00:02:17'),(3,'good',5,2,'POF01004','2023-05-11 19:09:34','2023-05-11 19:09:34'),(4,'good',3,2,'POF01004','2023-05-11 19:09:38','2023-05-11 19:09:38'),(5,'Good',5,6,'POF01002','2023-05-14 08:12:09','2023-05-14 08:12:09'),(6,'Good',5,6,'POF01002','2023-05-14 08:14:45','2023-05-14 08:14:45'),(7,'OK good',4,6,'POF01002','2023-05-14 08:18:00','2023-05-14 08:18:00'),(8,'haiz',3,6,'POF01001','2023-05-14 08:26:13','2023-05-14 08:26:13'),(9,'call',4,2,'POF01004','2023-05-14 11:16:25','2023-05-14 11:16:25'),(11,'Good, quickly!',4,2,'POF01006','2023-05-14 21:45:45','2023-05-14 21:45:45'),(12,'So good',4,11,'POF01003','2023-05-19 06:18:10','2023-05-19 06:18:10'),(16,'Heelo',5,11,'POF01003','2023-05-19 06:59:04','2023-05-19 06:59:04');
 /*!40000 ALTER TABLE `reviews` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -542,7 +542,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`),
   UNIQUE KEY `users_phone_unique` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -551,7 +551,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','admin@gmail.com','form',NULL,NULL,'$2y$10$tmD/CjxFmpuV6IteCe60vuf8etPe0QomTFdjSv1muEJLRcDOw/Dz.','1234567890',1,'{\"dob\": \"1994-03-25\", \"city\": \"Vinh Long Province\", \"ward\": \"Long An Commune\", \"avatar\": \"user1-128x128.jpg\", \"gender\": \"Male\", \"district\": \"Long Ho District\"}',1,'xgmLWgvNYJ7KnUOvNTqYc3o6PWkEuOGm2JFOeYi688uKBa6ix1bV6UoP5pkK','2023-05-04 07:55:05','2023-05-04 07:55:05','2023-05-16 17:04:10'),(2,'Vinh Thach Nguyen Long','vinhlong505@gmail.com','google','108422004422386768142',NULL,'$2y$10$BP9ILh.TEv2R/cnEFC0rIOQqpTwe7K7zCzjR3Bn3N80cxtj3pRKxW','0123456789',2,'{\"avatar_link\": \"https://lh3.googleusercontent.com/a/AGNmyxadzsU3eowgxzCOhEk4ZhnbgFEqg52rgqJNzx0wsg=s96-c\"}',1,'kFzia4MYJ7JZZhVN0MbsjpxE9nY1cijrLBaq7ETAgFeFTtqDrW2GnV0t7ZIj','2023-05-04 07:55:05','2023-05-17 20:53:48','2023-05-18 03:53:48'),(3,'hunter','konoha2203@gmail.com','form',NULL,NULL,'$2y$10$XGcMuzMT0gUkQuuPmHnQsOChmRay8cJv5Lib/l.ORA29dCoRXY18i','01212121212',2,'{\"dob\": \"1994-03-25\", \"city\": \"Vinh Long Province\", \"ward\": \"Long An Commune\", \"avatar\": \"user1-128x128.jpg\", \"gender\": \"Male\", \"district\": \"Long Ho District\"}',1,NULL,'2023-05-05 08:20:33','2023-05-05 08:20:33','2023-05-16 17:04:10'),(4,'Hunter1402','thachnguyenlongvinh@gmail.com','form',NULL,NULL,'$2y$10$Z/mJETW7XgTq8wUFXRfOrObB8agNDmpfe71NH3W4txci7QnKhjEe6','0111111111',2,'{\"dob\": \"1994-03-25\", \"city\": \"Vinh Long Province\", \"ward\": \"Long An Commune\", \"avatar\": \"user1-128x128.jpg\", \"gender\": \"Male\", \"district\": \"Long Ho District\"}',1,NULL,'2023-05-05 18:58:37','2023-05-05 18:58:37','2023-05-16 17:04:10'),(6,'LONG VINH THACH NGUYEN','tnlongvinh@gmail.com','google','114214884559571142042',NULL,'$2y$10$OIBiHUIWO/89gogW0WSZ4.Zg99/T7tk5aWH79piqOXjSOxfa2lbwK',NULL,2,'{\"avatar_link\": \"https://lh3.googleusercontent.com/a/AGNmyxYpp_mtwu3COTIwllqsvKF2x-sGaNuoMA0aiHMnqw=s96-c\"}',1,NULL,'2023-05-10 03:21:06','2023-05-18 11:04:00','2023-05-18 18:04:00'),(10,'Fullhouse Team01','fullhouseteam01@gmail.com','form',NULL,NULL,'$2y$10$4V5oGvQL6NUUsB2PE74mxeA6RcI/0lOeJu5ytWtC0K1pCMJYU0E7W',NULL,2,'{\"avatar_link\": \"https://lh3.googleusercontent.com/a/AGNmyxadzsU3eowgxzCOhEk4ZhnbgFEqg52rgqJNzx0wsg=s96-c\"}',1,NULL,'2023-05-10 04:06:55','2023-05-10 04:25:02','2023-05-16 17:04:10');
+INSERT INTO `users` VALUES (1,'admin','admin@gmail.com','form',NULL,NULL,'$2y$10$tmD/CjxFmpuV6IteCe60vuf8etPe0QomTFdjSv1muEJLRcDOw/Dz.','1234567890',1,'{\"dob\": \"1994-03-25\", \"city\": \"Vinh Long Province\", \"ward\": \"Long An Commune\", \"avatar\": \"user1-128x128.jpg\", \"gender\": \"Male\", \"district\": \"Long Ho District\"}',1,'mXwHfBgEh41llsIk8AWZJ6ASRzAFZVruChcHeDNzfZQckqCH81ihWRqPNiLo','2023-05-04 07:55:05','2023-05-04 07:55:05','2023-05-16 17:04:10'),(2,'Vinh Thach Nguyen Long','vinhlong505@gmail.com','google','108422004422386768142',NULL,'$2y$10$BP9ILh.TEv2R/cnEFC0rIOQqpTwe7K7zCzjR3Bn3N80cxtj3pRKxW','0123456789',2,'{\"avatar_link\": \"https://lh3.googleusercontent.com/a/AGNmyxadzsU3eowgxzCOhEk4ZhnbgFEqg52rgqJNzx0wsg=s96-c\"}',1,'wRm6O8qFzQ05qk9Gj320uaOvMRRgr3u9jh3FpURhSJthxvG6tRXdnGXJ7BDc','2023-05-04 07:55:05','2023-05-17 20:53:48','2023-05-18 03:53:48'),(3,'hunter','konoha2203@gmail.com','form',NULL,NULL,'$2y$10$XGcMuzMT0gUkQuuPmHnQsOChmRay8cJv5Lib/l.ORA29dCoRXY18i','01212121212',2,'{\"dob\": \"1994-03-25\", \"city\": \"Vinh Long Province\", \"ward\": \"Long An Commune\", \"avatar\": \"user1-128x128.jpg\", \"gender\": \"Male\", \"district\": \"Long Ho District\"}',1,NULL,'2023-05-05 08:20:33','2023-05-05 08:20:33','2023-05-16 17:04:10'),(4,'Hunter1402','thachnguyenlongvinh@gmail.com','form',NULL,NULL,'$2y$10$Z/mJETW7XgTq8wUFXRfOrObB8agNDmpfe71NH3W4txci7QnKhjEe6','0111111111',2,'{\"dob\": \"1994-03-25\", \"city\": \"Vinh Long Province\", \"ward\": \"Long An Commune\", \"avatar\": \"user1-128x128.jpg\", \"gender\": \"Male\", \"district\": \"Long Ho District\"}',1,NULL,'2023-05-05 18:58:37','2023-05-05 18:58:37','2023-05-16 17:04:10'),(6,'LONG VINH THACH NGUYEN','tnlongvinh@gmail.com','google','114214884559571142042',NULL,'$2y$10$.7kwjJwP.j2NYW4uUkFYDeWvqVtJxjU3nTQUKwgV9kfiRj7JgK2Pu',NULL,2,'{\"avatar_link\": \"https://lh3.googleusercontent.com/a/AGNmyxYpp_mtwu3COTIwllqsvKF2x-sGaNuoMA0aiHMnqw=s96-c\"}',1,NULL,'2023-05-10 03:21:06','2023-05-19 02:21:00','2023-05-19 09:21:00'),(10,'Fullhouse Team01','fullhouseteam01@gmail.com','form',NULL,NULL,'$2y$10$4V5oGvQL6NUUsB2PE74mxeA6RcI/0lOeJu5ytWtC0K1pCMJYU0E7W',NULL,2,'{\"avatar_link\": \"https://lh3.googleusercontent.com/a/AGNmyxadzsU3eowgxzCOhEk4ZhnbgFEqg52rgqJNzx0wsg=s96-c\"}',1,NULL,'2023-05-10 04:06:55','2023-05-10 04:25:02','2023-05-16 17:04:10'),(11,'HUNTER@GMAIL.COM','hunter@gmail.com','form',NULL,NULL,'$2y$10$Nm59QNI1wSjckG3qTUEHXe7cMAkg/eFSHDeG7dlizfyabv1JKp3fG','0999999999',2,NULL,1,NULL,'2023-05-19 04:38:15','2023-05-19 04:38:15','2023-05-19 11:38:15');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -611,7 +611,7 @@ CREATE TABLE `visitors` (
 
 LOCK TABLES `visitors` WRITE;
 /*!40000 ALTER TABLE `visitors` DISABLE KEYS */;
-INSERT INTO `visitors` VALUES (1,'::1','2023-05-15 17:00:00',NULL),(2,'::1','2023-05-16 17:00:00',2),(11,'::1','2023-05-16 17:00:00',NULL),(16,'127.0.0.1','2023-05-17 17:00:00',NULL),(2,'::1','2023-05-17 17:00:00',2),(15,'::1','2023-05-17 17:00:00',NULL),(1,'::1','2023-05-17 17:00:00',1),(5,'::1','2023-05-18 17:00:00',NULL),(1,'::1','2023-05-18 17:00:00',2);
+INSERT INTO `visitors` VALUES (1,'::1','2023-05-15 17:00:00',NULL),(2,'::1','2023-05-16 17:00:00',2),(11,'::1','2023-05-16 17:00:00',NULL),(16,'127.0.0.1','2023-05-17 17:00:00',NULL),(2,'::1','2023-05-17 17:00:00',2),(15,'::1','2023-05-17 17:00:00',NULL),(1,'::1','2023-05-17 17:00:00',1),(10,'::1','2023-05-18 17:00:00',NULL),(1,'::1','2023-05-18 17:00:00',2),(1,'::1','2023-05-18 17:00:00',11);
 /*!40000 ALTER TABLE `visitors` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -712,4 +712,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-19 14:45:14
+-- Dump completed on 2023-05-19 23:45:13
