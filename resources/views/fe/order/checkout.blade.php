@@ -141,7 +141,6 @@
 							</h4>
 							<button type="submit" class="btn btn-warning btn-block">Place order now</button>
 						</div>
-						<!-- <a href="{{Route('thankyou')}}">Confirm Order</a> -->
 					</div>
 				</div>
 			</form>

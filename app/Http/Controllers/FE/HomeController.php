@@ -77,11 +77,6 @@ class HomeController extends Controller
         return view('fe.warranty-policy');
     }
 
-    public function thankyou()
-    {
-        $order = Order::first();
-        return view('fe.order.thankyou', compact('order'));
-    }
 
     public function newLetter(Request $request)
     {

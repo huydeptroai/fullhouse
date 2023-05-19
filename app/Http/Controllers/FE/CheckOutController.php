@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\OrderRequest;
 use App\Models\ViewProductData;
+use Illuminate\Support\Facades\Session;
 
 class CheckOutController extends Controller
 {
@@ -100,13 +101,15 @@ class CheckOutController extends Controller
             $cart->delete();
         }
 
-        return view('fe.order.thankyou', compact('order'));
+        return view('fe.order.confirm',[
+            'order' => Order::find($order->id)
+        ]);
     }
 
     //======= Shipping fee ======
     public function shippingFee($data)
     {
-        define('AMOUNT', 250);
+        define('AMOUNT', 99);
 
         $city_code = $data['shipping_city'];
         $district_code = $data['shipping_district'];
@@ -163,8 +166,8 @@ class CheckOutController extends Controller
 
     public function check_range($fee = 0)
     {
-        define('MIN', 5);
-        define('MAX', 50);
+        define('MIN', 2);
+        define('MAX', 10);
         if ($fee < MIN) {
             return MIN;
         } elseif ($fee < MAX) {
@@ -252,6 +255,13 @@ class CheckOutController extends Controller
         }
     }
 
+
+
+    public function confirmOrder()
+    {
+        return view('fe.order.confirm');
+    }
+
     public function cancelOrder($order_id)
     {
         $order = Order::find($order_id);
@@ -260,28 +270,21 @@ class CheckOutController extends Controller
         return redirect()->route('product.index');
     }
 
-    public function confirmOrder(Request $request)
+    public function updateStatusOrder(Request $request)
     {
         $order = Order::find($request->order_id);
         $order->status = 2;
-
-        // //payment
-        // $order->payment_method = $request->payment_method;
-        // switch ($order->payment_method) {
-        //     case 1:
-        //         # code...
-        //         break;
-        //     case 2:
-        //         # code...
-        //         break;
-
-        //     default:
-        //         # code...
-        //         break;
-        // }
+        $order->payment_method = Session::get('success_paypal') == true ? 2: 1;
+        $order->payment_status = Session::get('success_paypal') == true ? 2 : 1;
 
         //save information
         $order->save();
+
+        Session::forget('success_paypal');
+        Session::forget('total_paypal');
+
+        Session::forget('order_coupon');
+
         return redirect()->route('product.index');
     }
 }

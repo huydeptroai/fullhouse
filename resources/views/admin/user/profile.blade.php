@@ -77,62 +77,13 @@
                     <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Comment</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Order history</a></li>
+                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Order history</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Information of User</a></li>
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="active tab-pane" id="activity">
-                                    <!-- Post -->
-                                    @forelse($user->reviews as $review)
-                                    <div class="post clearfix">
-                                        <div class="user-block">
-                                            <img class="img-circle img-bordered-sm" src="{{$user->getAvatar() ?? '' }}" alt="user image">
-                                            <span class="username">
-                                                <a href="#">{{$user->name}}</a>
-                                                <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                                            </span>
-                                            <span class="description">Create at -
-                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $review->created_at)->diffForHumans()}}
-                                            </span>
-                                        </div>
-                                        <!-- /.user-block -->
-                                        About: <a href="{{ route('admin.product.show', $review->product_id)}}">
-                                            <b>{{$review->product->product_name}} - {{$review->product_id}}</b>
-                                        </a>
-                                        <p>{{$review->content}}</p>
-
-                                        <p>
-                                            <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                                            <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-
-                                            <span class="float-right">
-                                                <a href="#" class="link-black text-sm">
-                                                    <i class="far fa-comments mr-1"></i> Comments (5)
-                                                </a>
-                                            </span>
-                                        </p>
-
-                                        <form class="form-horizontal">
-                                            <div class="input-group input-group-sm mb-0">
-                                                <input class="form-control form-control-sm" placeholder="Response">
-                                                <div class="input-group-append">
-                                                    <button type="submit" class="btn btn-danger">Send</button>
-                                                </div>
-                                            </div>
-                                        </form>
-
-                                    </div>
-                                    @empty
-                                    <div class="post">No data</div>
-                                    @endforelse
-                                    <!-- /.post -->
-
-                                </div>
-                                <!-- /.tab-pane -->
-                                <div class="tab-pane" id="timeline">
                                     <!-- The timeline -->
                                     @forelse($user->orders as $order)
                                     <div class="timeline timeline-inverse mt-4">
@@ -236,8 +187,8 @@
                                     @empty
                                     <p>No orders</p>
                                     @endforelse
+
                                 </div>
-                                <!-- /.tab-pane -->
 
                                 <!-- info profile -->
                                 <div class="tab-pane" id="settings">
@@ -292,7 +243,7 @@
                                         @php
                                         $male = $user->getGender() === 'Male' ? 'checked' : '';
                                         $female = $user->getGender() === 'Female' ? 'checked' : '';
-        
+
                                         @endphp
 
                                         <div class="form-group row">
@@ -300,11 +251,11 @@
                                             <div class="col-sm-10 row align-items-center">
                                                 <div class="custom-control custom-radio">
 
-                                                    <input class="custom-control-input" type="radio" name="gender" value="Male" {{$male}} >
+                                                    <input class="custom-control-input" type="radio" name="gender" value="Male" {{$male}}>
                                                     <label for="customRadio1" class="custom-control-label">Male</label>
                                                 </div>
                                                 <div class="custom-control custom-radio ml-3">
-                                                    <input class="custom-control-input" type="radio" name="gender" value="Female" {{$female}} >
+                                                    <input class="custom-control-input" type="radio" name="gender" value="Female" {{$female}}>
                                                     <label for="customRadio2" class="custom-control-label">Female</label>
                                                 </div>
                                             </div>
@@ -316,7 +267,7 @@
                                                 {{$user->getDistrict()}},
                                                 {{$user->getCity()}},
                                             </div>
-            
+
                                         </div>
 
                                     </form>

@@ -68,12 +68,12 @@ Route::middleware('auth')->group(function () {
         Route::post('order', 'createOrder')->name('createOrder');
         Route::post('shipping-fee', 'postShippingFee')->name('postShippingFee');
         Route::get('/cancel-order/{order_id}', 'cancelOrder')->name('cancelOrder');
-        Route::get('/confirm-order/{order_id}', 'confirmOrder')->name('confirmOrder');
+        Route::get('/confirm-order', 'confirmOrder')->name('confirmOrder');
+        Route::get('/update-order/{order_id}', 'updateStatusOrder')->name('updateStatusOrder');
     });
 
     // ============= Admin ===============
     Route::group(['middleware' => 'checkAdmin', 'prefix' => 'admin'], function () {
-
 
         Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
 
@@ -81,11 +81,15 @@ Route::middleware('auth')->group(function () {
         Route::resource('/product', App\Http\Controllers\Admin\Ad_ProductController::class)->names('admin.product');
         Route::resource('/coupon', App\Http\Controllers\Admin\Ad_CouponController::class)->names('admin.coupon');
         Route::resource('/user', App\Http\Controllers\Admin\Ad_UserController::class)->names('admin.user');
+        Route::resource('/order', App\Http\Controllers\Admin\Ad_OrderController::class)->except('show', 'destroy', 'create', 'store')->names('admin.order');
 
         // Route::resource('/admin/category', App\Http\Controllers\Admin\AjaxCategoryController::class)->names('admin.category');
         Route::resource('/newsletter', Ad_NewsletterController::class)->names('admin.newsletter');
 
-        Route::get('/order/index', [Ad_OrderController::class, 'index'])->name('admin.order.index');
+        // Route::get('/order/index', [Ad_OrderController::class, 'index'])->name('admin.order.index');
+        // Route::get('/order/{order_id}/edit', [Ad_OrderController::class, 'edit'])->name('admin.order.edit');
+        // Route::post('/order/update', [Ad_OrderController::class, 'update'])->name('admin.order.update');
+
         Route::get('/order/invoice/{order_id}', [Ad_OrderController::class, 'showDetail'])->name('admin.order.invoice');
         Route::get('/order/invoice-print', [Ad_OrderController::class, 'printInvoice'])->name('admin.order.printInvoice');
     });
@@ -104,7 +108,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/shipping-policy', 'shippingPolicy')->name('shippingPolicy');
     Route::get('/warranty-policy', 'warrantyPolicy')->name('warrantyPolicy');
-    Route::get('/order-processing', 'thankyou')->name('thankyou');
+
     Route::post('/new-letter', 'newLetter')->name('newLetter');
 
     Route::post('/search-name', 'searchName')->name('searchName');

@@ -24,6 +24,7 @@ class Order extends Model
         'approved_by',
         'user_id',
         'coupon_id',
+        'payment_status'
     ];
 
     //many - one
@@ -49,41 +50,54 @@ class Order extends Model
     }
 
     //total of 1 order
-    public function getTotal()
+    public function getSubtotal()
     {
         return $this->orderDetails->sum(function ($item) {
             return $item->price * $item->quantity;
         });
     }
 
-    public function getSubtotal()
+    public function getValueCoupon()
     {
-        $coupon = 0;
-        if (isset($this->coupon) && $this->coupon != null) {
-            $coupon = $this->coupon->value;
+        if (isset($this->coupon) && $this->coupon_id != null) {
+            return $this->coupon->value;
         }
-        return $this->getTotal() + $this->shipping_fee - $coupon;
+        return 0;
+    }
+
+    public function getTotal()
+    {
+        return $this->getSubtotal() + $this->shipping_fee - $this->getValueCoupon();
     }
 
 
     public function getShippingStatus()
     {
         $order_status = [
-            1 => "ordered",
-            2 => "confirmed",
-            3 => "packaged",
-            4 => "shipping",
-            5 => "delivered",
-            6 => "canceled",
+            1 => "Order received",
+            2 => "Confirmed",
+            3 => "Packaging process",
+            4 => "Package on delivery",
+            5 => "Package received",
+            6 => "Canceled"
         ];
         return $order_status[$this->status];
     }
 
-    public function getPayment()
+    public function getPaymentStatus()
+    {
+        $pay_status = [
+            1 => "Not yet",
+            2 => "Finished"
+        ];
+        return $pay_status[$this->payment_status];
+    }
+
+    public function getPaymentMethod()
     {
         $paymentMethod = [
-            0 => "COD",
-            1 => "BANK",
+            1 => "COD",
+            2 => "PayPal"
         ];
         return $paymentMethod[$this->payment_method];
     }

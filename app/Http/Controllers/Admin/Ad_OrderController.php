@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 
 class Ad_OrderController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
         $orders = Order::orderBy('id','desc')->get();
@@ -17,20 +20,29 @@ class Ad_OrderController extends Controller
         ]);
     }
 
-    public function progress()
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
     {
-        return view();
+        $where = array('id' => $id);
+        $order  = Order::where($where)->first();
+        return response()->json($order);
     }
 
-    //response to ajax
-    public function updateStatusOrder(Request $request, $order_id)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Order $order)
     {
-        $status = $request->status;
-        $order = Order::findOrFail($order_id);
+        $data = $request->all();
+        // dd($data);
+        $order = Order::findOrFail($order->id);
         $order->update([
-            'status' => $status
+            'status' => $data['status'],
+            'payment_status' => $data['payment_status']
         ]);
-        return response()->json($order);
+        return redirect()->route('admin.order.index')->with('success', 'Updated order status successfully!');
     }
 
     public function showDetail($order_id)
@@ -45,4 +57,5 @@ class Ad_OrderController extends Controller
     {
         return view('admin.order.invoice-print');
     }
+
 }

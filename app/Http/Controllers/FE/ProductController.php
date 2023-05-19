@@ -51,10 +51,10 @@ class ProductController extends Controller
         $products = ViewProductData::orderByDesc('amount_sell')->paginate($item)->appends(request()->query());
         switch ($sort_by) {
             case 'price':
-                $products = Product::orderby('product_price')->paginate($item)->appends(request()->query());
+                $products = ViewProductData::orderby('product_price')->paginate($item)->appends(request()->query());
                 break;
             case 'price-desc':
-                $products = Product::orderbyDesc('product_price')->paginate($item)->appends(request()->query());
+                $products = ViewProductData::orderbyDesc('product_price')->paginate($item)->appends(request()->query());
                 break;
             case 'name':
                 $products = Product::orderby('product_name')->paginate($item)->appends(request()->query());
