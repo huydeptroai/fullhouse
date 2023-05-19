@@ -8,7 +8,7 @@
 						<i class="fa fa-truck" aria-hidden="true"></i>
 						<div class="wrap-left-info">
 							<h4 class="fc-name">Free Shipping</h4>
-							<p class="fc-desc">Free On Oder Over $250</p>
+							<p class="fc-desc">Free On Oder Over $299</p>
 						</div>
 
 					</li>
@@ -58,7 +58,7 @@
 										</li>
 										<li>
 											<i class="fa fa-phone" aria-hidden="true"></i>
-											<p class="contact-txt">(+123) 456 789 - (+123) 666 888</p>
+											<p class="contact-txt">0853923404</p>
 										</li>
 										<li>
 											<i class="fa fa-envelope" aria-hidden="true"></i>

@@ -50,6 +50,7 @@
 	<!--main end-->
 
 	@include('fe.layout.partials.chatbox')
+	<!-- @include('fe.layout.partials.hotline') -->
 
 	<!-- footer start-->
 	@include('fe.layout.partials.footer')
@@ -183,6 +184,7 @@
 						// console.log(data);
 						var cart = '';
 						let count = 0;
+						let total_qty = 0;
 						let total = 0;
 						let img = '';
 						var cart_page = '';
@@ -190,7 +192,8 @@
 						$.each(data, function(k, v) {
 							var arr_img = JSON.parse(v.product_image);
 							count++;
-							total += parseInt(v.amount);
+							total_qty += parseInt(v.quantity);
+							total += parseFloat(v.amount);
 							let path = "{{ asset('assets/img/upload/product') }}" + "/" + arr_img[0];
 							let id = v.product_id;
 							let detail = "{{ url('/product')}}" + "/" + id;
@@ -251,7 +254,9 @@
 						$('#content-cart').html(cart);
 						$('#count').html(count + ' items');
 						$('.total-cart').html(' $ ' + total.toFixed(2));
-						$('input[name="value_order"]').val(total.toFixed(2));
+						$('input[name="value_order"]').val(total);
+						$('input[name="total_quantity"]').val(total_qty);
+						
 					}
 				);
 			};
@@ -444,7 +449,7 @@
 		});
 	</script>
 
-	<!-- Subscribe footer -->
+	
 
 
 	@yield('myJS')

@@ -19,12 +19,15 @@
             </ul>
         </div>
     </div>
+    @php
+    $order = Session::has('order') ? Session::get('order') : null;
+    @endphp
 
     <div class="container pb-60">
         <div class="row">
             <div class="col-md-12 text-center">
                 <h2>Thank you for your order</h2>
-                <p>Date: {{ \Carbon\Carbon::createFromFormat('Y-m-d H:m:s', $order->order_date)->format('d/m/Y')}}</p>
+                <p>Date: {{$order->order_date}}</p>
                 <hr>
                 <div class="row">
                     @if(\Session::has('error'))
@@ -182,7 +185,7 @@
                                             <img src="{{ asset('admin/dist/img/credit/paypal2.png')}}" alt="Paypal"> PayPal
                                         </span>
                                         <span class="payment-desc">
-                                            <p><a class="btn btn-default m-3" href="{{ route('processTransaction') }}">Pay ${{\Session::get('total_paypal')}}</a></p>
+                                            <p><a class="link m-3" href="{{ route('processTransaction') }}">Click here to Pay ${{\Session::get('total_paypal')}}</a></p>
                                         </span>
                                     </label>
                                 </div>

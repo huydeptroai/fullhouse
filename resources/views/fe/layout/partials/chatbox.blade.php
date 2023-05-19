@@ -1,6 +1,6 @@
-<a href="https://chat.zalo.me/?phone=0938632941" id="linkzalo" target="_blank" rel="noopener noreferrer">
+<a href="https://chat.zalo.me/?phone=0853923404" id="linkzalo" target="_blank" rel="noopener noreferrer">
     <div id="fcta-zalo-tracking" class="fcta-zalo-mess">
-        <span id="fcta-zalo-tracking">Live chat</span>
+        <!-- <span id="fcta-zalo-tracking">Live chat</span> -->
     </div>
     <div class="fcta-zalo-position">
         <div id="fcta-zalo-tracking" class="fcta-zalo-back">
@@ -40,7 +40,7 @@
     }
 
     @keyframes lucidgenzalo {
-        0% to {
+        0% {
             transform: rotate(-25deg)
         }
 
@@ -150,7 +150,7 @@
         opacity: 1
     }
 
-    div.fcta-zalo-mess {
+    /* div.fcta-zalo-mess {
         position: fixed;
         bottom: 85px;
         right: 80px;
@@ -161,7 +161,7 @@
         border-radius: 50px 0 0 50px;
         font-weight: 700;
         font-size: 15px
-    }
+    } */
 
     .fcta-zalo-mess span {
         color: #0068ff !important
@@ -182,10 +182,3 @@
         document.getElementById("linkzalo").href = "https://zalo.me/0938632941";
     }
 </script>
-
-
-<!-- Craft: <div>
-                                    class="zalo-chat-widget" data-oaid="" data-welcome-message="Welcome to Full House!" 
-                                    data-autopopup="0" data-width="350" data-height="420"
-                                </div>
-                                <script src="https://sp.zalo.me/plugins/sdk.js"></script> -->

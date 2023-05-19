@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\OrderRequest;
 use App\Models\ViewProductData;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class CheckOutController extends Controller
 {
@@ -48,6 +49,8 @@ class CheckOutController extends Controller
     {
         //1. Insert Order
         $data = $request->all();
+        $data['user_id'] = Auth::id();
+        $data['total_quantity'] = Cart::where('user_id', $data['user_id'])->count('product_id');
         if ($request->method_shipping == 1) {
             if ($request->shipping_city != null && $request->shipping_district != null) {
                 //shipping fee
@@ -68,21 +71,18 @@ class CheckOutController extends Controller
             $data['shipping_address'] = 'No 391A, Nam Ky Khoi Nghia Street';
         }
 
-        $data['user_id'] = Auth::id();
-        $data['order_date'] = date('Y-m-d', time());
+        $data['order_date'] = now();
         $data['status'] = 1; //ordered
+        
+        $data['payment_status'] = 1; //not paid
 
-        if ($request->coupon_code != null) {
-            $coupon = Coupon::where('code', 'like', $data['coupon_code'])
-            ->where('status', 1)
-            ->where('value_order', '<=', $data['value_order'])
-            ->first();
-            if ($coupon) {
-                $data['coupon_id'] = $coupon->id;
-            }
-            $data['note'] .= " (The customer has coupon " . $data['coupon_code'] . ")";
+        if($data['coupon_code'] != null && $data['coupon_code'] != ''){
+            $coupon = $this->calcCoupon($data['coupon_code'], $data['value_order']);
+            $data['coupon_id'] = $coupon['id'];
+        }else{
+            $data['coupon_id'] = null;
         }
-
+        
         $order = Order::create($data);
 
         //2. Insert OrderDetail
@@ -100,43 +100,45 @@ class CheckOutController extends Controller
             //3. delete cart-item
             $cart->delete();
         }
+        Session::put('order', $order);
 
-        return view('fe.order.confirm',[
-            'order' => Order::find($order->id)
+        return view('fe.order.confirm', [
+            'order' => $order
         ]);
     }
 
     //======= Shipping fee ======
     public function shippingFee($data)
     {
-        define('AMOUNT', 99);
+        define('AMOUNT', 299);
 
         $city_code = $data['shipping_city'];
         $district_code = $data['shipping_district'];
         $value_order = $data['value_order'];
-
-        if ($value_order >= AMOUNT) {
-            return 0;
-        }
+        $total_quantity = $data['total_quantity'];
 
         $shipping_fee = 0;
         switch ($city_code) {
                 //HCM city
             case 79:
                 if ($this->isUrban($district_code)) {
-                    $shipping_fee = $this->check_range($value_order * 0.04);
+                    if ($value_order >= AMOUNT) {
+                        $shipping_fee = 0;
+                    } else {
+                        $shipping_fee = 2 * $total_quantity;
+                    }
                 } elseif ($this->isSuburban($district_code)) {
-                    $shipping_fee = $this->check_range($value_order * 0.06);
+                    $shipping_fee = 2 * $total_quantity;
                 } else {
-                    $shipping_fee = $this->check_range($value_order * 0.08);
+                    $shipping_fee = 4 * $total_quantity;
                 }
                 break;
                 //City/Province other
             default:
-                $shipping_fee = $this->check_range($value_order * 0.1);
+                $shipping_fee = 5 * $total_quantity;
                 break;
         }
-
+        Session::put('shipping_fee', $shipping_fee);
         return $shipping_fee;
     }
 
@@ -164,52 +166,48 @@ class CheckOutController extends Controller
         return false;
     }
 
-    public function check_range($fee = 0)
-    {
-        define('MIN', 2);
-        define('MAX', 10);
-        if ($fee < MIN) {
-            return MIN;
-        } elseif ($fee < MAX) {
-            return $fee;
-        } else {
-            return MAX;
-        }
-    }
 
     public function postShippingFee(Request $request)
     {
         $data = $request->all();
         $shipping_fee = $this->shippingFee($data);
+        Session::put('shipping_fee', $shipping_fee);
         return response()->json($shipping_fee);
     }
 
 
 
     //======= Coupon ======
-    public function calcCoupon($code, $value_order)
+    public function calcCoupon($code = '', $value_order = 0)
     {
-        $order_coupon = [];
-
-        $coupon = Coupon::where('code', 'like', $code)
-            ->where('status', 1)
-            ->where('value_order', '<=', $value_order)
-            ->first();
-
-        $times = Order::where('coupon_id', $coupon->id)->count('*');
-
         $value = 0;
-        if ($coupon->times > $times) {
-            $value = $coupon->value;
+        $id = '';
+        if ($code != null && $code != '') {
+            try {
+                $coupon = Coupon::where('code', 'like', $code)
+                    ->where('status', 1)
+                    ->where('value_order', '<=', $value_order)
+                    ->first();
+                if ($coupon) {
+                    $times = Order::where('coupon_id', $coupon->id)->where('status', '<>', 6)->count('*');
+                    $value = ($coupon->times > $times) ? $coupon->value : 0;
+                    $id = $coupon->id;
+                }
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+        } else {
+            $value = 0;
         }
 
-        $order_coupon[$code] = [
-            'coupon' => $coupon,
-            'value' => $value
-        ];
-
+        Session::put('code', $code);
+        Session::put('order_coupon', $value);
         // return $order_coupon;
-        return $value;
+        return [
+            'id'=>$id,
+            'code'=>$code,
+            'value'=>$value
+        ];
     }
 
 
@@ -217,44 +215,38 @@ class CheckOutController extends Controller
     {
         $code = trim($request->code);
         $value_order = $request->value_order;
+        $coupon = $this->calcCoupon($code, $value_order);
 
-        $order_coupon = [];
-        if (session()->has('order_coupon')) {
-            $order_coupon = session()->get('order_coupon');
-        }
-
-        // $order_coupon = $this->calcCoupon($code, $value_order);
-        $coupon = Coupon::where('code', 'like', $code)
-            ->where('status', 1)
-            ->where('value_order', '<=', $value_order)
-            ->first();
-
-        $times = Order::where('coupon_id', $coupon->id)->count('*');
-
-        $value = 0;
-        if ($coupon->times > $times) {
-            $value = $coupon->value;
-        }
-
-        $order_coupon[$code] = [
-            'coupon' => $coupon,
-            'value' => $value
-        ];
-
-
-        session()->put('order_coupon', $order_coupon);
-
-        return response()->json($order_coupon);
+        return response()->json($coupon['value']);
     }
 
-    public function showCoupon(Request $request)
+    public function showInformationOrder()
     {
-        if ($request->session()->has('order_coupon')) {
-            $order_coupon = $request->session()->get('order_coupon');
-            return response()->json($order_coupon);
-        }
-    }
+        $data = [];
+        $data['code'] = Session::has('code') ? Session::get('code') :"";
+        $data['order_coupon'] = Session::has('order_coupon') ? Session::get('order_coupon') : 0;
+        $data['shipping_fee'] = Session::has('shipping_fee') ? Session::get('shipping_fee') : 0;
 
+        $user_id = Auth::id();
+        $carts = Cart::selectRaw(
+            'carts.*,
+            products.*,
+            (product_price - discount) as price,
+            ((product_price-discount) * carts.quantity) as amount'
+        )->join('products', 'carts.product_id', 'like', 'products.product_id')
+            ->where('carts.user_id', $user_id)
+            ->orderBy('id', 'desc')
+            ->get();
+        $sum = 0;
+        foreach($carts as $k=>$v){
+            $sum += $v->amount;
+        }
+        $data['value_cart'] = $sum ?? 0;
+        $data['value_order'] = $data['value_cart'] - $data['order_coupon']+ $data['shipping_fee'];
+        // dd($data);
+        
+        return response()->json($data);
+    }
 
 
     public function confirmOrder()
@@ -267,6 +259,15 @@ class CheckOutController extends Controller
         $order = Order::find($order_id);
         $order->status = 6;
         $order->save();
+        Session::forget('success_paypal');
+        Session::forget('total_paypal');
+        
+        Session::forget('shipping_fee');
+        Session::forget('order_coupon');
+        Session::forget('code');
+        Session::forget('order');
+        
+        // return redirect()->back()->with('success', 'Đơn hàng đã bị hủy');
         return redirect()->route('product.index');
     }
 
@@ -274,7 +275,7 @@ class CheckOutController extends Controller
     {
         $order = Order::find($request->order_id);
         $order->status = 2;
-        $order->payment_method = Session::get('success_paypal') == true ? 2: 1;
+        $order->payment_method = Session::get('success_paypal') == true ? 2 : 1;
         $order->payment_status = Session::get('success_paypal') == true ? 2 : 1;
 
         //save information
@@ -283,7 +284,10 @@ class CheckOutController extends Controller
         Session::forget('success_paypal');
         Session::forget('total_paypal');
 
+        Session::forget('shipping_fee');
         Session::forget('order_coupon');
+        Session::forget('code');
+        Session::forget('order');
 
         return redirect()->route('product.index');
     }

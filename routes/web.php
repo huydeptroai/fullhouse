@@ -40,6 +40,7 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
 
     Route::post('/review', [ReviewController::class, 'store'])->name('review.store');
+    Route::get('/review-delete/{id}', [ReviewController::class, 'destroy'])->name('review.delete');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -64,12 +65,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/checkout', 'viewOrder')->name('checkout');
         Route::get('/district/{province_code}', 'getDistricts')->name('districts');
         Route::post('coupon', 'postCoupon')->name('postCoupon');
-        Route::post('show-coupon', 'showCoupon')->name('showCoupon');
         Route::post('order', 'createOrder')->name('createOrder');
         Route::post('shipping-fee', 'postShippingFee')->name('postShippingFee');
         Route::get('/cancel-order/{order_id}', 'cancelOrder')->name('cancelOrder');
         Route::get('/confirm-order', 'confirmOrder')->name('confirmOrder');
         Route::get('/update-order/{order_id}', 'updateStatusOrder')->name('updateStatusOrder');
+        Route::get('/info-order', 'showInformationOrder')->name('showInformationOrder');
     });
 
     // ============= Admin ===============
@@ -83,12 +84,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('/user', App\Http\Controllers\Admin\Ad_UserController::class)->names('admin.user');
         Route::resource('/order', App\Http\Controllers\Admin\Ad_OrderController::class)->except('show', 'destroy', 'create', 'store')->names('admin.order');
 
-        // Route::resource('/admin/category', App\Http\Controllers\Admin\AjaxCategoryController::class)->names('admin.category');
         Route::resource('/newsletter', Ad_NewsletterController::class)->names('admin.newsletter');
-
-        // Route::get('/order/index', [Ad_OrderController::class, 'index'])->name('admin.order.index');
-        // Route::get('/order/{order_id}/edit', [Ad_OrderController::class, 'edit'])->name('admin.order.edit');
-        // Route::post('/order/update', [Ad_OrderController::class, 'update'])->name('admin.order.update');
 
         Route::get('/order/invoice/{order_id}', [Ad_OrderController::class, 'showDetail'])->name('admin.order.invoice');
         Route::get('/order/invoice-print', [Ad_OrderController::class, 'printInvoice'])->name('admin.order.printInvoice');
@@ -114,36 +110,3 @@ Route::controller(HomeController::class)->group(function () {
     Route::post('/search-name', 'searchName')->name('searchName');
 });
 
-
-
-
-
-// Route::get('/register_socialite', [HomeController::class, 'register_socialite'])->name('register_socialite');
-
-//============ login by Facebook===========
-// Route::get('/login/facebook', function(){
-//     return Socialite::driver('facebook')->redirect();
-// })->name('facebook');
-
-// Route::get('/login/facebook/callback', function(){
-//     $user = Socialite::driver('facebook')->user();
-//     $user-> getEmail();
-//     $user-> getName();
-
-//     return view('fe.home');
-
-//     // echo $user-> getEmail().'<br/>';
-//     // echo $user-> getId().'<br/>';
-//     // echo $user-> getName().'<br/>';
-
-// });
-
-// //==================login by google =====================
-// Route::get('/login/google', function(){
-//     return Socialite::driver('google')->redirect();
-// })->name('google');
-// Route::get('/login/google/callback', function(){
-//     $user = Socialite::driver('google')->user();
-    
-//     return view('fe.home');
-// });

@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 	<!-- Brand Logo -->
 	<a href="{{ route('admin.dashboard')}}" class="brand-link">
-		<img src="{{ asset('/admin/dist/img/AdminFullHouseLogo2.jpg') }}" alt="Admin Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+		<img src="{{ asset('/frontend/images/icon.jpg') }}" alt="Admin Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
 		<span class="brand-text font-weight-light">Full House</span>
 	</a>
 
@@ -170,35 +170,20 @@
 								<p>Data User</p>
 							</a>
 						</li>
-
-						<li class="nav-item">
-							<a href="#" class="nav-link">
-								<i class="far fa-circle nav-icon"></i>
-								<p>Contacts user</p>
-							</a>
-						</li>
-
 					</ul>
 				</li>
 				<!-- MISCELLANEOUS -->
 				<li class="nav-header">MISCELLANEOUS</li>
-				<li class="nav-item">
-					<a href="#" class="nav-link">
-						<i class="nav-icon fas fa-file"></i>
-						<p>Documentation</p>
-					</a>
-				</li>
-				<li class="nav-item">
-					<div class="nav-link">
-						<i class="fa-solid fa-right-from-bracket"></i>
+				<li class="nav-header">
+					<h5 class="nav-link">
 						<!-- Authentication -->
 						<form method="POST" action="{{ route('logout') }}">
 							@csrf
 							<a href="{{route('logout')}}" onclick="event.preventDefault();this.closest('form').submit();">
-								<i class="bi bi-box-arrow-right"></i>Log Out
+								Log Out
 							</a>
 						</form>
-					</div>
+					</h5>
 				</li>
 
 			</ul>
