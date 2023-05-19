@@ -125,7 +125,9 @@
                                     <b class="lead">Order Status:</b>
                                     <div class="form-group">
                                         <label for="">Shipping status:</label>
-                                        <select class="custom-select" name="status" id="status">
+                                        <select class="custom-select" name="status" id="status"
+                                        @if($order->status === 5) disabled @endif 
+                                        >
                                             <option value="1" @if($order->status === 1) selected @endif>1 - Order received</option>
                                             <option value="2" @if($order->status === 2) selected @endif>2 - Confirmed</option>
                                             <option value="3" @if($order->status === 3) selected @endif>3 - Packaging process</option>
@@ -139,7 +141,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Payment method:</label>
-                                                <select class="custom-select" name="payment_method" id="payment_method">
+                                                <select class="custom-select" name="payment_method" id="payment_method" 
+                                                @if($order->payment_status === 2) disabled @endif >
                                                     <option value="1" @if($order->payment_method === 1) selected @endif>COD</option>
                                                     <option value="2" @if($order->payment_method === 2) selected @endif>PayPal</option>
                                                 </select>
@@ -148,7 +151,9 @@
                                         <div class="col-md-6">
                                         <div class="form-group">
                                                 <label for="">Payment Status:</label>
-                                                <select class="custom-select" name="payment_status" id="payment_status">
+                                                <select class="custom-select" name="payment_status" id="payment_status"
+                                                @if($order->payment_status === 2) disabled @endif
+                                                >
                                                     <option value="1" @if($order->payment_status === 1) selected @endif>Not yet</option>
                                                     <option value="2" @if($order->payment_status === 2) selected @endif>Finished</option>
                                                 </select>
@@ -187,7 +192,7 @@
                             <!-- this row will not appear when printing -->
                             <div class="row no-print">
                                 <div class="col-12">
-                                    <a href="{{ route('admin.order.printInvoice')}}" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
+                                    <a href="{{ route('admin.order.printInvoice',['order_id'=>$order->id])}}" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
                                     <a href="{{ route('admin.order.index')}}" type="button" class="btn btn-default float-right">
                                         Back order list
                                     </a>

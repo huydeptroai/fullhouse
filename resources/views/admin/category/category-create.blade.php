@@ -36,15 +36,15 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="category_id">Category ID</label>
-                                <input type="text" id="category_id" name="category_id" class="form-control" autofocus>
+                                <input type="text" id="category_id" name="category_id" class="form-control" autofocus required>
                             </div>
                             <div class="form-group">
                                 <label for="category_name_1">Category Name 1</label>
-                                <input type="text" id="category_name_1" name="category_name_1" class="form-control">
+                                <input type="text" id="category_name_1" name="category_name_1" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="category_name_2">Category Name 2</label>
-                                <input type="text" id="category_name_2" name="category_name_2" class="form-control">
+                                <input type="text" id="category_name_2" name="category_name_2" class="form-control" required>
                             </div>
 
 

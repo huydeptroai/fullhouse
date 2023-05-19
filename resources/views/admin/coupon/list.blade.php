@@ -126,11 +126,11 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="category_id">Code Coupon</label>
-                                            <input type="text" id="code" name="code" class="form-control" value="" required="">
+                                            <input type="text" id="code" name="code" class="form-control" value="" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="category_name_1">Value Coupon</label>
-                                            <input type="number" step="0.01" min="0" id="value" name="value" class="form-control" value="" required="">
+                                            <input type="number" step="0.01" min="0" id="value" name="value" class="form-control" value="" required>
                                         </div>
                                         <div class="custom-control custom-checkbox">
                                             <input class="custom-control-input custom-control-input-danger" type="checkbox" id="status" name="status" checked="">
@@ -148,11 +148,11 @@
                                         <h5>Conditions of coupon</h5>
                                         <div class="form-group">
                                             <label for="category_name_1">Times</label>
-                                            <input type="number" step="1" min="0" id="times" name="times" class="form-control" value="" required="">
+                                            <input type="number" step="1" min="0" id="times" name="times" class="form-control" value="" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="category_name_1">Value Order</label>
-                                            <input type="number" step="0.01" min="0" id="value_order" name="value_order" class="form-control" value="" required="">
+                                            <input type="number" step="0.01" min="0" id="value_order" name="value_order" class="form-control" value="" required>
                                         </div>
                                     </div>
                                     <!-- /.card-body -->

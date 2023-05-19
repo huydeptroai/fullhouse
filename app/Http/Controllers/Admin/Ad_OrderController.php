@@ -38,9 +38,11 @@ class Ad_OrderController extends Controller
         $data = $request->all();
         // dd($data);
         $order = Order::findOrFail($order->id);
+        $status = $data['status'] ?? $order->status;
+        $payment_status = $data['payment_status'] ?? $order->payment_status;
         $order->update([
-            'status' => $data['status'],
-            'payment_status' => $data['payment_status']
+            'status' => $status,
+            'payment_status' => $payment_status
         ]);
         return redirect()->route('admin.order.index')->with('success', 'Updated order status successfully!');
     }
@@ -53,9 +55,12 @@ class Ad_OrderController extends Controller
         ]);
     }
 
-    public function printInvoice()
+    public function printInvoice($order_id)
     {
-        return view('admin.order.invoice-print');
+        $order = Order::find($order_id);
+        return view('admin.order.invoice-print',[
+            'order' => $order
+        ]);
     }
 
 }

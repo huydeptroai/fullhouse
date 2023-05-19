@@ -51,7 +51,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Role</th>
-                                        <th>Last login at</th>
+                                        <th>Login by</th>
                                         <th>Create by</th>
                                     </tr>
                                 </thead>
@@ -76,12 +76,9 @@
                                             
                                         </td>
                                         <td>
-                                            <p class="text-muted mb-0">
-                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->last_login_at)->diffForHumans()}}
-                                            </p>
+                                            {{$user->provider}}<br/>
                                         </td>
                                         <td>
-                                            {{$user->provider}}<br/>
                                             <small class="text-muted mb-0">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->diffForHumans()}}</small>
                                         </td>
 

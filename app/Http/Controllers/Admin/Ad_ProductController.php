@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Review;
+use App\Models\ViewProductData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -157,4 +158,5 @@ class Ad_ProductController extends Controller
         $product->delete();
         return redirect()->route('admin.product.index')->with('deleted', 'Product deleted successfully!');
     }
+
 }

@@ -36,7 +36,7 @@ Route::get('/', function () {
 })->middleware(['countVisitor']); //count by [IP,user_id]
 
 
-
+// ============= User ===============
 Route::middleware('auth')->group(function () {
 
     Route::post('/review', [ReviewController::class, 'store'])->name('review.store');
@@ -87,7 +87,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('/newsletter', Ad_NewsletterController::class)->names('admin.newsletter');
 
         Route::get('/order/invoice/{order_id}', [Ad_OrderController::class, 'showDetail'])->name('admin.order.invoice');
-        Route::get('/order/invoice-print', [Ad_OrderController::class, 'printInvoice'])->name('admin.order.printInvoice');
+        Route::get('/order/invoice-print/{order_id}', [Ad_OrderController::class, 'printInvoice'])->name('admin.order.printInvoice');
     });
 });
 

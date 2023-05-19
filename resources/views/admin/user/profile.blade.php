@@ -74,6 +74,12 @@
                         {{ $errors->userDeletion->first('password') }}
                     </div>
                     @endif
+                    @if ($message = Session::get('deleted'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ $message }}
+                        </div>
+                    @endif
+
                     <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">

@@ -73,6 +73,12 @@ class Ad_UserController extends Controller
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current-password'],
         ]);
+
+        $orderExist = Order::where('user_id', $user->id)->first();
+        if($orderExist != null){
+            return redirect()->back()->with('delete', 'Cannot delete this user! This user have exist in the order data!');
+        }
+
         //find user by id
         $user = User::find($user->id);
         
