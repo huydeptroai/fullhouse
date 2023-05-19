@@ -49,6 +49,8 @@
 	@yield('content')
 	<!--main end-->
 
+	@include('fe.layout.partials.chatbox')
+
 	<!-- footer start-->
 	@include('fe.layout.partials.footer')
 	<!-- footer end -->
