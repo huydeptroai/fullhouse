@@ -77,6 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'checkAdmin', 'prefix' => 'admin'], function () {
 
         Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+        Route::post('/product-sale', [DashboardController::class, 'productSales'])->name('admin.productSales');
 
         Route::resource('/category', App\Http\Controllers\Admin\Ad_CategoryController::class)->names('admin.category');
         Route::resource('/product', App\Http\Controllers\Admin\Ad_ProductController::class)->names('admin.product');

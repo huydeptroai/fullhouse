@@ -224,7 +224,15 @@
                                     <!-- timeline item -->
                                     <div>
                                         <div class="timeline-item">
-                                            <h4 class="timeline-header"><a href="#">Order id {{$order->id}}</a></h4>
+                                            <h4 class="timeline-header">
+                                                <a href="#">Order id {{$order->id}}</a>
+                                                @php
+                                                $c = $order->status === 6 ? "color:red;" : "color:green;";
+                                                @endphp
+                                                <div style="<?php echo $c ?> text-align:right;">
+                                                    Order Status: <b>{{ $order->getShippingStatus()}}</b>
+                                                </div>
+                                            </h4>
                                             <div class="timeline-body">
                                                 <table class="table table-striped table-inverse table-responsive">
                                                     <thead class="thead-inverse">
@@ -296,16 +304,14 @@
                                                             <th>Coupon:</th>
                                                             <td>{{$order->coupon}}</td>
                                                         </tr>
-
-
+                                                        <tr>
+                                                            <th>Payment Status:</th>
+                                                            <td><b>{{ $order->getPaymentStatus()}}</b></td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
-
                                             </div>
-                                            <div class="timeline-footer" style="text-align:right">
 
-                                                Status: <b>{{ $order->status == 0 ? 'processing' : 'shipped'}}</b>
-                                            </div>
                                         </div>
                                     </div>
                                     <!-- END timeline item -->

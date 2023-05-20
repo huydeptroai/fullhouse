@@ -141,8 +141,7 @@ class Ad_ProductController extends Controller
     public function destroy(Product $product)
     {
         //1. check product in order
-        $orderExist = OrderDetail::where('product_id', 'like', $product->product_id)->get();
-        if($orderExist != null){
+        if($product->orderDetails()->count('*')){
             return redirect()->route('admin.product.index')->with('deleted', 'Cannot deleted product! This product had exist in the order!');
         }
         //2. delete product

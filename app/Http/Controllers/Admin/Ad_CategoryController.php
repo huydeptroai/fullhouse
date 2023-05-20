@@ -121,12 +121,8 @@ class Ad_CategoryController extends Controller
     public function destroy(Category $category)
     {
         //1. check isCategory
-        $categoryExist = Category::selectRaw('categories.category_id')
-        ->join('products', 'products.category_id', 'like', 'categories.category_id')
-        ->join('order_details', 'order_details.product_id', 'like', 'products.product_id')
-        ->where('category_id' ,'like', $category->category_id)->first();
-        if($categoryExist != null){
-            return redirect()->route('admin.category.index')->with('delete', 'Cannot delete this category! This category have exist in the order!');
+        if($category->products()->count('*') > 0){
+            return redirect()->route('admin.category.index')->with('deleted', 'Category Cannot Delete Because Has Product');
         }
 
         //2. Delete Category
@@ -136,6 +132,6 @@ class Ad_CategoryController extends Controller
             File::delete($path);
         }
         $category->delete();
-        return redirect()->route('admin.category.index')->with('delete', 'Category Deleted');
+        return redirect()->route('admin.category.index')->with('deleted', 'Category Deleted');
     }
 }
