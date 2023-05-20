@@ -569,7 +569,7 @@ textarea {
     width: 100%;
     text-align: left;
 }
-.center-section .wrap-search-form input[name="search"] {
+.center-section .wrap-search-form input[name="search_name"] {
     width: 100%;
     float: left;
     font-size: 13px;
@@ -2445,7 +2445,7 @@ li.menu-item .nav-label.sale-label::before {
     display: block;
     list-style: none;
 }
-.product-list li .product.product-style-3 {
+.column .product-list li .product.product-style-3 {
     padding: 0 10px;
     display: flex;
     flex-direction: column;

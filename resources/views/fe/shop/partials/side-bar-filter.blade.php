@@ -12,7 +12,8 @@
 								Office</a></li>
 						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Chair Office']) }}">Chair
 								Office</a></li>
-						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Cabinet-shelves Office']) }}">Cabinet-shelves
+						<li class="level-2"><a
+								href="{{ route('searchByCategoryName',['category_name'=>'Cabinet-shelves Office']) }}">Cabinet-shelves
 								Office</a></li>
 					</ul>
 				</li>
@@ -29,25 +30,31 @@
 						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'TV Shelf']) }}">TV
 								Shelf
 						</li>
-						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Bookshelf-Decorative shelf']) }}">Bookshelf-Decorative
+						<li class="level-2"><a
+								href="{{ route('searchByCategoryName',['category_name'=>'Bookshelf-Decorative shelf']) }}">Bookshelf-Decorative
 								shelf</li>
-						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Decorative cabinets']) }}">Decorative
+						<li class="level-2"><a
+								href="{{ route('searchByCategoryName',['category_name'=>'Decorative cabinets']) }}">Decorative
 								cabinets</li>
-						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Combo living room']) }}">Combo
+						<li class="level-2"><a
+								href="{{ route('searchByCategoryName',['category_name'=>'Combo living room']) }}">Combo
 								living room</li>
 					</ul>
 				</li>
 				<li class="category-item has-child-cate">
-					<a href="{{ route('searchByCategoryName',['category_name'=>'Kitchen-Dining furniture']) }}" class="cate-link">Kitchen - Dining Furniture</a>
+					<a href="{{ route('searchByCategoryName',['category_name'=>'Kitchen-Dining furniture']) }}"
+						class="cate-link">Kitchen - Dining Furniture</a>
 					<span class="toggle-control">+</span>
 					<ul class="sub-cate">
 						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Dining table']) }}">Dining
 								table</li>
 						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Dining chair']) }}">Dining
 								chair</li>
-						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Dining table and chair set']) }}">Dining
+						<li class="level-2"><a
+								href="{{ route('searchByCategoryName',['category_name'=>'Dining table and chair set']) }}">Dining
 								table and chair set</li>
-						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Kitchen cabinets']) }}">Kitchen
+						<li class="level-2"><a
+								href="{{ route('searchByCategoryName',['category_name'=>'Kitchen cabinets']) }}">Kitchen
 								cabinets</li>
 					</ul>
 				</li>
@@ -58,7 +65,8 @@
 					<ul class="sub-cate">
 						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Bed']) }}">Bed
 						</li>
-						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Wardrobe-clothes shelves']) }}">Wardrobe
+						<li class="level-2"><a
+								href="{{ route('searchByCategoryName',['category_name'=>'Wardrobe-clothes shelves']) }}">Wardrobe
 								- clothes shelves</li>
 						<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Makeup table']) }}">Makeup
 								table</li>
@@ -104,8 +112,14 @@
 			<div id="slider-range"></div>
 			<div class="filter-price">
 				<div class="price-search">
-					<label for="amount">Price:</label>
+					<label for="amount">Price : </label>
+					@if(!isset($_GET["price_max"]) || !isset($_GET["price_min"]))
 					<input type="text" id="amount" name="searchPrice" readonly>
+					@else
+					<input type="text" name="searchPrice" readonly>
+					${{Session::get("price_min")}} -
+					${{Session::get("price_max")}}
+					@endif
 				</div>
 				<form id="priceForm">
 					<input type="hidden" name="price_min" id="price_min" value="" readonly>
@@ -125,9 +139,11 @@
 				<li class="product-item">
 					<div class="product product-widget-style">
 						<div class="thumbnnail">
-							<a href="{{ route('productDetail',['product_slug' => $product->product_slug]) }}" title="{{$product->product_name}}">
+							<a href="{{ route('productDetail',['product_slug' => $product->product_slug]) }}"
+								title="{{$product->product_name}}">
 								<figure>
-									<img src="{{ asset('assets/img/upload/product/'.$product->product_image['0']) }}" width="800" height="800" alt="{{$product->product_image[0]}}">
+									<img src="{{ asset('assets/img/upload/product/'.$product->product_image['0']) }}" width="800"
+										height="800" alt="{{$product->product_image[0]}}">
 								</figure>
 							</a>
 						</div>
@@ -140,7 +156,8 @@
 									$ {{number_format($product->product_price - $product->discount,2)}}
 								</strong>
 								@if($product->discount > 0)
-								<span style="text-decoration: line-through;color:red;">$ {{number_format($product->product_price,2)}}</span>
+								<span style="text-decoration: line-through;color:red;">$
+									{{number_format($product->product_price,2)}}</span>
 								@endif
 							</div>
 						</div>
@@ -150,6 +167,7 @@
 
 			</ul>
 		</div>
-	</div><!-- brand widget-->
+	</div>
+	<!-- brand widget-->
 
 </div>

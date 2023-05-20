@@ -6,7 +6,8 @@
 					<div class="topbar-menu left-menu">
 						<ul>
 							<li class="menu-item">
-								<a title="Hotline: (+123) 456 789" href="#"><span class="icon label-before fa fa-mobile"></span>Hotline: (+123) 456 789</a>
+								<a title="Hotline: (+123) 456 789" href="#"><span class="icon label-before fa fa-mobile"></span>Hotline:
+									(+123) 456 789</a>
 							</li>
 						</ul>
 					</div>
@@ -58,14 +59,14 @@
 				<div class="mid-section main-info-area">
 
 					<div class="wrap-logo-top left-section">
-						<a href="{{ route('home') }}" class="link-to-home"><img src="{{ asset('/frontend/images/logo-top-1.jpg') }}" alt="mercado"></a>
+						<a href="{{ route('home') }}" class="link-to-home"><img src="{{ asset('/frontend/images/logo-top-1.jpg') }}"
+								alt="mercado"></a>
 					</div>
 
 					<div class="wrap-search center-section">
 						<div class="wrap-search-form">
-							<form method="post" action="{{route('searchName')}}" id="form-search-top" name="form-search-top">
-								@csrf
-								<input type="text" name="search" placeholder="Search here...">
+							<form action="{{route('product.index')}}" id="form-search-top" name="form-search-top">
+								<input type="text" name="search_name" id="search_name" placeholder="Search here...">
 								<button form="form-search-top" type="submit">
 									<i class="fa fa-search" aria-hidden="true"></i>
 								</button>
@@ -76,48 +77,66 @@
 									<ul class="list-cate">
 										<li class="level-0"><a href="{{ route('product.index')}}">All Category</a></li>
 
-										<li class="level-1"><a href="{{ route('searchByCategoryName',['category_name'=>'Office furniture']) }}">-Office
+										<li class="level-1"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Office furniture']) }}">-Office
 												furniture</a></li>
-										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Desk Office']) }}">Desk
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Desk Office']) }}">Desk
 												Office</a></li>
-										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Chair Office']) }}">Chair
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Chair Office']) }}">Chair
 												Office</a></li>
-										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Cabinet-shelves Office']) }}">Cabinet-shelves
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Cabinet-shelves Office']) }}">Cabinet-shelves
 												Office</a></li>
-										<li class="level-1"><a href="{{ route('searchByCategoryName',['category_name'=>'Living furniture']) }}">-Living
+										<li class="level-1"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Living furniture']) }}">-Living
 												furniture</a></li>
 										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Sofa']) }}">Sofa
 										</li>
-										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Sofa table']) }}">Sofa table
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Sofa table']) }}">Sofa table
 										</li>
 										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'TV Shelf']) }}">TV
 												Shelf
 										</li>
-										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Bookshelf-Decorative shelf']) }}">Bookshelf-Decorative
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Bookshelf-Decorative shelf']) }}">Bookshelf-Decorative
 												shelf</li>
-										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Decorative cabinets']) }}">Decorative
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Decorative cabinets']) }}">Decorative
 												cabinets</li>
-										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Combo living room']) }}">Combo
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Combo living room']) }}">Combo
 												living room</li>
-										<li class="level-1"><a href="{{ route('searchByCategoryName',['category_name'=>'Kitchen-Dining furniture']) }}">-Kitchen
+										<li class="level-1"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Kitchen-Dining furniture']) }}">-Kitchen
 												- Dining furniture</li>
-										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Dining table']) }}">Dining
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Dining table']) }}">Dining
 												table</li>
-										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Dining chair']) }}">Dining
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Dining chair']) }}">Dining
 												chair</li>
-										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Dining table and chair set']) }}">Dining
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Dining table and chair set']) }}">Dining
 												table and chair set</li>
-										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Kitchen cabinets']) }}">Kitchen
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Kitchen cabinets']) }}">Kitchen
 												cabinets</li>
-										<li class="level-1"><a href="{{ route('searchByCategoryName',['category_name'=>'Bedroom furniture']) }}">-Bedroom
+										<li class="level-1"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Bedroom furniture']) }}">-Bedroom
 												furniture</li>
 										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Bed']) }}">Bed
 										</li>
-										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Wardrobe-clothes shelves']) }}">Wardrobe
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Wardrobe-clothes shelves']) }}">Wardrobe
 												- clothes shelves</li>
-										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Makeup table']) }}">Makeup
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Makeup table']) }}">Makeup
 												table</li>
-										<li class="level-2"><a href="{{ route('searchByCategoryName',['category_name'=>'Combo bedroom']) }}">Combo
+										<li class="level-2"><a
+												href="{{ route('searchByCategoryName',['category_name'=>'Combo bedroom']) }}">Combo
 												bedroom</li>
 									</ul>
 								</div>
@@ -166,7 +185,8 @@
 					<div class="container">
 						<ul class="nav primary clone-main-menu" id="mercado_main" data-menuname="Main menu">
 							<li class="menu-item home-icon">
-								<a href="{{route('home')}}" class="link-term mercado-item-title"><i class="fa fa-home" aria-hidden="true"></i></a>
+								<a href="{{route('home')}}" class="link-term mercado-item-title"><i class="fa fa-home"
+										aria-hidden="true"></i></a>
 							</li>
 							<li class="menu-item">
 								<a href="{{route('about')}}" class="link-term mercado-item-title">About Us</a>

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Models\Category;
 use App\Models\Newsletter;
+use App\Models\ViewProductData;
 use App\Models\Order;
 use Carbon\Carbon;
 
@@ -35,17 +36,6 @@ class HomeController extends Controller
             'products_bedroom' => $products_bedroom,
             'products_office' => $products_office
         ]);
-    }
-
-    public function searchName(Request $request)
-    {
-        $keywords = $request->search;
-        $products = Product::selectRaw('products.*, categories.*')
-            ->join('categories', 'categories.category_id', 'like', 'products.category_id')
-            ->where('product_name', 'like', '%' . $keywords . '%')
-            ->orWhere('category_name_1', 'like', '%' . $keywords . '%')
-            ->orWhere('category_name_2', 'like', '$' . $keywords . '$')->get();
-        return view('fe.shop.shop', compact('products'));
     }
 
     public function about()

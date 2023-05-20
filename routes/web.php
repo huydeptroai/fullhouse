@@ -95,7 +95,7 @@ Route::resource('/product', App\Http\Controllers\FE\ProductController::class)->n
 Route::get('/shop/{product_slug}', [ProductController::class, 'productDetail'])->name('productDetail');
 
 Route::get('/category-search-by-name/{category_name}', [ProductController::class, 'searchByCategoryName'])->name('searchByCategoryName');
-
+// Route::post('/search-name',[ProductController::class, 'searchName'])->name('searchName');
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/home', 'home')->name('home');
@@ -106,7 +106,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/order-processing', 'thankyou')->name('thankyou');
     Route::post('/new-letter', 'newLetter')->name('newLetter');
 
-    Route::post('/search-name', 'searchName')->name('searchName');
+
 });
 
 
