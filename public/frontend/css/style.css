@@ -569,7 +569,7 @@ textarea {
     width: 100%;
     text-align: left;
 }
-.center-section .wrap-search-form input[name="search"] {
+.center-section .wrap-search-form input[name="search_name"] {
     width: 100%;
     float: left;
     font-size: 13px;

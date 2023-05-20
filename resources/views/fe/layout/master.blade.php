@@ -50,20 +50,19 @@
 	<!--main end-->
 
 	@include('fe.layout.partials.chatbox')
-	<!-- @include('fe.layout.partials.hotline') -->
-
+	
 	<!-- footer start-->
 	@include('fe.layout.partials.footer')
 	<!-- footer end -->
-
+	
 	@include('fe.layout.partials.login')
-
+	
 	@include('fe.layout.partials.side_cart')
 	@include('fe.layout.partials.wish_list')
-
+	
 	<!-- jQuery -->
 	<!-- <script src="{{ asset('/admin/plugins/jquery/jquery.min.js') }}"></script> -->
-
+	
 	<!-- JavaScript start -->
 	<script src="{{ asset('/frontend/js/jquery-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
 	<script src="{{ asset('/frontend/js/jquery-ui-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
@@ -75,7 +74,8 @@
 	<script src="{{ asset('/frontend/js/jquery.sticky.js') }}"></script>
 	<script src="{{ asset('/frontend/js/functions.js') }}"></script>
 	@yield('time')
-
+	
+	@include('fe.layout.partials.hotline')
 	<!-- login/cart show -->
 	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

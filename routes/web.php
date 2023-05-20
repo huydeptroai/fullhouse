@@ -108,6 +108,5 @@ Route::controller(HomeController::class)->group(function () {
 
     Route::post('/new-letter', 'newLetter')->name('newLetter');
 
-    Route::post('/search-name', 'searchName')->name('searchName');
 });
 

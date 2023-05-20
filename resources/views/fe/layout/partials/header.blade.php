@@ -63,9 +63,8 @@
 
 					<div class="wrap-search center-section">
 						<div class="wrap-search-form">
-							<form method="post" action="{{route('searchName')}}" id="form-search-top" name="form-search-top">
-								@csrf
-								<input type="text" name="search" placeholder="Search here...">
+							<form action="{{route('product.index')}}" id="form-search-top" name="form-search-top">
+								<input type="text" name="search_name" id="search_name" placeholder="Search here...">
 								<button form="form-search-top" type="submit">
 									<i class="fa fa-search" aria-hidden="true"></i>
 								</button>

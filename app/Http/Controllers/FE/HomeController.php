@@ -38,19 +38,6 @@ class HomeController extends Controller
         ]);
     }
 
-    public function searchName(Request $request)
-    {
-        $prods_popular = ViewProductData::orderByDesc('count_order')->limit(6)->get();
-        $keywords = $request->search;
-        $products = Product::selectRaw('products.*, categories.*')
-            ->join('categories', 'categories.category_id', 'like', 'products.category_id')
-            ->where('product_name', 'like', '%' . $keywords . '%')
-            ->orWhere('category_name_1', 'like', '%' . $keywords . '%')
-            ->orWhere('category_name_2', 'like', '$' . $keywords . '$')
-            ->paginate(6)->appends(request()->query());
-
-        return view('fe.shop.shop', compact('products', 'prods_popular'));
-    }
 
     public function about()
     {
@@ -62,11 +49,6 @@ class HomeController extends Controller
         return view('fe.contact');
     }
 
-
-    public function register_socialite()
-    {
-        return view('fe.register_socialite');
-    }
 
     public function shippingPolicy()
     {

@@ -12,8 +12,8 @@
 			<div class="wrap-right">
 				<div class="sort-item orderby ">
 					@csrf
-					<select id="orderby" name="orderby" class="use-chosen">
-						<option value="{{Request::url()}}?sort_by=all">Default sorting</option>
+					<select id="orderby" name="orderby" class="use-chosen" style="width:180px">
+						<option value="{{Request::url()}}?sort_by=all">--Sort by--</option>
 						<option value="{{Request::url()}}?sort_by=rating">Sort by average rating</option>
 						<option value="{{Request::url()}}?sort_by=name">Sort by name form A -> Z</option>
 						<option value="{{Request::url()}}?sort_by=name-desc">Sort by name form Z -> A</option>
@@ -26,13 +26,12 @@
 
 
 					<select id="post_per_page" name="post-per-page" class="use-chosen">
-						<option value="{{Request::url()}}?item=9" selected="selected">9 per page</option>
+						<option value="">--Per page--</option>
+						<option value="{{Request::url()}}?item=6">6 per page</option>
+						<option value="{{Request::url()}}?item=9">9 per page</option>
 						<option value="{{Request::url()}}?item=12">12 per page</option>
-						<option value="{{Request::url()}}?item=18">15 per page</option>
-						<option value="{{Request::url()}}?item=21">21 per page</option>
-						<option value="{{Request::url()}}?item=24">24 per page</option>
-						<option value="{{Request::url()}}?item=30">30 per page</option>
-						<option value="{{Request::url()}}?item=32">32 per page</option>
+						<option value="{{Request::url()}}?item=15">15 per page</option>
+						<option value="{{Request::url()}}?item=20">20 per page</option>
 					</select>
 
 				</div>

@@ -28,9 +28,18 @@ class ProductController extends Controller
         $item = $_GET['item'] ?? 6;
         $products = $this->sortBy($sort_by, $item);
 
+        if(isset($_GET['search_name'])){
+            $keywords = $_GET['search_name'];
+            $products = Product::where('product_name', 'like', '%' . $keywords . '%')
+            ->paginate(6)->appends(request()->query());
+        }
+
         if (isset($_GET['price_min']) && isset($_GET['price_max'])) {
             $price_min = $_GET['price_min'];
             $price_max = $_GET['price_max'];
+
+            Session()->put("price_min",$price_min);
+            Session()->put("price_max",$price_max);
 
             if ($price_min >= 0 && $price_max >= $price_min) {
                 $products = ViewProductData::orderByDesc('avg_rating')
@@ -46,15 +55,15 @@ class ProductController extends Controller
         return view('fe.shop.shop', compact('products', 'prods_popular'));
     }
 
-    public function sortBy($sort_by, $item = 6)
+    public function sortBy($sort_by, $item)
     {
         $products = ViewProductData::orderByDesc('amount_sell')->paginate($item)->appends(request()->query());
         switch ($sort_by) {
             case 'price':
-                $products = ViewProductData::orderby('product_price')->paginate($item)->appends(request()->query());
+                $products = ViewProductData::orderby('price')->paginate($item)->appends(request()->query());
                 break;
             case 'price-desc':
-                $products = ViewProductData::orderbyDesc('product_price')->paginate($item)->appends(request()->query());
+                $products = ViewProductData::orderbyDesc('price')->paginate($item)->appends(request()->query());
                 break;
             case 'name':
                 $products = Product::orderby('product_name')->paginate($item)->appends(request()->query());
