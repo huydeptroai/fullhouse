@@ -1,6 +1,6 @@
 @extends('admin.layout.admin')
 
-@section('myJSChart')
+@section('myJSChar')
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
@@ -55,9 +55,10 @@
 							<!-- /.d-flex -->
 
 							<div class="position-relative mb-4">
-								<!-- <canvas id="visitors-chart" height="200"></canvas> -->
-								<div id="product_chart" style="height: 200px;"></div>
+								<canvas id="visitors-chart" height="200"></canvas>
+								<!-- <div id="product_chart" style="height: 200px;"></div> -->
 							</div>
+
 
 							<div class="d-flex flex-row justify-content-end">
 								<span class="mr-2">
@@ -101,59 +102,4 @@
 
 
 </div>
-@endsection
-
-@section('myJS01')
-<script>
-	$(document).ready(function() {
-		var product_data = '';
-		var productChart = new Morris.Bar({
-			// ID of the element in which to draw the chart.
-			element: 'product_chart',
-			// Chart data records -- each entry in this array corresponds to a point on
-			// the chart.
-			// data: [{
-			// 		year: '2008',
-			// 		value: 20
-			// 	},
-			// 	{
-			// 		year: '2009',
-			// 		value: 10
-			// 	},
-			// 	{
-			// 		year: '2010',
-			// 		value: 5
-			// 	},
-			// 	{
-			// 		year: '2011',
-			// 		value: 5
-			// 	},
-			// 	{
-			// 		year: '2012',
-			// 		value: 20
-			// 	}
-			// ],
-			data: product_data,
-			// The name of the data record attribute that contains x-values.
-			xkey: 'product_id',
-			// A list of names of data record attributes that contain y-values.
-			ykeys: ['quantity_sell'],
-			// Labels for the ykeys -- will be displayed when you hover over the
-			// chart.
-			labels: ['quantity_sell']
-		});
-
-		$.ajax({
-			type: "POST",
-			url: "{{route('admin.productSales')}}",
-			data: {
-				_token: '{{ csrf_token() }}'
-			},
-			dataType: "json",
-			success:function(data){
-				product_data = data;
-			}
-		});
-	});
-</script>
 @endsection

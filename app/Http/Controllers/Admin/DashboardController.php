@@ -8,6 +8,7 @@ use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\ViewProductData;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -27,7 +28,20 @@ class DashboardController extends Controller
 
     public function productSales(Request $request)
     {
-        $products = ViewProductData::selectRaw('product_id, quantity_sell')->where('quantity_sell','<>', null)->get();
-        return response()->json($products);
+        $sub7day = Carbon::now('Asia/Ho_Chi_Minh')->subdays(7)->toDateString();
+        $products = ViewProductData::where('quantity_sell','<>', null)->get();
+        $chart_data = [];
+        
+        $label = [];
+        $data = [];
+        foreach($products as $key=>$value){
+            $label[] = $value->created_at;
+            $data[] = $value->quantity;
+            
+        }
+        return response()->json([
+            'label'=>$label,
+            'data'=>$data,
+        ]);
     }
 }

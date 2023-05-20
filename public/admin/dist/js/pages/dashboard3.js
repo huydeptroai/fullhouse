@@ -11,6 +11,7 @@ $(function () {
   var mode = 'index'
   var intersect = true
 
+  
   var $salesChart = $('#sales-chart')
   // eslint-disable-next-line no-unused-vars
   var salesChart = new Chart($salesChart, {
@@ -145,3 +146,22 @@ $(function () {
 })
 
 // lgtm [js/unused-local-variable]
+var label = [];
+var data = [];
+$(document).ready(function(){
+
+  (function(){
+    $.ajax({
+      type: "POST",
+      url: "{{route('admin.productSales')}}",
+      data: {
+        _token: '{{ csrf_token() }}'
+      },
+      dataType: "json",
+      success: function(data) {
+        console.log(data);
+      }
+    });
+  })();
+  
+});
