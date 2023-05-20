@@ -57,19 +57,19 @@ session_start();
 	<!--main end-->
 
 	@include('fe.layout.partials.chatbox')
-	
+
 	<!-- footer start-->
 	@include('fe.layout.partials.footer')
 	<!-- footer end -->
-	
+
 	@include('fe.layout.partials.login')
-	
+
 	@include('fe.layout.partials.side_cart')
 	@include('fe.layout.partials.wish_list')
-	
+
 	<!-- jQuery -->
 	<!-- <script src="{{ asset('/admin/plugins/jquery/jquery.min.js') }}"></script> -->
-	
+
 	<!-- JavaScript start -->
 	<script src="{{ asset('/frontend/js/jquery-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
 	<script src="{{ asset('/frontend/js/jquery-ui-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
@@ -81,7 +81,7 @@ session_start();
 	<script src="{{ asset('/frontend/js/jquery.sticky.js') }}"></script>
 	<script src="{{ asset('/frontend/js/functions.js') }}"></script>
 	@yield('time')
-	
+
 	@include('fe.layout.partials.hotline')
 	<!-- login/cart show -->
 	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -150,84 +150,62 @@ session_start();
 	<script>
 	$(document).ready(function() {
 
-		const url = "{{ Route('addCart') }}" ?? "";
+				const url = "{{ Route('addCart') }}" ?? "";
 
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-		//create cart
-		$('.add-to-cart').click(function(e) {
-			e.preventDefault();
-			let pid = $(this).data("id") ?? '';
-			let quantity = $('#product_qty_' + pid).val() ?? 1;
+				$.ajaxSetup({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					}
+				});
+				//create cart
+				$('.add-to-cart').click(function(e) {
+							e.preventDefault();
+							let pid = $(this).data("id") ?? '';
+							let quantity = $('#product_qty_' + pid).val() ?? 1;
 
-<<<<<<< HEAD
-			var data = {
-				pid: pid,
-				quantity: quantity
-			};
-			postAjax(data);
-		});
+							//display site cart
+							function getCart() {
+								$.get(
+										"{{ route('showCart')}}",
+										function(data) {
+											// console.log(data);
+											var cart = '';
+											let count = 0;
+											let total_qty = 0;
+											let total = 0;
+											let img = '';
+											var cart_page = '';
 
-		function postAjax(data) {
-			$.ajax({
-				type: "POST",
-				url: url,
-				data: data,
-				success: function(data) {
-					//show site-cart
-					wrapper_cart.classList.add('active-popup');
-					getCart();
-				},
-			});
-		}
-=======
-			//display site cart
-			function getCart() {
-				$.get(
-					"{{ route('showCart')}}",
-					function(data) {
-						// console.log(data);
-						var cart = '';
-						let count = 0;
-						let total_qty = 0;
-						let total = 0;
-						let img = '';
-						var cart_page = '';
+											$.each(data, function(k, v) {
+												var arr_img = JSON.parse(v.product_image);
+												count++;
+												total_qty += parseInt(v.quantity);
+												total += parseFloat(v.amount);
+												let path = "{{ asset('assets/img/upload/product') }}" + "/" + arr_img[0];
+												let id = v.product_id;
+												let detail = "{{ url('/product')}}" + "/" + id;
 
-						$.each(data, function(k, v) {
-							var arr_img = JSON.parse(v.product_image);
-							count++;
-							total_qty += parseInt(v.quantity);
-							total += parseFloat(v.amount);
-							let path = "{{ asset('assets/img/upload/product') }}" + "/" + arr_img[0];
-							let id = v.product_id;
-							let detail = "{{ url('/product')}}" + "/" + id;
->>>>>>> 1792bd46822fb1cc4dcf727b3b3d281885a0a64b
+												//display site cart
+												function getCart() {
+													$.get(
+														"{{ route('showCart')}}",
+														function(data) {
+															// console.log(data);
+															var cart = '';
+															let count = 0;
+															let total = 0;
+															let img = '';
+															var cart_page = '';
 
-		//display site cart
-		function getCart() {
-			$.get(
-				"{{ route('showCart')}}",
-				function(data) {
-					// console.log(data);
-					var cart = '';
-					let count = 0;
-					let total = 0;
-					let img = '';
-					var cart_page = '';
+															$.each(data, function(k, v) {
+																var arr_img = JSON.parse(v.product_image);
+																count++;
+																total += parseInt(v.amount);
+																let path = "{{ asset('assets/img/upload/product') }}" + "/" + arr_img[0];
+																let id = v.product_id;
+																let detail = "{{ url('/product')}}" + "/" + id;
 
-					$.each(data, function(k, v) {
-						var arr_img = JSON.parse(v.product_image);
-						count++;
-						total += parseInt(v.amount);
-						let path = "{{ asset('assets/img/upload/product') }}" + "/" + arr_img[0];
-						let id = v.product_id;
-						let detail = "{{ url('/product')}}" + "/" + id;
-
-						cart += `<div class="product-box" id="cart_id_${v.id}">
+																cart += `<div class="product-box" id="cart_id_${v.id}">
 										<span class="icon-close delete-cart" data-cid="${v.id}">
 											<ion-icon name="close-outline"></ion-icon>
 										</span>
@@ -246,7 +224,7 @@ session_start();
 										</div>
 									</div>`;
 
-						cart_page += `<li class="pr-cart-item" id="cart_id_${v.id}">
+																cart_page += `<li class="pr-cart-item" id="cart_id_${v.id}">
 									<div class="product-image">
 										<figure><img src="${path}" alt="${v.product_name}"></figure>
 									</div>
@@ -277,213 +255,213 @@ session_start();
 										</a>
 									</div>
 								</li>`;
-<<<<<<< HEAD
-=======
-						});
+															});
 
-						$('#cart-page').html(cart_page);
-						$('#content-cart').html(cart);
-						$('#count').html(count + ' items');
-						$('.total-cart').html(' $ ' + total.toFixed(2));
-						$('input[name="value_order"]').val(total);
-						$('input[name="total_quantity"]').val(total_qty);
-						
-					}
-				);
-			};
+															$('#cart-page').html(cart_page);
+															$('#content-cart').html(cart);
+															$('#count').html(count + ' items');
+															$('.total-cart').html(' $ ' + total.toFixed(2));
+															$('input[name="value_order"]').val(total);
+															$('input[name="total_quantity"]').val(total_qty);
 
-			$('.view-cart').attr("href", "{{route('cart')}}");
-			$('.view-checkout').attr("href", "{{route('checkout')}}");
+														}
+													);
+												};
 
-			getCart();
+												$('.view-cart').attr("href", "{{route('cart')}}");
+												$('.view-checkout').attr("href", "{{route('checkout')}}");
 
-			//edit side-cart
-			$('body').on('change', 'input[name="product-quatity"]', function(e) {
-				e.preventDefault();
-				//Note: we have many input with this name;
-				let pid = $(this).data("id") ?? '';
-				let quantity = $('#product_qty_' + pid).val() ?? '';
+												getCart();
 
-				var data = {
-					pid: pid,
-					quantity: quantity,
-					action: 'edit'
-				};
-				if (data.quantity == 0) {
-					return;
-				}
-				postAjax(data);
-			});
+												//edit side-cart
+												$('body').on('change', 'input[name="product-quatity"]', function(e) {
+													e.preventDefault();
+													//Note: we have many input with this name;
+													let pid = $(this).data("id") ?? '';
+													let quantity = $('#product_qty_' + pid).val() ?? '';
 
-			//edit quantity in cart by button
-			$("body").on('click', ".btn-qty", function(e) {
-				e.preventDefault();
-				var _this = $(this);
-				var _input = $(this).siblings('input[name=product-quatity]');
-				var _current_value = _input.val();
-				var _max_value = _input.attr("data-max");
+													var data = {
+														pid: pid,
+														quantity: quantity,
+														action: 'edit'
+													};
+													if (data.quantity == 0) {
+														return;
+													}
+													postAjax(data);
+												});
 
-				var data = {};
-				data.pid = _input.attr("data-id");
-				data.quantity = _current_value;
-				data.action = "edit";
+												//edit quantity in cart by button
+												$("body").on('click', ".btn-qty", function(e) {
+													e.preventDefault();
+													var _this = $(this);
+													var _input = $(this).siblings('input[name=product-quatity]');
+													var _current_value = _input.val();
+													var _max_value = _input.attr("data-max");
 
-				if (_this.hasClass("btn-reduce")) {
-					if (parseInt(_current_value, 10) > 1) {
-						data.quantity = parseInt(_current_value, 10) - 1;
-						_input.val(data.quantity);
-					}
-				} else {
-					if (parseInt(_current_value, 10) < parseInt(_max_value, 10)) {
-						data.quantity = parseInt(_current_value, 10) + 1;
-						_input.val(data.quantity);
-					}
-				}
-				// console.log(data);
-				postAjax(data);
+													var data = {};
+													data.pid = _input.attr("data-id");
+													data.quantity = _current_value;
+													data.action = "edit";
 
-			});
+													if (_this.hasClass("btn-reduce")) {
+														if (parseInt(_current_value, 10) > 1) {
+															data.quantity = parseInt(_current_value, 10) - 1;
+															_input.val(data.quantity);
+														}
+													} else {
+														if (parseInt(_current_value, 10) < parseInt(_max_value, 10)) {
+															data.quantity = parseInt(_current_value, 10) + 1;
+															_input.val(data.quantity);
+														}
+													}
+													// console.log(data);
+													postAjax(data);
 
-			//delete cart
-			$('body').on('click', '.delete-cart', function(e) {
-				e.preventDefault();
+												});
 
-				let cart_id = $(this).data("cid") ?? '';
+												//delete cart
+												$('body').on('click', '.delete-cart', function(e) {
+														e.preventDefault();
 
-				if (confirm('Delete this cart-item?')) {
-					$.ajax({
-						type: "DELETE",
-						url: "{{ url('delete-cart')}}" + '/' + cart_id,
-						success: function(data) {
-							$("#cart_id_" + cart_id).remove();
-							setTimeout(getCart, 1000);
-						},
-						error: function(data) {
-							// console.log('Error:', data);
-							console.log(JSON.stringify(data));
-						}
->>>>>>> 1792bd46822fb1cc4dcf727b3b3d281885a0a64b
-					});
+														let cart_id = $(this).data("cid") ?? '';
 
-					$('#cart-page').html(cart_page);
-					$('#content-cart').html(cart);
-					$('#count').html(count + ' items');
-					$('.total-cart').html(' $ ' + total.toFixed(2));
-					$('input[name="value_order"]').val(total.toFixed(2));
-				}
-			);
-		};
+														if (confirm('Delete this cart-item?')) {
+															$.ajax({
+																type: "DELETE",
+																url: "{{ url('delete-cart')}}" + '/' + cart_id,
+																success: function(data) {
+																	$("#cart_id_" + cart_id).remove();
+																	setTimeout(getCart, 1000);
+																},
+																error: function(data) {
+																		// console.log('Error:', data);
+																		console.log(JSON.stringify(data));
+																	} >>>
+																	>>>
+																	>
+																	1792 bd46822fb1cc4dcf727b3b3d281885a0a64b
+															});
 
-
-		$('.view-cart').attr("href", "{{route('cart')}}");
-		$('.view-checkout').attr("href", "{{route('checkout')}}");
-
-		getCart();
-
-		//edit side-cart
-		$('body').on('change', 'input[name="product-quatity"]', function(e) {
-			e.preventDefault();
-			//Note: we have many input with this name;
-			let pid = $(this).data("id") ?? '';
-			let quantity = $('#product_qty_' + pid).val() ?? '';
-
-			var data = {
-				pid: pid,
-				quantity: quantity,
-				action: 'edit'
-			};
-			if (data.quantity == 0) {
-				return;
-			}
-			postAjax(data);
-		});
-
-		//edit quantity in cart by button
-		$("body").on('click', ".btn-qty", function(e) {
-			e.preventDefault();
-			var _this = $(this);
-			var _input = $(this).siblings('input[name=product-quatity]');
-			var _current_value = _input.val();
-			var _max_value = _input.attr("data-max");
-
-			var data = {};
-			data.pid = _input.attr("data-id");
-			data.quantity = _current_value;
-			data.action = "edit";
-
-			if (_this.hasClass("btn-reduce")) {
-				if (parseInt(_current_value, 10) > 1) {
-					data.quantity = parseInt(_current_value, 10) - 1;
-					_input.val(data.quantity);
-				}
-			} else {
-				if (parseInt(_current_value, 10) < parseInt(_max_value, 10)) {
-					data.quantity = parseInt(_current_value, 10) + 1;
-					_input.val(data.quantity);
-				}
-			}
-			// console.log(data);
-			postAjax(data);
-
-		});
-
-		//delete cart
-		$('body').on('click', '.delete-cart', function(e) {
-			e.preventDefault();
-
-			let cart_id = $(this).data("cid") ?? '';
-
-			if (confirm('Delete this cart-item?')) {
-				$.ajax({
-					type: "DELETE",
-					url: "{{ url('delete-cart')}}" + '/' + cart_id,
-					success: function(data) {
-						$("#cart_id_" + cart_id).remove();
-						setTimeout(getCart, 1000);
-					},
-					error: function(data) {
-						// console.log('Error:', data);
-						console.log(JSON.stringify(data));
-					}
-				});
-			}
-		});
+															$('#cart-page').html(cart_page);
+															$('#content-cart').html(cart);
+															$('#count').html(count + ' items');
+															$('.total-cart').html(' $ ' + total.toFixed(2));
+															$('input[name="value_order"]').val(total.toFixed(2));
+														}
+													);
+												};
 
 
-		//create wish-list
-		$('.add-to-wishlist').click(function(e) {
-			e.preventDefault();
-			let pid = $(this).data("id") ?? '';
-			alert(pid);
-			$.ajax({
-				type: "POST",
-				url: "{{route('addWishList')}}",
-				data: {
-					pid: pid
-				},
-				success: function(data) {
-					setTimeout(getWishList(), 1000);
-				}
-			});
-		});
+												$('.view-cart').attr("href", "{{route('cart')}}");
+												$('.view-checkout').attr("href", "{{route('checkout')}}");
 
-		getWishList();
+												getCart();
 
-		function getWishList() {
-			$.get("{{ route('showWishList')}}", function(data) {
-				// console.log(data);
-				var wl = '';
-				let count = 0;
-				let img = '';
+												//edit side-cart
+												$('body').on('change', 'input[name="product-quatity"]', function(e) {
+													e.preventDefault();
+													//Note: we have many input with this name;
+													let pid = $(this).data("id") ?? '';
+													let quantity = $('#product_qty_' + pid).val() ?? '';
 
-				$.each(data, function(k, v) {
-					var arr_img = JSON.parse(v.product_image);
-					count++;
-					let path = "{{ asset('assets/img/upload/product') }}" + "/" + arr_img[0];
-					let id = v.product_id;
-					let detail = "{{ url('/product')}}" + "/" + id;
+													var data = {
+														pid: pid,
+														quantity: quantity,
+														action: 'edit'
+													};
+													if (data.quantity == 0) {
+														return;
+													}
+													postAjax(data);
+												});
 
-					wl += `<div class="product-box" id="wl_id_${v.id}">
+												//edit quantity in cart by button
+												$("body").on('click', ".btn-qty", function(e) {
+													e.preventDefault();
+													var _this = $(this);
+													var _input = $(this).siblings('input[name=product-quatity]');
+													var _current_value = _input.val();
+													var _max_value = _input.attr("data-max");
+
+													var data = {};
+													data.pid = _input.attr("data-id");
+													data.quantity = _current_value;
+													data.action = "edit";
+
+													if (_this.hasClass("btn-reduce")) {
+														if (parseInt(_current_value, 10) > 1) {
+															data.quantity = parseInt(_current_value, 10) - 1;
+															_input.val(data.quantity);
+														}
+													} else {
+														if (parseInt(_current_value, 10) < parseInt(_max_value, 10)) {
+															data.quantity = parseInt(_current_value, 10) + 1;
+															_input.val(data.quantity);
+														}
+													}
+													// console.log(data);
+													postAjax(data);
+
+												});
+
+												//delete cart
+												$('body').on('click', '.delete-cart', function(e) {
+													e.preventDefault();
+
+													let cart_id = $(this).data("cid") ?? '';
+
+													if (confirm('Delete this cart-item?')) {
+														$.ajax({
+															type: "DELETE",
+															url: "{{ url('delete-cart')}}" + '/' + cart_id,
+															success: function(data) {
+																$("#cart_id_" + cart_id).remove();
+																setTimeout(getCart, 1000);
+															},
+															error: function(data) {
+																// console.log('Error:', data);
+																console.log(JSON.stringify(data));
+															}
+														});
+													}
+												});
+
+
+												//create wish-list
+												$('.add-to-wishlist').click(function(e) {
+													e.preventDefault();
+													let pid = $(this).data("id") ?? '';
+													alert(pid);
+													$.ajax({
+														type: "POST",
+														url: "{{route('addWishList')}}",
+														data: {
+															pid: pid
+														},
+														success: function(data) {
+															setTimeout(getWishList(), 1000);
+														}
+													});
+												});
+
+												getWishList();
+
+												function getWishList() {
+													$.get("{{ route('showWishList')}}", function(data) {
+														// console.log(data);
+														var wl = '';
+														let count = 0;
+														let img = '';
+
+														$.each(data, function(k, v) {
+															var arr_img = JSON.parse(v.product_image);
+															count++;
+															let path = "{{ asset('assets/img/upload/product') }}" + "/" + arr_img[0];
+															let id = v.product_id;
+															let detail = "{{ url('/product')}}" + "/" + id;
+
+															wl += `<div class="product-box" id="wl_id_${v.id}">
 										<span class="icon-close delete-wl" data-wid="${v.id}">
 											<ion-icon name="close-outline"></ion-icon>
 										</span>
@@ -498,93 +476,79 @@ session_start();
 										<span class="product-price" style="text-decoration: line-through;color:red;"> $${v.product_price}</span>
 										</div>
 									</div>`;
+														});
 
-				});
+														$('#content-wish-list').html(wl);
+														$('#count-wl').html(count + ' items');
+													});
+												}
 
-				$('#content-wish-list').html(wl);
-				$('#count-wl').html(count + ' items');
-			});
-		}
+												//delete wl
+												$('body').on('click', '.delete-wl', function(e) {
+													e.preventDefault();
 
-		//delete wl
-		$('body').on('click', '.delete-wl', function(e) {
-			e.preventDefault();
+													let wl_id = $(this).data("wid") ?? '';
 
-			let wl_id = $(this).data("wid") ?? '';
+													if (confirm('Delete this item?')) {
+														$.ajax({
+															type: "DELETE",
+															url: "{{ url('delete-wishlist')}}" + '/' + wl_id,
+															success: function(data) {
+																$("#wl_id_" + wl_id).remove();
+																setTimeout(getWishList, 1000);
+															},
+															error: function(data) {
+																// console.log('Error:', data);
+																console.log(JSON.stringify(data));
+															}
+														});
+													}
+												});
 
-			if (confirm('Delete this item?')) {
-				$.ajax({
-					type: "DELETE",
-					url: "{{ url('delete-wishlist')}}" + '/' + wl_id,
-					success: function(data) {
-						$("#wl_id_" + wl_id).remove();
-						setTimeout(getWishList, 1000);
-					},
-					error: function(data) {
-						// console.log('Error:', data);
-						console.log(JSON.stringify(data));
-					}
-				});
-			}
-		});
-
-		//subscribe input email
-		$('#frm_new_letter').submit(function(e) {
-			e.preventDefault();
-			var email = $('#email_new_letter').val();
-			var url = "{{ route('newLetter')}}";
-			$.ajax({
-				url: url,
-				method: "POST",
-				data: {
-					email: email
-				},
-				success: function(data) {
-					$('#result_new_letter').html('Thank you for your subscribe');
-				}
-			});
-		});
+												//subscribe input email
+												$('#frm_new_letter').submit(function(e) {
+													e.preventDefault();
+													var email = $('#email_new_letter').val();
+													var url = "{{ route('newLetter')}}";
+													$.ajax({
+														url: url,
+														method: "POST",
+														data: {
+															email: email
+														},
+														success: function(data) {
+															$('#result_new_letter').html('Thank you for your subscribe');
+														}
+													});
+												});
 
 
-	});
+											});
+
+											$(document).ready(function() {
+												$('#orderby').on('change', function() {
+													var url = $(this).val();
+													// alert(url);
+													if (url) {
+														window.location = url;
+													}
+													return false;
+												});
+											});
+
+											$(document).ready(function() {
+												$('#post_per_page').on('change', function() {
+													var url = $(this).val();
+													// alert(url);
+													if (url) {
+														window.location = url;
+													}
+													return false;
+												});
+											});
 	</script>
 
-	<script>
-	$(document).ready(function() {
-		$('#orderby').on('change', function() {
-			var url = $(this).val();
-			// alert(url);
-			if (url) {
-				window.location = url;
-			}
-			return false;
-		});
-	});
 
-	$(document).ready(function() {
-		$('#post_per_page').on('change', function() {
-			var url = $(this).val();
-			// alert(url);
-			if (url) {
-				window.location = url;
-			}
-			return false;
-		});
-	});
-
-	$(document).ready(function() {
-		$('#list_page #grid_page').on('click', function() {
-			var url = $(this).val();
-			// alert(url);
-			if (url) {
-				window.location = url;
-			}
-			return false;
-		});
-	});
-	</script>
-
-	
 
 
 	@yield('myJS')

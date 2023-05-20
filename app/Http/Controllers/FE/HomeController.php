@@ -12,7 +12,6 @@ use App\Models\Newsletter;
 use App\Models\ViewProductData;
 use App\Models\Order;
 use Carbon\Carbon;
-use App\Models\ViewProductData;
 
 class HomeController extends Controller
 {
@@ -39,10 +38,7 @@ class HomeController extends Controller
         ]);
     }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 1792bd46822fb1cc4dcf727b3b3d281885a0a64b
     public function about()
     {
         return view('fe.about');

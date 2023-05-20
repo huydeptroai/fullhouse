@@ -6,12 +6,8 @@
 					<div class="topbar-menu left-menu">
 						<ul>
 							<li class="menu-item">
-<<<<<<< HEAD
-								<a title="Hotline: (+123) 456 789" href="#"><span class="icon label-before fa fa-mobile"></span>Hotline:
-									(+123) 456 789</a>
-=======
-								<a title="Hotline: 0853923404" href="#"><span class="icon label-before fa fa-mobile"></span>Hotline: 0853923404</a>
->>>>>>> 1792bd46822fb1cc4dcf727b3b3d281885a0a64b
+								<a title="Hotline: 0853923404" href="#"><span class="icon label-before fa fa-mobile"></span>Hotline:
+									0853923404</a>
 							</li>
 						</ul>
 					</div>

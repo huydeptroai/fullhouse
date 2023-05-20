@@ -108,9 +108,4 @@ Route::controller(HomeController::class)->group(function () {
 
     Route::post('/new-letter', 'newLetter')->name('newLetter');
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1792bd46822fb1cc4dcf727b3b3d281885a0a64b
 });
-
