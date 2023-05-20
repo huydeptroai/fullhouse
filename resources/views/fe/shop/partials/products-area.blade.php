@@ -37,8 +37,10 @@
 				</div>
 
 				<div class="change-display-mode">
-					<a href="#" id="grid-page" class="grid-mode display-mode active"><i class="fa fa-th"></i>Grid</a>
-					<a href="#" id="list-page" class="list-mode display-mode"><i class="fa fa-th-list"></i>List</a>
+					<a href="{{Request::url()}}?page=gird" id="grid_page" class="grid-mode display-mode active"><i
+							class="fa fa-th"></i>Grid</a>
+					<a href="{{Request::url()}}?page=list" id="list_page" class="list-mode display-mode"><i
+							class="fa fa-th-list"></i>List</a>
 				</div>
 
 			</div>

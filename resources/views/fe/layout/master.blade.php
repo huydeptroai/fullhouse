@@ -447,11 +447,20 @@ session_start();
 			return false;
 		});
 	});
-	</script>
 
-	<script>
 	$(document).ready(function() {
 		$('#post_per_page').on('change', function() {
+			var url = $(this).val();
+			// alert(url);
+			if (url) {
+				window.location = url;
+			}
+			return false;
+		});
+	});
+
+	$(document).ready(function() {
+		$('#list_page #grid_page').on('click', function() {
 			var url = $(this).val();
 			// alert(url);
 			if (url) {

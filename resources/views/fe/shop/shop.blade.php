@@ -17,12 +17,16 @@
 		<div class="row">
 
 			<!--main products area-->
+			@if(isset($_GET['list']))
+			@include('fe.shop.partials.products-area-list')
+			@else
 			@include('fe.shop.partials.products-area')
+			@endif
 			<!--end main products area-->
-			
+
 			<!-- site bar start -->
 			@include('fe.shop.partials.side-bar-filter')
-			
+
 			<!--end sitebar-->
 
 		</div>
