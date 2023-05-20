@@ -30,7 +30,7 @@
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle" src="{{$user->profile['avatar'] ?? asset('admin/dist/img/'.$user->profile['avatar']) }}" alt="User profile picture">
+                                <img class="profile-user-img img-fluid img-circle" src="{{$user->getAvatar() ?? '' }}" alt="User profile picture">
                             </div>
 
                             <h3 class="profile-username text-center">{{$user->name}}</h3>
@@ -41,16 +41,12 @@
                                 <li class="list-group-item">
                                     <b>Gender</b>
                                     <a class="float-right">
-                                        @isset($user->profile['gender'])
-                                        {{$user->profile['gender'] ?? "Male" }}
-                                        @endisset
+                                        {{$user->getGender() ?? "" }}
                                     </a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Data of birth</b> <a class="float-right">
-                                        @isset($user->profile['dob'])
-                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d', $user->profile['dob'])->format('d/m/Y')}}
-                                        @endisset
+                                        {{ $user->getDob() }}
                                     </a>
                                 </li>
                                 <li class="list-group-item">
@@ -78,65 +74,22 @@
                         {{ $errors->userDeletion->first('password') }}
                     </div>
                     @endif
+                    @if ($message = Session::get('deleted'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ $message }}
+                        </div>
+                    @endif
+
                     <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Comment</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Order history</a></li>
+                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Order history</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Information of User</a></li>
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="active tab-pane" id="activity">
-                                    <!-- Post -->
-                                    @forelse($user->reviews as $review)
-                                    <div class="post clearfix">
-                                        <div class="user-block">
-                                            <img class="img-circle img-bordered-sm" src="{{$user()->profile['avatar'] ?? asset('admin/dist/img/'.$user->profile['avatar']) }}" alt="user image">
-                                            <span class="username">
-                                                <a href="#">{{$user->name}}</a>
-                                                <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                                            </span>
-                                            <span class="description">Create at -
-                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $review->created_at)->diffForHumans()}}
-                                            </span>
-                                        </div>
-                                        <!-- /.user-block -->
-                                        About: <a href="{{ route('admin.product.show', $review->product_id)}}">
-                                            <b>{{$review->product->product_name}} - {{$review->product_id}}</b>
-                                        </a>
-                                        <p>{{$review->content}}</p>
-
-                                        <p>
-                                            <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                                            <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-
-                                            <span class="float-right">
-                                                <a href="#" class="link-black text-sm">
-                                                    <i class="far fa-comments mr-1"></i> Comments (5)
-                                                </a>
-                                            </span>
-                                        </p>
-
-                                        <form class="form-horizontal">
-                                            <div class="input-group input-group-sm mb-0">
-                                                <input class="form-control form-control-sm" placeholder="Response">
-                                                <div class="input-group-append">
-                                                    <button type="submit" class="btn btn-danger">Send</button>
-                                                </div>
-                                            </div>
-                                        </form>
-
-                                    </div>
-                                    @empty
-                                    <div class="post">No data</div>
-                                    @endforelse
-                                    <!-- /.post -->
-
-                                </div>
-                                <!-- /.tab-pane -->
-                                <div class="tab-pane" id="timeline">
                                     <!-- The timeline -->
                                     @forelse($user->orders as $order)
                                     <div class="timeline timeline-inverse mt-4">
@@ -220,7 +173,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <th>Coupon:</th>
-                                                                <td>{{$order->coupon}}</td>
+                                                                <td>{{$order->coupon_id}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Note:</th>
@@ -240,8 +193,8 @@
                                     @empty
                                     <p>No orders</p>
                                     @endforelse
+
                                 </div>
-                                <!-- /.tab-pane -->
 
                                 <!-- info profile -->
                                 <div class="tab-pane" id="settings">
@@ -290,40 +243,37 @@
                                         <div class="form-group row">
                                             <label for="" class="col-sm-2 col-form-label">Birthday:</label>
                                             <div class="col-sm-10">
-                                                <input type="date" class="form-control" id="dob" name="dob" value="{{ old('dob', $user->profile['dob'] ?? '')}}">
+                                                <input type="date" class="form-control" id="dob" name="dob" value="{{ old('dob', $user->getDob() ?? '')}}">
                                             </div>
                                         </div>
+                                        @php
+                                        $male = $user->getGender() === 'Male' ? 'checked' : '';
+                                        $female = $user->getGender() === 'Female' ? 'checked' : '';
+
+                                        @endphp
+
                                         <div class="form-group row">
                                             <label for="" class="col-sm-2 col-form-label">Gender</label>
                                             <div class="col-sm-10 row align-items-center">
                                                 <div class="custom-control custom-radio">
-                                                   
-                                                    <input class="custom-control-input" type="radio" name="gender" value="Male" @if($user->profile['gender'] == 'Male')
-                                                    checked
-                                                    @endif
-                                                    >
+
+                                                    <input class="custom-control-input" type="radio" name="gender" value="Male" {{$male}}>
                                                     <label for="customRadio1" class="custom-control-label">Male</label>
                                                 </div>
                                                 <div class="custom-control custom-radio ml-3">
-                                                    <input class="custom-control-input" type="radio" name="gender" value="Female" @if($user->profile['gender'] != 'Male')
-                                                    checked
-                                                    @endif
-                                                    >
+                                                    <input class="custom-control-input" type="radio" name="gender" value="Female" {{$female}}>
                                                     <label for="customRadio2" class="custom-control-label">Female</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputSkills" class="col-sm-2 col-form-label">Address</label>
-                                            <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="city" name="city" value="{{old('city', $user->profile['city'])}}" placeholder="City/province">
+                                            <div class="col-sm-10">
+                                                {{$user->getWard()}},
+                                                {{$user->getDistrict()}},
+                                                {{$user->getCity()}},
                                             </div>
-                                            <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="district" name="district" value="{{old('district', $user->profile['district'])}}" placeholder="District">
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <input type="text" class="form-control" id="ward" name="ward" value="{{old('ward', $user->profile['ward'])}}" placeholder="ward">
-                                            </div>
+
                                         </div>
 
                                     </form>

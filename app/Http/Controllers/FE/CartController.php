@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\ViewProductData;
 
 class CartController extends Controller
 {
@@ -20,7 +22,7 @@ class CartController extends Controller
     {
         if (Auth::check()) {
 
-            $product_popular = Product::all();
+            $product_popular = ViewProductData::orderByDesc('avg_rating')->limit(8)->get();
             $user_id = Auth::id();
             $carts = $this->listCart($user_id);
 
@@ -94,23 +96,5 @@ class CartController extends Controller
         $cart->delete();
         return response()->json($cart);
     }
-
-    // public function postCoupon(Request $request)
-    // {
-    //     $code = $request->code;
-    //     $value_order = $request->value_order;
-
-    //     $coupon = Coupon::where('code', 'like', $code)
-    //         ->where('status','=', 1)
-    //         ->where('value_order', '<=', $value_order)
-    //         ->first();
-    //     // dd($coupon);
-    //     $times = Order::where('coupon_id', $coupon->id)->count('id');
-
-    //     if ($coupon->times > $times) {
-    //         return $coupon->value;
-    //     }
-    //     return 0;
-    // }
 
 }

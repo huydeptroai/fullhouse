@@ -131,7 +131,10 @@ $active = 'active-popup'
 			</div>
 
 			<div class="remember-forgot">
-				<label><input type="checkbox"> I agree to the terms & conditions</label>
+				<label style="display:flex;align-items:center;">
+					<input type="checkbox" style="width:16px;height:16px;margin-right: 3px; border: 2px solid #000;">
+					{{ __('I agree to the terms & conditions') }}
+				</label>
 			</div>
 
 			<button type="submit" class="btn">Register</button>

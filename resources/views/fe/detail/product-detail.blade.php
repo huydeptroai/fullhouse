@@ -1,6 +1,7 @@
 @extends('fe.layout.master')
 
-@section('title', '{{$product->product_slug}}')
+@section('title', $product->product_slug)
+
 @section('content')
 <main id="main" class="main-site">
     <div class="container">
@@ -152,14 +153,33 @@
                 type: "POST",
                 dataType: "json",
                 success: function(data) {
-                    // alert('success!');
-                    $('#list_comment').append(data);
+                    // $('#list_comment').append(data);
                     $('#commentform').reset();
-                    window.location.reload();
                 }
             });
-
+            
+            location.reload();
         });
+
+        jQuery('body').on('click', '.delete_review', function(e) {
+            e.preventDefault();
+
+            var id = $(this).data('id');
+            var url = "{{ url('review-delete') }}" + "/" + id;
+            $.ajax({
+                url: url,
+                type: "get",
+                data: {
+                    id: id
+                },
+                function(data) {
+                    $('#review_id_' + id).remove();
+                }   
+            });
+            location.reload();
+        });
+
+       
     });
 </script>
 @endsection

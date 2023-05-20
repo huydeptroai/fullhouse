@@ -163,6 +163,18 @@
                                             </span>
                                         </p>
 
+                                        <p>@if($review->product->avgRating() > 0)
+
+                                        <div class="col-12" style="display:flex-item;font-size:12px;">
+                                            <strong>Rating: {{number_format( $review->rating,2) }} </strong>
+                                            @for($i=1; $i<=5; $i++) @php $color=($i <=$review->rating) ? "color: #ffcc00;" : "color: #ccc;";
+                                                @endphp
+                                                <i class="fa fa-star" aria-hidden="true" style="cursor:pointer;<?php echo $color ?> font-size:15px;"></i>
+                                                @endfor
+
+                                        </div>
+                                        @endif</p>
+
                                         <b>Comment:</b>
                                         <p>{{$review->content}}</p>
                                     </span>
@@ -212,7 +224,15 @@
                                     <!-- timeline item -->
                                     <div>
                                         <div class="timeline-item">
-                                            <h4 class="timeline-header"><a href="#">Order id {{$order->id}}</a></h4>
+                                            <h4 class="timeline-header">
+                                                <a href="#">Order id {{$order->id}}</a>
+                                                @php
+                                                $c = $order->status === 6 ? "color:red;" : "color:green;";
+                                                @endphp
+                                                <div style="<?php echo $c ?> text-align:right;">
+                                                    Order Status: <b>{{ $order->getShippingStatus()}}</b>
+                                                </div>
+                                            </h4>
                                             <div class="timeline-body">
                                                 <table class="table table-striped table-inverse table-responsive">
                                                     <thead class="thead-inverse">
@@ -284,16 +304,14 @@
                                                             <th>Coupon:</th>
                                                             <td>{{$order->coupon}}</td>
                                                         </tr>
-
-
+                                                        <tr>
+                                                            <th>Payment Status:</th>
+                                                            <td><b>{{ $order->getPaymentStatus()}}</b></td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
+                                            </div>
 
-                                            </div>
-                                            <div class="timeline-footer" style="text-align:right">
-                                           
-                                                Status: <b>{{ $order->status == 0 ? 'processing' : 'shipped'}}</b>
-                                            </div>
                                         </div>
                                     </div>
                                     <!-- END timeline item -->
@@ -387,15 +405,9 @@
                                     </div>
 
                                     @php
-                                    $male = '';
-                                    $female = $male === 'checked' ? '': 'checked';
-                                    if($user->getGender() == 'Male'){
-                                    $male = 'checked';
-                                    $female = $male === 'checked' ? '': 'checked';
-                                    }else{
-                                    $female = 'checked';
-                                    $male = $female === 'checked' ? '': 'checked';
-                                    }
+                                    $male = $user->getGender() === 'Male' ? 'checked' : '';
+                                    $female = $user->getGender() === 'Female' ? 'checked' : '';
+                                    $male = $female === 'checked' ? '' : 'checked';
                                     @endphp
 
                                     <div class="form-group row">

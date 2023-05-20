@@ -49,9 +49,10 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Email</th>
                                         <th>Role</th>
-                                        <th>Status</th>
-                                        <th>Create Account</th>
+                                        <th>Login by</th>
+                                        <th>Create by</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -61,24 +62,25 @@
                                             <a href="{{ route('admin.user.show', $user->id)}}">
                                                 <div class="d-flex align-items-center">
                                                     <img src="{{ $user->getAvatar() }}" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
-                                                    <div class="ms-3">
-                                                        <p class="fw-bold mb-1">{{$user->name}} - {{$user->phone}}</p>
-                                                        <p class="text-muted mb-0">{{$user->email}}</p>
+                                                    <div class="mx-3">
+                                                        <p class="fw-bold mb-1">{{$user->name}} <br> Phone: {{$user->phone}}</p>
                                                     </div>
                                                 </div>
                                             </a>
+                                        </td>
+                                        <td>
+                                            <p class="text-muted mb-0">{{$user->email}}</p>
                                         </td>
                                         <td>
                                             <p class="fw-normal mb-1">{{$user->role == 1 ? 'Admin' : 'User'}}</p>
                                             
                                         </td>
                                         <td>
-                                            <span class="badge badge-success rounded-pill d-inline">Active</span> <br>
-                                            <small class="text-muted mb-0">last_login_at:
-                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->last_login_at)->diffForHumans()}}
-                                            </small>
+                                            {{$user->provider}}<br/>
                                         </td>
-                                        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->diffForHumans()}}</td>
+                                        <td>
+                                            <small class="text-muted mb-0">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->diffForHumans()}}</small>
+                                        </td>
 
                                     </tr>
 
@@ -90,14 +92,6 @@
 
 
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th colspan="5">
-                                            <a href="#">Create new</a>
-                                        </th>
-
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                         <!-- /.card-body -->

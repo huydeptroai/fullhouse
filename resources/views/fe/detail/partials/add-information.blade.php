@@ -8,7 +8,7 @@
                         <i class="fa fa-truck" aria-hidden="true"></i>
                         <div class="right-content">
                             <b class="title">Free Shipping</b>
-                            <span class="subtitle">On Oder Over $250</span>
+                            <span class="subtitle">On Oder Over $299</span>
                             <p class="desc">...</p>
                         </div>
                     </a>

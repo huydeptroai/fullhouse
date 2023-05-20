@@ -51,7 +51,7 @@ class GoogleController extends Controller
         ], [
             'provider_id' => $data->getId(),
             'provider' => $provider,
-            'name' => $data->getName(),
+            'name' => strtoupper($data->getName()),
             'password' => Hash::make('12345678'),
             'role' => 2,
             'profile' => $profile

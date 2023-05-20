@@ -1,5 +1,4 @@
 @extends('admin.layout.admin')
-
 @section('myCss')
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ asset('/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -15,7 +14,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Manager Order</h1>
+                    <h1>Product List</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -26,6 +25,7 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
+
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
@@ -49,89 +49,80 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="order1" class="table table-head-fixed table-bordered table-striped table-hover">
+                            <table id="example1" class="table table-head-fixed table-bordered table-striped table-hover">
                                 <thead class="text-center">
                                     <tr>
-                                        <th style="width:20px;">No</th>
-                                        <th>Date</th>
+                                        <th>ID</th>
+                                        <th>Order date</th>
                                         <th>Customer</th>
-                                        <th>Status</th>
-                                        <th>Payment</th>
-                                        <th>Note</th>
+                                        <th>Shipping to</th>
+                                        <th>Total Order</th>
+                                        <th>Order Status</th>
+                                        <th>Payment Method</th>
+                                        <th>Payment Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($orders as $order)
-                                    <tr data-widget="expandable-table" aria-expanded="false">
-                                        <td>{{$order->id}}</td>
+                                    @foreach($orders as $order)
+                                    <tr>
+                                        <td><a href="{{ route('admin.order.invoice', $order->id)}}">{{$order->id}}</a></td>
                                         <td>
-                                            @isset($order->order_date)
-                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->order_date)->format('d/m/Y')}}
-                                            @endisset
+                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d H:m:s', $order->order_date)->format('d-m-Y')}}
                                         </td>
                                         <td>
-                                            <span>
-                                                {{$order->receiver_name}} <br>
-                                                {{$order->receiver_phone}} <br>
-                                                {{$order->shipping_address}}, {{$order->shipping_district}}, {{$order->shipping_city}}
-                                            </span>
-                                        </td>
-                                       
-                                        <td>{{$order->status == 0 ? 'Processing' : 'Shipped'}}</td>
-                                        <td>{{$order->payment_method}}</td>
-                                        <td>{{$order->note}}</td>
-                                        <td> <a href="#">Edit</a> </td>
-                                    </tr>
-                                    <tr class="expandable-body">
-                                        <td colspan="7">
-                                            <div style="max-width:100vw;overflow-x:auto;">
-                                                @if(isset($order->orderDetails) && is_object($order->orderDetails))
-                                                <table class="table table-bordered table-striped table-inverse">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>No</th>
-                                                            <th>Product</th>
-                                                            <th>Unit price</th>
-                                                            <th>Quantity</th>
-                                                            <th>Amount</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach($order->orderDetails as $k=>$od)
-                                                        <tr>
-                                                            <td>{{$k + 1}}</td>
-                                                            <td>
-                                                                <span>
-                                                                    {{$od->product->product_name}} -
-                                                                    {{$od->product->product_id}}
-                                                                </span>
-                                                               
-                                                            </td>
-                                                            <td>{{$od->quantity}}</td>
-                                                            <td>$ {{number_format($od->price,2)}}</td>
-                                                            <td>$ {{number_format($od->quantity * $od->price,2)}}</td>
-                                                        </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th colspan="4" class="text-right">Total Amount</th>
-                                                            <th>$ {{number_format( $order->getTotal(),2) }}</th>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
+                                            <a href="{{ route('admin.user.show', $order->user->id)}}">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="ms-3">
+                                                        <p class="fw-bold mb-1">
+                                                            {{$order->user->name}} - {{$order->user->phone}} <br>
+                                                            {{$order->user->email}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </a>
 
-                                                @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.order.invoice', $order->id)}}">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="ms-3">
+                                                        {{$order->receiver_name}} <br>
+                                                        {{$order->receiver_phone}} <br>
+                                                        {{$order->shipping_address}}, {{$order->shipping_district}}, {{$order->shipping_city}}
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                        </td>
+                                        <td>$ {{number_format($order->getSubtotal(),2)}}</td>
+
+                                        <td>
+                                            @php $badge_ss = $order->payment_status === 6 ? 'badge-danger' : 'badge-success'; @endphp
+
+                                            <span class="badge {{$badge_ss}} rounded-pill d-inline">{{$order->getShippingStatus() }}</span>
+                                        </td>
+                                        <td>
+                                            {{$order->getPaymentMethod() }}
+                                        </td>
+                                        <td>
+                                            @php $badge_ps = $order->payment_status === 1 ? 'badge-danger' : 'badge-success'; @endphp
+
+                                            <span class="badge {{$badge_ps}} rounded-pill d-inline">{{$order->getPaymentStatus() }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-start">
+                                                <a class="btn btn-info" href="{{ route('admin.order.invoice', $order->id)}}" data-id="{{$order->id}}">
+                                                    <svg style="width:20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                        <path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z" />
+                                                    </svg>
+                                                    Edit
+                                                </a>
 
                                             </div>
                                         </td>
                                     </tr>
-                                    @empty
-                                    <tr>
-                                        <td>No orders</td>
-                                    </tr>
-                                    @endforelse
+                                    @endforeach
 
                                 </tbody>
                             </table>
@@ -142,10 +133,14 @@
                 </div>
                 <!-- /.col -->
             </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
 
-        </div><!-- /.container-fluid -->
     </section>
+    <!-- /.content -->
 </div>
+<!-- /.content-wrapper -->
 @endsection
 
 @section('myJS01')
@@ -168,12 +163,12 @@
 <!-- Page specific script -->
 <script>
     $(function() {
-        $("#order1").DataTable({
+        $("#example1").DataTable({
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#order1_wrapper .col-md-6:eq(0)');
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
             "paging": true,
             "lengthChange": false,

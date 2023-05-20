@@ -36,22 +36,22 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="product_id">Product ID</label>
-                                <input type="text" id="product_id" name="product_id" class="form-control" autofocus>
+                                <input type="text" id="product_id" name="product_id" class="form-control" autofocus required>
                             </div>
                             <div class="form-group">
                                 <label for="product_name">Product Name</label>
-                                <input type="text" id="product_name" name="product_name" class="form-control">
+                                <input type="text" id="product_name" name="product_name" class="form-control" required>
                             </div>
 
 
                             <div class="row">
                                 <div class="form-group col-6">
                                     <label for="product_quantity">Quantity</label>
-                                    <input type="number" id="product_quantity" name="product_quantity" class="form-control">
+                                    <input type="number" id="product_quantity" name="product_quantity" class="form-control" required>
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="product_price">Unit price</label>
-                                    <input type="number" step="0.01" min="0" id="product_price" name="product_price" class="form-control">
+                                    <input type="number" step="0.01" min="0" id="product_price" name="product_price" class="form-control" required>
                                 </div>
                             </div>
                             <!-- Date and time -->
@@ -60,14 +60,14 @@
                                     <label for="discount">Discount price</label>
                                     <input type="number" step="0.01" min="0" id="discount" name="discount" class="form-control">
                                 </div>
-                                <div class="form-group col-4">
+                                <!-- <div class="form-group col-4">
                                     <label>From date:</label>
                                     <input type="datetime" name="date_from" class="form-control" />
                                 </div>
                                 <div class="form-group col-4">
                                     <label>From date:</label>
                                     <input type="datetime" name="date_from" class="form-control" />
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="form-group">
@@ -91,7 +91,7 @@
                                 <label for="category_id">Category</label>
                                 <select id="category_id" name="category_id" class="form-control custom-select">
                                     @foreach($categories as $cate)
-                                    <option value="{{$cate->category_id}}" selected>
+                                    <option value="{{$cate->category_id}}" selected required>
                                         {{$cate->category_name_1." - ".$cate->category_name_2." (".$cate->category_id.")"}}
                                     </option>
                                     @endforeach
@@ -99,16 +99,16 @@
                             </div>
                             <div class="form-group">
                                 <label for="product_material">Project material</label>
-                                <input type="text" id="product_material" name="product_material" class="form-control">
+                                <input type="text" id="product_material" name="product_material" class="form-control" required>
                             </div>
                             <div class="row">
                                 <div class="form-group col-6">
                                     <label for="product_color">Project color</label>
-                                    <input type="text" id="product_color" name="product_color" class="form-control">
+                                    <input type="text" id="product_color" name="product_color" class="form-control" required>
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="product_size">Project size</label>
-                                    <input type="text" id="product_size" name="product_size" class="form-control">
+                                    <input type="text" id="product_size" name="product_size" class="form-control" required>
                                 </div>
                             </div>
                             <div class="form-group">

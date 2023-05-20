@@ -32,33 +32,29 @@
                             <th class="text-center">Value Order</th>
                             <th class="text-center">
                                 < 250 USD</th>
-                            <th class="text-center"> >= 250 USD</th>
+                            <th class="text-center"> >= 299 USD</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th>Urban</th>
                             <td>
-                                4% of order
-                                <p>($5 <= shipping fee <=$25)</p>
+                                2.00 USD/product
+                                
                             </td>
                             <td>Free</td>
                         </tr>
                         <tr>
                             <th>Suburban 1</th>
                             <td>
-                                6% of order
-                                <p>($5 <= shipping fee <=$25)</p>
+                                2.00 USD/product
                             </td>
-                            <td>Free</td>
+                            <td>2.00 USD/product</td>
                         </tr>
                         <tr>
                             <th>Suburban 2</th>
-                            <td>
-                                8% of order
-                                <p>($5 <= shipping fee <=$25)</p>
-                            </td>
-                            <td>Free</td>
+                            <td>4.00 USD/product</td>
+                            <td>4.00 USD/product</td>
                         </tr>
                     </tbody>
                 </table>
@@ -72,9 +68,9 @@
                 <hr>
 
                 <h4>2. For orders from outside provinces</h4>
-                <p>Shipping fee: 10% of value order.</p>
-                <p>($5 <= shipping fee <=$25)</p>
-
+                <p>Shipping fee: 5.00 USD/product.</p>
+                
+                
                 <hr>
 
                 <h4>3. Order confirmation and delivery time</h4>

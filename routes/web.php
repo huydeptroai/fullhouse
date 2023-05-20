@@ -36,10 +36,11 @@ Route::get('/', function () {
 })->middleware(['countVisitor']); //count by [IP,user_id]
 
 
-
+// ============= User ===============
 Route::middleware('auth')->group(function () {
 
     Route::post('/review', [ReviewController::class, 'store'])->name('review.store');
+    Route::get('/review-delete/{id}', [ReviewController::class, 'destroy'])->name('review.delete');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -64,29 +65,30 @@ Route::middleware('auth')->group(function () {
         Route::get('/checkout', 'viewOrder')->name('checkout');
         Route::get('/district/{province_code}', 'getDistricts')->name('districts');
         Route::post('coupon', 'postCoupon')->name('postCoupon');
-        Route::post('show-coupon', 'showCoupon')->name('showCoupon');
         Route::post('order', 'createOrder')->name('createOrder');
         Route::post('shipping-fee', 'postShippingFee')->name('postShippingFee');
         Route::get('/cancel-order/{order_id}', 'cancelOrder')->name('cancelOrder');
+        Route::get('/confirm-order', 'confirmOrder')->name('confirmOrder');
+        Route::get('/update-order/{order_id}', 'updateStatusOrder')->name('updateStatusOrder');
+        Route::get('/info-order', 'showInformationOrder')->name('showInformationOrder');
     });
 
     // ============= Admin ===============
     Route::group(['middleware' => 'checkAdmin', 'prefix' => 'admin'], function () {
 
-
         Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+        Route::post('/product-sale', [DashboardController::class, 'productSales'])->name('admin.productSales');
 
         Route::resource('/category', App\Http\Controllers\Admin\Ad_CategoryController::class)->names('admin.category');
         Route::resource('/product', App\Http\Controllers\Admin\Ad_ProductController::class)->names('admin.product');
         Route::resource('/coupon', App\Http\Controllers\Admin\Ad_CouponController::class)->names('admin.coupon');
         Route::resource('/user', App\Http\Controllers\Admin\Ad_UserController::class)->names('admin.user');
+        Route::resource('/order', App\Http\Controllers\Admin\Ad_OrderController::class)->except('show', 'destroy', 'create', 'store')->names('admin.order');
 
-        // Route::resource('/admin/category', App\Http\Controllers\Admin\AjaxCategoryController::class)->names('admin.category');
         Route::resource('/newsletter', Ad_NewsletterController::class)->names('admin.newsletter');
 
-        Route::get('/order/index', [Ad_OrderController::class, 'index'])->name('admin.order.index');
         Route::get('/order/invoice/{order_id}', [Ad_OrderController::class, 'showDetail'])->name('admin.order.invoice');
-        Route::get('/order/invoice-print', [Ad_OrderController::class, 'printInvoice'])->name('admin.order.printInvoice');
+        Route::get('/order/invoice-print/{order_id}', [Ad_OrderController::class, 'printInvoice'])->name('admin.order.printInvoice');
     });
 });
 
@@ -103,42 +105,12 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/shipping-policy', 'shippingPolicy')->name('shippingPolicy');
     Route::get('/warranty-policy', 'warrantyPolicy')->name('warrantyPolicy');
-    Route::get('/order-processing', 'thankyou')->name('thankyou');
+
     Route::post('/new-letter', 'newLetter')->name('newLetter');
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1792bd46822fb1cc4dcf727b3b3d281885a0a64b
 });
 
-
-
-
-
-// Route::get('/register_socialite', [HomeController::class, 'register_socialite'])->name('register_socialite');
-
-//============ login by Facebook===========
-// Route::get('/login/facebook', function(){
-//     return Socialite::driver('facebook')->redirect();
-// })->name('facebook');
-
-// Route::get('/login/facebook/callback', function(){
-//     $user = Socialite::driver('facebook')->user();
-//     $user-> getEmail();
-//     $user-> getName();
-
-//     return view('fe.home');
-
-//     // echo $user-> getEmail().'<br/>';
-//     // echo $user-> getId().'<br/>';
-//     // echo $user-> getName().'<br/>';
-
-// });
-
-// //==================login by google =====================
-// Route::get('/login/google', function(){
-//     return Socialite::driver('google')->redirect();
-// })->name('google');
-// Route::get('/login/google/callback', function(){
-//     $user = Socialite::driver('google')->user();
-    
-//     return view('fe.home');
-// });

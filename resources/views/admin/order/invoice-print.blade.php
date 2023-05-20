@@ -30,7 +30,9 @@
                             <div class="col-12">
                                 <h4>
                                     <i class="fas fa-globe"></i> Full house, Inc.
-                                    <small class="float-right">Date: 2/10/2014</small>
+                                    <small class="float-right">Date:
+                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d H:m:s', $order->order_date)->format('d/m/Y')}}
+                                    </small>
                                 </h4>
                             </div>
                             <!-- /.col -->
@@ -51,20 +53,19 @@
                             <div class="col-sm-4 invoice-col">
                                 To
                                 <address>
-                                    <strong>John Doe</strong><br>
-                                    795 Truong Chinh Street<br>
-                                    HCM City<br>
-                                    Phone: (555) 539-1037<br>
-                                    Email: john.doe@example.com
+                                    <strong>{{strtoupper($order->user->name)}}</strong><br>
+                                    Phone: {{$order->receiver_phone}} <br>
+                                    {{ $order->user->getWard() }}
+                                    {{ $order->user->getDistrict() }}<br>
+                                    {{ $order->user->getCity() }}
                                 </address>
                             </div>
                             <!-- /.col -->
                             <div class="col-sm-4 invoice-col">
-                                <b>Invoice #007612</b><br>
+                                <b>Invoice: {{$order->id}}</b><br>
                                 <br>
-                                <b>Order ID:</b> 4F3S8J<br>
-                                <b>Account No:</b> 96845-34567-1234 <br>
-                                <b>At Bank:</b> BIDV
+                                <b>Order ID:</b> FH{{$order->id}}<br>
+
                             </div>
                             <!-- /.col -->
                         </div>
@@ -77,7 +78,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Product</th>
+                                            <th style="width: 300px;">Product</th>
                                             <th>Code</th>
                                             <th>Quantity</th>
                                             <th>Unit Price</th>
@@ -85,74 +86,112 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach($order->orderDetails as $k=>$od)
                                         <tr>
-                                            <td>1</td>
-                                            <td>Desk</td>
-                                            <td>PS01001</td>
-                                            <td>1</td>
-                                            <td>$64.50</td>
-                                            <td>$64.50</td>
+                                            <td>{{$k + 1}}</td>
+                                            <td>{{$od->product->product_name}}</td>
+                                            <td>{{$od->product->product_id}}</td>
+                                            <td>{{$od->quantity}}</td>
+                                            <td>$ {{number_format($od->price,2)}}</td>
+                                            <td>$ {{number_format($od->quantity * $od->price,2)}}</td>
                                         </tr>
-                                        
+                                        @endforeach
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="6">Note: {{$order->note}}</th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                             <!-- /.col -->
                         </div>
                         <!-- /.row -->
 
-                        <div class="row">
-                            <!-- accepted payments column -->
-                            <div class="col-6">
-                                <p class="lead">Payment Methods:</p>
-                                <img src="{{ asset('admin/dist/img/credit/visa.png')}}" alt="Visa">
-                                <img src="{{ asset('admin/dist/img/credit/mastercard.png')}}" alt="Mastercard">
-                                <img src="{{ asset('admin/dist/img/credit/american-express.png')}}" alt="American Express">
-                                <img src="{{ asset('admin/dist/img/credit/paypal2.png')}}" alt="Paypal">
+                        <form action="{{route('admin.order.update', $order->id)}}" method="post">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="id" value="{{$order->id}}">
+                            <div class="row">
+                                <!-- accepted payments column -->
+                                <div class="col-6">
+                                    <b class="lead">Order Status:</b>
+                                    <div class="form-group">
+                                        <label for="">Shipping status:</label>
+                                        <select class="custom-select" name="status" id="status" @if($order->status === 5) disabled @endif
+                                            >
+                                            <option value="1" @if($order->status === 1) selected @endif>1 - Order received</option>
+                                            <option value="2" @if($order->status === 2) selected @endif>2 - Confirmed</option>
+                                            <option value="3" @if($order->status === 3) selected @endif>3 - Packaging process</option>
+                                            <option value="4" @if($order->status === 4) selected @endif>4 - Package on delivery</option>
+                                            <option value="5" @if($order->status === 5) selected @endif>5 - Package received</option>
+                                            <option value="6" @if($order->status === 6) selected @endif>6 - Cancel</option>
+                                        </select>
+                                    </div>
+                                    <div class="row">
 
-                                <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-                                    
-                                </p>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Payment method:</label>
+                                                <select class="custom-select" name="payment_method" id="payment_method" @if($order->payment_status === 2) disabled @endif >
+                                                    <option value="1" @if($order->payment_method === 1) selected @endif>COD</option>
+                                                    <option value="2" @if($order->payment_method === 2) selected @endif>PayPal</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Payment Status:</label>
+                                                <select class="custom-select" name="payment_status" id="payment_status" @if($order->payment_status === 2) disabled @endif
+                                                    >
+                                                    <option value="1" @if($order->payment_status === 1) selected @endif>Not yet</option>
+                                                    <option value="2" @if($order->payment_status === 2) selected @endif>Finished</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                                    </p>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-6 px-4">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tr>
+                                                <th style="width:50%">Subtotal:</th>
+                                                <td>$ {{number_format($order->getTotal(),2) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th style="width:50%">Discount (coupon):</th>
+                                                <td>($ {{number_format($order->getValueCoupon(),2) }})</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Shipping fee:</th>
+                                                <td>$ {{number_format($order->shipping_fee,2)}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Total:</th>
+                                                <th>$ {{number_format($order->getTotal(),2)}}</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- /.col -->
                             </div>
-                            <!-- /.col -->
-                            <div class="col-6">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tr>
-                                            <th style="width:50%">Subtotal:</th>
-                                            <td>$64.50</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Tax (8%)</th>
-                                            <td>$5.16</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Shipping:</th>
-                                            <td>$5.80</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Total:</th>
-                                            <td>$69.66</td>
-                                        </tr>
-                                    </table>
+                            <!-- /.row -->
+                            <!-- this row will not appear when printing -->
+                            <div class="row no-print">
+                                <div class="col-12">
+                                    <a href="{{ route('admin.order.printInvoice',['order_id'=>$order->id])}}" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
+                                    <a href="{{ route('admin.order.index')}}" type="button" class="btn btn-default float-right">
+                                        Back order list
+                                    </a>
+                                    <button type="submit" class="btn btn-primary float-right" style="margin-right: 5px;">
+                                        Submit edit
+                                    </button>
                                 </div>
                             </div>
-                            <!-- /.col -->
-                        </div>
-                        <!-- /.row -->
-
-                        <!-- this row will not appear when printing -->
-                        <div class="row no-print">
-                            <div class="col-12">
-                                <a href="#" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                                <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-                                    Payment
-                                </button>
-                                <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                    <i class="fas fa-download"></i> Generate PDF
-                                </button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                     <!-- /.invoice -->
                 </div><!-- /.col -->
@@ -166,6 +205,6 @@
 
 @section('myJS02')
 <script>
-  window.addEventListener("load", window.print());
+    window.addEventListener("load", window.print());
 </script>
 @endsection

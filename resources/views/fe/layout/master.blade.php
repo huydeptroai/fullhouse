@@ -56,18 +56,20 @@ session_start();
 	@yield('content')
 	<!--main end-->
 
+	@include('fe.layout.partials.chatbox')
+	
 	<!-- footer start-->
 	@include('fe.layout.partials.footer')
 	<!-- footer end -->
-
+	
 	@include('fe.layout.partials.login')
-
+	
 	@include('fe.layout.partials.side_cart')
 	@include('fe.layout.partials.wish_list')
-
+	
 	<!-- jQuery -->
 	<!-- <script src="{{ asset('/admin/plugins/jquery/jquery.min.js') }}"></script> -->
-
+	
 	<!-- JavaScript start -->
 	<script src="{{ asset('/frontend/js/jquery-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
 	<script src="{{ asset('/frontend/js/jquery-ui-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
@@ -79,7 +81,8 @@ session_start();
 	<script src="{{ asset('/frontend/js/jquery.sticky.js') }}"></script>
 	<script src="{{ asset('/frontend/js/functions.js') }}"></script>
 	@yield('time')
-
+	
+	@include('fe.layout.partials.hotline')
 	<!-- login/cart show -->
 	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -160,6 +163,7 @@ session_start();
 			let pid = $(this).data("id") ?? '';
 			let quantity = $('#product_qty_' + pid).val() ?? 1;
 
+<<<<<<< HEAD
 			var data = {
 				pid: pid,
 				quantity: quantity
@@ -179,6 +183,29 @@ session_start();
 				},
 			});
 		}
+=======
+			//display site cart
+			function getCart() {
+				$.get(
+					"{{ route('showCart')}}",
+					function(data) {
+						// console.log(data);
+						var cart = '';
+						let count = 0;
+						let total_qty = 0;
+						let total = 0;
+						let img = '';
+						var cart_page = '';
+
+						$.each(data, function(k, v) {
+							var arr_img = JSON.parse(v.product_image);
+							count++;
+							total_qty += parseInt(v.quantity);
+							total += parseFloat(v.amount);
+							let path = "{{ asset('assets/img/upload/product') }}" + "/" + arr_img[0];
+							let id = v.product_id;
+							let detail = "{{ url('/product')}}" + "/" + id;
+>>>>>>> 1792bd46822fb1cc4dcf727b3b3d281885a0a64b
 
 		//display site cart
 		function getCart() {
@@ -250,6 +277,92 @@ session_start();
 										</a>
 									</div>
 								</li>`;
+<<<<<<< HEAD
+=======
+						});
+
+						$('#cart-page').html(cart_page);
+						$('#content-cart').html(cart);
+						$('#count').html(count + ' items');
+						$('.total-cart').html(' $ ' + total.toFixed(2));
+						$('input[name="value_order"]').val(total);
+						$('input[name="total_quantity"]').val(total_qty);
+						
+					}
+				);
+			};
+
+			$('.view-cart').attr("href", "{{route('cart')}}");
+			$('.view-checkout').attr("href", "{{route('checkout')}}");
+
+			getCart();
+
+			//edit side-cart
+			$('body').on('change', 'input[name="product-quatity"]', function(e) {
+				e.preventDefault();
+				//Note: we have many input with this name;
+				let pid = $(this).data("id") ?? '';
+				let quantity = $('#product_qty_' + pid).val() ?? '';
+
+				var data = {
+					pid: pid,
+					quantity: quantity,
+					action: 'edit'
+				};
+				if (data.quantity == 0) {
+					return;
+				}
+				postAjax(data);
+			});
+
+			//edit quantity in cart by button
+			$("body").on('click', ".btn-qty", function(e) {
+				e.preventDefault();
+				var _this = $(this);
+				var _input = $(this).siblings('input[name=product-quatity]');
+				var _current_value = _input.val();
+				var _max_value = _input.attr("data-max");
+
+				var data = {};
+				data.pid = _input.attr("data-id");
+				data.quantity = _current_value;
+				data.action = "edit";
+
+				if (_this.hasClass("btn-reduce")) {
+					if (parseInt(_current_value, 10) > 1) {
+						data.quantity = parseInt(_current_value, 10) - 1;
+						_input.val(data.quantity);
+					}
+				} else {
+					if (parseInt(_current_value, 10) < parseInt(_max_value, 10)) {
+						data.quantity = parseInt(_current_value, 10) + 1;
+						_input.val(data.quantity);
+					}
+				}
+				// console.log(data);
+				postAjax(data);
+
+			});
+
+			//delete cart
+			$('body').on('click', '.delete-cart', function(e) {
+				e.preventDefault();
+
+				let cart_id = $(this).data("cid") ?? '';
+
+				if (confirm('Delete this cart-item?')) {
+					$.ajax({
+						type: "DELETE",
+						url: "{{ url('delete-cart')}}" + '/' + cart_id,
+						success: function(data) {
+							$("#cart_id_" + cart_id).remove();
+							setTimeout(getCart, 1000);
+						},
+						error: function(data) {
+							// console.log('Error:', data);
+							console.log(JSON.stringify(data));
+						}
+>>>>>>> 1792bd46822fb1cc4dcf727b3b3d281885a0a64b
 					});
 
 					$('#cart-page').html(cart_page);
@@ -381,8 +494,8 @@ session_start();
 											<p class="product-name">${v.product_name}</p>
 										</a>
 										<div class="p-info">
-											<p class="product-price">$${v.product_price}</p>
-											<p class="product-price" style="font-d">$${v.product_price - v.discount}</p>
+										<span class="product-price">$${v.product_price - v.discount}</span>
+										<span class="product-price" style="text-decoration: line-through;color:red;"> $${v.product_price}</span>
 										</div>
 									</div>`;
 
@@ -471,7 +584,7 @@ session_start();
 	});
 	</script>
 
-	<!-- Subscribe footer -->
+	
 
 
 	@yield('myJS')

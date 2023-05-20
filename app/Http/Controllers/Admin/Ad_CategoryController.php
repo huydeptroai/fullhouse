@@ -14,7 +14,7 @@ class Ad_CategoryController extends Controller
      */
     public function index()
     {
-        $cates = Category::all();
+        $cates = Category::orderByDesc('created_at')->get();
         return view('admin.category.category-list', compact('cates'));
     }
 
@@ -120,12 +120,18 @@ class Ad_CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        //1. check isCategory
+        if($category->products()->count('*') > 0){
+            return redirect()->route('admin.category.index')->with('deleted', 'Category Cannot Delete Because Has Product');
+        }
+
+        //2. Delete Category
         $category = Category::find($category->category_id);
         $path = 'assets/img/upload/category/' . $category->category_image;
         if (File::exists($path)) {
             File::delete($path);
         }
         $category->delete();
-        return redirect()->route('admin.category.index')->with('delete', 'Category Deleted');
+        return redirect()->route('admin.category.index')->with('deleted', 'Category Deleted');
     }
 }

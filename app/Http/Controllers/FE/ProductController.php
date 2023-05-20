@@ -18,7 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $prods_popular = ViewProductData::orderByDesc('count_order')->paginate(6)->appends(request()->query());
+        $prods_popular = ViewProductData::orderByDesc('count_order')->limit(6)->get();
         $prods_new = ViewProductData::orderByDesc('created_at')
             ->where('created_at', '>', Carbon::now()->subDays(30))
             ->paginate(6)->appends(request()->query());
@@ -41,6 +41,9 @@ class ProductController extends Controller
             Session()->put("price_min",$price_min);
             Session()->put("price_max",$price_max);
             
+
+            Session()->put("price_min",$price_min);
+            Session()->put("price_max",$price_max);
 
             if ($price_min >= 0 && $price_max >= $price_min) {
                 $products = ViewProductData::orderByDesc('avg_rating')
@@ -151,7 +154,8 @@ class ProductController extends Controller
 
     public function searchByCategoryName($category_name)
     {
-        $prods_popular = ViewProductData::orderByDesc('count_order')->paginate(6)->appends(request()->query());
+        $prods_popular = ViewProductData::orderByDesc('count_order')->limit(6)->get();
+
         $prods_new = ViewProductData::orderByDesc('created_at')->paginate(6)->appends(request()->query());
         $products = ViewProductData::orderByDesc('avg_rating')->paginate(6)->appends(request()->query());
 

@@ -12,16 +12,17 @@ use App\Models\Newsletter;
 use App\Models\ViewProductData;
 use App\Models\Order;
 use Carbon\Carbon;
+use App\Models\ViewProductData;
 
 class HomeController extends Controller
 {
     public function home()
     {
         $products_sale = Product::where('discount', '>', 0)->limit(8)->get();
-        
+
         $products_latest = Product::orderByDesc('updated_at')
-        ->whereMonth('created_at', Carbon::now()->month)
-        ->limit(8)->get();
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->limit(8)->get();
 
         $products_living = Product::where('category_id', 'like', 'L%')->limit(8)->get();
         $products_dining = Product::where('category_id', 'like', 'K%')->limit(8)->get();
@@ -38,6 +39,10 @@ class HomeController extends Controller
         ]);
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1792bd46822fb1cc4dcf727b3b3d281885a0a64b
     public function about()
     {
         return view('fe.about');
@@ -49,11 +54,6 @@ class HomeController extends Controller
     }
 
 
-    public function register_socialite()
-    {
-        return view('fe.register_socialite');
-    }
-
     public function shippingPolicy()
     {
         return view('fe.shipping-policy');
@@ -63,11 +63,6 @@ class HomeController extends Controller
         return view('fe.warranty-policy');
     }
 
-    public function thankyou()
-    {
-        $order = Order::first();
-        return view('fe.order.thankyou', compact('order'));
-    }
 
     public function newLetter(Request $request)
     {

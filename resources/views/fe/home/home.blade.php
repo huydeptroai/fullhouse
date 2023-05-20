@@ -12,63 +12,32 @@
 					<img src="{{ asset('/frontend/images/megamenu_furniture_home_decors_1.jpg') }}" alt="main-slider-1-1" class="img-slide">
 					<div class="slide-info slide-1">
 						<h2 class="f-title">Office chair<b></b></h2>
-						<span class="subtitle">Compra todos tus productos Smart por internet.</span>
-						<p class="sale-info">Only price: <span class="price">$59.99</span></p>
-						<a href="#" class="btn-link">Shop Now</a>
+						<span class="subtitle"></span>
+						<p class="sale-info">Only price: <span class="price">$99.99</span></p>
+						<a href="{{route('product.index')}}" class="btn-link">Shop Now</a>
 					</div>
 				</div>
-				<div class="item-slide">
+				<!-- <div class="item-slide">
 					<img src="{{ asset('/frontend/images/main-slider-1-3.jpg') }}" alt="main-slider-1-2" class="img-slide">
 					<div class="slide-info slide-2">
 						<h2 class="f-title">Extra 25% Off</h2>
 						<span class="f-subtitle">On online payments</span>
-						<p class="discount-code">Use Code: #FA6868</p>
-						<h4 class="s-title">Get Free</h4>
-						<p class="s-subtitle">TRansparent Bra Straps</p>
+						
+						
 					</div>
-				</div>
+				</div> -->
 				<div class="item-slide">
 					<img src="{{ asset('/frontend/images/main-slider-1-3.jpg') }}" alt="main-slider-1-3" class="img-slide">
 					<div class="slide-info slide-3">
 						<h2 class="f-title">Great Range of <b>Exclusive Furniture Packages</b></h2>
 						<span class="f-subtitle">Exclusive Furniture Packages to Suit every need.</span>
 						<p class="sale-info">Stating at: <b class="price">$225.00</b></p>
-						<a href="#" class="btn-link">Shop Now</a>
+						<a href="{{route('product.index')}}" class="btn-link">Shop Now</a>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<!-- <div class="wrap-banner style-twin-default col-12" style="width:80vw;margin:0 auto;">
-			<div class="col-6 col-md-3">
-				<a href="#" class="link-banner banner-effect-1">
-					<figure><img src="{{ asset('/frontend/images/home_01_category_bedroom.png') }}" alt="" width="200" height="200">
-						<p>Office</p>
-					</figure>
-				</a>
-			</div>
-			<div class="col-6 col-md-3">
-				<a href="#living" class="link-banner banner-effect-1 tab-control-item active">
-					<figure><img src="{{ asset('/frontend/images/home_02_category_living.png') }}" alt="" width="200" height="200">
-						<p>Living</p>
-					</figure>
-				</a>
-			</div>
-			<div class="col-6 col-md-3">
-				<a href="#" class="link-banner banner-effect-1">
-					<figure><img src="{{ asset('/frontend/images/home_03_category_dining.png') }}" alt="" width="200" height="200">
-						<p>Dining</p>
-					</figure>
-				</a>
-			</div>
-			<div class="col-6 col-md-3">
-				<a href="#" class="link-banner banner-effect-1">
-					<figure><img src="{{ asset('/frontend/images/home_01_category_bedroom.png') }}" alt="" width="200" height="200">
-						<p>Bedroom</p>
-					</figure>
-				</a>
-			</div>
-		</div> -->
 	</div>
 	<!--top banner END -->
 

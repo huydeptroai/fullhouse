@@ -42,16 +42,6 @@
 							<label for="country">Note: </label>
 							<textarea class="form-control" name="note" id="note" cols="27" rows="5" placeholder="Note for this order, if have">{{old('note')}}</textarea>
 						</div>
-						<!-- <p class="row-in-form fill-wife">
-							<label class="checkbox-field">
-								<input name="create-account" id="create-account" value="forever" type="checkbox">
-								<span>Create an account?</span>
-							</label>
-							<label class="checkbox-field">
-								<input name="different-add" id="different-add" value="forever" type="checkbox">
-								<span>Ship to a different address?</span>
-							</label>
-						</p> -->
 
 						<!-- shipping -->
 						<div class="summary-item shipping-method">
@@ -59,16 +49,16 @@
 							<div class="choose-payment-methods" style="padding: 0 12px;">
 								<!-- at store -->
 								<label class="payment-method">
-									<input name="method_shipping" id="method_shipping_no" value="0" type="radio" checked>
-									<span>No Shipping</span>
-									<span class="payment-desc">Please you call before.
+									<input name="method_shipping" id="method_shipping_no" value="0" type="radio">
+									<span>At Full House Store</span>
+									<span class="payment-desc">
 										<p>Address at: No 391A, Nam Ky Khoi Nghia Street, District 3, HCM City</p>
 									</span>
 								</label>
 
 								<!-- shipping to address -->
 								<label class="payment-method">
-									<input name="method_shipping" id="method_shipping" value="1" type="radio">
+									<input name="method_shipping" id="method_shipping" value="1" type="radio" checked>
 									<span>Shipping to: </span>
 									<span class="payment-desc">
 									</span>
@@ -108,28 +98,32 @@
 					<div class="summary summary-checkout">
 						<div class="col-12">
 							<h4 class="title-box f-title">Total cart: <span class="total-cart" style="text-align: right;">$ 0.00</span> </h4>
+							<input type="hidden" id="total_quantity" name="total_quantity" value="">
 							<input type="hidden" class="total-cart" id="value_order" name="value_order" value="">
 						</div>
 						<hr>
-
+						@php
+						$fee = (Session::has('shipping_fee')) ? Session::get('shipping_fee') : 0;
+						@endphp
 						<div class="col-12">
 							<h5 class="">Shipping fee:
-								<span class="shipping_fee">$ 0.00</span>
-								<input type="hidden" id="shipping_fee" name="shipping_fee" value="">
-								<a href="#" id="calculator_fee">
-									<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
-									Calculator fee
-								</a>
+								<b class="shipping_fee" style="font-size: 16px;">$ {{$fee}}</b>
+								<input type="hidden" id="shipping_fee" name="shipping_fee" value="{{$fee}}">
 							</h5>
 						</div>
 						<hr>
 						<div class="col-12">
+							@php
+							$order_coupon = (Session::has('order_coupon')) ? Session::get('order_coupon') : 0;
+							$code = (Session::has('code')) ? Session::get('code') : "";
+							@endphp
+
 							<label class="">Coupon code:</label>
-							<input class="form-control col-5" id="coupon-code" type="text" name="coupon_code" value="{{ old('coupon_code')}}" placeholder="Enter Your Coupon code">
+							<input class="form-control col-5" id="coupon-code" type="text" name="coupon_code" value="{{$code}}" placeholder="Enter Your Coupon code">
 
 							<div class="row" style="margin:0 20px;">
-								<span class="title"> => Discount:</span>
-								<b class="value-coupon" style="font-size: 16px;">$ 0.00</b>
+								<span class="title"> <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Discount:</span>
+								<b class="value-coupon" style="font-size: 16px;">$ {{$order_coupon}}</b>
 							</div>
 						</div>
 
@@ -137,11 +131,10 @@
 						<div class="col-12">
 							<h4 class="summary-info grand-total">
 								<span>Grand Total: </span>
-								<span class="grand-total-price total-cart" style="font-size: 2em;text-align:right;"> $ 0.00</span>
+								<span class="grand-total-price" id="total_order" style="font-size: 2em;text-align:right;"> $ 0.00</span>
 							</h4>
 							<button type="submit" class="btn btn-warning btn-block">Place order now</button>
 						</div>
-						<a href="{{Route('thankyou')}}">Confirm Order</a>
 					</div>
 				</div>
 			</form>
@@ -231,14 +224,18 @@
 <script>
 	// <!-- cal coupon -->
 	$(document).ready(function() {
+
 		$.ajaxSetup({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			}
 		});
 
-		$('body').on('change', '#coupon-code', function() {
-			post_coupon();
+		$('body').on('keyup', '#coupon-code', function() {
+			var code = $(this).val();
+			if (code.length > 0) {
+				setTimeout(post_coupon, 1000);
+			}
 		});
 		post_coupon();
 
@@ -256,26 +253,15 @@
 					value_order: value_order
 				},
 				success: function(data) {
-					let discount = 0;
-					$.each(data, function(k, v) {
-						if (k === coupon_code) {
-							discount = v.value;
-							return;
-						}
-					});
-					// console.log(discount);
-					$('.value-coupon').html("$" + parseFloat(discount).toFixed(2));
-					let total = (value_order - discount).toFixed(2);
-					$('.result').html("$" + total);
+					data = data == 0 ? "{{$order_coupon}}" : data;
+						console.log(data);
+					$('.value-coupon').html("$" + parseFloat(data).toFixed(2));
+					showInfoOrder();
 				}
 			});
 		}
 
-	});
-
-	// <!-- select city/district -->
-	jQuery(document).ready(function() {
-
+		//city/district
 		$('#shipping_city').change(function() {
 			var code = $(this).val();
 			// Empty the dropdown
@@ -292,59 +278,56 @@
 						$("#shipping_district").append(option);
 						$("#shipping_district").trigger("chosen:updated");
 						// console.log(option);
+						showInfoOrder();
 					});
 				}
 			});
 		});
 
-		//shipping fee
-		$('#calculator_fee').click(function(e) {
-			e.preventDefault();
-			showShippingFee();
-			// var method_shipping = $('#method_shipping').is(":checked") ? $('#method_shipping').val() : 0;
-			// var method_shipping = $('#method_shipping:checked').val() ?? 0;
-			// if (method_shipping == 1) {
-			// 	let data = {
-			// 		'shipping_city': $('#shipping_city').val() ?? 0,
-			// 		'shipping_district': $('#shipping_district').val() ?? 0,
-			// 		'value_order': $('#value_order').val() ?? 0
-			// 	}
-			// 	// console.log(data);
-			// 	$.ajax({
-			// 		url: "{{ route('postShippingFee') }}",
-			// 		type: 'POST',
-			// 		data: data,
-			// 		success: function(data) {
-			// 			console.log(data);
-			// 			$('.shipping_fee').html("$ " + data.toFixed(2));
-			// 			$('#shipping_fee').val(data.toFixed(2));
-			// 		}
-			// 	});
-			// }
+
+		jQuery('body').on('keyup', '#shipping_address', function() {
+			var shipping_address = jQuery(this).val();
+			if (shipping_address.length > 0) {
+				setTimeout(showShippingFee, 1000);
+			}
 		});
 
 		showShippingFee();
 
-		function showShippingFee(){
+		function showShippingFee() {
 			var method_shipping = $('#method_shipping:checked').val() ?? 0;
 			if (method_shipping == 1) {
 				let data = {
 					'shipping_city': $('#shipping_city').val() ?? 0,
 					'shipping_district': $('#shipping_district').val() ?? 0,
-					'value_order': $('#value_order').val() ?? 0
+					'value_order': $('#value_order').val() ?? 0,
+					'total_quantity': $('#total_quantity').val() ?? 0
 				}
-				// console.log(data);
 				$.ajax({
 					url: "{{ route('postShippingFee') }}",
 					type: 'POST',
 					data: data,
 					success: function(data) {
+						data = data == 0 ? "{{$fee}}" : data;
 						console.log(data);
-						$('.shipping_fee').html("$ " + data.toFixed(2));
+						$('.shipping_fee').html("$ " + data);
 						$('#shipping_fee').val(data);
+						showInfoOrder();
 					}
 				});
 			}
+		}
+		showInfoOrder();
+		
+		function showInfoOrder(){
+			$.ajax({
+				url: "{{route('showInformationOrder')}}",
+				type: 'GET',
+				success:function(data){
+					console.log(data.value_order);
+					$('#total_order').html(data.value_order);
+				}
+			});
 		}
 
 

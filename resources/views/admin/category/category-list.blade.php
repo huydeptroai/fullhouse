@@ -47,17 +47,6 @@
                         <div class="card-header bg-success">
                             <h3 class="card-title">Category List Table</h3>
 
-                            <!-- <div class="card-tools">
-                                <div class="input-group input-group-sm" style="width: 150px;">
-                                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div> -->
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body table-responsive p-0" style="height: 500px">
@@ -65,7 +54,6 @@
                                 <thead class="text-center">
                                     <tr>
                                         <th style="width:10px;">Category_No</th>
-                                        <th>Image</th>
                                         <th>Category</th>
                                         <th>Sub-Category</th>
                                         <th>Actions</th>
@@ -75,11 +63,6 @@
                                     @foreach($cates as $item)
                                     <tr data-widget="expandable-table" aria-expanded="false">
                                         <td>{{ $item->category_id}}</td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <img src="{{ asset('assets/img/upload/category/'.$item->category_image)}}" alt="" style="width: 45px; height: 45px" class="rounded-circle">
-                                            </div>
-                                        </td>
                                         <td>{{ $item->category_name_1}}</td>
                                         <td>
                                             <div class="d-flex align-items-center">
