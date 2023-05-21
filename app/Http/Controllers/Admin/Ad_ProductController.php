@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Symfony\Polyfill\Intl\Idn\Resources\unidata\Regex;
+use App\Http\Requests\ProductRequest;
 
 class Ad_ProductController extends Controller
 {
@@ -45,7 +46,7 @@ class Ad_ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         // dd($request);
         // dd($request->category_id);

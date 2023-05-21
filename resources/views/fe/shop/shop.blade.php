@@ -19,10 +19,10 @@
 			<!--main products area-->
 			@include('fe.shop.partials.products-area')
 			<!--end main products area-->
-			
+
 			<!-- site bar start -->
 			@include('fe.shop.partials.side-bar-filter')
-			
+
 			<!--end sitebar-->
 
 		</div>

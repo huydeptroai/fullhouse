@@ -2445,7 +2445,7 @@ li.menu-item .nav-label.sale-label::before {
     display: block;
     list-style: none;
 }
-.product-list li .product.product-style-3 {
+.column .product-list li .product.product-style-3 {
     padding: 0 10px;
     display: flex;
     flex-direction: column;

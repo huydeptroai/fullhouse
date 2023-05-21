@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Models\Category;
 use App\Models\Newsletter;
+use App\Models\ViewProductData;
 use App\Models\Order;
 use Carbon\Carbon;
-use App\Models\ViewProductData;
 
 class HomeController extends Controller
 {

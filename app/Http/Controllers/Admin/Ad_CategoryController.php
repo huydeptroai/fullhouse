@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use App\Http\Requests\CategoryRequest;
 
 class Ad_CategoryController extends Controller
 {
@@ -29,7 +30,7 @@ class Ad_CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $item = $request->all();
 
