@@ -186,7 +186,6 @@ session_start();
 				$.get(
 					"{{ route('showCart')}}",
 					function(data) {
-						// console.log(data);
 						var cart = '';
 						let count = 0;
 						let total_qty = 0;
@@ -263,7 +262,9 @@ session_start();
 						$('input[name="total_quantity"]').val(total_qty);
 
 					}
-				);
+				).fail(function(e){
+					console.log(e.responseText);
+				});
 			};
 
 			$('.view-cart').attr("href", "{{route('cart')}}");
@@ -395,6 +396,8 @@ session_start();
 
 					$('#content-wish-list').html(wl);
 					$('#count-wl').html(count + ' items');
+				}).fail(function(e){
+					console.log(e.responseText);
 				});
 			}
 
@@ -440,27 +443,6 @@ session_start();
 
 		});
 	</script>
-
-	<!-- <script>
-		$(document).ready(function() {
-			$('#orderby').on('change', function() {
-				var url = $(this).val();
-				// alert(url);
-				if (url) {
-					window.location = url;
-				}
-				return false;
-			});
-			$('#post_per_page').on('change', function() {
-				var url = $(this).val();
-				// alert(url);
-				if (url) {
-					window.location = url;
-				}
-				return false;
-			});
-		});
-	</script> -->
 
 
 	@yield('myJS')

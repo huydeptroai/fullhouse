@@ -111,11 +111,9 @@
 										({{count($product->reviews)}} reviews)</a>
 						</div>
 						@endif
-						<button style="margin:auto 0 0 0;width: 100%;" class="btn btn-success add-to-cart"
-							data-id="{{$product->product_id}}">Add To Cart</button>
+						<!-- <button style="margin:auto 0 0 0;width: 100%;" class="btn btn-success add-to-cart"
+							data-id="{{$product->product_id}}">Add To Cart</button> -->
 					</div>
-
-
 
 				</div>
 			</li>

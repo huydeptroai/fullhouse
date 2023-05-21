@@ -40,7 +40,7 @@
 								<small style="color:red;">{{$errors->first('product_id')}}</small>
 							</div>
 							<div class="form-group">
-								<label for="product_name">Product Name</label>
+								<label for="product_name">Product name</label>
 								<input type="text" id="product_name" name="product_name" class="form-control" required>
 								<small style="color:red;">{{$errors->first('product_name')}}</small>
 							</div>
@@ -107,16 +107,16 @@
 							</div>
 							<div class="row">
 								<div class="form-group col-6">
-									<label for="product_color">Project color</label>
+									<label for="product_color">Product color</label>
 									<input type="text" id="product_color" name="product_color" class="form-control" required>
 								</div>
 								<div class="form-group col-6">
-									<label for="product_size">Project size</label>
+									<label for="product_size">Product size</label>
 									<input type="text" id="product_size" name="product_size" class="form-control" required>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="product_description">ProductDescription</label>
+								<label for="product_description">Product description</label>
 								<textarea id="product_description" name="product_description" class="form-control" rows="4"></textarea>
 								<small style="color:red;">{{$errors->first('product_description')}}</small>
 							</div>

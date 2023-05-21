@@ -105,21 +105,21 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="product_material">Project material</label>
+                                <label for="product_material">Product material</label>
                                 <input type="text" id="product_material" name="product_material" class="form-control" value="{{$product->product_material}}">
                             </div>
                             <div class="row">
                                 <div class="form-group col-6">
-                                    <label for="product_color">Project color</label>
+                                    <label for="product_color">Product color</label>
                                     <input type="text" id="product_color" name="product_color" class="form-control" value="{{$product->product_color}}">
                                 </div>
                                 <div class="form-group col-6">
-                                    <label for="product_size">Project size</label>
+                                    <label for="product_size">Product size</label>
                                     <input type="text" id="product_size" name="product_size" class="form-control" value="{{$product->product_size}}">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="product_description">ProductDescription</label>
+                                <label for="product_description">Product description</label>
                                 <textarea id="product_description" name="product_description" class="form-control" rows="4">{{$product->product_description}}</textarea>
                             </div>
                             <div class="custom-control custom-checkbox">

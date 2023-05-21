@@ -43,6 +43,8 @@ class CartController extends Controller
             $user_id = Auth::id();
             $carts = $this->listCart($user_id);
             return response()->json($carts);
+        }else{
+            return response()->json(null);
         }
     }
 
