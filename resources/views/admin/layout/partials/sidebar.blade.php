@@ -22,14 +22,14 @@
 			<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 				<!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-				<li class="nav-item menu-open">
+				<!-- <li class="nav-item menu-open">
 					<a href="{{ route('admin.dashboard')}}" class="nav-link active">
 						<i class="nav-icon fas fa-tachometer-alt"></i>
 						<p>Dashboard</p>
 					</a>
-				</li>
+				</li> -->
 				<!-- product -->
-				<li class="nav-item">
+				<li class="nav-item menu-open">
 					<a href="{{ route('admin.product.index')}}" class="nav-link">
 						<i class="nav-icon fas fa-copy"></i>
 						<p>

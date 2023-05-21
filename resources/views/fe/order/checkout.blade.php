@@ -325,7 +325,7 @@
 				type: 'GET',
 				success:function(data){
 					console.log(data.value_order);
-					$('#total_order').html(data.value_order);
+					$('#total_order').html(" $ "+ data.value_order.toFixed(2));
 				}
 			});
 		}

@@ -61,16 +61,11 @@
                         </form>
                         <hr>
                         <h3 class="form-title" style="text-align:center;">-- or sign in with ---</h3>
-                        <div style="display: flex;  justify-content: space-around;">
+                        <div>
                             <a href="{{ route('google')}}" style="width: 30px;">
                                 <button class="btn" style="background-color: #EA4335;">
                                     Google+
                                     <!-- <ion-icon name="logo-google"></ion-icon> -->
-                                </button>
-                            </a>
-                            <a href="#" class="mt-3">
-                                <button class="btn" style="background-color: #4267b2;">
-                                    Facebook
                                 </button>
                             </a>
                         </div>

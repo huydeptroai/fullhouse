@@ -58,7 +58,7 @@
 										</li>
 										<li>
 											<i class="fa fa-phone" aria-hidden="true"></i>
-											<p class="contact-txt">0853923404</p>
+											<p class="contact-txt">(+84) 853 923 404</p>
 										</li>
 										<li>
 											<i class="fa fa-envelope" aria-hidden="true"></i>
@@ -77,7 +77,7 @@
 							<div class="item-content">
 								<div class="wrap-hotline-footer">
 									<span class="desc">Call Us toll Free</span>
-									<b class="phone-number">(+123) 456 789 - (+123) 666 888</b>
+									<b class="phone-number">(+84) 853 923 404</b>
 								</div>
 							</div>
 						</div>
@@ -106,8 +106,6 @@
 										<ul>
 											<li class="menu-item"><a href="{{route('about')}}" class="link-term">About us</a></li>
 											<li class="menu-item"><a href="{{route('contact')}}" class="link-term">Contact Us</a></li>
-											<li class="menu-item"><a href="#" class="link-term">Wish list</a></li>
-											<li class="menu-item"><a href="{{route('cart')}}" class="link-term">Cart</a></li>
 										</ul>
 									</div>
 								</div>

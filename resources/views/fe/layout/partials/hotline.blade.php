@@ -1,6 +1,5 @@
 <script type="text/javascript" src="https://web.cmbliss.com/webtools/hotline/js/hotline.js"></script>
 <script type="text/javascript">
-    
     $("body").hotline({
         phone: "0938632941",
         p_right: true,
@@ -15,5 +14,4 @@
         position: "fixed",
         animation: "zoom 1.5s linear infinite"
     });
-
 </script>

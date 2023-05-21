@@ -179,13 +179,13 @@
 							<li class="menu-item">
 								<a href="{{route('contact')}}" class="link-term mercado-item-title">Contact Us</a>
 							</li>
-							@if(!Auth::check())
+							<!-- @if(!Auth::check())
 							<li class="menu-item">
 								<a title="Register or Login" href="{{route('login')}}" class="">
 									<strong>{{__('Login')}}</strong>
 								</a>
 							</li>
-							@endif
+							@endif -->
 						</ul>
 					</div>
 				</div>

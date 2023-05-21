@@ -67,12 +67,6 @@ $active = 'active-popup'
 					Google+
 				</button>
 			</a>
-			<hr>
-			<a href="#" class="mt-3">
-				<button class="btn" style="background-color: #4267b2;">
-					Facebook
-				</button>
-			</a>
 		</div>
 		<!-- sign in by social -->
 		<div>
@@ -138,6 +132,8 @@ $active = 'active-popup'
 			</div>
 
 			<button type="submit" class="btn">Register</button>
+			<br>
+			<hr>
 			<div class="login-register">
 				<p>Already have an account? <a href="#" class="login-link">Login</a></p>
 			</div>

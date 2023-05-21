@@ -19,8 +19,10 @@
             <div class="col-md-12">
                 <h3 style="text-align: center;">Shipping Policy</h3>
                 <hr>
-                <b>Time application</b>
-                <b>Start : 01/03/2021</b>
+                <h4>
+                    <b>Time application</b>
+                    <b style="color:red;">Start : 01/03/2021</b>
+                </h4>
                 <p></p>
 
                 <h4>1. For orders in City. Ho Chi Minh City</h4>
@@ -31,7 +33,7 @@
                         <tr>
                             <th class="text-center">Value Order</th>
                             <th class="text-center">
-                                < 250 USD</th>
+                                < 299 USD</th>
                             <th class="text-center"> >= 299 USD</th>
                         </tr>
                     </thead>
@@ -68,7 +70,7 @@
                 <hr>
 
                 <h4>2. For orders from outside provinces</h4>
-                <p>Shipping fee: 5.00 USD/product.</p>
+                <p>Shipping fee: <span style="font-size: 1.2em;font-weight:600;">5.00 USD/product.</span></p>
                 
                 
                 <hr>
@@ -82,7 +84,7 @@
                     <li>Delivery time</li>
                     <p>+ Exact time will be informed when calling to confirm order</p>
                 </ul>
-                <p>Other policies and regulations: For orders requiring express delivery, please contact hotline  0123456789  for specific advice.</p>
+                <p>Other policies and regulations: For orders requiring express delivery, please contact hotline (+84) 853 923 404 for specific advice.</p>
             </div>
         </div>
     </div><!--end container-->

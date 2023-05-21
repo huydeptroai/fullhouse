@@ -50,19 +50,19 @@
 	<!--main end-->
 
 	@include('fe.layout.partials.chatbox')
-	
+
 	<!-- footer start-->
 	@include('fe.layout.partials.footer')
 	<!-- footer end -->
-	
+
 	@include('fe.layout.partials.login')
-	
+
 	@include('fe.layout.partials.side_cart')
 	@include('fe.layout.partials.wish_list')
-	
+
 	<!-- jQuery -->
 	<!-- <script src="{{ asset('/admin/plugins/jquery/jquery.min.js') }}"></script> -->
-	
+
 	<!-- JavaScript start -->
 	<script src="{{ asset('/frontend/js/jquery-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
 	<script src="{{ asset('/frontend/js/jquery-ui-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
@@ -74,7 +74,7 @@
 	<script src="{{ asset('/frontend/js/jquery.sticky.js') }}"></script>
 	<script src="{{ asset('/frontend/js/functions.js') }}"></script>
 	@yield('time')
-	
+
 	@include('fe.layout.partials.hotline')
 	<!-- login/cart show -->
 	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -181,7 +181,6 @@
 				$.get(
 					"{{ route('showCart')}}",
 					function(data) {
-						// console.log(data);
 						var cart = '';
 						let count = 0;
 						let total_qty = 0;
@@ -256,9 +255,28 @@
 						$('.total-cart').html(' $ ' + total.toFixed(2));
 						$('input[name="value_order"]').val(total);
 						$('input[name="total_quantity"]').val(total_qty);
-						
+
 					}
-				);
+				).fail(function(jqXHR, exception) {
+					// Our error logic here
+					var msg = '';
+					if (jqXHR.status === 0) {
+						msg = 'Not connect.\n Verify Network.';
+					} else if (jqXHR.status == 404) {
+						msg = 'Requested page not found. [404]';
+					} else if (jqXHR.status == 500) {
+						msg = 'Internal Server Error [500].';
+					} else if (exception === 'parsererror') {
+						msg = 'Requested JSON parse failed.';
+					} else if (exception === 'timeout') {
+						msg = 'Time out error.';
+					} else if (exception === 'abort') {
+						msg = 'Ajax request aborted.';
+					} else {
+						msg = 'Uncaught Error.\n' + jqXHR.responseText;
+					}
+					console.log(msg);
+				});
 			};
 
 			$('.view-cart').attr("href", "{{route('cart')}}");
@@ -336,12 +354,10 @@
 			});
 
 
-
 			//create wish-list
 			$('.add-to-wishlist').click(function(e) {
 				e.preventDefault();
 				let pid = $(this).data("id") ?? '';
-				alert(pid);
 				$.ajax({
 					type: "POST",
 					url: "{{route('addWishList')}}",
@@ -446,10 +462,18 @@
 				}
 				return false;
 			});
+			$('#post_per_page').on('change', function() {
+				var url = $(this).val();
+				// alert(url);
+				if (url) {
+					window.location = url;
+				}
+				return false;
+			});
 		});
 	</script>
 
-	
+
 
 
 	@yield('myJS')

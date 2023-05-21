@@ -17,15 +17,6 @@
 						<a href="{{route('product.index')}}" class="btn-link">Shop Now</a>
 					</div>
 				</div>
-				<!-- <div class="item-slide">
-					<img src="{{ asset('/frontend/images/main-slider-1-3.jpg') }}" alt="main-slider-1-2" class="img-slide">
-					<div class="slide-info slide-2">
-						<h2 class="f-title">Extra 25% Off</h2>
-						<span class="f-subtitle">On online payments</span>
-						
-						
-					</div>
-				</div> -->
 				<div class="item-slide">
 					<img src="{{ asset('/frontend/images/main-slider-1-3.jpg') }}" alt="main-slider-1-3" class="img-slide">
 					<div class="slide-info slide-3">
