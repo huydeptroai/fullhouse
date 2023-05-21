@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Models\Category;
 use App\Models\Newsletter;
+use App\Models\ViewProductData;
 use App\Models\Order;
 use Carbon\Carbon;
-use App\Models\ViewProductData;
 
 class HomeController extends Controller
 {
@@ -19,14 +19,14 @@ class HomeController extends Controller
     {
         $products_sale = Product::where('discount', '>', 0)->limit(8)->get();
 
-        $products_latest = Product::orderByDesc('updated_at')
+        $products_latest = Product::orderByDesc('created_at')->orderBy('product_price','asc')
             ->whereMonth('created_at', Carbon::now()->month)
             ->limit(8)->get();
 
-        $products_living = Product::where('category_id', 'like', 'L%')->limit(8)->get();
-        $products_dining = Product::where('category_id', 'like', 'K%')->limit(8)->get();
-        $products_bedroom = Product::where('category_id', 'like', 'B%')->limit(8)->get();
-        $products_office = Product::where('category_id', 'like', 'O%')->limit(8)->get();
+        $products_living = Product::where('category_id', 'like', 'LF%')->limit(8)->get();
+        $products_dining = Product::where('category_id', 'like', 'KF%')->limit(8)->get();
+        $products_bedroom = Product::where('category_id', 'like', 'BF%')->limit(8)->get();
+        $products_office = Product::where('category_id', 'like', 'OF%')->limit(8)->get();
 
         return view('fe.home.home', [
             'products_sale' => $products_sale,

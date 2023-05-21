@@ -36,43 +36,84 @@
 
 @section('myJS')
 <script>
-	$(document).ready(function(e) {
-		$('#slider-range').on('change',function(e){
-			e.preventDefault();
-			alert("change");
-
-			var min = $('#slider-range').data('min');
+	$(document).ready(function() {
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
 		});
 
-		var min = 0;
-		var max = 0;
+		$('.find').on('click', function(e) {
+			e.preventDefault();
+			var cid = $(this).data('cid');
+			$.ajax({
+				type: "post",
+				url: "{{ route('searchCategory')}}",
+				data: {
+					cid: cid
+				},
+				success: function(data) {
+					// console.log(data);
+					$('#shop').html(data);
+				}
+			});
+		});
 
-		// if ($("#slider-range").length > 0) {
-		// 	$("#slider-range").slider({
-		// 		range: true,
-		// 		min: 0,
-		// 		max: 2000,
-		// 		// values: [75, 300],
-		// 		slide: function(event, ui) {
-		// 			$("#amount").val(
-		// 				"$" + ui.values[0] + " - $" + ui.values[1]
-		// 			);
-		// 			$("#price_min").val(ui.values[0]);
-		// 			$("#price_max").val(ui.values[1]);
-		// 			min = ui.values[0];
-		// 			min = ui.values[0];
-		// 			console.log(min);
-		// 			console.log(max);
-		// 		},
-		// 	});
-		// 	$("#amount").val(
-		// 		"$" +
-		// 		$("#slider-range").slider("values", 0) +
-		// 		" - $" +
-		// 		$("#slider-range").slider("values", 1)
-		// 	);
-		// }
+		if ($("#slider-range").length > 0) {
+			$("#slider-range").slider({
+				range: true,
+				min: 0,
+				max: 1500,
+				values: [0, 0],
+				slide: function(event, ui) {
+					$("#amount").val(
+						"$" + ui.values[0] + " - $" + ui.values[1]
+					);
+					$("#price_min").val(ui.values[0]);
+					$("#price_max").val(ui.values[1]);
+				},
+			});
+			$("#amount").val(
+				"$" +
+				$("#slider-range").slider("values", 0) +
+				" - $" +
+				$("#slider-range").slider("values", 1)
+			);
+
+			$('#priceForm').submit(function(e) {
+				e.preventDefault();
+				var min = $("#price_min").val();
+				var max = $('#price_max').val();
+				// var _token = $('input[name="_token"]').val();
+				$.ajax({
+					type: "POST",
+					url: "{{ route('searchByPrice')}}",
+					data: {
+						price_min: min,
+						price_max: max
+					},
+					success: function(data){
+						$('#shop').html(data);
+					}
+				});
+			});
+		}
+		$('#orderby').on('change', function(e){
+			e.preventDefault();
+			var sortby = $(this).val();
+			$.ajax({
+				type: "POST",
+				url: "{{ route('sortBy')}}",
+				data: {
+					sortby: sortby
+				},
+				success:function(data){
+					$('#shop').html(data);
+				}
+			});
+		});
+
+
 	});
 </script>
-
 @endsection

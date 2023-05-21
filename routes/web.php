@@ -98,6 +98,10 @@ Route::get('/shop/{product_slug}', [ProductController::class, 'productDetail'])-
 
 Route::get('/category-search-by-name/{category_name}', [ProductController::class, 'searchByCategoryName'])->name('searchByCategoryName');
 
+Route::post('/search-category', [ProductController::class, 'searchByCategory'])->name('searchCategory');
+Route::post('/search-price', [ProductController::class, 'searchByPrice'])->name('searchByPrice');
+Route::post('/sort-by', [ProductController::class, 'sortBy'])->name('sortBy');
+Route::post('/post-list', [ProductController::class, 'postList'])->name('postList');
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/home', 'home')->name('home');
@@ -107,6 +111,4 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/warranty-policy', 'warrantyPolicy')->name('warrantyPolicy');
 
     Route::post('/new-letter', 'newLetter')->name('newLetter');
-
 });
-

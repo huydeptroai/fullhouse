@@ -64,18 +64,6 @@
               </h4>
             </div>
 
-            <!-- <div class="mt-4">
-              <div class="btn btn-primary btn-lg btn-flat">
-                <i class="fas fa-cart-plus fa-lg mr-2"></i>
-                Add to Cart
-              </div>
-
-              <div class="btn btn-default btn-lg btn-flat">
-                <i class="fas fa-heart fa-lg mr-2"></i>
-                Add to Wishlist
-              </div>
-            </div> -->
-
 
           </div>
         </div>

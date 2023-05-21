@@ -11,7 +11,7 @@ class ProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -31,6 +31,7 @@ class ProductRequest extends FormRequest
                 'string'
             ],
             'product_description' => [
+                'required',
                 'string'
             ],
             'image' => [
@@ -38,6 +39,21 @@ class ProductRequest extends FormRequest
                 'mimes:jpeg,png,jpg,gif',
                 'max:2048'
             ]
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'product_id.required' => 'Product_id is required!',
+            'product_id.string' => 'Product_id is string!',
+            'product_name.required' => 'Product name is required!',
+            'product_name.string' => 'Product name is string!',
+            'product_description.required' => 'Product description is required!',
+            'product_description.string' => 'Product description is string!',
+            'image.required' => 'Image is required!',
+            'image.max' => 'Image is maximum 2048!',
+            'image.mimes' => 'Product_name must be jpeg,png,jpg,gif',
         ];
     }
 }

@@ -79,7 +79,7 @@
                         <div class="quantity">
                             <span>Quantity:</span>
                             <div class="quantity-input">
-                                <input type="number" id="product_qty_{{$product->product_id}}" name="product-quatity" data-id="{{$product->product_id}}" value="1" data-max="120" pattern="[0-9]*">
+                                <input type="number" id="product_quantity_{{$product->product_id}}" name="product-quatity" data-id="{{$product->product_id}}" value="1" data-max="120" pattern="[0-9]*">
                                 <a class="btn btn-reduce" href="#"></a>
                                 <a class="btn btn-increase" href="#"></a>
                             </div>
@@ -87,7 +87,7 @@
                         <div class="wrap-butons">
                             <a href="#" class="btn add-to-cart" data-id="{{$product->product_id}}">Add to Cart</a>
                             <div class="wrap-btn">
-                                <a href="#" class="btn btn-compare">Add Compare</a>
+                                <!-- <a href="#" class="btn btn-compare">Add Compare</a> -->
                                 <!-- <a href="#" class="btn btn-wishlist">Add Wishlist</a> -->
                                 <a href="#" class="btn btn-wishlist add-to-wishlist" data-id="{{$product->product_id}}">Add Wishlist</a>
                             </div>

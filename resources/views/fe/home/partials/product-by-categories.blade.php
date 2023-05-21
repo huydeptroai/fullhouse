@@ -66,7 +66,7 @@
                             </div>
                             <div class="product-info" style="margin-top: auto;">
                                 <a href="{{ route('productDetail',['product_slug' => $product->product_slug]) }}" class="product-name">
-                                    <span>{{$product->product_name}}</span>
+                                    <span>{{$product->product_name}} - {{$product->product_id}}</span>
                                 </a>
                             </div>
                             <div class="col-12" style="display: flex;flex-direction: column;justify-content: space-between;align-items:flex-end;">
@@ -131,7 +131,7 @@
                             </div>
                             <div class="product-info" style="margin-top: auto;">
                                 <a href="{{ route('productDetail',['product_slug' => $product->product_slug]) }}" class="product-name">
-                                    <span>{{$product->product_name}}</span>
+                                    <span>{{$product->product_name}} - {{$product->product_id}}</span>
                                 </a>
                             </div>
 
@@ -198,7 +198,7 @@
                             </div>
                             <div class="product-info" style="margin-top: auto;">
                                 <a href="{{ route('productDetail',['product_slug' => $product->product_slug]) }}" class="product-name">
-                                    <span>{{$product->product_name}}</span>
+                                    <span>{{$product->product_name}} - {{$product->product_id}}</span>
                                 </a>
                             </div>
 
@@ -266,7 +266,7 @@
 
                             <div class="product-info" style="margin-top: auto;">
                                 <a href="{{ route('productDetail',['product_slug' => $product->product_slug]) }}" class="product-name">
-                                    <span>{{$product->product_name}}</span>
+                                    <span>{{$product->product_name}} - {{$product->product_id}}</span>
                                 </a>
                             </div>
 

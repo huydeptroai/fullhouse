@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+session_start();
+?>
 <html lang="en">
 
 <head>
@@ -73,6 +76,7 @@
 	<script src="{{ asset('/frontend/js/jquery.countdown.min.js') }}"></script>
 	<script src="{{ asset('/frontend/js/jquery.sticky.js') }}"></script>
 	<script src="{{ asset('/frontend/js/functions.js') }}"></script>
+
 	@yield('time')
 
 	@include('fe.layout.partials.hotline')
@@ -138,12 +142,12 @@
 	</script>
 
 	@yield('myJS_profile')
+	<!-- filter -->
+	
 
 	<!-- add to cart -->
 	<script>
 		$(document).ready(function() {
-
-			const url = "{{ Route('addCart') }}" ?? "";
 
 			$.ajaxSetup({
 				headers: {
@@ -154,8 +158,9 @@
 			$('.add-to-cart').click(function(e) {
 				e.preventDefault();
 				let pid = $(this).data("id") ?? '';
-				let quantity = $('#product_qty_' + pid).val() ?? 1;
-
+				let quantity = $('#product_quantity_' + pid).val() ?? 1;
+				// // console.log(pid);
+				// console.log(quantity);
 				var data = {
 					pid: pid,
 					quantity: quantity
@@ -166,7 +171,7 @@
 			function postAjax(data) {
 				$.ajax({
 					type: "POST",
-					url: url,
+					url: "{{ Route('addCart') }}",
 					data: data,
 					success: function(data) {
 						//show site-cart
@@ -181,6 +186,7 @@
 				$.get(
 					"{{ route('showCart')}}",
 					function(data) {
+						// console.log(data);
 						var cart = '';
 						let count = 0;
 						let total_qty = 0;
@@ -210,7 +216,7 @@
 										<div class="p-info">
 											<span class="product-price">$${v.price}</span>
 											<span class="product-quantity">
-												<input type="number" id="product_qty_${v.product_id}" name="product-quatity" value="${v.quantity}" data-id="${v.product_id}" pattern="[0-9]*">
+												<input type="number" id="product_qty_${v.product_id}" name="product-quatity" value="${v.quantity}" data-id="${v.product_id}" pattern="[0-9]*" min="1" max="120">
 											</span>
 											<span class="product-amount">$${v.amount}</span>
 										</div>
@@ -257,26 +263,7 @@
 						$('input[name="total_quantity"]').val(total_qty);
 
 					}
-				).fail(function(jqXHR, exception) {
-					// Our error logic here
-					var msg = '';
-					if (jqXHR.status === 0) {
-						msg = 'Not connect.\n Verify Network.';
-					} else if (jqXHR.status == 404) {
-						msg = 'Requested page not found. [404]';
-					} else if (jqXHR.status == 500) {
-						msg = 'Internal Server Error [500].';
-					} else if (exception === 'parsererror') {
-						msg = 'Requested JSON parse failed.';
-					} else if (exception === 'timeout') {
-						msg = 'Time out error.';
-					} else if (exception === 'abort') {
-						msg = 'Ajax request aborted.';
-					} else {
-						msg = 'Uncaught Error.\n' + jqXHR.responseText;
-					}
-					console.log(msg);
-				});
+				);
 			};
 
 			$('.view-cart').attr("href", "{{route('cart')}}");
@@ -347,11 +334,12 @@
 						},
 						error: function(data) {
 							// console.log('Error:', data);
-							console.log(JSON.stringify(data));
+							// console.log(JSON.stringify(data));
 						}
 					});
 				}
 			});
+
 
 
 			//create wish-list
@@ -366,6 +354,7 @@
 					},
 					success: function(data) {
 						setTimeout(getWishList(), 1000);
+						wrapper_wl.classList.add('active-popup');
 					}
 				});
 			});
@@ -374,7 +363,7 @@
 
 			function getWishList() {
 				$.get("{{ route('showWishList')}}", function(data) {
-					// console.log(data);
+					
 					var wl = '';
 					let count = 0;
 					let img = '';
@@ -452,7 +441,7 @@
 		});
 	</script>
 
-	<script>
+	<!-- <script>
 		$(document).ready(function() {
 			$('#orderby').on('change', function() {
 				var url = $(this).val();
@@ -471,9 +460,7 @@
 				return false;
 			});
 		});
-	</script>
-
-
+	</script> -->
 
 
 	@yield('myJS')

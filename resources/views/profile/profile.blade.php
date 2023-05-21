@@ -308,6 +308,16 @@
                                                             <th>Payment Status:</th>
                                                             <td><b>{{ $order->getPaymentStatus()}}</b></td>
                                                         </tr>
+
+                                                        @if( !$order->status == 5 || !$order->status == 6 )
+                                                        <tr>
+                                                            <th>You can click here to cancel this order:</th>
+                                                            <td>
+                                                                <a href="{{ route('cancelOrder', ['order_id'=>$order->id]) }}" class="btn btn-danger" style="width: 200px;padding:10px;">Cancel order</a>
+                                                            </td>
+                                                        </tr>
+                                                        @endif
+
                                                     </tbody>
                                                 </table>
                                             </div>

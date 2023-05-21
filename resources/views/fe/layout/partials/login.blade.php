@@ -1,6 +1,6 @@
 @php
 $active = '';
-if($errors->first('email'))
+if($errors->first('email') || $errors->first('phone') || $errors->first('password') || $errors->first('password_confirmation'))
 $active = 'active-popup'
 @endphp
 <div class="wrapper <?php echo $active ?>">
