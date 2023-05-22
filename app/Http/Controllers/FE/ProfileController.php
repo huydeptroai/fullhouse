@@ -90,7 +90,7 @@ class ProfileController extends Controller
             // }
             $imageFile = trim($file->getClientOriginalName());
             $file->move($image_path, $imageFile);
-            $info['avatar'] = 'assets/img/upload/user/' . $imageFile;
+            $info['avatar'] = $imageFile;
         }
 
         if (isset($request->city) && isset($request->district) && isset($request->ward)) {
