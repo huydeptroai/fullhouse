@@ -143,7 +143,7 @@ session_start();
 
 	@yield('myJS_profile')
 	<!-- filter -->
-	
+
 
 	<!-- add to cart -->
 	<script>
@@ -175,9 +175,22 @@ session_start();
 					data: data,
 					success: function(data) {
 						//show site-cart
+						if (data.status == 'error') {
+							$('#error_add').append(data.pid + " " + data.message);
+							wrapper_cart.classList.add('active-popup');
+							setTimeout(function() {
+								$('#error_add').remove();
+								wrapper_cart.classList.remove('active-popup');
+
+							}, 3000);
+							return;
+						}
 						wrapper_cart.classList.add('active-popup');
 						getCart();
 					},
+					error: function(e) {
+						console.log(e);
+					}
 				});
 			}
 
@@ -262,7 +275,7 @@ session_start();
 						$('input[name="total_quantity"]').val(total_qty);
 
 					}
-				).fail(function(e){
+				).fail(function(e) {
 					console.log(e.responseText);
 				});
 			};
@@ -364,7 +377,7 @@ session_start();
 
 			function getWishList() {
 				$.get("{{ route('showWishList')}}", function(data) {
-					
+
 					var wl = '';
 					let count = 0;
 					let img = '';
@@ -396,7 +409,7 @@ session_start();
 
 					$('#content-wish-list').html(wl);
 					$('#count-wl').html(count + ' items');
-				}).fail(function(e){
+				}).fail(function(e) {
 					console.log(e.responseText);
 				});
 			}

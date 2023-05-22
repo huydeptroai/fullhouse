@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="detail-info">
-                        <h2 class="product-name">{{$product->product_name ?? ''}}</h2>
+                        <h2 class="product-name">{{$product->product_name ?? ''}}  - {{$product->product_id}}</h2>
                         <div class="product-rating" style="font-size:16px;">
                             <strong>{{number_format( $product->reviews->avg('rating'),2) }} </strong>
                             @for($i=1; $i<=5; $i++) @php $avg=$product->reviews->avg('rating');
@@ -69,10 +69,10 @@
                         </div>
                         <div class="stock-info in-stock">
                             <p class="availability">Availability:
-                                @if($product->product_quantity > 0)
-                                <b>In Stock</b>
+                                @if($product->inventory() > 0)
+                                <b style="color:green;">In Stock {{ $product->inventory()}} product(s)</b>
                                 @else
-                                <b>Out Stock</b>
+                                <b style="color:red;">Out Stock</b>
                                 @endif
                             </p>
                         </div>
@@ -82,6 +82,7 @@
                                 <input type="number" id="product_quantity_{{$product->product_id}}" name="product-quatity" data-id="{{$product->product_id}}" value="1" data-max="120" pattern="[0-9]*">
                                 <a class="btn btn-reduce" href="#"></a>
                                 <a class="btn btn-increase" href="#"></a>
+                                <span name="error"></span>
                             </div>
                         </div>
                         <div class="wrap-butons">

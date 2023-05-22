@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Carbon\Carbon;
 
 class RegisteredUserController extends Controller
 {
@@ -49,7 +50,7 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         $user->update([
-            'last_login_at' => now()
+            'last_login_at' => Carbon::now('Asia/Ho_Chi_Minh')
         ]);
         Auth::login($user);
 

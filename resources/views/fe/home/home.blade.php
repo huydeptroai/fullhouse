@@ -10,10 +10,10 @@
 			<div class="slide-carousel owl-carousel style-nav-1" data-items="1" data-loop="1" data-nav="true" data-dots="false">
 				<div class="item-slide">
 					<img src="{{ asset('/frontend/images/megamenu_furniture_home_decors_1.jpg') }}" alt="main-slider-1-1" class="img-slide">
-					<div class="slide-info slide-1">
+					<div class="slide-info slide-3">
 						<h2 class="f-title">Office chair<b></b></h2>
-						<span class="subtitle"></span>
-						<p class="sale-info">Only price: <span class="price">$99.99</span></p>
+						<span class="f-subtitle">With a whole collection of office chairs for all objects used in the office, including staff chairs, manager chairs, director chairs, meeting room chairs,... With more than 100 models of chairs being traded, the product lines of office chairs are diverse in different models, designs, and colors.</span><br>
+						<!-- <p class="sale-info">Only price: <span class="price">$99.99</span></p> -->
 						<a href="{{route('product.index')}}" class="btn-link">Shop Now</a>
 					</div>
 				</div>

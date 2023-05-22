@@ -22,31 +22,10 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id' => [
-                'required',
-                'string'
-            ],
-            'category_name' => [
-                'required',
-                'string'
-            ],
-            'category_name_1' => [
-                'required',
-                'string'
-            ],
-            'category_name_2' => [
-                'required',
-                'string'
-            ],
-            'category_intro' => [
-                'required',
-                'string'
-            ],
-            'image' => [
-                'required',
-                'mimes:jpeg,png,jpg,gif',
-                'max:2048'
-            ]
+            'category_id' => 'required|string',
+            'category_name' => 'required|string',
+            'category_name_1' => 'required|string',
+            'category_name_2' => 'required|string'
         ];
     }
     public function messages()
@@ -59,12 +38,7 @@ class CategoryRequest extends FormRequest
             'category_name_1.required' => 'Category name 1 is required!',
             'category_name_1.string' => 'Category name 1 is string!',
             'category_name_2.required' => 'Category name 2 is required!',
-            'category_name_2.string' => 'Category name 2 is string!',
-            'category_intro.required' => 'Category description is required!',
-            'category_intro.string' => 'Category description is string!',
-            'image.required' => 'Image is required!',
-            'image.max' => 'Image is maximum 2048!',
-            'image.mimes' => 'Product_name must be jpeg,png,jpg,gif',
+            'category_name_2.string' => 'Category name 2 is string!'
         ];
     }
 }

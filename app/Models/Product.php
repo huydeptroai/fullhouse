@@ -88,4 +88,15 @@ class Product extends Model
     {
         return number_format($this->discount / $this->product_price * 100, 0);
     }
+
+
+    public function viewProductData()
+    {
+        return $this->hasOne(ViewProductData::class, 'product_id', 'product_id');
+    }
+
+    public function inventory()
+    {
+        return $this->product_quantity - $this->viewProductData->quantity_sell;
+    }
 }

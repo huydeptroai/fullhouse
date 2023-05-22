@@ -81,6 +81,8 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('/category', App\Http\Controllers\Admin\Ad_CategoryController::class)->names('admin.category');
         Route::resource('/product', App\Http\Controllers\Admin\Ad_ProductController::class)->names('admin.product');
+        Route::get('/report-product', [Ad_ProductController::class,'reportProduct'])->name('admin.product.report');
+        Route::get('/report-sales', [Ad_ProductController::class,'reportSales'])->name('admin.reportSales');
         Route::resource('/coupon', App\Http\Controllers\Admin\Ad_CouponController::class)->names('admin.coupon');
         Route::resource('/user', App\Http\Controllers\Admin\Ad_UserController::class)->names('admin.user');
         Route::resource('/order', App\Http\Controllers\Admin\Ad_OrderController::class)->except('show', 'destroy', 'create', 'store')->names('admin.order');

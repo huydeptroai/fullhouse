@@ -102,7 +102,7 @@
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="product_material">Project material</label>
+								<label for="product_material">Product material</label>
 								<input type="text" id="product_material" name="product_material" class="form-control" required>
 							</div>
 							<div class="row">

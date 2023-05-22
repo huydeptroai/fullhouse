@@ -30,7 +30,7 @@ class Ad_CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CategoryRequest $request)
+    public function store(Request $request)
     {
         $item = $request->all();
 
@@ -122,7 +122,7 @@ class Ad_CategoryController extends Controller
     public function destroy(Category $category)
     {
         //1. check isCategory
-        if($category->products()->count('*') > 0){
+        if ($category->products()->count('*') > 0) {
             return redirect()->route('admin.category.index')->with('deleted', 'Category Cannot Delete Because Has Product');
         }
 

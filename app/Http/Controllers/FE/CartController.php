@@ -43,8 +43,8 @@ class CartController extends Controller
             $user_id = Auth::id();
             $carts = $this->listCart($user_id);
             return response()->json($carts);
-        }else{
-            return response()->json(null);
+        } else {
+            response()->json(['status' => 'error']);
         }
     }
 
@@ -69,12 +69,18 @@ class CartController extends Controller
             $pid = $request->pid;
             $quantity = $request->quantity;
 
+
             //set quantity for Cart-item
             if ($request->action != 'edit') {
                 $cartExist = Cart::where('product_id', 'like', $pid)->where('user_id', $user_id)->first();
                 if ($cartExist) {
                     $quantity += $cartExist->quantity;
                 }
+            }
+
+            $product = Product::where('product_id', 'like', $pid)->first();
+            if ($product->inventory() < $quantity) {
+                return response()->json(['status' => 'error','pid'=>$pid, 'message' => 'Insufficient inventory']);
             }
 
             //save cart item

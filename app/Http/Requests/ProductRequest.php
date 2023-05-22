@@ -35,7 +35,6 @@ class ProductRequest extends FormRequest
                 'string'
             ],
             'image' => [
-                'required',
                 'mimes:jpeg,png,jpg,gif',
                 'max:2048'
             ]
@@ -51,7 +50,6 @@ class ProductRequest extends FormRequest
             'product_name.string' => 'Product name is string!',
             'product_description.required' => 'Product description is required!',
             'product_description.string' => 'Product description is string!',
-            'image.required' => 'Image is required!',
             'image.max' => 'Image is maximum 2048!',
             'image.mimes' => 'Product_name must be jpeg,png,jpg,gif',
         ];

@@ -46,7 +46,7 @@ class Ad_ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
         // dd($request);
         // dd($request->category_id);
@@ -157,6 +157,28 @@ class Ad_ProductController extends Controller
         }
         $product->delete();
         return redirect()->route('admin.product.index')->with('deleted', 'Product deleted successfully!');
+    }
+
+    public function reportProduct()
+    {
+        $productCancel = OrderDetail::join('orders', 'orders.id', '=', 'order_details.order_id')
+        ->where('status',6)->pluck('product_id')->toArray();
+        $products = ViewProductData::whereNotIn('product_id', $productCancel)->get();
+
+        $quantityTotal = ViewProductData::whereNotIn('product_id', $productCancel)->sum('product_quantity');
+        $quantitySell = ViewProductData::whereNotIn('product_id', $productCancel)->sum('quantity_sell');
+        return view('admin.report.report-product', compact('products','quantityTotal', 'quantitySell'));
+    }
+
+    public function reportSales()
+    {
+        $productCancel = OrderDetail::join('orders', 'orders.id', '=', 'order_details.order_id')
+        ->where('status',6)->pluck('product_id')->toArray();
+
+        $products = ViewProductData::whereNotIn('product_id', $productCancel)->whereNotNull('quantity_sell')->get();
+        $quantitySell = ViewProductData::whereNotIn('product_id', $productCancel)->sum('quantity_sell');
+        $amountSell = ViewProductData::whereNotIn('product_id', $productCancel)->sum('amount_sell');
+        return view('admin.report.report-sales', compact('products','amountSell', 'quantitySell'));
     }
 
 }

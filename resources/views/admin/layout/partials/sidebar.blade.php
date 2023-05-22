@@ -59,6 +59,12 @@
 								</p>
 							</a>
 						</li>
+						<li class="nav-item">
+							<a href="{{route('admin.product.report')}}" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Report product</p>
+							</a>
+						</li>
 					</ul>
 				</li>
 				<!-- product -->
@@ -82,6 +88,12 @@
 							<a href="{{ route('admin.coupon.index') }}" class="nav-link">
 								<i class="far fa-circle nav-icon"></i>
 								<p>Coupons</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('admin.reportSales')}}" class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Sales report</p>
 							</a>
 						</li>
 					</ul>

@@ -10,4 +10,11 @@ class ViewProductData extends Product
 {
     // use HasFactory;
     public $table = "view_product_data";
+
+
+    public function product()
+    {
+        return $this->hasOne(Product::class, 'product_id', 'product_id');
+    }
+
 }
