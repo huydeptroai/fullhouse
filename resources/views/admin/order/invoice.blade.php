@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard')}}">Home</a></li>
+                        <!-- <li class="breadcrumb-item"><a href="{{ route('admin.dashboard')}}">Home</a></li> -->
                         <li class="breadcrumb-item"><a href="{{ route('admin.order.index')}}">Order list</a></li>
                         <li class="breadcrumb-item active">Order detail</li>
                     </ol>
@@ -169,7 +169,7 @@
                                         <table class="table">
                                             <tr>
                                                 <th style="width:50%">Subtotal:</th>
-                                                <td>$ {{number_format($order->getTotal(),2) }}</td>
+                                                <td>$ {{number_format($order->getSubTotal(),2) }}</td>
                                             </tr>
                                             <tr>
                                                 <th style="width:50%">Discount (coupon):</th>

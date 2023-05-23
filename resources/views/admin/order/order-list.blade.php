@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
+                        <!-- <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li> -->
                         <li class="breadcrumb-item active">Manager Order</li>
                     </ol>
                 </div>
@@ -95,7 +95,7 @@
                                             </a>
 
                                         </td>
-                                        <td>$ {{number_format($order->getSubtotal(),2)}}</td>
+                                        <td>$ {{number_format($order->getTotal(),2)}}</td>
 
                                         <td>
                                             @php $badge_ss = $order->status === 6 ? 'badge-danger' : 'badge-success'; @endphp
