@@ -134,4 +134,14 @@ class User extends Authenticatable
             return 'User';
         }
     }
+
+    public function visitor()
+    {
+        return $this->hasMany(Visitor::class);
+    }
+
+    public function sumVisits()
+    {
+        return $this->hasMany(Visitor::class)->count();
+    }
 }

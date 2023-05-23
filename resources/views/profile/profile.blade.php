@@ -302,14 +302,14 @@
                                                         </tr>
                                                         <tr>
                                                             <th>Coupon:</th>
-                                                            <td>{{$order->coupon}}</td>
+                                                            <td>${{$order->coupon->value ?? 0}}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Payment Status:</th>
                                                             <td><b>{{ $order->getPaymentStatus()}}</b></td>
                                                         </tr>
 
-                                                        @if( !$order->status == 5 || !$order->status == 6 )
+                                                        @if( ($order->status == 1 || $order->status == 2 || $order->status == 3 || $order->status == 4) && $order->payment_status == 1 )
                                                         <tr>
                                                             <th>You can click here to cancel this order:</th>
                                                             <td>

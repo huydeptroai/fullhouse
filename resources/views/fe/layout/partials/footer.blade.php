@@ -119,7 +119,6 @@
 											<li class="menu-item"><a href="#" class="link-term">Ordering guide</a></li>
 											<li class="menu-item"><a href="{{ route('shippingPolicy')}}" class="link-term">Shipping Policy</a></li>
 											<li class="menu-item"><a href="{{ route('warrantyPolicy')}}" class="link-term">Warranty Policy</a></li>
-											<li class="menu-item"><a href="#" class="link-term">Coupon</a></li>
 										</ul>
 									</div>
 								</div>

@@ -61,7 +61,7 @@ class Product extends Model
 
     public function orders()
     {
-        return $this->belongsToMany(Order::class, 'product_id', 'order_id');
+        return $this->belongsToMany(Order::class,'order_details', 'product_id', 'order_id');
     }
 
     //get information
@@ -87,5 +87,16 @@ class Product extends Model
     public function saleOff()
     {
         return number_format($this->discount / $this->product_price * 100, 0);
+    }
+
+
+    public function viewProductData()
+    {
+        return $this->hasOne(ViewProductData::class, 'product_id', 'product_id');
+    }
+
+    public function inventory()
+    {
+        return $this->product_quantity - $this->viewProductData->quantity_sell;
     }
 }

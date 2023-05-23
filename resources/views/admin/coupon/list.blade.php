@@ -58,6 +58,7 @@
                                         <th>Status</th>
                                         <th>Times</th>
                                         <th>Value_Order</th>
+                                        <th>Used</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -70,6 +71,7 @@
                                         <td>{{$item->status === 1 ? 'active' : ''}}</td>
                                         <td>{{$item->times}}</td>
                                         <td>{{$item->value_order}}</td>
+                                        <td>{{$item->orders->count('*') ?? 0}}</td>
 
                                         <td>
                                             <div class="row px-3 justify-content-center">

@@ -17,6 +17,7 @@ use App\Http\Requests\OrderRequest;
 use App\Models\ViewProductData;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class CheckOutController extends Controller
 {
@@ -71,7 +72,7 @@ class CheckOutController extends Controller
             $data['shipping_address'] = 'No 391A, Nam Ky Khoi Nghia Street';
         }
 
-        $data['order_date'] = now();
+        $data['order_date'] = Carbon::now('Asia/Ho_Chi_Minh');
         $data['status'] = 1; //ordered
         
         $data['payment_status'] = 1; //not paid

@@ -68,7 +68,7 @@
                                     <tr>
                                         <td><a href="{{ route('admin.order.invoice', $order->id)}}">{{$order->id}}</a></td>
                                         <td>
-                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d H:m:s', $order->order_date)->format('d-m-Y')}}
+                                            {{$order->order_date}}
                                         </td>
                                         <td>
                                             <a href="{{ route('admin.user.show', $order->user->id)}}">
@@ -98,7 +98,7 @@
                                         <td>$ {{number_format($order->getSubtotal(),2)}}</td>
 
                                         <td>
-                                            @php $badge_ss = $order->payment_status === 6 ? 'badge-danger' : 'badge-success'; @endphp
+                                            @php $badge_ss = $order->status === 6 ? 'badge-danger' : 'badge-success'; @endphp
 
                                             <span class="badge {{$badge_ss}} rounded-pill d-inline">{{$order->getShippingStatus() }}</span>
                                         </td>

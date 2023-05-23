@@ -11,6 +11,7 @@
 		<div class="content-cart" id="content-cart">
 			<!-- show cart -->
 		</div>
+		<div id="error_add"></div>
 
 
 		<div class="summary-site-cart">

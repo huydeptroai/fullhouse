@@ -22,6 +22,7 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
+<<<<<<< HEAD
             'category_id' => [
                 'required',
                 'string'
@@ -38,6 +39,12 @@ class CategoryRequest extends FormRequest
                 'required',
                 'string'
             ]
+=======
+            'category_id' => 'required|string',
+            'category_name' => 'required|string',
+            'category_name_1' => 'required|string',
+            'category_name_2' => 'required|string'
+>>>>>>> 979a7b90a35b5f3e3c4fecb11d3bda6570776c6a
         ];
     }
     public function messages()
@@ -50,7 +57,11 @@ class CategoryRequest extends FormRequest
             'category_name_1.required' => 'Category name 1 is required!',
             'category_name_1.string' => 'Category name 1 is string!',
             'category_name_2.required' => 'Category name 2 is required!',
+<<<<<<< HEAD
             'category_name_2.string' => 'Category name 2 is string!',
+=======
+            'category_name_2.string' => 'Category name 2 is string!'
+>>>>>>> 979a7b90a35b5f3e3c4fecb11d3bda6570776c6a
         ];
     }
 }

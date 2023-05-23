@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Redirect;
+use Carbon\Carbon;
 
 class GoogleController extends Controller
 {
@@ -29,7 +30,7 @@ class GoogleController extends Controller
             $googleUser = Socialite::driver('google')->user();
             $user = $this->updateOrCreateAccount($googleUser, 'google');
             $user->update([
-                'last_login_at' => now()
+                'last_login_at' => Carbon::now('Asia/Ho_Chi_Minh')
             ]);
             Auth::login($user);
 
